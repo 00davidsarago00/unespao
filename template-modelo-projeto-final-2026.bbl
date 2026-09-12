@@ -1,0 +1,19 @@
+\begin{thebibliography}{2}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Roos(2023)]{roos2023}
+Patrick Roos.
+\newblock \emph{The Ultimate Guide To Software Architecture Documentation}.
+\newblock workingsoftware.dev, 2023.
+
+\bibitem[Starke and Hruschka(2024)]{arc42}
+Gernot Starke and Peter Hruschka.
+\newblock \emph{arc42}.
+\newblock arc42, 2024.
+\newblock URL \url{https://arc42.org}.
+
+\end{thebibliography}

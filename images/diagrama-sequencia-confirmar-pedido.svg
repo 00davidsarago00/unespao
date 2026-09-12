@@ -1,0 +1,102 @@
+<svg viewBox="0 0 1040 640" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrowSync" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M1,1 L11,6 L1,11 z" fill="#1f2937"/>
+    </marker>
+    <marker id="arrowReturn" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M1,1 L11,6 L1,11" fill="none" stroke="#4b5563" stroke-width="1.4"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1040" height="640" fill="#ffffff"/>
+  <text x="520" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2937">Confirmação de Pedido — Diagrama de Sequência</text>
+
+  <!-- Lifelines -->
+  <g font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <rect x="20" y="46" width="120" height="40" rx="5" fill="#1b3a5c"/>
+    <text x="80" y="62" font-size="10">Cliente</text>
+    <text x="80" y="76" font-size="8.5" font-weight="normal" fill="#d1d9e6">(Web App/Totem)</text>
+
+    <rect x="200" y="46" width="120" height="40" rx="5" fill="#3b82c4"/>
+    <text x="260" y="70" font-size="10">PedidosController</text>
+
+    <rect x="380" y="46" width="120" height="40" rx="5" fill="#2f6fb5"/>
+    <text x="440" y="70" font-size="10">PedidoService</text>
+
+    <rect x="560" y="46" width="120" height="40" rx="5" fill="#ffffff" stroke="#3b5aa0" stroke-width="1.6"/>
+    <text x="620" y="64" font-size="9" fill="#3b5aa0" font-style="italic">«interface»</text>
+    <text x="620" y="78" font-size="9.5" fill="#1f2937">IPedidoRepository</text>
+
+    <rect x="740" y="46" width="120" height="40" rx="5" fill="#ffffff" stroke="#2f6fb5" stroke-width="1.6"/>
+    <text x="800" y="64" font-size="9" fill="#2f6fb5" font-style="italic">«interface»</text>
+    <text x="800" y="78" font-size="9.5" fill="#1f2937">IEstoqueService</text>
+
+    <rect x="900" y="46" width="120" height="40" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.6"/>
+    <text x="960" y="60" font-size="8.3" fill="#6b7280" font-style="italic">«interface»</text>
+    <text x="960" y="72" font-size="8.3" fill="#1f2937">IGatewayPagamento-</text>
+    <text x="960" y="82" font-size="8.3" fill="#1f2937">Adapter</text>
+  </g>
+
+  <!-- vertical lifelines -->
+  <g stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="3,3">
+    <line x1="80" y1="86" x2="80" y2="600"/>
+    <line x1="260" y1="86" x2="260" y2="600"/>
+    <line x1="440" y1="86" x2="440" y2="600"/>
+    <line x1="620" y1="86" x2="620" y2="600"/>
+    <line x1="800" y1="86" x2="800" y2="600"/>
+    <line x1="960" y1="86" x2="960" y2="600"/>
+  </g>
+
+  <!-- Mensagens -->
+  <g font-size="9.7" fill="#1f2937">
+    <line x1="80" y1="120" x2="256" y2="120" stroke="#1f2937" stroke-width="1.4" marker-end="url(#arrowSync)"/>
+    <text x="85" y="113">POST /pedidos/confirmar</text>
+
+    <line x1="260" y1="150" x2="436" y2="150" stroke="#1f2937" stroke-width="1.4" marker-end="url(#arrowSync)"/>
+    <text x="265" y="143">ConfirmarPedido(pedidoId)</text>
+
+    <line x1="440" y1="180" x2="616" y2="180" stroke="#1f2937" stroke-width="1.4" marker-end="url(#arrowSync)"/>
+    <text x="445" y="173">GetById(pedidoId)</text>
+
+    <line x1="620" y1="208" x2="444" y2="208" stroke="#4b5563" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowReturn)"/>
+    <text x="480" y="202">Pedido</text>
+
+    <line x1="440" y1="238" x2="796" y2="238" stroke="#1f2937" stroke-width="1.4" marker-end="url(#arrowSync)"/>
+    <text x="445" y="231">VerificarDisponibilidade(itens)</text>
+
+    <line x1="800" y1="266" x2="444" y2="266" stroke="#4b5563" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowReturn)"/>
+    <text x="600" y="260">disponível</text>
+
+    <line x1="440" y1="296" x2="956" y2="296" stroke="#1f2937" stroke-width="1.4" marker-end="url(#arrowSync)"/>
+    <text x="445" y="289">ProcessarPagamento(pedido)</text>
+
+    <line x1="960" y1="324" x2="444" y2="324" stroke="#4b5563" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowReturn)"/>
+    <text x="650" y="318">pagamento confirmado</text>
+
+    <line x1="440" y1="354" x2="796" y2="354" stroke="#1f2937" stroke-width="1.4" marker-end="url(#arrowSync)"/>
+    <text x="445" y="347">DarBaixaEstoque(itens)</text>
+
+    <line x1="440" y1="384" x2="616" y2="384" stroke="#1f2937" stroke-width="1.4" marker-end="url(#arrowSync)"/>
+    <text x="445" y="377">Update(pedido)</text>
+
+    <line x1="440" y1="414" x2="264" y2="414" stroke="#4b5563" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowReturn)"/>
+    <text x="290" y="408">PedidoConfirmado</text>
+
+    <line x1="260" y1="444" x2="84" y2="444" stroke="#4b5563" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowReturn)"/>
+    <text x="120" y="438">200 OK</text>
+  </g>
+
+  <!-- nota -->
+  <rect x="440" y="470" width="520" height="60" rx="5" fill="#fef9e7" stroke="#eab308" stroke-width="1"/>
+  <text x="460" y="490" font-size="9.5" fill="#78350f">PedidoService nunca chama UnespaoDbContext nem uma implementação</text>
+  <text x="460" y="504" font-size="9.5" fill="#78350f">concreta diretamente — toda a orquestração passa pelas três interfaces</text>
+  <text x="460" y="518" font-size="9.5" fill="#78350f">injetadas (IPedidoRepository, IEstoqueService, IGatewayPagamentoAdapter).</text>
+
+  <!-- Legenda -->
+  <g transform="translate(20,556)" font-size="10">
+    <line x1="0" y1="0" x2="40" y2="0" stroke="#1f2937" stroke-width="1.4" marker-end="url(#arrowSync)"/>
+    <text x="48" y="4" fill="#374151">Chamada síncrona</text>
+    <line x1="200" y1="0" x2="240" y2="0" stroke="#4b5563" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrowReturn)"/>
+    <text x="248" y="4" fill="#374151">Retorno</text>
+  </g>
+</svg>

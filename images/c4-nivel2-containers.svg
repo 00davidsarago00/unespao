@@ -1,0 +1,105 @@
+<svg viewBox="0 0 1000 760" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="760" fill="#ffffff"/>
+  <text x="500" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2937">Sistema Unespão — Diagrama de Containers (C4 Nível 2)</text>
+
+  <!-- Atores -->
+  <rect x="60" y="55" width="220" height="70" rx="8" fill="#1b3a5c"/>
+  <text x="170" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Cliente</text>
+  <text x="170" y="95" text-anchor="middle" font-size="10" fill="#d1d9e6">[Pessoa]</text>
+  <text x="170" y="112" text-anchor="middle" font-size="10" fill="#ffffff">Usa o totem ou o app</text>
+
+  <rect x="720" y="55" width="220" height="70" rx="8" fill="#1b3a5c"/>
+  <text x="830" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Atendente / Administrador</text>
+  <text x="830" y="91" text-anchor="middle" font-size="10" fill="#d1d9e6">[Pessoa]</text>
+  <text x="830" y="107" text-anchor="middle" font-size="10" fill="#ffffff">Usa as telas de gestão</text>
+
+  <!-- Fronteira do sistema -->
+  <rect x="50" y="170" width="900" height="290" rx="6" fill="none" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="6,4"/>
+  <text x="70" y="192" font-size="11.5" font-weight="bold" fill="#64748b">Sistema Unespão [Fronteira do Sistema]</text>
+
+  <!-- Containers -->
+  <rect x="80" y="220" width="240" height="150" rx="8" fill="#3b82c4"/>
+  <text x="200" y="248" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#ffffff">Web App (Totem / Cliente)</text>
+  <text x="200" y="264" text-anchor="middle" font-size="10" fill="#dbe7f5">[Container: SPA React ou Angular]</text>
+  <text x="200" y="284" text-anchor="middle" font-size="10" fill="#ffffff">Interface única, responsiva, para</text>
+  <text x="200" y="298" text-anchor="middle" font-size="10" fill="#ffffff">montar lanche, gerir catálogo e</text>
+  <text x="200" y="312" text-anchor="middle" font-size="10" fill="#ffffff">enviar/acompanhar pedidos</text>
+
+  <rect x="380" y="220" width="240" height="150" rx="8" fill="#2f6fb5"/>
+  <text x="500" y="248" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#ffffff">API Unespão</text>
+  <text x="500" y="264" text-anchor="middle" font-size="10" fill="#dbe7f5">[Container: .NET 8 / ASP.NET Core]</text>
+  <text x="500" y="284" text-anchor="middle" font-size="10" fill="#ffffff">Concentra toda a lógica de</text>
+  <text x="500" y="298" text-anchor="middle" font-size="10" fill="#ffffff">negócio: pedidos, catálogo,</text>
+  <text x="500" y="312" text-anchor="middle" font-size="10" fill="#ffffff">estoque e sugestões</text>
+
+  <rect x="680" y="220" width="240" height="150" rx="8" fill="#3b5aa0"/>
+  <text x="800" y="248" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#ffffff">Banco de Dados</text>
+  <text x="800" y="264" text-anchor="middle" font-size="10" fill="#dbe7f5">[Container: PostgreSQL]</text>
+  <text x="800" y="284" text-anchor="middle" font-size="10" fill="#ffffff">Persiste clientes, produtos,</text>
+  <text x="800" y="298" text-anchor="middle" font-size="10" fill="#ffffff">ingredientes, pedidos, itens,</text>
+  <text x="800" y="312" text-anchor="middle" font-size="10" fill="#ffffff">avaliações e estoque</text>
+
+  <!-- Sistemas externos -->
+  <rect x="40" y="600" width="240" height="90" rx="8" fill="#6b7280"/>
+  <text x="160" y="625" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Serviço de Autenticação</text>
+  <text x="160" y="640" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">(Google)</text>
+  <text x="160" y="655" text-anchor="middle" font-size="10" fill="#e5e7eb">[Sistema Externo]</text>
+  <text x="160" y="673" text-anchor="middle" font-size="10" fill="#ffffff">OAuth 2.0</text>
+
+  <rect x="380" y="600" width="240" height="90" rx="8" fill="#6b7280"/>
+  <text x="500" y="625" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">API de Localização/CEP</text>
+  <text x="500" y="640" text-anchor="middle" font-size="10" fill="#e5e7eb">[Sistema Externo]</text>
+  <text x="500" y="658" text-anchor="middle" font-size="10" fill="#ffffff">Reservada para expansão</text>
+  <text x="500" y="672" text-anchor="middle" font-size="10" fill="#ffffff">futura (múltiplas unidades)</text>
+
+  <rect x="720" y="600" width="240" height="90" rx="8" fill="#6b7280"/>
+  <text x="840" y="625" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Gateway de Pagamento</text>
+  <text x="840" y="640" text-anchor="middle" font-size="10" fill="#e5e7eb">[Sistema Externo]</text>
+  <text x="840" y="658" text-anchor="middle" font-size="10" fill="#ffffff">Processa as transações</text>
+  <text x="840" y="672" text-anchor="middle" font-size="10" fill="#ffffff">financeiras dos pedidos</text>
+
+  <!-- Setas -->
+  <line x1="180" y1="125" x2="195" y2="218" stroke="#374151" stroke-width="1.6" marker-end="url(#arrow2)"/>
+  <line x1="820" y1="125" x2="270" y2="218" stroke="#374151" stroke-width="1.6" marker-end="url(#arrow2)"/>
+  <text x="440" y="200" font-size="10" fill="#374151">Ambos usam [HTTPS]</text>
+
+  <line x1="320" y1="335" x2="378" y2="335" stroke="#374151" stroke-width="1.8" marker-end="url(#arrow2)"/>
+  <text x="323" y="327" font-size="9.5" fill="#374151">Envia pedidos,</text>
+  <text x="323" y="356" font-size="9.5" fill="#374151">consulta catálogo</text>
+
+  <line x1="620" y1="335" x2="678" y2="335" stroke="#374151" stroke-width="1.8" marker-end="url(#arrow2)"/>
+  <text x="628" y="327" font-size="9.5" fill="#374151">Lê e persiste</text>
+  <text x="628" y="356" font-size="9.5" fill="#374151">[SQL/EF Core]</text>
+
+  <line x1="440" y1="370" x2="200" y2="598" stroke="#374151" stroke-width="1.6" marker-end="url(#arrow2)"/>
+  <text x="255" y="500" font-size="10" fill="#374151">Autentica identidade</text>
+  <text x="255" y="513" font-size="10" fill="#374151">[OAuth 2.0/HTTPS]</text>
+
+  <line x1="500" y1="370" x2="500" y2="598" stroke="#374151" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#arrow2)"/>
+  <text x="508" y="500" font-size="10" fill="#374151">Consulta endereço [REST/JSON]</text>
+  <text x="508" y="513" font-size="10" font-style="italic" fill="#6b7280">(não usado nesta versão)</text>
+
+  <line x1="560" y1="370" x2="800" y2="598" stroke="#374151" stroke-width="1.6" marker-end="url(#arrow2)"/>
+  <text x="655" y="500" font-size="10" fill="#374151">Processa pagamento</text>
+  <text x="655" y="513" font-size="10" fill="#374151">[REST/HTTPS]</text>
+
+  <!-- Legenda -->
+  <g transform="translate(40,726)">
+    <rect x="0" y="0" width="14" height="14" fill="#1b3a5c"/>
+    <text x="20" y="12" font-size="10.5" fill="#374151">Pessoa / Ator</text>
+    <rect x="140" y="0" width="14" height="14" fill="#2f6fb5"/>
+    <text x="160" y="12" font-size="10.5" fill="#374151">Container interno</text>
+    <rect x="310" y="0" width="14" height="14" fill="#6b7280"/>
+    <text x="330" y="12" font-size="10.5" fill="#374151">Sistema externo</text>
+    <line x1="470" y1="7" x2="510" y2="7" stroke="#374151" stroke-width="1.8" marker-end="url(#arrow2)"/>
+    <text x="518" y="12" font-size="10.5" fill="#374151">Fluxo ativo</text>
+    <line x1="620" y1="7" x2="660" y2="7" stroke="#374151" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#arrow2)"/>
+    <text x="668" y="12" font-size="10.5" fill="#374151">Integração prevista, não implementada</text>
+  </g>
+</svg>
