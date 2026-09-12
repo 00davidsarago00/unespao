@@ -3,33 +3,33 @@
 \contentsline {section}{\numberline {1.1}Contexto do software}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Escopo}{2}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Visão geral dos requisitos}{3}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Objetivos de qualidade}{3}{section.1.4}%
+\contentsline {section}{\numberline {1.4}Objetivos de qualidade}{5}{section.1.4}%
 \contentsline {chapter}{\numberline {2}Arquitetura do Sistema}{7}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Contexto e fronteiras do sistema}{7}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Estilo ou padrão arquitetural}{8}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Contêineres e componentes}{9}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Decisões arquiteturais relevantes}{10}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Restrições de arquitetura}{10}{section.2.5}%
-\contentsline {chapter}{\numberline {3}Projeto de Componentes}{12}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Visão geral dos componentes}{12}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Detalhamento dos componentes principais}{12}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Princípios de projeto}{16}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Padrões de projeto}{18}{section.3.4}%
-\contentsline {chapter}{\numberline {4}Projeto de Interface do Usuário}{20}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Estado atual dos artefatos de interface}{20}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Canais de interação do Cliente}{20}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Fluxo principal de interação do cliente}{21}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Decisão de projeto: autenticação no totem físico}{22}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Interface do Atendente/Administrador}{22}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Especificação e Estratégia de Testes}{24}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Planejamento e níveis de teste}{24}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Testes de unidade}{25}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Testes de integração}{29}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Critérios de conclusão e cobertura}{30}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Automação e ferramentas}{30}{section.5.5}%
-\contentsline {chapter}{\numberline {6}Gestão de Configuração e Manutenção}{32}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Repositório e itens de configuração}{32}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Gestão de dependências e alterações}{33}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Rastreabilidade}{33}{section.6.3}%
-\contentsline {section}{\numberline {6.4}\textit {Build}, integração e entrega}{34}{section.6.4}%
-\contentsline {chapter}{Controle de Versões do Documento}{35}{chapter*.7}%
+\contentsline {section}{\numberline {2.2}Estilo ou padrão arquitetural}{9}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Contêineres e componentes}{10}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Decisões arquiteturais relevantes}{12}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Restrições de arquitetura}{12}{section.2.5}%
+\contentsline {chapter}{\numberline {3}Projeto de Componentes}{14}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Visão geral dos componentes}{14}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Detalhamento dos componentes principais}{16}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Princípios de projeto}{18}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Padrões de projeto}{19}{section.3.4}%
+\contentsline {chapter}{\numberline {4}Projeto de Interface do Usuário}{22}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Estado atual dos artefatos de interface}{22}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Canais de interação do Cliente}{22}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Fluxo principal de interação do cliente}{23}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Decisão de projeto: autenticação no totem físico}{24}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Interface do Atendente/Administrador}{24}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Especificação e Estratégia de Testes}{26}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Planejamento e níveis de teste}{26}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Testes de unidade}{27}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Testes de integração}{30}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Critérios de conclusão e cobertura}{31}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Automação e ferramentas}{31}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Gestão de Configuração e Manutenção}{33}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Repositório e itens de configuração}{33}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Gestão de dependências e alterações}{34}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Rastreabilidade}{34}{section.6.3}%
+\contentsline {section}{\numberline {6.4}\textit {Build}, integração e entrega}{35}{section.6.4}%
+\contentsline {chapter}{Controle de Versões do Documento}{36}{chapter*.7}%

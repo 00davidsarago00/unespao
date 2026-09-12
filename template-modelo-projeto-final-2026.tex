@@ -8,6 +8,7 @@
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{lmodern}
 \usepackage[brazil]{babel}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -20,6 +21,17 @@
 \usepackage[top=2cm,bottom=2cm,left=2cm,right=2cm]{geometry}
 \usepackage{xcolor}
 \usepackage{listings}
+\usepackage{microtype}
+\usepackage[htt]{hyphenat}
+\usepackage{float}
+
+% Evita que palavras longas (identificadores de código em \texttt) estourem
+% a margem: permite quebra dentro delas quando não há outra opção, e dá mais
+% folga ao algoritmo de justificação antes de forçar uma caixa "overfull".
+\tolerance=1000
+\emergencystretch=3em
+\hyphenpenalty=300
+\exhyphenpenalty=300
 
 \hypersetup{
     hidelinks,
@@ -39,7 +51,7 @@
     morestring=[b]"
 }
 \lstset{
-    basicstyle=\ttfamily\footnotesize,
+    basicstyle=\ttfamily\scriptsize,
     numbers=left,
     numberstyle=\tiny\color{gray},
     breaklines=true,
@@ -81,7 +93,7 @@ Faculdade de Ciências -- Bauru\\
 Departamento de Computação}
 \newcommand{\discipline}{Engenharia de Software II}
 \newcommand{\projtitle}{Sistema Unespão}
-\newcommand{\projsubtitle}{Documentação do Projeto de Software (A PREENCHER PELO GRUPO -- subtítulo)}
+\newcommand{\projsubtitle}{Plataforma de Pedidos Personalizados para Padarias}
 \newcommand{\semester}{2026}
 
 \graphicspath{{images/}}
@@ -112,10 +124,10 @@ Departamento de Computação}
 
 	{\Large\textbf{\discipline}}\\[14mm]
 
-	David Almeida Saragó -- RA: (A PREENCHER PELO GRUPO)\\[2mm]
-	Guilherme Molina Trindade -- RA: (A PREENCHER PELO GRUPO)\\[2mm]
-	Lucas Costa Oliveira -- RA: (A PREENCHER PELO GRUPO)\\[2mm]
-	Thiago Mitsuo Nomura da Silva -- RA: (A PREENCHER PELO GRUPO)
+	David Almeida Saragó -- RA: 241021081\\[2mm]
+	Guilherme Molina Trindade -- RA: 241023998\\[2mm]
+	Lucas Costa Oliveira -- RA: 241023076\\[2mm]
+	Thiago Mitsuo da Silva Nomura -- RA: 241023319
 
 	\vfill
 
@@ -200,7 +212,7 @@ Ficam fora do escopo do Sistema Unespão:
 
 A partir do minimundo, dos conceitos-chave do domínio e da visão de contexto/containers da arquitetura, dá para inferir com segurança o seguinte conjunto de capacidades funcionais que o sistema deve oferecer:
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Requisitos funcionais inferidos das fontes do projeto.}
 \begin{tabularx}{0.95\textwidth}{p{0.32\textwidth} X}
@@ -231,10 +243,10 @@ Sobre retenção de dados, optamos por manter o histórico de pedidos de um clie
 
 Quatro objetivos de qualidade emergem com segurança do texto de Introdução, do Minimundo e da Visão Arquitetural, por estarem diretamente ligados à finalidade declarada do sistema:
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Objetivos de qualidade do Sistema Unespão.}
-\begin{tabularx}{0.95\textwidth}{p{0.24\textwidth} p{0.10\textwidth} X}
+\begin{tabularx}{0.95\textwidth}{p{0.21\textwidth} p{0.14\textwidth} X}
 \toprule
 \textbf{Objetivo} & \textbf{Prioridade} & \textbf{Impacto esperado no projeto} \\
 \midrule
@@ -250,8 +262,6 @@ Os dois primeiros objetivos de prioridade alta, confiabilidade da informação d
 
 Outros atributos de qualidade comuns em sistemas desse tipo, como o desempenho do totem em horário de pico, a manutenibilidade do software (também retomada no capítulo de Arquitetura) e a portabilidade entre totem físico e aplicativo móvel, não são detalhados neste capítulo pelos mesmos motivos apontados na seção anterior, e ficam fora do escopo de detalhamento deste trabalho acadêmico.
 
-\bigskip
-\noindent\textit{Dados de capa (RA dos integrantes, subtítulo do software, data de entrega): (A PREENCHER PELO GRUPO).}
 
 % ============================================================================
 \chapter{Arquitetura do Sistema}
@@ -263,7 +273,7 @@ Este capítulo apresenta a arquitetura proposta para o Sistema Unespão e as dec
 
 O Sistema Unespão automatiza o atendimento de uma padaria que vende lanches personalizáveis no estilo Subway/Spoleto: o cliente parte de um produto base (um tipo de pão, por exemplo) e vai adicionando os ingredientes que quiser, montando um item personalizado que compõe seu pedido. Essa interação acontece por dois pontos de acesso -- um totem físico instalado na loja e o navegador do celular do cliente --, detalhados na seção de Contêineres a seguir, e o pedido só é considerado concluído quando o pagamento é processado.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{c4-nivel1-contexto.png}
 \caption{Diagrama de Contexto do Sistema Unespão (C4 Nível 1), já com os dois atores humanos do sistema.}
@@ -288,7 +298,7 @@ O capítulo de Projeto de Componentes retoma cada princípio SOLID com mais prof
 
 \section{Contêineres e componentes}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{c4-nivel2-containers.png}
 \caption{Diagrama de Containers do Sistema Unespão (C4 Nível 2).}
@@ -305,7 +315,7 @@ Do ponto de vista de componentes internos da API (C4 Nível 3, detalhado no cap�
 
 \section{Decisões arquiteturais relevantes}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Decisões arquiteturais relevantes do Sistema Unespão.}
 \begin{tabularx}{0.95\textwidth}{p{0.24\textwidth} X X}
@@ -340,7 +350,7 @@ A API Unespão (.NET 8 / ASP.NET Core) é o único container que concentra lógi
 
 A tabela a seguir resume os componentes e suas responsabilidades.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Principais componentes da API Unespão.}
 \begin{tabularx}{0.95\textwidth}{p{0.30\textwidth} X}
@@ -365,7 +375,7 @@ Optamos por manter essa granularidade, com camadas bem definidas em vez de uma o
 
 Dos seis grupos, três concentram a maior parte da complexidade e do risco de mudança do sistema: os Services, os Repositories e os External Adapters. É neles que detalhamos a seguir responsabilidades, interfaces e dependências. Como o Sistema Unespão é um projeto orientado a objetos, o diagrama de classes UML simplificado abaixo resume os grupos de componentes e as principais interfaces e dependências entre eles; o texto que segue detalha cada um.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{c4-nivel3-diagrama-classes.png}
 \caption{Diagrama de classes simplificado da API Unespão (C4 Nível 3), com os grupos de componentes mais relevantes e suas dependências.}
@@ -378,7 +388,7 @@ Na leitura do diagrama, as setas tracejadas com ponta aberta (``usa''/``depende 
 
 Para tornar concreto esse fluxo de criação/confirmação de pedido -- o mais crítico do sistema --, o diagrama de sequência a seguir mostra a interação entre \texttt{PedidosController}, \texttt{PedidoService} e as abstrações que ele consome, sem detalhar o Domain Model interno:
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{diagrama-sequencia-confirmar-pedido.png}
 \caption{Diagrama de sequência da confirmação de pedido, do \texttt{PedidosController} até as três interfaces que o \texttt{PedidoService} orquestra.}
@@ -440,7 +450,7 @@ Documentamos aqui apenas os padrões cuja aplicação está de fato evidenciada 
 
 \textbf{Adapter.} Problema: o sistema precisa se comunicar com três serviços externos heterogêneos (autenticação Google via OAuth 2.0, API de Localização/CEP via REST/JSON, Gateway de Pagamento via REST/HTTPS), cada um com seu próprio protocolo e formato de dados, sem que essa heterogeneidade vaze para a lógica de negócio. Solução adotada: três classes -- \texttt{GoogleAuthAdapter}, \texttt{LocalizacaoAdapter} e \texttt{GatewayPagamentoAdapter} -- que traduzem as chamadas da aplicação para o formato exigido por cada API externa e traduzem de volta as respostas para o modelo interno. Participantes: os Services que consomem os adapters (por exemplo, \texttt{PedidoService} consumindo \texttt{IGatewayPagamentoAdapter}) e as classes adapter propriamente ditas. Benefício obtido: o sistema fica isolado de mudanças nesses serviços externos; se o gateway de pagamento mudar sua API, o impacto fica contido no adapter correspondente, sem se propagar para \texttt{PedidoService} ou para os Controllers.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth]{padrao-adapter-pagamento.png}
 \caption{Estrutura clássica do padrão Adapter (Target/Adapter/Adaptee) instanciada com as classes reais do caso de pagamento: \texttt{PedidoService} (Client) depende apenas de \texttt{IGatewayPagamentoAdapter} (Target); \texttt{GatewayPagamentoAdapter} implementa essa interface e traduz cada chamada para o SDK do gateway externo (Adaptee), cuja interface própria o sistema não controla.}
@@ -543,7 +553,7 @@ Já os \textbf{testes de integração} verificam se as peças que se comunicam e
 
 Não chegamos a formalizar um nível de teste de sistema (ponta a ponta, via totem/app) neste trabalho. A ausência de protótipos de interface implementados (ver capítulo de Interface do Usuário) torna esse nível prematuro no momento, e registramos isso como um limite consciente do escopo, não como uma lacuna esquecida.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{piramide-testes.png}
 \caption{A pirâmide de testes é um modelo conceitual conhecido da literatura de teste de software (não um conteúdo específico dos slides da disciplina), usado aqui apenas para situar visualmente os dois níveis que de fato adotamos -- muitos testes de unidade rápidos na base, menos testes de integração acima -- e por que o nível de sistema, no topo, fica de fora nesta fase.}
@@ -786,7 +796,7 @@ Quando uma alteração afeta mais de um artefato -- por exemplo, uma mudança na
 
 Um exemplo real e observável de rastreabilidade no projeto é o próprio histórico de integração via Pull Requests. O log do Git mostra, entre os commits mais recentes, os merges ``Merge pull request \#2 from 00davidsarago00/docs'' e ``Merge pull request \#1 from 00davidsarago00/00davidsarago00-patch-1''. Cada um desses merges corresponde a um Pull Request identificável (\#1 e \#2) que passou por revisão no GitHub antes de ser incorporado à \texttt{main}, ou seja, dá para partir do identificador do PR e chegar ao conjunto de commits e arquivos que ele trouxe para o projeto.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{fluxo-git-repositorio.png}
 \caption{Linha do tempo da branch \texttt{main} combinando duas partes: os cinco primeiros marcos (até o Merge PR \#2) reproduzem o histórico real do repositório, com as branches \texttt{00davidsarago00-patch-1} e \texttt{docs} integradas via PR \#1 e PR \#2; os marcos seguintes (PR \#3, PR \#4, ajustes finais e a tag v1.0), marcados com nós vazados e linhas tracejadas, são uma projeção ilustrativa de como o mesmo fluxo de revisão por Pull Request se manteria até a conclusão da implementação e a entrega do projeto -- não commits ou branches que já existem no repositório.}
@@ -810,7 +820,7 @@ Como recomendação de boas práticas de Engenharia de Software para a evoluçã
 
 A tabela a seguir registra a evolução deste documento de projeto final em si, não do código-fonte do Sistema Unespão. Esse segue o fluxo de Git e Pull Requests já descrito no capítulo de Gestão de Configuração.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \centering
 \caption{Histórico de versões do documento.}
 \begin{tabularx}{0.95\textwidth}{p{0.19\textwidth} p{0.17\textwidth} p{0.10\textwidth} X}
@@ -818,7 +828,7 @@ A tabela a seguir registra a evolução deste documento de projeto final em si, 
 \textbf{Data} & \textbf{Autor(es)} & \textbf{Versão} & \textbf{Alteração} \\
 \midrule
 12/09/2026 & Equipe Unespão & 0.1 & Versão inicial da estrutura do documento, com os capítulos organizados conforme o template do projeto final. \\
-(A PREENCHER PELO GRUPO) & Equipe Unespão & 1.0 & Versão consolidada para entrega, com revisão geral do conteúdo de todos os capítulos e ajustes finais de redação e formatação. \\
+12/09/2026 & Equipe Unespão & 1.0 & Versão consolidada para entrega, com revisão geral do conteúdo de todos os capítulos e ajustes finais de redação e formatação. \\
 \bottomrule
 \end{tabularx}
 \end{table}
