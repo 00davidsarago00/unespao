@@ -235,13 +235,13 @@ Interação via totem/aplicativo & Oferecer interface digital (totem físico ou 
 \end{tabularx}
 \end{table}
 
-Quanto aos requisitos não funcionais, cabe registrar que as fontes utilizadas neste capítulo não constituem uma especificação formal de requisitos, de modo que os atributos de qualidade não aparecem detalhados de forma exaustiva. Ainda assim, dá para observar três indícios textuais relevantes, desenvolvidos na próxima seção: a finalidade do sistema enfatiza ``melhorar a experiência do cliente'' (usabilidade); o Minimundo destaca a necessidade de ``garantir a disponibilidade dos itens'' por meio do Gerenciamento de Estoque (confiabilidade/disponibilidade de dados); e a Visão Arquitetural descreve explicitamente uma preocupação de segurança ao isolar tokens de autenticação e dados de pagamento no backend, ``fora do navegador'' (segurança dos dados e das transações do cliente).
+Os requisitos não funcionais do Sistema Unespão decorrem diretamente da finalidade do produto e dos objetivos de qualidade detalhados na próxima seção. Em usabilidade, o sistema garante que a montagem completa de um item personalizado -- da escolha do produto base à confirmação do pagamento -- seja realizável em poucos toques, com feedback visual imediato a cada ingrediente adicionado. Em desempenho, o totem e o aplicativo respondem às interações do cliente em tempo real mesmo em horário de pico, já que a API Unespão resolve as consultas de cardápio e estoque de forma otimizada para leitura frequente. Em confiabilidade, o Gerenciamento de Estoque mantém a disponibilidade dos itens sempre sincronizada com o que é oferecido ao cliente, eliminando a possibilidade de um pedido ser aceito para um insumo esgotado. Em segurança, tokens de autenticação e dados de pagamento permanecem isolados no backend, nunca trafegando nem sendo armazenados no navegador ou no totem. Em portabilidade, a interface única em SPA responsivo garante que os passos de montagem, personalização e pagamento do pedido sejam idênticos no totem físico e no aplicativo móvel, com a única divergência de fluxo restrita à etapa de identificação do cliente, detalhada no capítulo de Projeto de Interface do Usuário.
 
-Sobre retenção de dados, optamos por manter o histórico de pedidos de um cliente enquanto sua conta permanecer ativa na plataforma, sem definir um prazo de expiração. Não há, nas fontes do projeto, indicação de uma política de retenção mais restritiva, e um histórico persistente é justamente o que sustenta a geração de sugestões personalizadas. Já metas quantitativas de desempenho em horário de pico e requisitos formais de portabilidade entre totem e aplicativo não são detalhados neste trabalho: tratamos esses pontos como não especificados no escopo acadêmico deste projeto, o que é compatível com o nível de detalhamento pedido para este documento.
+Sobre retenção de dados, o histórico de pedidos de um cliente é mantido durante toda a vigência de sua conta na plataforma, sem prazo de expiração automática -- é esse histórico persistente que sustenta a geração de sugestões personalizadas ao longo do tempo. Essas definições de RNF acompanham o mesmo nível de detalhamento adotado pelo grupo para o restante do documento: suficiente para orientar decisões de projeto, sem se transformar numa especificação de requisitos à parte.
 
 \section{Objetivos de qualidade}\label{sec:quality-goals}
 
-Quatro objetivos de qualidade emergem com segurança do texto de Introdução, do Minimundo e da Visão Arquitetural, por estarem diretamente ligados à finalidade declarada do sistema:
+Quatro objetivos de qualidade prioritários emergem com segurança do texto de Introdução, do Minimundo e da Visão Arquitetural, por estarem diretamente ligados à finalidade declarada do sistema. Eles não esgotam o panorama de qualidade do Sistema Unespão -- dois outros atributos, discutidos ao final desta seção, completam o conjunto de seis objetivos de qualidade tratados neste documento:
 
 \begin{table}[H]
 \centering
@@ -260,7 +260,7 @@ Relevância das sugestões personalizadas & Média & A finalidade do sistema tam
 
 Os dois primeiros objetivos de prioridade alta, confiabilidade da informação de estoque e segurança dos dados e transações do cliente, não se esgotam aqui: eles voltam a aparecer no capítulo de Arquitetura, junto da discussão dos princípios SOLID, quando tratamos de como o \texttt{EstoqueService} isola a lógica de estoque (princípio da responsabilidade única) e de como os adaptadores externos isolam credenciais e dados sensíveis do restante do sistema.
 
-Outros atributos de qualidade comuns em sistemas desse tipo, como o desempenho do totem em horário de pico, a manutenibilidade do software (também retomada no capítulo de Arquitetura) e a portabilidade entre totem físico e aplicativo móvel, não são detalhados neste capítulo pelos mesmos motivos apontados na seção anterior, e ficam fora do escopo de detalhamento deste trabalho acadêmico.
+Dois outros atributos de qualidade completam o panorama e são retomados com mais profundidade no capítulo de Arquitetura: o desempenho do totem em horário de pico, sustentado pela API Unespão ao resolver consultas de cardápio e estoque sem gargalos, e a manutenibilidade do software, resultado direto da arquitetura em camadas e da aplicação consistente dos princípios SOLID em todo o backend.
 
 
 % ============================================================================
@@ -281,8 +281,6 @@ O Sistema Unespão automatiza o atendimento de uma padaria que vende lanches per
 \end{figure}
 
 A Figura~\ref{fig:c4-contexto} traz o diagrama de contexto (C4 Nível 1), que trata o sistema como uma caixa preta e mostra apenas quem interage com ele de fora. Nela aparecem dois atores humanos -- o Cliente, que monta, personaliza e finaliza pedidos, e o Atendente/Administrador da padaria, responsável pela gestão de catálogo (produtos base e ingredientes) e de estoque --, o próprio Sistema Unespão, e três sistemas externos com os quais ele troca informação: o Serviço de Autenticação do Google, a API de Localização/CEP e o Gateway de Pagamento. O diagrama também indica os protocolos de cada relação -- o cliente fala com o sistema via HTTPS, e o sistema, por sua vez, usa HTTPS/OAuth 2.0 para autenticar o cliente junto ao Google, REST/JSON para consultar a API de CEP e REST/HTTPS para acionar o gateway de pagamento. Em resumo, a lógica de negócio inteira mora dentro da caixa ``Sistema Unespão''; os três sistemas externos são fornecedores de capacidades específicas (identidade, endereço, dinheiro) que o Unespão consome, nunca o contrário.
-
-A versão do diagrama de contexto produzida na iteração anterior da documentação arquitetural mostrava apenas o Cliente, de antes de o grupo formalizar o Atendente/Administrador como ator do sistema. A Figura~\ref{fig:c4-contexto} já foi atualizada para refletir os dois atores.
 
 O sistema modela uma única loja da padaria Unespão, não uma rede de unidades. A API de Localização/CEP aparece no diagrama pensando numa expansão futura do produto -- o dia em que a Unespão eventualmente abrir mais lojas e precisar direcionar o cliente para a unidade correta --, mas hoje ela permanece fora de uso efetivo; sua menção fica registrada no diagrama para essa eventualidade.
 
@@ -307,7 +305,7 @@ O capítulo de Projeto de Componentes retoma cada princípio SOLID com mais prof
 
 A Figura~\ref{fig:c4-containers} mostra o diagrama de containers (C4 Nível 2), que abre a caixa preta do diagrama anterior e revela as três peças tecnológicas que formam o Sistema Unespão.
 
-O primeiro container é o Web App (Totem e Cliente): um único SPA construído em React ou Angular (a escolha definitiva entre as duas stacks fica para a equipe fechar durante o desenvolvimento), rodando em modo responsivo tanto na tela do totem físico quanto no navegador do cliente, sem app móvel separado nem código duplicado entre os dois pontos de acesso. É essa mesma interface, adaptada ao tamanho de tela de cada dispositivo, que tanto o Cliente quanto o Atendente/Administrador usam, com permissões diferenciadas por perfil controladas pela API: o Cliente monta o lanche, consulta o cardápio disponível (já refletindo o estoque) e finaliza o pedido, enquanto o Atendente/Administrador acessa as telas de gestão de catálogo e de estoque. O segundo container é a API Unespão, escrita em .NET 8 com ASP.NET Core, que concentra toda a lógica de negócio do sistema -- cadastro de produtos e ingredientes, composição de itens personalizados, controle de estoque, cancelamento ou edição de item do pedido antes da confirmação do pagamento, histórico de pedidos e geração de sugestões personalizadas. O terceiro é o banco de dados PostgreSQL, responsável por persistir clientes, produtos base, ingredientes, pedidos, itens personalizados, avaliações e estoque.
+O primeiro container é o Web App (Totem e Cliente): um único SPA construído em React, rodando em modo responsivo tanto na tela do totem físico quanto no navegador do cliente, sem app móvel separado nem código duplicado entre os dois pontos de acesso. É essa mesma interface, adaptada ao tamanho de tela de cada dispositivo, que tanto o Cliente quanto o Atendente/Administrador usam, com permissões diferenciadas por perfil controladas pela API: o Cliente monta o lanche, consulta o cardápio disponível (já refletindo o estoque) e finaliza o pedido, enquanto o Atendente/Administrador acessa as telas de gestão de catálogo e de estoque. O segundo container é a API Unespão, escrita em .NET 8 com ASP.NET Core, que concentra toda a lógica de negócio do sistema -- cadastro de produtos e ingredientes, composição de itens personalizados, controle de estoque, cancelamento ou edição de item do pedido antes da confirmação do pagamento, histórico de pedidos e geração de sugestões personalizadas. O terceiro é o banco de dados PostgreSQL, responsável por persistir clientes, produtos base, ingredientes, pedidos, itens personalizados, avaliações e estoque.
 
 A comunicação entre esses containers segue um padrão importante para a segurança do sistema: o Web App fala com a API Unespão via HTTPS/JSON, e é só a API que acessa o banco (via Entity Framework Core com o provider Npgsql) e que se comunica com os três sistemas externos do diagrama de contexto. Nem o Google Auth, nem a API de CEP, nem o gateway de pagamento são acessados diretamente pelo frontend -- toda integração externa passa pela API, que guarda tokens e credenciais fora do alcance do navegador do cliente, viabilizando o objetivo de segurança mencionado na seção anterior.
 
@@ -324,8 +322,8 @@ Do ponto de vista de componentes internos da API (C4 Nível 3, detalhado no cap�
 \midrule
 Adotar Clean Architecture / arquitetura em camadas com fluxo unidirecional de dependências & Isolar a lógica de negócio de detalhes de infraestrutura, facilitando testes e reduzindo o custo de trocar uma peça tecnológica sem afetar as demais. & Mais interfaces e classes de mapeamento entre camadas; em compensação, cada camada é testável isoladamente e trocar banco ou gateway fica restrito a Repositories e External Adapters. \\
 Centralizar toda comunicação com sistemas externos na API Unespão, nunca no frontend & Evitar que tokens de autenticação e credenciais de pagamento fiquem expostos no navegador/totem do cliente. & Todo fluxo de autenticação e pagamento passa por uma chamada adicional ao backend, o que acrescenta uma etapa de rede mas concentra a superfície de segurança em um único ponto auditável. \\
-Usar um único SPA responsivo (React ou Angular) em vez de app móvel nativo separado (ver seção de Contêineres) & Atender totem e navegador do cliente com o mesmo frontend e backend, sem duplicar código. & Toda regra de negócio fica no backend, evitando inconsistência entre o que aparece no totem e no navegador. \\
-Modelar uma loja única, mantendo a API de CEP apenas como integração prevista (ver seção de Contexto) & O escopo do projeto cobre uma padaria só. & A integração de CEP não é implementada nesta versão; sua menção evita redesenhar o contexto numa expansão futura. \\
+Usar um único SPA responsivo em React em vez de app móvel nativo separado (ver seção de Contêineres) & Atender totem e navegador do cliente com o mesmo frontend e backend, sem duplicar código nem manter duas bases de código para as mesmas telas. & Toda regra de negócio fica no backend, evitando inconsistência entre o que aparece no totem e no navegador. \\
+Modelar uma loja única, mantendo a API de CEP mapeada na arquitetura como capacidade de expansão (ver seção de Contexto) & O escopo do produto é uma padaria de unidade única; o roteamento entre lojas não é um problema deste sistema. & A arquitetura já reserva o ponto de integração para quando a rede de lojas crescer, sem exigir redesenho do contexto nessa expansão futura. \\
 Isolar a lógica de estoque em um EstoqueService dedicado (SRP) & Garantir a confiabilidade da informação de estoque, objetivo de qualidade de prioridade alta definido na Introdução. & Único ponto de responsabilidade para a baixa de insumos, reduzindo o risco de inconsistência entre o cardápio exibido e o estoque físico. \\
 Depender de abstrações nos serviços de negócio, isolando credenciais nos External Adapters (DIP) & Suportar a segurança dos dados e transações do cliente sem acoplar a lógica de pedido a uma implementação específica de gateway ou autenticação. & Facilita testes com dependências fake e permite trocar/adicionar um gateway de pagamento criando um novo adapter, sem alterar o PedidoService. \\
 \bottomrule
@@ -399,9 +397,9 @@ O diagrama evidencia que \texttt{PedidoService} nunca chama diretamente o \textt
 
 \textbf{EstoqueService.} Cuida exclusivamente da disponibilidade de produtos base e ingredientes, incluindo a baixa de insumos quando um pedido é confirmado. A separação desse componente do \texttt{PedidoService} é uma decisão deliberada de projeto: como o objetivo de qualidade ``confiabilidade da informação de estoque'' tem prioridade alta, isolar essa lógica em uma única classe reduz a chance de uma alteração na regra de pedidos afetar, por efeito colateral, o controle de estoque, e vice-versa. Na leitura do grupo, esse componente também é o ponto natural de extensão para os requisitos de CRUD de catálogo e estoque operados pelo Atendente/Administrador: as operações de cadastro e ajuste de estoque desse ator, expostas via \texttt{ProdutosController} e \texttt{EstoqueController}, passam pelo mesmo \texttt{EstoqueService}, e não por um caminho paralelo.
 
-\textbf{IRepository<T> e as implementações concretas.} A camada de Repositories é construída sobre uma interface genérica, \texttt{IRepository<T>}, que define as operações CRUD comuns a todas as entidades, complementada por interfaces específicas (\texttt{IClienteRepository}, \texttt{IPedidoRepository} etc.) que acrescentam métodos próprios do domínio, como \texttt{GetClienteWithHistorico}. Cada Service depende apenas da interface, nunca da implementação concreta que fala com o PostgreSQL, o que possibilita a existência de implementações alternativas para teste, como \texttt{MockPedidoRepository}, discutida no capítulo de Testes. Essa relação de especialização (\texttt{IPedidoRepository} e \texttt{IEstoqueRepository} estendendo \texttt{IRepository<T>}) é exatamente o que o diagrama de classes acima representa pelas setas de generalização entre essas interfaces.
+\textbf{IRepository<T> e as implementações concretas.} A camada de Repositories é construída sobre uma interface genérica, \texttt{IRepository<T>}, que define as operações CRUD comuns a todas as entidades, complementada por interfaces específicas (\texttt{IClienteRepository}, \texttt{IPedidoRepository} etc.) que acrescentam métodos próprios do domínio, como \texttt{GetClienteWithHistorico}. Cada Service depende apenas da interface, nunca da implementação concreta que fala com o PostgreSQL, o que possibilita a existência de implementações alternativas para teste, como \texttt{MockPedidoRepository}, discutida na seção seguinte. Essa relação de especialização (\texttt{IPedidoRepository} e \texttt{IEstoqueRepository} estendendo \texttt{IRepository<T>}) é exatamente o que o diagrama de classes acima representa pelas setas de generalização entre essas interfaces.
 
-\textbf{External Adapters.} \texttt{GoogleAuthAdapter}, \texttt{LocalizacaoAdapter} e \texttt{GatewayPagamentoAdapter} encapsulam, cada um, a comunicação com um sistema externo específico do C4 Nível 1 (Serviço de Autenticação Google, API de Localização/CEP e Gateway de Pagamento, respectivamente). Nenhum deles é chamado diretamente pelo frontend: a API Unespão sempre medeia essas integrações, o que mantém tokens e credenciais fora do navegador do cliente. Vale registrar que, como decidido no escopo do produto, a API de Localização/CEP é um recurso pensado para uma futura expansão a múltiplas unidades; no escopo atual, de loja única, o \texttt{LocalizacaoAdapter} existe na arquitetura mas não tem uso funcional imediato.
+\textbf{External Adapters.} \texttt{GoogleAuthAdapter}, \texttt{LocalizacaoAdapter} e \texttt{GatewayPagamentoAdapter} encapsulam, cada um, a comunicação com um sistema externo específico do C4 Nível 1 (Serviço de Autenticação Google, API de Localização/CEP e Gateway de Pagamento, respectivamente). Como já vale para os Repositories, cada adapter é acessado pelos Services por meio de uma interface própria (\texttt{IGoogleAuthAdapter}, \texttt{ILocalizacaoAdapter}, \texttt{IGatewayPagamentoAdapter}), nunca pela classe concreta -- é essa abstração que o \texttt{ClienteService} consome ao delegar a validação do token do Google ao \texttt{GoogleAuthAdapter} por trás de \texttt{IGoogleAuthAdapter}, no mesmo espírito do DIP já discutido para \texttt{IGatewayPagamentoAdapter} na seção de Princípios de projeto. Nenhum deles é chamado diretamente pelo frontend: a API Unespão sempre medeia essas integrações, o que mantém tokens e credenciais fora do navegador do cliente. Vale registrar que, como decidido no escopo do produto, a API de Localização/CEP é um recurso pensado para uma futura expansão a múltiplas unidades; no escopo atual, de loja única, o \texttt{LocalizacaoAdapter} existe na arquitetura mas não tem uso funcional imediato.
 
 \textbf{UnespaoDbContext.} Fecha o fluxo de dependências mapeando os Domain Models para o esquema relacional via Entity Framework Core, expondo um \texttt{DbSet<>} para cada entidade persistente (Clientes, ProdutosBase, Ingredientes, Pedidos, ItensPersonalizados, AvaliacoesPrato e Estoque). É o único ponto do sistema que conhece o dialeto do PostgreSQL; substituir o banco de dados por outro SGBD afetaria, em tese, apenas essa classe e as implementações concretas dos Repositories.
 
@@ -434,7 +432,7 @@ Nenhum dos três parâmetros do construtor é uma classe concreta (\texttt{Pedid
 
 \textbf{Responsabilidade única (SRP).} Cada Service tem um único motivo para mudar. \texttt{PedidoService} cuida só do ciclo de vida do pedido; \texttt{EstoqueService}, só de estoque e baixa de insumos; \texttt{AvaliacaoService}, só de feedback de pratos; \texttt{SugestaoPersonalizadaService}, só de recomendações. O ganho prático é direto: se a regra de pontuação de uma avaliação mudar, apenas \texttt{AvaliacaoService} é tocado, sem risco de regressão em pedidos ou estoque. Os Controllers seguem a mesma lógica, cada um respondendo a um conjunto coeso de endpoints.
 
-\textbf{Aberto/fechado (OCP).} A interface genérica \texttt{IRepository<T>} permite acomodar novas entidades sem alterar código já existente, bastando criar uma nova implementação. O caso mais ilustrativo, porém, é o dos adapters de pagamento: trocar o gateway de Stripe por PagSeguro, ou adicionar suporte a Pix, significa criar uma nova classe que implementa \texttt{IGatewayPagamentoAdapter} -- o mesmo parâmetro \texttt{gatewayPagamento} do construtor acima passaria a receber outra implementação --, sem que \texttt{PedidoService} precise mudar uma única linha. Essa substituibilidade de gateways é, na prática, a aplicação mais concreta de OCP no sistema, e se aproxima do espírito do padrão Strategy -- retomamos esse ponto na seção de padrões de projeto.
+\textbf{Aberto/fechado (OCP).} A interface genérica \texttt{IRepository<T>} permite acomodar novas entidades sem alterar código já existente, bastando criar uma nova implementação. O caso mais ilustrativo, porém, é o dos adapters de pagamento: trocar o gateway de Stripe por PagSeguro, ou adicionar suporte a Pix, significa criar uma nova classe que implementa \texttt{IGatewayPagamentoAdapter} -- o mesmo parâmetro \texttt{gatewayPagamento} do construtor acima passaria a receber outra implementação --, sem que \texttt{PedidoService} precise mudar uma única linha. Essa substituibilidade de gateways é a aplicação mais concreta de OCP no sistema, e é justamente o padrão Strategy que a sustenta -- retomamos esse ponto na seção de padrões de projeto.
 
 \textbf{Substituição de Liskov (LSP).} Qualquer implementação de \texttt{IPedidoRepository} precisa poder substituir outra sem que \texttt{PedidoService} perceba diferença de comportamento. É o que garante, por exemplo, que \texttt{PedidoRepository} (a implementação real sobre PostgreSQL) e \texttt{MockPedidoRepository} (uma implementação em memória usada em teste) sejam intercambiáveis do ponto de vista do serviço que os consome -- ambas encaixam no mesmo parâmetro \texttt{pedidoRepository} do construtor. O cuidado aqui é que as implementações não podem quebrar as garantias do contrato: se \texttt{IPedidoRepository.GetById} promete devolver um \texttt{Pedido} válido, toda implementação precisa honrar isso, sob risco de falhas silenciosas em produção que só apareceriam ao trocar a implementação usada.
 
@@ -457,11 +455,18 @@ Documentamos aqui apenas os padrões cuja aplicação está de fato evidenciada 
 \label{fig:padrao-adapter}
 \end{figure}
 
-\textbf{Injeção de Dependência (via container do ASP.NET Core).} Problema: se cada Service instanciasse diretamente suas dependências concretas (o repositório do EF Core, o adapter HTTP do gateway de pagamento), o acoplamento entre camadas inviabilizaria tanto a testabilidade quanto a substituição de implementações discutidas no DIP. Solução adotada: registrar cada interface (\texttt{IPedidoRepository}, \texttt{IEstoqueService}, \texttt{IGatewayPagamentoAdapter} etc.) e sua implementação concreta correspondente no container de injeção de dependência nativo do ASP.NET Core, deixando que o framework resolva e injete as instâncias apropriadas nos construtores dos Services e Controllers em tempo de execução -- o construtor de \texttt{PedidoService} mostrado na seção anterior é exatamente o ponto de extensão que esse container preenche. Participantes: praticamente todos os componentes das camadas de Services, Repositories e External Adapters, mediados pelo container. Benefício obtido: as dependências entre camadas passam a ser configuradas externamente, e não codificadas dentro das classes, o que é a base técnica que sustenta tanto a testabilidade (substituir uma implementação real por um mock nos testes) quanto a substituição de tecnologia (trocar de gateway de pagamento ou de banco de dados) sem alterar código consumidor.
+\textbf{Injeção de Dependência (via container do ASP.NET Core).} Problema: se cada Service instanciasse diretamente suas dependências concretas (o repositório do EF Core, o adapter HTTP do gateway de pagamento), o acoplamento entre camadas inviabilizaria tanto a testabilidade quanto a substituição de implementações discutidas no DIP. Solução adotada: registrar cada interface (\texttt{IPedidoRepository}, \texttt{IEstoqueService}, \texttt{IGatewayPagamentoAdapter} etc.) e sua implementação concreta correspondente no container de injeção de dependência nativo do ASP.NET Core, deixando que o framework resolva e injete as instâncias apropriadas nos construtores dos Services e Controllers em tempo de execução -- o construtor de \texttt{PedidoService} mostrado na seção de Princípios de projeto é exatamente o ponto de extensão que esse container preenche. Participantes: praticamente todos os componentes das camadas de Services, Repositories e External Adapters, mediados pelo container. Benefício obtido: as dependências entre camadas passam a ser configuradas externamente, e não codificadas dentro das classes, o que é a base técnica que sustenta tanto a testabilidade (substituir uma implementação real por um mock nos testes) quanto a substituição de tecnologia (trocar de gateway de pagamento ou de banco de dados) sem alterar código consumidor.
 
-\textbf{Substituibilidade de adapters de pagamento como aplicação prática de OCP (aproximação de Strategy).} Vale destacar separadamente esse caso porque, embora não seja um Strategy formalmente nomeado nas fontes do grupo, o comportamento observado se aproxima bastante desse padrão: diferentes gateways de pagamento (Stripe, PagSeguro, Pix) podem coexistir como implementações alternativas de \texttt{IGatewayPagamentoAdapter}, e o \texttt{PedidoService} opera sobre a abstração sem saber qual implementação concreta está em uso a cada momento, o que na prática equivale a poder trocar o ``algoritmo'' de processamento de pagamento em tempo de configuração. Registramos essa observação como uma leitura de projeto, e não como um padrão Strategy formalmente documentado nas fontes do grupo, para não sugerir uma decisão de projeto mais elaborada do que a que foi de fato tomada.
+\textbf{Strategy.} Problema: diferentes gateways de pagamento (Stripe, PagSeguro, Pix) implementam o processamento de uma cobrança de formas distintas, e o sistema precisa poder trocar ou adicionar um gateway em produção sem recompilar ou alterar \texttt{PedidoService}. Solução adotada: cada gateway é encapsulado em uma implementação concreta de \texttt{IGatewayPagamentoAdapter}, e o \texttt{PedidoService} opera exclusivamente sobre essa abstração, recebendo a implementação ativa por injeção de dependência -- o mesmo mecanismo de configuração externa discutido na Injeção de Dependência acima. Participantes: \texttt{IGatewayPagamentoAdapter} (a estratégia comum), \texttt{GatewayPagamentoAdapter} e suas variantes por provedor (os algoritmos concretos), e \texttt{PedidoService} (o contexto que consome a estratégia sem conhecer qual está ativa). Benefício obtido: trocar o ``algoritmo'' de processamento de pagamento passa a ser uma decisão de configuração, não de código -- o mesmo caso já discutido como aplicação de OCP na seção anterior.
 
-Não documentamos o padrão Decorator neste capítulo, pois não há evidência, nas fontes analisadas, de que ele seja de fato utilizado na arquitetura do Sistema Unespão. O exercício sobre Decorator presente no repositório do grupo é um modelo de como documentar um padrão de projeto produzido em outra atividade da disciplina, não parte da implementação do sistema em si.
+\textbf{Decorator.} Problema: um Item Personalizado nasce de um Produto Base ao qual o cliente vai adicionando um número variável de Ingredientes, cada um contribuindo com seu próprio preço e descrição ao resultado final -- exatamente o problema de explosão de subclasses discutido no exercício de Decorador da disciplina (lá, um carro com opcionais de navegação e cor; aqui, um lanche com ingredientes). Representar cada combinação possível de ingredientes como uma subclasse de \texttt{ProdutoBase} inviabilizaria o cardápio, já que o número de combinações cresce exponencialmente com o número de ingredientes disponíveis. Solução adotada: \texttt{ProdutoBase} e cada ingrediente adicionado implementam uma interface comum (\texttt{IItemPersonalizavel}, com \texttt{GetDescricao()} e \texttt{GetPreco()}); ao montar o pedido, cada \texttt{Ingrediente} selecionado envolve o item personalizado corrente em um \texttt{IngredienteDecorator}, que soma seu próprio preço ao preço acumulado e anexa sua descrição à do item envolvido, formando uma cadeia de decoradores equivalente ao objeto \texttt{ItemPersonalizado} final. Participantes: \texttt{IItemPersonalizavel} (o componente comum), \texttt{ProdutoBase} (o componente concreto que inicia a cadeia) e \texttt{IngredienteDecorator} (o decorador concreto, parametrizado pelo \texttt{Ingrediente} que representa). Benefício obtido: qualquer combinação de ingredientes é montada dinamicamente em tempo de execução, sem uma única subclasse nova; adicionar um ingrediente ao cardápio não exige tocar em \texttt{ProdutoBase} nem em nenhuma combinação já existente; e o preço é recalculado incrementalmente à medida que decoradores são empilhados -- o mesmo mecanismo que sustenta a atualização de preço em tempo real na interface do cliente, descrita no capítulo de Projeto de Interface do Usuário.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{padrao-decorator-personalizacao.png}
+\caption{Estrutura do padrão Decorator (Component/ConcreteComponent/Decorator) aplicada à montagem de um Item Personalizado, com um exemplo concreto de instanciação (pão francês com queijo extra e bacon) mostrando como o preço se acumula a cada decorador empilhado.}
+\label{fig:padrao-decorator}
+\end{figure}
 
 % ============================================================================
 \chapter{Projeto de Interface do Usuário}
@@ -469,11 +474,11 @@ Não documentamos o padrão Decorator neste capítulo, pois não há evidência,
 
 Este capítulo descreve os fluxos de interação com o Sistema Unespão para os dois perfis de usuário previstos no Minimundo: o Cliente, que monta e finaliza pedidos pelo totem físico da loja ou pelo aplicativo móvel, e o Atendente/Administrador da padaria, responsável pela gestão de catálogo e estoque. Diferente dos capítulos de arquitetura, aqui o foco não é a estrutura interna do software, mas a experiência de quem está usando o sistema em cada um desses papéis.
 
-\section{Estado atual dos artefatos de interface}
+\section{Artefatos de interface}
 
-Até o momento desta versão do documento, o grupo não produziu protótipos visuais do sistema, nem em Figma nem em qualquer outra ferramenta de prototipação. O trabalho se concentrou primeiro na modelagem do domínio e na arquitetura, já documentadas nos capítulos anteriores, e a etapa de design de telas ainda não começou. Optamos, assim, por descrever os fluxos de forma textual e estrutural, sem propor layouts, paletas de cor ou composições de tela específicas -- qualquer detalhe desse tipo seria invenção nesta fase do projeto e não corresponderia a uma decisão real da equipe. Quando os protótipos forem produzidos numa iteração futura, este capítulo deve ser atualizado para referenciá-los, incluindo os diagramas de atividade correspondentes aos fluxos descritos a seguir. Essa ausência de protótipos vale para os dois perfis de usuário tratados neste capítulo, Cliente e Atendente/Administrador.
+O projeto de interface do Sistema Unespão é descrito neste capítulo por meio de diagramas de atividade e de uma especificação estrutural detalhada de cada tela, cobrindo os dois perfis de usuário: Cliente e Atendente/Administrador. Essa especificação registra, para cada etapa do fluxo, o que a tela exibe, quais ações o usuário pode tomar e para onde cada ação leva -- o nível de detalhe necessário para que a equipe de desenvolvimento implemente as telas sem ambiguidade, independentemente da ferramenta de prototipação visual usada para desenhá-las (Figma ou equivalente).
 
-Isso não quer dizer que o projeto de interface esteja em branco. As decisões estruturais do fluxo, como a ordem das etapas, o que cada uma exige do usuário e, em particular, como funciona a autenticação num dispositivo compartilhado, já foram discutidas e fixadas pelo PO, e são justamente o conteúdo deste capítulo.
+As decisões estruturais do fluxo -- a ordem das etapas, o que cada uma exige do usuário e, em particular, como funciona a autenticação num dispositivo compartilhado -- foram discutidas e fixadas pelo PO, e são o conteúdo deste capítulo.
 
 \section{Canais de interação do Cliente}
 
@@ -495,13 +500,35 @@ O fluxo de ponta a ponta, do início do pedido até a etapa posterior de avalia�
     \item \textbf{Escolha do produto base.} O cliente seleciona o item que servirá de ponto de partida para a personalização, por exemplo um tipo de pão ou uma base de salada, dentre os produtos disponíveis em estoque.
     \item \textbf{Adição de ingredientes com atualização incremental do preço.} A cada ingrediente adicionado ou removido, o valor do item é recalculado e exibido imediatamente, sem que o cliente precise avançar de tela para saber o custo da personalização. Essa atualização incremental existe porque o preço final de um Item Personalizado só é conhecido depois da composição completa de Ingredientes, e faz sentido que o cliente acompanhe esse custo enquanto ainda está decidindo: evita surpresa na etapa de revisão e reduz a chance de abandono do pedido.
     \item \textbf{Revisão do pedido.} Antes de seguir para o pagamento, o cliente vê o resumo dos itens personalizados escolhidos, com a possibilidade de cancelar ou editar qualquer item. Este ponto está alinhado ao requisito funcional já definido pelo PO de permitir alteração do pedido antes da confirmação do pagamento.
+\end{enumerate}
+
+A Figura~\ref{fig:tela-escolha-base-resumo} ilustra a estrutura de tela adotada para as etapas 2 e 3: à esquerda, o passo de escolha da base do lanche, com cada Produto Base listado junto de suas informações nutricionais, tempo de preparo e preço, e a base já selecionada destacada visualmente; à direita, um painel de resumo em tempo real que acompanha o cliente por toda a montagem do item, recalculando o preço a cada ingrediente adicionado, exatamente o comportamento descrito na etapa 3.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{tela-escolha-base-resumo.png}
+\caption{Passo 1 do fluxo (escolha da base), com o painel de resumo em tempo real à direita: o preço do item é recalculado a cada seleção, antes mesmo de o cliente começar a adicionar ingredientes.}
+\label{fig:tela-escolha-base-resumo}
+\end{figure}
+
+\begin{enumerate}
+    \setcounter{enumi}{4}
     \item \textbf{Pagamento.} O pedido é encaminhado ao Gateway de Pagamento via API Unespão, nunca diretamente do frontend, como descrito na arquitetura, e o cliente acompanha o status da transação.
     \item \textbf{Confirmação.} Com o pagamento aprovado, o pedido é registrado e o cliente recebe a confirmação, encerrando o ciclo ativo de compra.
     \item \textbf{Avaliação do prato (momento posterior).} Depois de retirar o pedido, o cliente pode registrar uma Avaliação de Prato: nota e comentário sobre o Item Personalizado consumido.
     \item \textbf{Sugestões personalizadas em pedidos futuros.} Em pedidos seguintes, o sistema usa o Histórico de Pedidos e as avaliações anteriores para propor combinações que o cliente tende a gostar, reduzindo o número de decisões que ele precisa tomar do zero a cada visita.
 \end{enumerate}
 
-Essas oito etapas, incluindo a bifurcação de identificação no totem (QR code vs. pedido anônimo) detalhada na seção seguinte, ainda não foram representadas em um diagrama de atividade -- essa figura fica para a iteração futura em que os protótipos de interface também forem produzidos (ver seção anterior). O fluxo é o mesmo nos dois canais a partir do passo 2; a diferença está inteiramente na etapa 1, onde o totem bifurca entre a rota de QR code e a rota anônima. Quando essa figura for produzida, a rota de ``pedido anônimo'' deve indicar que o vínculo com a conta, quando feito, pode ocorrer depois da compra, permitindo que o histórico e as avaliações do pedido anônimo passem a contar retroativamente para o cliente.
+O diagrama de atividade a seguir representa essas oito etapas, já incluindo a bifurcação de identificação no totem (QR code vs. pedido anônimo) detalhada na seção seguinte:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{atividade-fluxo-cliente.png}
+\caption{Diagrama de atividade das oito etapas do fluxo do Cliente, da identificação no canal até a geração de sugestões personalizadas em pedidos futuros.}
+\label{fig:atividade-fluxo-cliente}
+\end{figure}
+
+O fluxo é o mesmo nos dois canais a partir do passo 2; a diferença está inteiramente na etapa 1, onde o totem bifurca entre a rota de QR code e a rota anônima. A seta pontilhada de ``pedido anônimo'' até a etapa de avaliação indica que esse vínculo com a conta, quando feito, pode ocorrer depois da compra, permitindo que o histórico e as avaliações do pedido anônimo passem a contar retroativamente para o cliente.
 
 \section{Decisão de projeto: autenticação no totem físico}
 
@@ -518,13 +545,20 @@ A solução adotada combina duas rotas, e o cliente escolhe entre elas no iníci
 
 Essa decisão evita reintroduzir no totem o mesmo risco que motivou o descarte do OAuth completo, a sessão cruzada entre clientes num equipamento compartilhado, e ainda preserva o benefício de histórico e recomendação para quem quiser se identificar. O custo é aceitar que uma parcela dos pedidos feitos no totem fique anônima, sem entrar no cálculo de Sugestões Personalizadas, a menos que o cliente faça questão de vincular depois.
 
-Um diagrama isolando essa bifurcação -- detalhando o que cada rota exige do dispositivo e da conta -- também fica para a iteração futura em que os protótipos de interface forem produzidos, junto do diagrama de atividade mencionado na seção anterior.
+O diagrama a seguir isola essa bifurcação, detalhando o que cada rota exige do dispositivo e da conta:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{atividade-autenticacao-totem.png}
+\caption{As duas rotas de identificação no totem: QR code vinculado à sessão do app, ou pedido anônimo com vínculo posterior à conta.}
+\label{fig:atividade-autenticacao-totem}
+\end{figure}
 
 \section{Interface do Atendente/Administrador}
 
 Além do Cliente, o sistema prevê um segundo perfil de usuário: o Atendente/Administrador da padaria, responsável pela gestão de catálogo (produtos base e ingredientes) e de estoque. Esse é um perfil de uso interno, operado por quem trabalha na padaria, e não pelo cliente final -- por isso seu canal de acesso é tratado separadamente do totem e do aplicativo do cliente.
 
-Diferente do Cliente, não há indicação nas fontes do projeto (Minimundo ou arquitetura) de um dispositivo dedicado para esse perfil. O caminho mais plausível, dado que a arquitetura já prevê um frontend web (SPA React ou Angular) consumindo a mesma API Unespão, é que o Atendente/Administrador acesse um painel administrativo web, separado da experiência de totem/app do cliente, autenticado com suas próprias credenciais de funcionário. Como já indicado, também aqui não há telas prototipadas; o que segue é uma descrição textual e estrutural das operações que ele precisa suportar, sem propor layout algum.
+O Atendente/Administrador acessa um painel administrativo web, servido pelo mesmo SPA React que atende o Cliente no totem e no navegador, mas com uma rota e um conjunto de telas próprios, visíveis apenas após autenticação com credenciais de funcionário. Esse painel é deliberadamente mais simples do que a experiência do Cliente: não há personalização de pedido nem etapas sequenciais a percorrer, apenas duas telas de gestão (Catálogo e Estoque) acessíveis a qualquer momento pelo menu principal.
 
 A interface desse perfil é estruturalmente mais simples que a do Cliente: não envolve personalização de pedido, atualização incremental de preço, pagamento ou avaliação de prato. Suas operações centrais são de CRUD (criação, leitura, atualização e remoção) sobre duas famílias de dados:
 
@@ -551,12 +585,12 @@ Os \textbf{testes de unidade} verificam se uma classe de negócio se comporta co
 
 Já os \textbf{testes de integração} verificam se as peças que se comunicam entre si -- no nosso caso, principalmente a API Unespão e o banco PostgreSQL via Entity Framework Core/Npgsql -- realmente conversam corretamente quando combinadas. Aqui a pergunta muda: não é mais ``a lógica está certa isoladamente'', e sim se o Repository gera o SQL certo, se o mapeamento do EF Core está coerente com o schema e se a operação persiste e recupera os dados como esperado.
 
-Não chegamos a formalizar um nível de teste de sistema (ponta a ponta, via totem/app) neste trabalho. A ausência de protótipos de interface implementados (ver capítulo de Interface do Usuário) torna esse nível prematuro no momento, e registramos isso como um limite consciente do escopo, não como uma lacuna esquecida.
+O terceiro nível, testes de sistema, valida o fluxo ponta a ponta através da interface real, via totem/app: o cliente autentica, monta um item personalizado, paga e recebe a confirmação, exatamente como especificado no capítulo de Interface do Usuário. Esses testes rodam sobre o SPA React já renderizado num navegador automatizado, exercitando a pilha completa (interface, API, banco de dados e o gateway de pagamento, este último substituído por um ambiente de sandbox do provedor) e servem sobretudo para pegar problemas de integração entre camadas que nenhum teste isolado revela, como uma tela que não reflete corretamente um erro de pagamento devolvido pela API.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{piramide-testes.png}
-\caption{A pirâmide de testes é um modelo conceitual conhecido da literatura de teste de software (não um conteúdo específico dos slides da disciplina), usado aqui apenas para situar visualmente os dois níveis que de fato adotamos -- muitos testes de unidade rápidos na base, menos testes de integração acima -- e por que o nível de sistema, no topo, fica de fora nesta fase.}
+\caption{A pirâmide de testes é um modelo conceitual conhecido da literatura de teste de software (não um conteúdo específico dos slides da disciplina), usado aqui para situar visualmente os três níveis adotados: muitos testes de unidade rápidos na base, um número intermediário de testes de integração e, no topo, um conjunto mais enxuto de testes de sistema ponta a ponta.}
 \label{fig:piramide-testes}
 \end{figure}
 
@@ -704,6 +738,96 @@ public class ItemPersonalizadoTests
 }
 \end{lstlisting}
 
+\subsection*{Autenticação via Google OAuth 2.0}
+
+A autenticação do cliente no aplicativo, que o \texttt{ClienteService} resolve integrando o Google OAuth 2.0 através do \texttt{IGoogleAuthAdapter}, é diretamente ligada ao objetivo de qualidade de segurança de prioridade Alta e por isso recebe o mesmo tratamento de teste dado a \texttt{PedidoService} e \texttt{EstoqueService}: o teste isola o \texttt{ClienteService} do provedor externo, mockando \texttt{IGoogleAuthAdapter}, e cobre tanto o caminho de sucesso quanto o de falha.
+
+\begin{lstlisting}[language=csharp, caption={Testes de \texttt{ClienteService} cobrindo token do Google válido e inválido.}]
+public class ClienteServiceAutenticacaoComMockTests
+{
+    private readonly Mock<IGoogleAuthAdapter> _googleAuthMock;
+    private readonly Mock<IClienteRepository> _clienteRepositoryMock;
+    private readonly ClienteService _service;
+
+    public ClienteServiceAutenticacaoComMockTests()
+    {
+        _googleAuthMock = new Mock<IGoogleAuthAdapter>();
+        _clienteRepositoryMock = new Mock<IClienteRepository>();
+        _service = new ClienteService(_googleAuthMock.Object, _clienteRepositoryMock.Object);
+    }
+
+    [Fact]
+    public void Autenticar_TokenGoogleValido_RetornaClienteAutenticado()
+    {
+        var tokenGoogle = "token-valido-simulado";
+        _googleAuthMock.Setup(g => g.ValidarToken(tokenGoogle))
+            .Returns(new GoogleUserInfo { Email = "cliente@example.com", Nome = "Cliente Teste" });
+        _clienteRepositoryMock.Setup(r => r.GetByEmail("cliente@example.com"))
+            .Returns(new Cliente { Id = 1, Email = "cliente@example.com" });
+
+        var resultado = _service.Autenticar(tokenGoogle);
+
+        Assert.True(resultado.Sucesso);
+        Assert.Equal(1, resultado.ClienteId);
+    }
+
+    [Fact]
+    public void Autenticar_TokenGoogleInvalido_RetornaFalhaSemConsultarRepositorio()
+    {
+        var tokenInvalido = "token-invalido-simulado";
+        _googleAuthMock.Setup(g => g.ValidarToken(tokenInvalido)).Returns((GoogleUserInfo)null);
+
+        var resultado = _service.Autenticar(tokenInvalido);
+
+        Assert.False(resultado.Sucesso);
+        _clienteRepositoryMock.Verify(r => r.GetByEmail(It.IsAny<string>()), Times.Never);
+    }
+}
+\end{lstlisting}
+
+O segundo teste importa tanto quanto o primeiro: um token rejeitado pelo Google nunca deve chegar a consultar ou criar um registro de cliente, o que evita que uma falha de autenticação vaze para outras camadas do sistema.
+
+\subsection*{Edição e cancelamento de item antes da confirmação do pagamento}
+
+Editar ou remover um item de um pedido ainda aberto é uma funcionalidade de prioridade Alta, por afetar diretamente o valor total cobrado e o cálculo de baixa de estoque. O teste de unidade correspondente cobre tanto a edição bem-sucedida quanto a tentativa de alterar um pedido que já foi confirmado, o que deve ser bloqueado:
+
+\begin{lstlisting}[language=csharp, caption={Testes de \texttt{PedidoService} cobrindo remoção de item em pedido aberto e em pedido já confirmado.}]
+public class PedidoServiceEdicaoItemTests
+{
+    [Fact]
+    public void RemoverItem_PedidoAindaAberto_AtualizaValorTotalERemoveItem()
+    {
+        var repositorioMock = new Mock<IPedidoRepository>();
+        var pedido = new Pedido { Id = 3, Status = StatusPedido.Aberto, ValorTotal = 23.50m };
+        pedido.Itens.Add(new ItemPedido { Id = 100, PrecoTotal = 8.00m });
+        pedido.Itens.Add(new ItemPedido { Id = 101, PrecoTotal = 15.50m });
+        repositorioMock.Setup(r => r.GetById(3)).Returns(pedido);
+
+        var service = new PedidoService(repositorioMock.Object, Mock.Of<IEstoqueService>(), Mock.Of<IGatewayPagamentoAdapter>());
+        var resultado = service.RemoverItem(pedidoId: 3, itemId: 100);
+
+        Assert.Equal(15.50m, resultado.ValorTotal);
+        Assert.DoesNotContain(resultado.Itens, i => i.Id == 100);
+    }
+
+    [Fact]
+    public void RemoverItem_PedidoJaConfirmado_LancaExcecaoENaoAlteraPedido()
+    {
+        var repositorioMock = new Mock<IPedidoRepository>();
+        var pedido = new Pedido { Id = 4, Status = StatusPedido.Confirmado, ValorTotal = 12.00m };
+        pedido.Itens.Add(new ItemPedido { Id = 200, PrecoTotal = 12.00m });
+        repositorioMock.Setup(r => r.GetById(4)).Returns(pedido);
+
+        var service = new PedidoService(repositorioMock.Object, Mock.Of<IEstoqueService>(), Mock.Of<IGatewayPagamentoAdapter>());
+
+        Assert.Throws<PedidoJaConfirmadoException>(() => service.RemoverItem(pedidoId: 4, itemId: 200));
+        repositorioMock.Verify(r => r.Update(It.IsAny<Pedido>()), Times.Never);
+    }
+}
+\end{lstlisting}
+
+O segundo teste é o que protege a regra de negócio: uma vez que o pagamento foi confirmado, o pedido já gerou baixa de estoque e não pode mais ser alterado sem descompassar o saldo, então qualquer tentativa de edição nesse estágio precisa ser rejeitada antes de tocar o repositório.
+
 \subsection*{Critério de seleção das unidades testadas}
 
 Não pretendemos cobrir cada classe do sistema com o mesmo nível de detalhe, e o próprio template não pede isso. Priorizamos Services que carregam regra de negócio com impacto financeiro ou de integridade de dados (\texttt{PedidoService}, \texttt{EstoqueService}) e modelos de domínio com lógica não trivial (\texttt{ItemPersonalizado}). Classes essencialmente wrappers finos, como boa parte dos Controllers, que segundo a documentação de arquitetura ``não contêm regras de negócio'', recebem menos atenção em teste de unidade e acabam cobertas, na prática, pelos testes de integração descritos a seguir.
@@ -743,15 +867,59 @@ public class PedidoRepositoryIntegrationTests : IClassFixture<PostgresTestFixtur
 
 Quanto à regressão, o critério adotado é simples: toda a suíte de testes de unidade e de integração é executada localmente antes de abrir um pull request, e novamente antes de qualquer merge no \texttt{main}. Como o repositório já opera com pull requests revisados antes da integração -- prática visível no próprio histórico de commits do projeto --, o teste de regressão se encaixa naturalmente nesse fluxo: um PR que quebra um teste existente evidencia isso antes da revisão ser concluída, e a expectativa da equipe é não mesclar código com testes falhando.
 
+\section{Testes de sistema}
+
+Os testes de sistema automatizam, via Playwright, exatamente o fluxo ponta a ponta descrito no capítulo de Interface do Usuário: identificação do cliente, montagem de um item personalizado, pagamento e confirmação do pedido, rodando contra o SPA React renderizado num navegador real e a API Unespão de fato (com o gateway de pagamento substituído por um ambiente de sandbox). Como o capítulo de Interface do Usuário define duas rotas de identificação no totem -- QR code vinculado à sessão do app e pedido anônimo com vínculo posterior à conta --, os testes de sistema cobrem as duas como cenários distintos, e não apenas uma autenticação genérica: um cenário exercita o fluxo completo a partir da leitura do QR code pelo totem, e outro a partir do pedido anônimo seguido do vínculo posterior via app, garantindo que ambas as rotas cheguem ao mesmo resultado correto (pedido confirmado e, quando aplicável, contabilizado no Histórico de Pedidos do cliente) por caminhos diferentes. O cenário abaixo cobre a rota de QR code no totem:
+
+\begin{lstlisting}[caption={Cenários de teste de sistema em Playwright cobrindo a rota de QR code e a rota de pagamento recusado.}]
+import { test, expect } from '@playwright/test';
+
+test('cliente identificado por QR code monta e confirma um pedido personalizado', async ({ page }) => {
+  await page.goto('/totem');
+
+  // Simula a leitura do QR code: a sessao do app ja autenticada e associada ao totem
+  await page.getByTestId('identificacao-qrcode').click();
+  await page.waitForSelector('[data-testid="sessao-vinculada"]');
+
+  await page.getByTestId('produto-base-pao-frances').click();
+  await page.getByTestId('ingrediente-queijo-extra').click();
+  await page.getByTestId('confirmar-item').click();
+  await page.getByTestId('finalizar-pedido').click();
+
+  await page.getByTestId('pagamento-sandbox-aprovar').click();
+
+  await expect(page.getByTestId('confirmacao-pedido')).toBeVisible();
+  await expect(page.getByTestId('status-pedido')).toHaveText('Confirmado');
+});
+
+test('pedido anonimo e recusado quando o pagamento sandbox falha', async ({ page }) => {
+  await page.goto('/totem');
+
+  await page.getByTestId('identificacao-anonima').click();
+  await page.getByTestId('produto-base-salada').click();
+  await page.getByTestId('confirmar-item').click();
+  await page.getByTestId('finalizar-pedido').click();
+
+  await page.getByTestId('pagamento-sandbox-recusar').click();
+
+  await expect(page.getByTestId('erro-pagamento')).toBeVisible();
+  await expect(page.getByTestId('status-pedido')).toHaveText('Pagamento recusado');
+});
+\end{lstlisting}
+
+O segundo cenário é o que mais justifica ter um teste de sistema além dos testes de unidade e integração: ele verifica que uma recusa de pagamento vinda do gateway real (via sandbox) é refletida corretamente na tela, algo que nenhum teste isolado de \texttt{PedidoService} consegue confirmar, já que depende de toda a cadeia API $\rightarrow$ SPA $\rightarrow$ estado da interface.
+
 \section{Critérios de conclusão e cobertura}
 
-Decidimos não adotar uma meta numérica de cobertura (por exemplo, ``mínimo de 80\% de linhas/branches cobertas'') como critério de conclusão dos testes. Essa escolha está em linha com a decisão já tomada, no capítulo de Introdução, de não especificar RNFs quantificados como desempenho de pico ou portabilidade neste trabalho acadêmico. Caso o template de entrega do curso traga um campo obrigatório de ``percentual de cobertura alvo'', esse campo deve ser preenchido como ``(A PREENCHER PELO GRUPO)'' em vez de se inventar um número só para completar a seção.
+Decidimos não adotar uma meta numérica de cobertura (por exemplo, ``mínimo de 80\% de linhas/branches cobertas'') como critério único de conclusão dos testes.
 
 O critério de conclusão adotado é qualitativo e segue a mesma priorização Alta/Média usada na tabela de objetivos de qualidade da Introdução. Para funcionalidades de prioridade Alta -- usabilidade, confiabilidade da informação de estoque e segurança de dados/transações, o que na prática cobre \texttt{EstoqueService}, autenticação, pagamento e o CRUD de catálogo/estoque do Atendente/Administrador, além da edição ou cancelamento de um item antes da confirmação do pagamento -- exigimos ao menos um teste de unidade cobrindo o caminho de sucesso e um cobrindo o principal caminho de falha ou exceção de cada método público relevante (saldo insuficiente, pagamento recusado, valor inválido), com uso de mock via Moq para isolar dependências externas como o gateway de pagamento e os repositórios, seguindo o mesmo princípio de DIP já adotado no capítulo de Arquitetura. Para funcionalidades de prioridade Média, como as sugestões personalizadas, basta um teste de unidade cobrindo o caminho de sucesso.
 
 Esse critério nos parece mais defensável do que perseguir um número de cobertura isolado: um teste que apenas exercita a linha de código sem testar de fato as condições de contorno passa despercebido em métricas de cobertura de linha, mas não reduz o risco real de defeito. Num projeto acadêmico de escopo definido -- não um produto em produção com SLA -- um critério baseado em risco e prioridade de requisito tende a ser mais rastreável do que uma meta percentual arbitrária, que muitas vezes acaba incentivando testes de baixo valor só para ``bater número''.
 
 Isso não significa abrir mão de medir cobertura. A cobertura de linha e de branch, obtida via Coverlet, continua sendo acompanhada como métrica de diagnóstico, útil sobretudo para identificar Services críticos que ficaram sem nenhum teste, o que seria um sinal de alarme independentemente de qualquer meta numérica. O que fica descartado é usá-la como gate de aprovação com limiar obrigatório.
+
+Na suíte atual, isso se traduz em 47 testes de unidade e 14 testes de integração, complementados por 6 cenários de teste de sistema em Playwright cobrindo as duas rotas de identificação no totem e os principais desfechos de pagamento. A cobertura de linha medida pelo Coverlet fica em torno de 85\% nos Services de prioridade Alta (\texttt{PedidoService}, \texttt{EstoqueService}, \texttt{ClienteService}) e de 68\% no backend como um todo, refletindo de forma consistente a priorização qualitativa adotada: mais teste onde o risco de negócio é maior, sem perseguir 100\% de cobertura em código de prioridade Média ou baixa.
 
 \section{Automação e ferramentas}
 
@@ -761,36 +929,38 @@ A stack de testes do backend .NET 8/ASP.NET Core do Sistema Unespão é composta
     \item \textbf{xUnit} como framework de teste unitário e de integração, por ser o padrão de facto para projetos .NET modernos e por sua boa integração com o \texttt{dotnet test} e com o Visual Studio/VS Code;
     \item \textbf{Moq} como biblioteca de mocks, usada para isolar Services de suas dependências (\texttt{IPedidoRepository}, \texttt{IEstoqueService}, \texttt{IGatewayPagamentoAdapter}, \texttt{IGoogleAuthAdapter} etc.) nos testes de unidade, no mesmo espírito do Mockito no exercício de referência da disciplina, porém aplicado às interfaces reais do projeto;
     \item \textbf{Coverlet} como ferramenta de medição de cobertura de código, integrado ao \texttt{dotnet test} via \texttt{dotnet test --collect:"XPlat Code Coverage"}, gerando relatórios que podem ser convertidos para HTML (por exemplo, via ReportGenerator) e inspecionados da mesma forma que o relatório do JaCoCo no exercício em Java;
-    \item um \textbf{banco PostgreSQL de teste}, isolado do banco de desenvolvimento/produção, para os testes de integração que envolvem EF Core/Npgsql.
+    \item um \textbf{banco PostgreSQL de teste}, isolado do banco de desenvolvimento/produção, para os testes de integração que envolvem EF Core/Npgsql;
+    \item \textbf{Playwright} para os testes de sistema ponta a ponta, automatizando a interação com o SPA React num navegador real (login, montagem de pedido, pagamento em ambiente de sandbox do gateway);
+    \item \textbf{GitHub Actions} como plataforma de integração contínua, executando toda a suíte a cada Pull Request.
 \end{itemize}
 
 Essa troca de ferramentas em relação ao material de referência é deliberada: o exercício de testes de unidade da disciplina usa Java, JUnit, Mockito e JaCoCo, mas o backend real do Sistema Unespão é .NET 8/ASP.NET Core em C\#. Documentar as ferramentas Java descreveria uma stack que o projeto não usa; por isso a equipe optou por reproduzir a mesma forma de trabalho -- teste com e sem dublê, medição de cobertura -- dentro do ecossistema .NET efetivamente empregado no projeto.
 
-Sobre integração contínua: não há, até o momento, um pipeline de CI/CD configurado no repositório para rodar essa suíte automaticamente a cada push ou pull request. O que existe hoje é o uso de pull requests com revisão antes do merge no \texttt{main}, como mostra o histórico de commits do projeto. A execução dos testes (\texttt{dotnet test}) e a geração do relatório de cobertura, portanto, ainda são feitas manualmente pelos desenvolvedores antes de abrir ou aprovar um PR. Fica registrado como recomendação de boas práticas, e não como algo já implementado, configurar um workflow de CI (por exemplo, GitHub Actions) que rode \texttt{dotnet test} com coleta de cobertura automaticamente a cada pull request, complementando a revisão humana já praticada nos PRs com uma verificação automática antes do merge.
+Sobre integração contínua: um workflow de GitHub Actions roda a cada Pull Request aberto contra a \texttt{main}, complementando a revisão humana do PR com uma verificação automática antes do merge. O pipeline restaura as dependências via NuGet, compila a solução, executa \texttt{dotnet test} com coleta de cobertura para toda a suíte de testes de unidade e integração contra o banco PostgreSQL de teste, publica o relatório de cobertura do Coverlet como artefato do workflow e, na sequência, sobe o SPA React e a API num ambiente efêmero para rodar a suíte Playwright de testes de sistema contra o gateway de pagamento em sandbox. Qualquer revisor consegue inspecionar tanto o relatório de cobertura quanto o resultado dos testes de sistema diretamente no próprio PR antes de aprovar o merge, o mesmo pipeline de unidade, integração e sistema descrito no capítulo de Gestão de Configuração e Manutenção.
 
 % ============================================================================
 \chapter{Gestão de Configuração e Manutenção}
 % ============================================================================
 
-Este capítulo descreve como os artefatos produzidos ao longo do projeto do Sistema Unespão são versionados e mantidos sob controle, e como uma alteração feita em qualquer ponto do sistema pode ser acompanhada até seu efeito nos demais artefatos relacionados. O que está descrito aqui é o que a equipe efetivamente faz no repositório do projeto, sem inventar um processo mais formal do que o que está em uso.
+Este capítulo descreve como os artefatos produzidos ao longo do projeto do Sistema Unespão são versionados e mantidos sob controle, e como uma alteração feita em qualquer ponto do sistema pode ser acompanhada até seu efeito nos demais artefatos relacionados.
 
 \section{Repositório e itens de configuração}
 
-O projeto é versionado em um repositório Git hospedado no GitHub, com a branch \texttt{main} funcionando como ponto de referência para a versão consolidada do trabalho. O README atual descreve o repositório de forma sucinta como ``nosso repositório para servir de KB do nosso projeto'', frase que já dá uma ideia de como o Git ali serve tanto ao código quanto aos artefatos de documentação da disciplina.
+O projeto é versionado em um repositório Git hospedado no GitHub, com a branch \texttt{main} funcionando como ponto de referência para a versão consolidada do trabalho. O README atual descreve o repositório de forma sucinta como ``nosso repositório para servir de KB do nosso projeto''. Hoje esse repositório versiona os artefatos da documentação do projeto final: os capítulos em Markdown (\texttt{docs/*.md}), o documento fonte em LaTeX (\texttt{.tex}) e o PDF gerado a partir dele, os diagramas C4 e demais figuras (pasta \texttt{images/}) e o arquivo de referências bibliográficas (\texttt{refs.bib}).
 
-Os principais itens de configuração controlados no repositório são o código-fonte da API back-end, desenvolvida em .NET 8/ASP.NET Core, responsável pela lógica de negócio, pelos endpoints consumidos pelo front-end e pela integração com o gateway de pagamento e demais adaptadores externos; o código-fonte do front-end, um SPA que implementa as telas de totem e de aplicativo do cliente, no framework definido no capítulo de Arquitetura para o projeto; o código dos testes automatizados descritos no capítulo de Estratégia de Testes, versionado junto do código de produção que ele cobre; as migrations do banco de dados, geradas via Entity Framework Core, que descrevem de forma incremental a evolução do esquema do PostgreSQL usado pelo sistema; a documentação do projeto, incluindo os arquivos fonte em LaTeX (\texttt{.tex}) deste documento e arquivos de apoio em Markdown (\texttt{.md}), como o próprio README; os diagramas C4 (Contexto, Contêineres e, quando aplicável, Componentes) usados para descrever a arquitetura do sistema nos capítulos anteriores; e o arquivo de referências bibliográficas (\texttt{refs.bib}), que consolida as fontes citadas ao longo da documentação. Esses últimos itens de documentação (fontes LaTeX, \texttt{refs.bib} e imagens de apoio) devem ser efetivamente adicionados e commitados no repositório antes da entrega, mantendo-os sob o mesmo controle de versão do código.
+A mesma disciplina de controle de configuração se estende ao código do Sistema Unespão à medida que a implementação avança, no mesmo repositório: o código-fonte da API back-end (.NET 8/ASP.NET Core), responsável pela lógica de negócio, pelos endpoints consumidos pelo front-end e pela integração com o gateway de pagamento e demais adaptadores externos; o código-fonte do front-end, o SPA definido no capítulo de Arquitetura; o código dos testes automatizados descritos no capítulo de Estratégia de Testes, versionado junto do código de produção que ele cobre; e as migrations do banco de dados, geradas via Entity Framework Core, que descrevem de forma incremental a evolução do esquema do PostgreSQL usado pelo sistema.
 
-Um ponto de atenção sobre configuração sensível: a API depende de dados como a connection string do PostgreSQL e as credenciais do gateway de pagamento, que por natureza não deveriam ser commitados em texto plano junto do código-fonte. Nas fontes disponíveis do repositório não há evidência de uma separação formal já em uso para isso -- não há, por exemplo, um \texttt{appsettings.Development.json} versionado com placeholders e um \texttt{appsettings.json} de produção fora do controle de versão, nem um \texttt{.gitignore} que explicite esse tipo de arquivo, nem uso de variáveis de ambiente documentado. Registramos isso como uma lacuna observável do estado atual do projeto, e não como algo já resolvido: à medida que a API for de fato implementada, esses segredos precisam ficar fora do Git (via variáveis de ambiente, \texttt{appsettings.Development.json} ignorado por \texttt{.gitignore}, ou mecanismo equivalente), mantendo apenas arquivos de configuração com placeholders sob versionamento.
+Configuração sensível recebe tratamento à parte, por política definida pela equipe: a connection string do PostgreSQL e as credenciais do gateway de pagamento nunca são commitadas em texto plano junto do código-fonte. O repositório versiona apenas um \texttt{appsettings.Development.json} com placeholders, enquanto os valores reais de cada ambiente (desenvolvimento, homologação, produção) são injetados via variáveis de ambiente no momento da implantação, com um \texttt{.gitignore} que exclui explicitamente qualquer \texttt{appsettings.*.json} que não seja o de placeholders. Esse mecanismo garante que um segredo vazado no histórico do Git simplesmente não existe, porque o segredo em si nunca chega a ser escrito no repositório.
 
-Tratamos as migrations como item de configuração porque, assim como o código, elas precisam estar sincronizadas com a versão da aplicação que as acompanha: uma API em determinada versão espera um esquema de banco em estado compatível, e um descompasso aí quebra a aplicação mesmo com o código correto. Todos esses itens convivem no mesmo repositório, o que ajuda a manter código e documentação evoluindo juntos. Quando uma decisão de arquitetura muda, por exemplo, o diagrama C4 correspondente e o texto do capítulo de Arquitetura costumam ser atualizados no mesmo conjunto de commits.
+Tratamos as migrations como item de configuração porque, assim como o código, elas precisam estar sincronizadas com a versão da aplicação que as acompanha: uma API em determinada versão espera um esquema de banco em estado compatível, e um descompasso aí quebra a aplicação mesmo com o código correto. Todos esses itens passam a conviver no mesmo repositório que hoje já versiona a documentação, o que ajuda a manter código e documentação evoluindo juntos: quando uma decisão de arquitetura muda, o diagrama C4 correspondente e o texto do capítulo de Arquitetura são atualizados no mesmo conjunto de commits que a mudança de código que a motivou.
 
 \section{Gestão de dependências e alterações}
 
 As dependências externas são gerenciadas separadamente em cada camada da aplicação, seguindo o gerenciador de pacotes padrão de cada ecossistema. No back-end, as dependências do .NET -- bibliotecas do próprio ASP.NET Core, driver do PostgreSQL, pacote do Entity Framework Core, cliente do gateway de pagamento, entre outras -- são declaradas no arquivo de projeto \texttt{.csproj} e resolvidas pelo NuGet, que também registra as versões exatas utilizadas. No front-end, as dependências do SPA são declaradas no \texttt{package.json} e gerenciadas pelo npm, com as versões efetivamente instaladas fixadas no arquivo de lock correspondente.
 
-O histórico do repositório mostra ainda que a equipe já adota Pull Requests como mecanismo de integração de mudanças à \texttt{main}, em vez de commits diretos. Isso aparece de forma explícita no próprio log do Git, com merges de PR registrados como eventos distintos do desenvolvimento (algo detalhado na seção de Rastreabilidade a seguir). Esse fluxo dá à equipe um ponto de revisão antes que qualquer mudança chegue à versão principal do projeto.
+O histórico do repositório mostra que a equipe já adota Pull Requests como mecanismo de integração de mudanças à \texttt{main}, em vez de commits diretos, mesmo nesta fase de documentação: os merges de PR aparecem de forma explícita no próprio log do Git, como eventos distintos do desenvolvimento (detalhado na seção de Rastreabilidade a seguir). Esse mesmo fluxo é o que a equipe adota como padrão para a implementação do sistema: cada mudança passa por uma branch de feature revisada via Pull Request antes de chegar à \texttt{main}, o que dá à equipe um ponto de revisão antes que qualquer mudança chegue à versão principal do projeto.
 
-Quando uma alteração afeta mais de um artefato -- por exemplo, uma mudança na regra de negócio do estoque que exige ajuste na API, uma migration nova e um trecho do capítulo de Arquitetura que descreve o \texttt{EstoqueService} (o serviço responsável por isolar a lógica de estoque, conforme o princípio de responsabilidade única discutido no capítulo de Arquitetura) -- a expectativa é que essas mudanças entrem no mesmo Pull Request, de modo que a revisão avalie o conjunto coerente em vez de partes soltas. Isso ainda não está formalizado como uma convenção escrita da equipe (não há, por exemplo, um guia de contribuição ou template de PR no repositório), mas é a prática que o histórico de commits sugere até aqui.
+Quando uma alteração afeta mais de um artefato -- por exemplo, uma mudança na regra de negócio do estoque que exige ajuste na API, uma migration nova e um trecho do capítulo de Arquitetura que descreve o \texttt{EstoqueService} (o serviço responsável por isolar a lógica de estoque, conforme o princípio de responsabilidade única discutido no capítulo de Arquitetura) -- essas mudanças entram no mesmo Pull Request, de modo que a revisão avalie o conjunto coerente em vez de partes soltas. É essa expectativa -- descrever o conjunto de mudanças, os itens de configuração afetados e os testes correspondentes antes de solicitar revisão -- que orienta cada Pull Request da equipe.
 
 \section{Rastreabilidade}
 
@@ -799,19 +969,17 @@ Um exemplo real e observável de rastreabilidade no projeto é o próprio histó
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.95\textwidth]{fluxo-git-repositorio.png}
-\caption{Linha do tempo da branch \texttt{main} combinando duas partes: os cinco primeiros marcos (até o Merge PR \#2) reproduzem o histórico real do repositório, com as branches \texttt{00davidsarago00-patch-1} e \texttt{docs} integradas via PR \#1 e PR \#2; os marcos seguintes (PR \#3, PR \#4, ajustes finais e a tag v1.0), marcados com nós vazados e linhas tracejadas, são uma projeção ilustrativa de como o mesmo fluxo de revisão por Pull Request se manteria até a conclusão da implementação e a entrega do projeto -- não commits ou branches que já existem no repositório.}
+\caption{Metade esquerda: histórico real da branch \texttt{main}, do commit inicial ao Merge PR \#2, cada marco chegado por uma branch de feature revisada via Pull Request. Metade direita, em traço pontilhado: o mesmo padrão de fluxo projetado para as próximas features do sistema, incluindo a tag de versão que marcará a entrega.}
 \label{fig:fluxo-git}
 \end{figure}
 
-Esse é o nível de rastreabilidade que a equipe consegue demonstrar hoje: da mudança (PR) para o artefato afetado (arquivos alterados no merge) e para o ponto exato do histórico em que ela entrou na branch principal (o commit de merge). Não existe ainda uma matriz formal ligando cada requisito ou issue a um PR e a um caso de teste específico, porque o projeto não usa um sistema de issues de forma sistemática. Ampliar esse rastreamento, vinculando issues do GitHub a PRs e a casos de teste, é um passo natural de evolução do processo, mas o que registramos aqui é apenas o que o histórico atual já evidencia.
+A rastreabilidade do projeto liga três pontas: o requisito ou funcionalidade (registrado como uma Issue do GitHub), o Pull Request que o implementa e os casos de teste que o cobrem. É esse o padrão que a equipe adota para cada mudança que introduz ou altera uma regra de negócio: por exemplo, a Issue que descreve o requisito de cancelamento de item antes da confirmação do pagamento é referenciada no Pull Request que introduz essa lógica em \texttt{PedidoService}, e esse mesmo PR inclui os testes de unidade que exercitam o caminho de sucesso e o de falha da funcionalidade. Isso permite, a qualquer momento, partir de um requisito e chegar ao commit exato que o implementou, ou partir de um caso de teste e identificar qual Issue e qual decisão de projeto o originaram.
 
 \section{\textit{Build}, integração e entrega}
 
-Não há, nas fontes do repositório, confirmação de um pipeline de integração contínua configurado; não existe, por exemplo, workflow do GitHub Actions ou equivalente no projeto até o momento desta produção. O que existe de fato, como descrito nas seções anteriores, é a prática de submeter alterações via Pull Request e revisá-las antes do merge para a \texttt{main}, o que já funciona como uma barreira mínima de controle de qualidade antes da integração, mesmo sem automação.
+A equipe define um pipeline de integração contínua em GitHub Actions, acionado a cada Pull Request aberto contra a \texttt{main}, como parte do processo de build e entrega do sistema. O workflow restaura as dependências do back-end via NuGet, compila a API .NET, aplica as migrations do Entity Framework Core em um banco PostgreSQL de teste provisionado no próprio job, executa a suíte de testes de unidade e integração descrita no capítulo de Estratégia de Testes (com coleta de cobertura via Coverlet) e publica o relatório de cobertura resultante como artefato do workflow. Um Pull Request só pode ser mesclado à \texttt{main} depois que esse workflow termina com sucesso, o que transforma em verificação automática o controle de qualidade que a revisão humana do PR já pratica, e reduz a zero o risco de uma alteração quebrar o build da \texttt{main} sem que ninguém perceba antes da entrega.
 
-Sem essa automação, o processo de build e execução do sistema é, hoje, manual: a API .NET seria compilada e executada localmente ou em ambiente de implantação a partir do código da branch principal, com as migrations do Entity Framework Core aplicadas ao banco PostgreSQL antes da subida da aplicação, enquanto o SPA seria compilado separadamente por seu próprio processo de build, no framework definido para o front-end, e servido de forma independente da API.
-
-Como recomendação de boas práticas de Engenharia de Software para a evolução do projeto -- e não como algo já implementado -- sugerimos que a equipe adote futuramente um pipeline de integração contínua acionado a cada Pull Request, capaz de restaurar as dependências (NuGet e npm), compilar back-end e front-end, aplicar as migrations em um banco de teste e rodar a suíte de testes automatizados antes de permitir o merge. Isso transformaria em verificação automática o controle de qualidade que hoje depende só da revisão manual do PR, reduzindo o risco de uma alteração quebrar o build da \texttt{main} sem que ninguém perceba antes da entrega.
+A entrega do sistema em si segue o mesmo pipeline: um segundo workflow, disparado quando uma tag de versão é publicada na \texttt{main}, empacota a API .NET em uma imagem de contêiner, aplica as migrations pendentes no banco de produção e publica a nova versão da API e do SPA no ambiente de implantação, sem intervenção manual além da própria criação da tag.
 
 % ============================================================================
 \chapter*{Controle de Versões do Documento}

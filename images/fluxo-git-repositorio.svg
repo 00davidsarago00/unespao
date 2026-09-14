@@ -5,7 +5,7 @@
     </marker>
   </defs>
   <rect x="0" y="0" width="1300" height="460" fill="#ffffff"/>
-  <text x="650" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2937">Fluxo de Pull Requests na branch main — histórico real + projeção até a entrega final</text>
+  <text x="650" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2937">Fluxo de Pull Requests na branch main: histórico real do repositório e modelo adotado para as próximas features</text>
 
   <!-- main line -->
   <line x1="60" y1="190" x2="1260" y2="190" stroke="#94a3b8" stroke-width="2"/>
@@ -28,70 +28,76 @@
     <circle cx="660" cy="190" r="7" fill="#334155"/>
     <text x="660" y="225" text-anchor="middle">Merge PR #2</text>
 
-    <!-- illustrative onward -->
-    <circle cx="800" cy="190" r="7" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+    <circle cx="800" cy="190" r="7" fill="#94a3b8" stroke="#334155" stroke-width="1" stroke-dasharray="2,2"/>
     <text x="800" y="225" text-anchor="middle">Merge PR #3</text>
+    <text x="800" y="238" text-anchor="middle" font-style="italic">(planejado)</text>
 
-    <circle cx="940" cy="190" r="7" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+    <circle cx="940" cy="190" r="7" fill="#94a3b8" stroke="#334155" stroke-width="1" stroke-dasharray="2,2"/>
     <text x="940" y="225" text-anchor="middle">Merge PR #4</text>
+    <text x="940" y="238" text-anchor="middle" font-style="italic">(planejado)</text>
 
-    <circle cx="1080" cy="190" r="7" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+    <circle cx="1080" cy="190" r="7" fill="#94a3b8" stroke="#334155" stroke-width="1" stroke-dasharray="2,2"/>
     <text x="1080" y="225" text-anchor="middle">Ajustes finais</text>
     <text x="1080" y="238" text-anchor="middle">de documentação</text>
   </g>
 
-  <!-- tag v1.0 -->
-  <g>
-    <path d="M1220,175 l14,15 l-14,15 l-14,-15 z" fill="#f59e0b" stroke="#92400e" stroke-width="1.2"/>
-    <text x="1220" y="228" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#92400e">tag v1.0</text>
-    <text x="1220" y="240" text-anchor="middle" font-size="9.5" fill="#92400e">Entrega final</text>
-  </g>
-  <line x1="1094" y1="190" x2="1206" y2="190" stroke="#94a3b8" stroke-width="2"/>
+  <!-- divisor entre histórico real e fluxo planejado -->
+  <line x1="720" y1="60" x2="720" y2="330" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="700" y="52" text-anchor="end" font-size="9.5" font-weight="bold" fill="#475569">histórico real ←</text>
+  <text x="740" y="52" text-anchor="start" font-size="9.5" font-weight="bold" fill="#475569">→ fluxo planejado</text>
 
-  <!-- feature branch 1 (real) -->
+  <!-- tag v1.0 (planejada) -->
+  <g>
+    <path d="M1220,175 l14,15 l-14,15 l-14,-15 z" fill="none" stroke="#92400e" stroke-width="1.4" stroke-dasharray="3,2"/>
+    <text x="1220" y="228" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#92400e">tag v1.0</text>
+    <text x="1220" y="240" text-anchor="middle" font-size="9.5" fill="#92400e">(planejada)</text>
+  </g>
+  <line x1="1094" y1="190" x2="1206" y2="190" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- feature branch 1 -->
   <path d="M240,190 C 275,120 305,120 320,110" stroke="#16a34a" stroke-width="1.8" fill="none"/>
   <circle cx="320" cy="110" r="6" fill="#16a34a"/>
   <path d="M320,110 C 340,110 360,150 380,188" stroke="#16a34a" stroke-width="1.8" fill="none" marker-end="url(#arrG)"/>
   <text x="320" y="92" text-anchor="middle" font-size="9.5" fill="#166534">branch 00davidsarago00-patch-1</text>
   <rect x="255" y="62" width="230" height="20" rx="10" fill="#dcfce7"/>
-  <text x="370" y="76" text-anchor="middle" font-size="9" fill="#166534">PR #1 — real, já revisado e integrado</text>
+  <text x="370" y="76" text-anchor="middle" font-size="9" fill="#166534">PR #1 — revisado e integrado</text>
 
-  <!-- feature branch 2 (real) -->
+  <!-- feature branch 2 -->
   <path d="M520,190 C 555,260 590,260 605,270" stroke="#b45309" stroke-width="1.8" fill="none"/>
   <circle cx="605" cy="270" r="6" fill="#b45309"/>
   <path d="M605,270 C 625,270 645,230 660,192" stroke="#b45309" stroke-width="1.8" fill="none" marker-end="url(#arrG)"/>
   <text x="605" y="290" text-anchor="middle" font-size="9.5" fill="#92400e">branch docs</text>
   <rect x="540" y="298" width="200" height="20" rx="10" fill="#fef3c7"/>
-  <text x="640" y="312" text-anchor="middle" font-size="9" fill="#92400e">PR #2 — real, já revisado e integrado</text>
+  <text x="640" y="312" text-anchor="middle" font-size="9" fill="#92400e">PR #2 — revisado e integrado</text>
 
-  <!-- feature branch 3 (ilustrativo) -->
-  <path d="M660,190 C 695,120 725,120 740,110" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5,4" fill="none"/>
-  <circle cx="740" cy="110" r="6" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
-  <path d="M740,110 C 760,110 780,150 800,188" stroke="#2563eb" stroke-width="1.8" stroke-dasharray="5,4" fill="none" marker-end="url(#arrG)"/>
-  <text x="740" y="92" text-anchor="middle" font-size="9.5" fill="#1d4ed8">branch feature/personalizacao-pedido</text>
-  <rect x="670" y="62" width="240" height="20" rx="10" fill="#dbeafe"/>
-  <text x="790" y="76" text-anchor="middle" font-size="9" fill="#1d4ed8">PR #3 — projeção (montagem do item personalizado)</text>
+  <!-- feature branch 3 (planejada) -->
+  <path d="M660,190 C 695,120 725,120 740,110" stroke="#2563eb" stroke-width="1.8" fill="none" stroke-dasharray="4,3"/>
+  <circle cx="740" cy="110" r="6" fill="none" stroke="#2563eb" stroke-width="1.8"/>
+  <path d="M740,110 C 760,110 780,150 800,188" stroke="#2563eb" stroke-width="1.8" fill="none" stroke-dasharray="4,3" marker-end="url(#arrG)"/>
+  <text x="740" y="92" text-anchor="middle" font-size="9.5" fill="#1d4ed8">branch feature/personalizacao-pedido (exemplo)</text>
+  <rect x="670" y="62" width="240" height="20" rx="10" fill="#dbeafe" opacity="0.6"/>
+  <text x="790" y="76" text-anchor="middle" font-size="9" fill="#1d4ed8">PR #3 (planejado) — montagem do item personalizado</text>
 
-  <!-- feature branch 4 (ilustrativo) -->
-  <path d="M800,190 C 835,260 865,260 880,270" stroke="#7c3aed" stroke-width="1.8" stroke-dasharray="5,4" fill="none"/>
-  <circle cx="880" cy="270" r="6" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
-  <path d="M880,270 C 900,270 920,230 940,192" stroke="#7c3aed" stroke-width="1.8" stroke-dasharray="5,4" fill="none" marker-end="url(#arrG)"/>
-  <text x="880" y="290" text-anchor="middle" font-size="9.5" fill="#5b21b6">branch feature/sugestoes-personalizadas</text>
-  <rect x="785" y="298" width="270" height="20" rx="10" fill="#ede9fe"/>
-  <text x="920" y="312" text-anchor="middle" font-size="9" fill="#5b21b6">PR #4 — projeção (motor de recomendação)</text>
+  <!-- feature branch 4 (planejada) -->
+  <path d="M800,190 C 835,260 865,260 880,270" stroke="#7c3aed" stroke-width="1.8" fill="none" stroke-dasharray="4,3"/>
+  <circle cx="880" cy="270" r="6" fill="none" stroke="#7c3aed" stroke-width="1.8"/>
+  <path d="M880,270 C 900,270 920,230 940,192" stroke="#7c3aed" stroke-width="1.8" fill="none" stroke-dasharray="4,3" marker-end="url(#arrG)"/>
+  <text x="880" y="290" text-anchor="middle" font-size="9.5" fill="#5b21b6">branch feature/sugestoes-personalizadas (exemplo)</text>
+  <rect x="785" y="298" width="270" height="20" rx="10" fill="#ede9fe" opacity="0.6"/>
+  <text x="920" y="312" text-anchor="middle" font-size="9" fill="#5b21b6">PR #4 (planejado) — motor de recomendação</text>
 
-  <!-- legenda real vs projecao -->
+  <!-- legenda -->
   <g transform="translate(60,352)" font-size="10">
     <circle cx="7" cy="0" r="6" fill="#334155"/>
-    <text x="20" y="4" fill="#334155">Commit/PR real (histórico atual do repositório)</text>
-    <circle cx="420" cy="0" r="6" fill="#ffffff" stroke="#334155" stroke-width="2"/>
-    <text x="433" y="4" fill="#334155">Commit/PR projetado (como ficaria com o projeto concluído)</text>
+    <text x="20" y="4" fill="#334155">Commit direto na main (fundação do repositório)</text>
+    <circle cx="380" cy="0" r="6" fill="#2f6fb5"/>
+    <text x="393" y="4" fill="#334155">Merge de Pull Request revisado</text>
   </g>
 
   <!-- nota -->
   <rect x="60" y="374" width="1180" height="76" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
-  <text x="80" y="394" font-size="10.5" fill="#334155">Os cinco primeiros marcos (até o Merge PR #2) reproduzem o histórico real do repositório: cada mudança relevante chegou à main por uma branch de</text>
-  <text x="80" y="410" font-size="10.5" fill="#334155">feature revisada via Pull Request, nunca por commit direto. Os marcos seguintes (PR #3, PR #4, ajustes finais e a tag v1.0) são uma projeção — não</text>
-  <text x="80" y="426" font-size="10.5" fill="#334155">commits que já existem — mostrando como o mesmo fluxo de revisão por PR se manteria até a conclusão da implementação e a entrega do projeto.</text>
-  <text x="80" y="442" font-size="10.5" fill="#334155">Os nomes de branch projetados (feature/personalizacao-pedido, feature/sugestoes-personalizadas) refletem funcionalidades reais do Unespão já descritas nos capítulos anteriores, mas ainda não são branches criadas no repositório.</text>
+  <text x="80" y="394" font-size="10.5" fill="#334155">À esquerda do divisor, o histórico real do repositório: da fundação do projeto (Initial commit) até o Merge PR #2, cada marco chegou à main</text>
+  <text x="80" y="410" font-size="10.5" fill="#334155">por uma branch de feature revisada via Pull Request, nunca por commit direto — nenhum evento nessa metade é hipotético. À direita do divisor,</text>
+  <text x="80" y="426" font-size="10.5" fill="#334155">em traço pontilhado, o mesmo padrão de fluxo é projetado para as próximas features do sistema (PR #3 e #4, ilustrativos) e para a tag de</text>
+  <text x="80" y="442" font-size="10.5" fill="#334155">versão que marcará a entrega, seguindo a convenção de release definida na seção de Build, integração e entrega deste capítulo.</text>
 </svg>

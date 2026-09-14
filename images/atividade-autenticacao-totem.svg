@@ -1,0 +1,68 @@
+<svg viewBox="0 0 1100 470" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="af2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M1,1 L11,6 L1,11" fill="none" stroke="#374151" stroke-width="1.4"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1100" height="470" fill="#ffffff"/>
+  <text x="550" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2937">Diagrama de Atividade — Identificação no Totem Físico</text>
+
+  <ellipse cx="70" cy="150" rx="60" ry="26" fill="#1b3a5c"/>
+  <text x="70" y="147" text-anchor="middle" font-size="9" fill="#ffffff">Cliente chega</text>
+  <text x="70" y="159" text-anchor="middle" font-size="9" fill="#ffffff">ao totem</text>
+
+  <line x1="130" y1="150" x2="198" y2="150" stroke="#374151" stroke-width="1.4" marker-end="url(#af2)"/>
+  <polygon points="240,120 320,150 240,180 160,150" fill="#fef9e7" stroke="#eab308" stroke-width="1.4"/>
+  <text x="240" y="146" text-anchor="middle" font-size="9" fill="#78350f">Como</text>
+  <text x="240" y="158" text-anchor="middle" font-size="9" fill="#78350f">identificar?</text>
+
+  <!-- top route: QR -->
+  <line x1="290" y1="130" x2="370" y2="95" stroke="#374151" stroke-width="1.4" marker-end="url(#af2)"/>
+  <text x="330" y="105" font-size="9" fill="#374151">tem o app à mão</text>
+  <rect x="372" y="70" width="210" height="50" rx="6" fill="#2f6fb5"/>
+  <text x="477" y="90" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#ffffff">Abre o app no celular</text>
+  <text x="477" y="105" text-anchor="middle" font-size="8.5" fill="#dbe7f5">já autenticado</text>
+
+  <line x1="582" y1="95" x2="640" y2="95" stroke="#374151" stroke-width="1.4" marker-end="url(#af2)"/>
+  <rect x="642" y="70" width="210" height="50" rx="6" fill="#2f6fb5"/>
+  <text x="747" y="90" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#ffffff">Gera QR code</text>
+  <text x="747" y="105" text-anchor="middle" font-size="8.5" fill="#dbe7f5">na sessão do app</text>
+
+  <line x1="852" y1="95" x2="900" y2="95" stroke="#374151" stroke-width="1.4" marker-end="url(#af2)"/>
+  <rect x="902" y="70" width="180" height="50" rx="6" fill="#2f6fb5"/>
+  <text x="992" y="90" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#ffffff">Totem lê o QR code</text>
+  <text x="992" y="105" text-anchor="middle" font-size="8.5" fill="#dbe7f5">(câmera do totem)</text>
+
+  <line x1="992" y1="120" x2="992" y2="190" stroke="#374151" stroke-width="1.4"/>
+  <line x1="992" y1="190" x2="700" y2="190" stroke="#374151" stroke-width="1.4" marker-end="url(#af2)"/>
+  <rect x="480" y="166" width="220" height="48" rx="6" fill="#2f6fb5"/>
+  <text x="590" y="186" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#ffffff">Totem associa o pedido</text>
+  <text x="590" y="201" text-anchor="middle" font-size="8.5" fill="#dbe7f5">à conta logada no celular</text>
+
+  <!-- bottom route: anonimo -->
+  <line x1="290" y1="170" x2="370" y2="240" stroke="#374151" stroke-width="1.4" marker-end="url(#af2)"/>
+  <text x="330" y="240" font-size="9" fill="#374151">prefere não usar o app</text>
+  <rect x="372" y="245" width="230" height="50" rx="6" fill="#6b7280"/>
+  <text x="487" y="265" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#ffffff">Monta e paga</text>
+  <text x="487" y="280" text-anchor="middle" font-size="8.5" fill="#f1f5f9">sem identificação</text>
+
+  <line x1="602" y1="270" x2="660" y2="270" stroke="#374151" stroke-width="1.4" marker-end="url(#af2)"/>
+  <ellipse cx="740" cy="270" rx="80" ry="26" fill="#6b7280"/>
+  <text x="740" y="274" text-anchor="middle" font-size="9.5" fill="#ffffff">Pedido segue anônimo</text>
+
+  <line x1="740" y1="296" x2="740" y2="335" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="5,4"/>
+  <line x1="740" y1="335" x2="612" y2="335" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="5,4" marker-end="url(#af2)"/>
+  <text x="675" y="327" text-anchor="middle" font-size="8.5" fill="#6b7280">opcional, depois</text>
+  <rect x="400" y="311" width="210" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.4"/>
+  <text x="505" y="331" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#4b5563">Vincula pedido à conta</text>
+  <text x="505" y="346" text-anchor="middle" font-size="8.5" fill="#4b5563">via app, a qualquer momento</text>
+
+  <ellipse cx="230" cy="400" rx="90" ry="24" fill="#1b3a5c"/>
+  <text x="230" y="405" text-anchor="middle" font-size="10" fill="#ffffff">Pedido segue identificado</text>
+  <line x1="490" y1="214" x2="300" y2="390" stroke="#374151" stroke-width="1.4" marker-end="url(#af2)"/>
+  <line x1="410" y1="335" x2="300" y2="405" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="5,4" marker-end="url(#af2)"/>
+
+  <!-- nota -->
+  <rect x="40" y="435" width="1030" height="30" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="60" y="454" font-size="10" fill="#334155">Nenhuma credencial é digitada no dispositivo compartilhado: a rota QR code delega a autenticação ao celular do cliente, e a rota anônima adia a identificação para depois, via app.</text>
+</svg>

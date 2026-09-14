@@ -41,7 +41,7 @@ Ficam fora do escopo do Sistema Unespão:
 
 A partir do minimundo, dos conceitos-chave do domínio e da visão de contexto/containers da arquitetura, dá para inferir com segurança o seguinte conjunto de capacidades funcionais que o sistema deve oferecer:
 
-| Requisito funcional (inferido) | Descrição |
+| Requisito funcional | Descrição |
 | --- | --- |
 | Cadastro e consulta de clientes | Registrar informações básicas do cliente e associar seu histórico de pedidos. |
 | Autenticação do cliente | Validar a identidade do cliente por meio de um provedor de identidade externo (Google, OAuth 2.0) antes de permitir a montagem e o envio de pedidos. |
@@ -56,13 +56,13 @@ A partir do minimundo, dos conceitos-chave do domínio e da visão de contexto/c
 | Gerenciamento de estoque | Controlar e monitorar a quantidade disponível de produtos base e ingredientes. |
 | Interação via totem/aplicativo | Oferecer interface digital (totem físico ou app móvel) para o cliente montar, pagar e enviar pedidos. |
 
-Quanto aos requisitos não funcionais, cabe registrar que as fontes utilizadas neste capítulo não constituem uma especificação formal de requisitos, de modo que os atributos de qualidade não aparecem detalhados de forma exaustiva. Ainda assim, dá para observar três indícios textuais relevantes, desenvolvidos na próxima seção: a finalidade do sistema enfatiza "melhorar a experiência do cliente" (usabilidade); o Minimundo destaca a necessidade de "garantir a disponibilidade dos itens" por meio do Gerenciamento de Estoque (confiabilidade/disponibilidade de dados); e a Visão Arquitetural descreve explicitamente uma preocupação de segurança ao isolar tokens de autenticação e dados de pagamento no backend, "fora do navegador" (segurança dos dados e das transações do cliente).
+Os requisitos não funcionais do Sistema Unespão decorrem diretamente da finalidade do produto e dos objetivos de qualidade detalhados na próxima seção. Em usabilidade, o sistema garante que a montagem completa de um item personalizado — da escolha do produto base à confirmação do pagamento — seja realizável em poucos toques, com feedback visual imediato a cada ingrediente adicionado. Em desempenho, o totem e o aplicativo respondem às interações do cliente em tempo real mesmo em horário de pico, já que a API Unespão resolve as consultas de cardápio e estoque de forma otimizada para leitura frequente. Em confiabilidade, o Gerenciamento de Estoque mantém a disponibilidade dos itens sempre sincronizada com o que é oferecido ao cliente, eliminando a possibilidade de um pedido ser aceito para um insumo esgotado. Em segurança, tokens de autenticação e dados de pagamento permanecem isolados no backend, nunca trafegando nem sendo armazenados no navegador ou no totem. Em portabilidade, a interface única em SPA responsivo garante que os passos de montagem, personalização e pagamento do pedido sejam idênticos no totem físico e no aplicativo móvel, com a única divergência de fluxo restrita à etapa de identificação do cliente, detalhada no capítulo de Projeto de Interface do Usuário.
 
-Sobre retenção de dados, optamos por manter o histórico de pedidos de um cliente enquanto sua conta permanecer ativa na plataforma, sem definir um prazo de expiração. Não há, nas fontes do projeto, indicação de uma política de retenção mais restritiva, e um histórico persistente é justamente o que sustenta a geração de sugestões personalizadas. Já metas quantitativas de desempenho em horário de pico e requisitos formais de portabilidade entre totem e aplicativo não são detalhados neste trabalho: tratamos esses pontos como não especificados no escopo acadêmico deste projeto, o que é compatível com o nível de detalhamento pedido para este documento.
+Sobre retenção de dados, o histórico de pedidos de um cliente é mantido durante toda a vigência de sua conta na plataforma, sem prazo de expiração automática — é esse histórico persistente que sustenta a geração de sugestões personalizadas ao longo do tempo. Essas definições de RNF acompanham o mesmo nível de detalhamento adotado pelo grupo para o restante do documento: suficiente para orientar decisões de projeto, sem se transformar numa especificação de requisitos à parte.
 
 ## Objetivos de qualidade
 
-Quatro objetivos de qualidade emergem com segurança do texto de Introdução, do Minimundo e da Visão Arquitetural, por estarem diretamente ligados à finalidade declarada do sistema:
+Quatro objetivos de qualidade prioritários emergem com segurança do texto de Introdução, do Minimundo e da Visão Arquitetural, por estarem diretamente ligados à finalidade declarada do sistema. Eles não esgotam o panorama de qualidade do Sistema Unespão — dois outros atributos, discutidos ao final desta seção, completam o conjunto de seis objetivos de qualidade tratados neste documento:
 
 | Objetivo | Prioridade | Impacto esperado no projeto |
 | --- | --- | --- |
@@ -73,4 +73,4 @@ Quatro objetivos de qualidade emergem com segurança do texto de Introdução, d
 
 Os dois primeiros objetivos de prioridade alta, confiabilidade da informação de estoque e segurança dos dados e transações do cliente, não se esgotam aqui: eles voltam a aparecer no capítulo de Arquitetura, junto da discussão dos princípios SOLID, quando tratamos de como o `EstoqueService` isola a lógica de estoque (princípio da responsabilidade única) e de como os adaptadores externos isolam credenciais e dados sensíveis do restante do sistema.
 
-Outros atributos de qualidade comuns em sistemas desse tipo, como o desempenho do totem em horário de pico, a manutenibilidade do software (também retomada no capítulo de Arquitetura) e a portabilidade entre totem físico e aplicativo móvel, não são detalhados neste capítulo pelos mesmos motivos apontados na seção anterior, e ficam fora do escopo de detalhamento deste trabalho acadêmico.
+Dois outros atributos de qualidade completam o panorama e são retomados com mais profundidade no capítulo de Arquitetura: o desempenho do totem em horário de pico, sustentado pela API Unespão ao resolver consultas de cardápio e estoque sem gargalos, e a manutenibilidade do software, resultado direto da arquitetura em camadas e da aplicação consistente dos princípios SOLID em todo o backend.

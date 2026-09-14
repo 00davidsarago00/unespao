@@ -1,0 +1,169 @@
+<svg viewBox="0 0 1100 780" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrowOpen" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M1,1 L11,6 L1,11" fill="none" stroke="#374151" stroke-width="1.4"/>
+    </marker>
+    <marker id="arrowTriangle" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="11" markerHeight="11" orient="auto-start-reverse">
+      <path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#374151" stroke-width="1.2"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1100" height="780" fill="#ffffff"/>
+  <text x="550" y="28" text-anchor="middle" font-size="15.5" font-weight="bold" fill="#1f2937">API Unespão — Diagrama de Classes Simplificado (C4 Nível 3)</text>
+
+  <!-- Controllers row -->
+  <g font-size="10.5">
+    <rect x="40" y="55" width="150" height="40" rx="5" fill="#3b82c4"/>
+    <text x="115" y="79" text-anchor="middle" fill="#ffffff" font-weight="bold">PedidosController</text>
+
+    <rect x="220" y="55" width="150" height="40" rx="5" fill="#3b82c4"/>
+    <text x="295" y="79" text-anchor="middle" fill="#ffffff" font-weight="bold">ProdutosController</text>
+
+    <rect x="400" y="55" width="150" height="40" rx="5" fill="#3b82c4"/>
+    <text x="475" y="79" text-anchor="middle" fill="#ffffff" font-weight="bold">EstoqueController</text>
+  </g>
+
+  <!-- Service interfaces -->
+  <g font-size="10.5">
+    <rect x="40" y="155" width="150" height="46" rx="5" fill="#ffffff" stroke="#2f6fb5" stroke-width="1.6"/>
+    <text x="115" y="172" text-anchor="middle" font-style="italic" fill="#2f6fb5">«interface»</text>
+    <text x="115" y="188" text-anchor="middle" fill="#1f2937" font-weight="bold">IPedidoService</text>
+
+    <rect x="220" y="155" width="150" height="46" rx="5" fill="#ffffff" stroke="#2f6fb5" stroke-width="1.6"/>
+    <text x="295" y="172" text-anchor="middle" font-style="italic" fill="#2f6fb5">«interface»</text>
+    <text x="295" y="188" text-anchor="middle" fill="#1f2937" font-weight="bold">IProdutoService</text>
+
+    <rect x="400" y="155" width="150" height="46" rx="5" fill="#ffffff" stroke="#2f6fb5" stroke-width="1.6"/>
+    <text x="475" y="172" text-anchor="middle" font-style="italic" fill="#2f6fb5">«interface»</text>
+    <text x="475" y="188" text-anchor="middle" fill="#1f2937" font-weight="bold">IEstoqueService</text>
+  </g>
+
+  <!-- Services concretos -->
+  <g font-size="10.5">
+    <rect x="40" y="255" width="150" height="40" rx="5" fill="#2f6fb5"/>
+    <text x="115" y="279" text-anchor="middle" fill="#ffffff" font-weight="bold">PedidoService</text>
+
+    <rect x="220" y="255" width="150" height="40" rx="5" fill="#2f6fb5"/>
+    <text x="295" y="279" text-anchor="middle" fill="#ffffff" font-weight="bold">ProdutoService</text>
+
+    <rect x="400" y="255" width="150" height="40" rx="5" fill="#2f6fb5"/>
+    <text x="475" y="279" text-anchor="middle" fill="#ffffff" font-weight="bold">EstoqueService</text>
+  </g>
+
+  <!-- IGatewayPagamentoAdapter + impl, à direita -->
+  <g font-size="10.5">
+    <rect x="640" y="155" width="200" height="46" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.6"/>
+    <text x="740" y="172" text-anchor="middle" font-style="italic" fill="#6b7280">«interface»</text>
+    <text x="740" y="188" text-anchor="middle" fill="#1f2937" font-weight="bold">IGatewayPagamentoAdapter</text>
+
+    <rect x="640" y="255" width="200" height="40" rx="5" fill="#6b7280"/>
+    <text x="740" y="279" text-anchor="middle" fill="#ffffff" font-weight="bold">GatewayPagamentoAdapter</text>
+  </g>
+
+  <!-- Repository interfaces -->
+  <g font-size="10.5">
+    <rect x="40" y="355" width="150" height="46" rx="5" fill="#ffffff" stroke="#3b5aa0" stroke-width="1.6"/>
+    <text x="115" y="372" text-anchor="middle" font-style="italic" fill="#3b5aa0">«interface»</text>
+    <text x="115" y="388" text-anchor="middle" fill="#1f2937" font-weight="bold">IPedidoRepository</text>
+
+    <rect x="400" y="355" width="150" height="46" rx="5" fill="#ffffff" stroke="#3b5aa0" stroke-width="1.6"/>
+    <text x="475" y="372" text-anchor="middle" font-style="italic" fill="#3b5aa0">«interface»</text>
+    <text x="475" y="388" text-anchor="middle" fill="#1f2937" font-weight="bold">IEstoqueRepository</text>
+
+    <rect x="220" y="450" width="150" height="46" rx="5" fill="#ffffff" stroke="#3b5aa0" stroke-width="1.6"/>
+    <text x="295" y="467" text-anchor="middle" font-style="italic" fill="#3b5aa0">«interface» genérica</text>
+    <text x="295" y="483" text-anchor="middle" fill="#1f2937" font-weight="bold">IRepository&lt;T&gt;</text>
+  </g>
+
+  <!-- Domain models -->
+  <g font-size="10.5">
+    <rect x="40" y="560" width="150" height="40" rx="5" fill="#94a3b8"/>
+    <text x="115" y="584" text-anchor="middle" fill="#ffffff" font-weight="bold">Pedido</text>
+
+    <rect x="400" y="560" width="150" height="40" rx="5" fill="#94a3b8"/>
+    <text x="475" y="584" text-anchor="middle" fill="#ffffff" font-weight="bold">Estoque</text>
+
+    <rect x="220" y="560" width="150" height="40" rx="5" fill="#94a3b8"/>
+    <text x="295" y="584" text-anchor="middle" fill="#ffffff" font-weight="bold">ProdutoBase</text>
+  </g>
+
+  <!-- Infrastructure -->
+  <rect x="220" y="660" width="220" height="44" rx="5" fill="#3b5aa0"/>
+  <text x="330" y="686" text-anchor="middle" font-size="11" fill="#ffffff" font-weight="bold">UnespaoDbContext</text>
+
+  <!-- Setas: Controllers -> Service interfaces (usa) -->
+  <g stroke="#374151" stroke-width="1.3" stroke-dasharray="4,3" fill="none">
+    <line x1="115" y1="95" x2="115" y2="153" marker-end="url(#arrowOpen)"/>
+    <line x1="295" y1="95" x2="295" y2="153" marker-end="url(#arrowOpen)"/>
+    <line x1="475" y1="95" x2="475" y2="153" marker-end="url(#arrowOpen)"/>
+  </g>
+  <text x="130" y="128" font-size="9" fill="#374151">usa</text>
+  <text x="310" y="128" font-size="9" fill="#374151">usa</text>
+  <text x="490" y="128" font-size="9" fill="#374151">usa</text>
+
+  <!-- Setas: implementa (interface <|.. Service), triângulo vazado -->
+  <g stroke="#374151" stroke-width="1.3" fill="none">
+    <line x1="115" y1="255" x2="115" y2="203" marker-end="url(#arrowTriangle)"/>
+    <line x1="295" y1="255" x2="295" y2="203" marker-end="url(#arrowTriangle)"/>
+    <line x1="475" y1="255" x2="475" y2="203" marker-end="url(#arrowTriangle)"/>
+    <line x1="740" y1="255" x2="740" y2="203" marker-end="url(#arrowTriangle)"/>
+  </g>
+  <text x="128" y="230" font-size="9" fill="#374151">implementa</text>
+  <text x="308" y="230" font-size="9" fill="#374151">implementa</text>
+  <text x="488" y="230" font-size="9" fill="#374151">implementa</text>
+  <text x="753" y="230" font-size="9" fill="#374151">implementa</text>
+
+  <!-- PedidoService depende de IPedidoRepository, IEstoqueService, IGatewayPagamentoAdapter -->
+  <g stroke="#374151" stroke-width="1.3" stroke-dasharray="4,3" fill="none">
+    <line x1="115" y1="295" x2="115" y2="353" marker-end="url(#arrowOpen)"/>
+    <path d="M155,275 C 400,320 520,320 740,257" marker-end="url(#arrowOpen)"/>
+    <path d="M170,265 C 350,200 350,200 470,190" marker-end="url(#arrowOpen)"/>
+  </g>
+  <text x="122" y="325" font-size="9" fill="#374151">depende de</text>
+  <text x="430" y="310" font-size="9" fill="#374151">depende de (pagamento)</text>
+  <text x="270" y="210" font-size="9" fill="#374151">depende de (IEstoqueService)</text>
+
+  <!-- EstoqueService depende de IEstoqueRepository -->
+  <line x1="475" y1="295" x2="475" y2="353" stroke="#374151" stroke-width="1.3" stroke-dasharray="4,3" fill="none" marker-end="url(#arrowOpen)"/>
+  <text x="482" y="325" font-size="9" fill="#374151">depende de</text>
+
+  <!-- especializa: IPedidoRepository e IEstoqueRepository estendem IRepository de T -->
+  <g stroke="#374151" stroke-width="1.3" fill="none">
+    <path d="M150,401 C 200,430 260,440 290,450" marker-end="url(#arrowTriangle)"/>
+    <path d="M440,401 C 400,430 340,440 300,450" marker-end="url(#arrowTriangle)"/>
+  </g>
+  <text x="175" y="425" font-size="9" fill="#374151">especializa</text>
+  <text x="380" y="425" font-size="9" fill="#374151">especializa</text>
+
+  <!-- Repositories operam sobre Domain Models -->
+  <g stroke="#374151" stroke-width="1.3" stroke-dasharray="4,3" fill="none">
+    <line x1="115" y1="401" x2="115" y2="558" marker-end="url(#arrowOpen)"/>
+    <line x1="475" y1="401" x2="475" y2="558" marker-end="url(#arrowOpen)"/>
+    <path d="M370,178 C 340,300 300,450 295,558" marker-end="url(#arrowOpen)"/>
+  </g>
+  <text x="122" y="480" font-size="9" fill="#374151">opera sobre</text>
+  <text x="482" y="480" font-size="9" fill="#374151">opera sobre</text>
+  <text x="300" y="400" font-size="9" fill="#374151">opera sobre</text>
+
+  <!-- IRepository<T> implementado sobre UnespaoDbContext (contorna a caixa ProdutoBase) -->
+  <path d="M370,478 C 470,520 470,600 360,660" stroke="#374151" stroke-width="1.3" stroke-dasharray="4,3" fill="none" marker-end="url(#arrowOpen)"/>
+  <text x="400" y="575" font-size="9" fill="#374151">implementado sobre</text>
+
+  <!-- Legenda -->
+  <g transform="translate(640,560)" font-size="10">
+    <rect x="0" y="0" width="14" height="14" fill="#3b82c4"/>
+    <text x="20" y="12" fill="#374151">Controller</text>
+    <rect x="0" y="24" width="14" height="14" fill="#2f6fb5"/>
+    <text x="20" y="36" fill="#374151">Service (concreto)</text>
+    <rect x="0" y="48" width="14" height="14" fill="none" stroke="#2f6fb5" stroke-width="1.6"/>
+    <text x="20" y="60" fill="#374151">Interface de Service</text>
+    <rect x="0" y="72" width="14" height="14" fill="none" stroke="#3b5aa0" stroke-width="1.6"/>
+    <text x="20" y="84" fill="#374151">Interface de Repository</text>
+    <rect x="0" y="96" width="14" height="14" fill="#94a3b8"/>
+    <text x="20" y="108" fill="#374151">Domain Model</text>
+    <line x1="0" y1="128" x2="34" y2="128" stroke="#374151" stroke-width="1.3" stroke-dasharray="4,3" marker-end="url(#arrowOpen)"/>
+    <text x="40" y="132" fill="#374151">usa / depende de / opera sobre</text>
+    <line x1="0" y1="150" x2="34" y2="150" stroke="#374151" stroke-width="1.3" marker-end="url(#arrowTriangle)"/>
+    <text x="40" y="154" fill="#374151">implementa / especializa</text>
+  </g>
+</svg>

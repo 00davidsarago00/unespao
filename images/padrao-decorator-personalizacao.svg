@@ -1,0 +1,71 @@
+<svg viewBox="0 0 1000 620" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrOpenD" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M1,1 L11,6 L1,11" fill="none" stroke="#374151" stroke-width="1.4"/>
+    </marker>
+    <marker id="arrTriD" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="11" markerHeight="11" orient="auto-start-reverse">
+      <path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#374151" stroke-width="1.2"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1000" height="620" fill="#ffffff"/>
+  <text x="500" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2937">Padrão Decorator aplicado à personalização do lanche</text>
+
+  <!-- Interface comum -->
+  <rect x="380" y="55" width="240" height="60" rx="6" fill="#ffffff" stroke="#3b5aa0" stroke-width="1.6"/>
+  <text x="500" y="75" text-anchor="middle" font-size="10" font-style="italic" fill="#3b5aa0">«interface»</text>
+  <text x="500" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f2937">IItemPersonalizavel</text>
+  <text x="500" y="107" text-anchor="middle" font-size="9.5" fill="#4b5563">+ GetDescricao()  + GetPreco()</text>
+
+  <!-- Componente concreto -->
+  <rect x="120" y="200" width="220" height="60" rx="6" fill="#2f6fb5"/>
+  <text x="230" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">ProdutoBase</text>
+  <text x="230" y="238" text-anchor="middle" font-size="9.5" fill="#dbe7f5">(Component concreto)</text>
+  <text x="230" y="252" text-anchor="middle" font-size="9" fill="#dbe7f5">inicia a cadeia de decoração</text>
+
+  <!-- Decorador abstrato -->
+  <rect x="640" y="200" width="240" height="70" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.6"/>
+  <text x="760" y="220" text-anchor="middle" font-size="10" font-style="italic" fill="#6b7280">(Decorator base)</text>
+  <text x="760" y="237" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f2937">IngredienteDecorator</text>
+  <text x="760" y="252" text-anchor="middle" font-size="9.5" fill="#4b5563">- item: IItemPersonalizavel</text>
+  <text x="760" y="265" text-anchor="middle" font-size="9.5" fill="#4b5563">- ingrediente: Ingrediente</text>
+
+  <!-- Setas implementa -->
+  <line x1="270" y1="200" x2="440" y2="117" stroke="#374151" stroke-width="1.4" marker-end="url(#arrTriD)"/>
+  <text x="300" y="150" font-size="9.5" fill="#374151">implementa</text>
+  <line x1="740" y1="200" x2="560" y2="117" stroke="#374151" stroke-width="1.4" marker-end="url(#arrTriD)"/>
+  <text x="670" y="150" font-size="9.5" fill="#374151">implementa</text>
+
+  <!-- Composição: decorator envolve IItemPersonalizavel -->
+  <path d="M640,235 C 500,300 400,300 342,232" stroke="#374151" stroke-width="1.4" fill="none" marker-end="url(#arrOpenD)"/>
+  <circle cx="640" cy="235" r="4" fill="#374151"/>
+  <text x="490" y="295" text-anchor="middle" font-size="9.5" fill="#374151">envolve (composição)</text>
+
+  <!-- Cadeia de instancias concretas empilhadas -->
+  <text x="500" y="345" text-anchor="middle" font-size="11" font-weight="bold" fill="#1f2937">Exemplo de instanciação: pão francês + queijo extra + bacon</text>
+
+  <rect x="60" y="380" width="200" height="60" rx="6" fill="#94a3b8"/>
+  <text x="160" y="405" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">ProdutoBase</text>
+  <text x="160" y="422" text-anchor="middle" font-size="9" fill="#f1f5f9">"Pão Francês" — R$ 8,00</text>
+
+  <rect x="320" y="380" width="240" height="60" rx="6" fill="#6b7280"/>
+  <text x="440" y="401" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#ffffff">IngredienteDecorator</text>
+  <text x="440" y="416" text-anchor="middle" font-size="9" fill="#e5e7eb">envolve ProdutoBase</text>
+  <text x="440" y="430" text-anchor="middle" font-size="9" fill="#e5e7eb">+ "Queijo extra" — R$ 3,50</text>
+
+  <rect x="620" y="380" width="260" height="60" rx="6" fill="#4b5563"/>
+  <text x="750" y="401" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#ffffff">IngredienteDecorator</text>
+  <text x="750" y="416" text-anchor="middle" font-size="9" fill="#e5e7eb">envolve o decorator anterior</text>
+  <text x="750" y="430" text-anchor="middle" font-size="9" fill="#e5e7eb">+ "Bacon" — R$ 4,00</text>
+
+  <line x1="260" y1="410" x2="318" y2="410" stroke="#374151" stroke-width="1.6" marker-end="url(#arrOpenD)"/>
+  <line x1="560" y1="410" x2="618" y2="410" stroke="#374151" stroke-width="1.6" marker-end="url(#arrOpenD)"/>
+
+  <rect x="300" y="470" width="400" height="40" rx="6" fill="#fef9e7" stroke="#eab308"/>
+  <text x="500" y="495" text-anchor="middle" font-size="10.5" fill="#78350f">GetPreco() da cadeia final = R$ 8,00 + R$ 3,50 + R$ 4,00 = R$ 15,50</text>
+
+  <!-- Nota -->
+  <rect x="60" y="530" width="880" height="70" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="80" y="550" font-size="10.5" fill="#334155">Cada Ingrediente adicionado pelo cliente empilha um novo IngredienteDecorator sobre o item personalizado corrente,</text>
+  <text x="80" y="566" font-size="10.5" fill="#334155">em vez de exigir uma subclasse para cada combinação de Produto Base e Ingredientes — o mesmo problema de explosão</text>
+  <text x="80" y="582" font-size="10.5" fill="#334155">de classes discutido no exercício de Decorador da disciplina, aqui resolvido para o domínio de lanches personalizados.</text>
+</svg>

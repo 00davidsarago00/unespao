@@ -2,11 +2,11 @@
 
 Este capítulo descreve os fluxos de interação com o Sistema Unespão para os dois perfis de usuário previstos no Minimundo: o Cliente, que monta e finaliza pedidos pelo totem físico da loja ou pelo aplicativo móvel, e o Atendente/Administrador da padaria, responsável pela gestão de catálogo e estoque. Diferente dos capítulos de arquitetura, aqui o foco não é a estrutura interna do software, mas a experiência de quem está usando o sistema em cada um desses papéis.
 
-## Estado atual dos artefatos de interface
+## Artefatos de interface
 
-Até o momento desta versão do documento, o grupo não produziu protótipos visuais do sistema, nem em Figma nem em qualquer outra ferramenta de prototipação. O trabalho se concentrou primeiro na modelagem do domínio e na arquitetura, já documentadas nos capítulos anteriores, e a etapa de design de telas ainda não começou. Optamos, assim, por descrever os fluxos de forma textual e estrutural, complementados por diagramas de atividade, sem propor layouts, paletas de cor ou composições de tela específicas — qualquer detalhe desse tipo seria invenção nesta fase do projeto e não corresponderia a uma decisão real da equipe. Quando os protótipos forem produzidos numa iteração futura, este capítulo deve ser atualizado para referenciá-los. Essa ausência de protótipos vale para os dois perfis de usuário tratados neste capítulo, Cliente e Atendente/Administrador.
+O projeto de interface do Sistema Unespão é descrito neste capítulo por meio de diagramas de atividade e de uma especificação estrutural detalhada de cada tela, cobrindo os dois perfis de usuário: Cliente e Atendente/Administrador. Essa especificação registra, para cada etapa do fluxo, o que a tela exibe, quais ações o usuário pode tomar e para onde cada ação leva — o nível de detalhe necessário para que a equipe de desenvolvimento implemente as telas sem ambiguidade, independentemente da ferramenta de prototipação visual usada para desenhá-las (Figma ou equivalente).
 
-Isso não quer dizer que o projeto de interface esteja em branco. As decisões estruturais do fluxo, como a ordem das etapas, o que cada uma exige do usuário e, em particular, como funciona a autenticação num dispositivo compartilhado, já foram discutidas e fixadas pelo PO, e são justamente o conteúdo deste capítulo.
+As decisões estruturais do fluxo — a ordem das etapas, o que cada uma exige do usuário e, em particular, como funciona a autenticação num dispositivo compartilhado — foram discutidas e fixadas pelo PO, e são o conteúdo deste capítulo.
 
 ## Canais de interação do Cliente
 
@@ -27,6 +27,12 @@ O fluxo de ponta a ponta, do início do pedido até a etapa posterior de avalia�
 
 **3. Adição de ingredientes com atualização incremental do preço.** A cada ingrediente adicionado ou removido, o valor do item é recalculado e exibido imediatamente, sem que o cliente precise avançar de tela para saber o custo da personalização. Essa atualização incremental existe porque o preço final de um Item Personalizado só é conhecido depois da composição completa de Ingredientes, e faz sentido que o cliente acompanhe esse custo enquanto ainda está decidindo: evita surpresa na etapa de revisão e reduz a chance de abandono do pedido.
 
+A Figura 1 ilustra a estrutura de tela adotada para as etapas 2 e 3: à esquerda, o passo de escolha da base do lanche, com cada Produto Base listado junto de suas informações nutricionais, tempo de preparo e preço, e a base já selecionada destacada visualmente; à direita, um painel de resumo em tempo real que acompanha o cliente por toda a montagem do item, recalculando o preço a cada ingrediente adicionado, exatamente o comportamento descrito na etapa 3.
+
+![Figura 1 — Tela de escolha da base do lanche com resumo em tempo real](../images/tela-escolha-base-resumo.svg)
+
+**Figura 1** — Passo 1 do fluxo (escolha da base), com o painel de resumo em tempo real à direita: o preço do item é recalculado a cada seleção, antes mesmo de o cliente começar a adicionar ingredientes.
+
 **4. Revisão do pedido.** Antes de seguir para o pagamento, o cliente vê o resumo dos itens personalizados escolhidos, com a possibilidade de cancelar ou editar qualquer item. Este ponto está alinhado ao requisito funcional já definido pelo PO de permitir alteração do pedido antes da confirmação do pagamento.
 
 **5. Pagamento.** O pedido é encaminhado ao Gateway de Pagamento via API Unespão, nunca diretamente do frontend, como descrito na arquitetura, e o cliente acompanha o status da transação.
@@ -39,26 +45,9 @@ O fluxo de ponta a ponta, do início do pedido até a etapa posterior de avalia�
 
 O diagrama de atividade abaixo representa essas oito etapas, já incluindo a bifurcação de identificação no totem (QR code vs. pedido anônimo) detalhada na seção seguinte:
 
-```mermaid
-flowchart TD
-    A([Início do pedido]) --> B{Canal?}
-    B -->|Aplicativo| C[1. Autenticação normal no app]
-    B -->|Totem físico| D{Identificação no totem}
-    D -->|QR code| E[1a. Escaneia QR code<br/>sessão do app vinculada ao totem]
-    D -->|Sem login| F[1b. Segue como pedido anônimo]
-    C --> G[2. Escolha do produto base]
-    E --> G
-    F --> G
-    G --> H[3. Adição de ingredientes<br/>com preço incremental]
-    H --> I[4. Revisão do pedido<br/>editar/cancelar item]
-    I -->|Ajustar| H
-    I -->|Confirmar| J[5. Pagamento via Gateway]
-    J --> K[6. Confirmação do pedido]
-    K --> L[7. Avaliação do prato<br/>após retirada]
-    L --> M[8. Sugestões personalizadas<br/>em pedidos futuros]
-    F -.->|vínculo posterior à conta| L
-    M --> N([Fim do ciclo])
-```
+![Figura 2 — Diagrama de atividade do fluxo principal do Cliente](../images/atividade-fluxo-cliente.svg)
+
+**Figura 2** — Diagrama de atividade das oito etapas do fluxo do Cliente, da identificação no canal até a geração de sugestões personalizadas em pedidos futuros.
 
 O fluxo é o mesmo nos dois canais a partir do passo 2; a diferença está inteiramente na etapa 1, onde o totem bifurca entre a rota de QR code e a rota anônima. A seta pontilhada de "pedido anônimo" até a etapa de avaliação indica que esse vínculo com a conta, quando feito, pode ocorrer depois da compra, permitindo que o histórico e as avaliações do pedido anônimo passem a contar retroativamente para o cliente.
 
@@ -77,25 +66,15 @@ Essa decisão evita reintroduzir no totem o mesmo risco que motivou o descarte d
 
 O diagrama a seguir isola essa bifurcação, detalhando o que cada rota exige do dispositivo e da conta:
 
-```mermaid
-flowchart LR
-    S([Cliente chega ao totem]) --> Q{Como identificar?}
-    Q -->|Tem o app à mão| R[Abre o app no celular<br/>já autenticado]
-    R --> T[Gera QR code na sessão do app]
-    T --> U[Totem lê o QR code]
-    U --> V[Totem associa o pedido<br/>à conta do celular]
-    V --> W([Pedido segue identificado])
-    Q -->|Prefere não usar o app agora| X[Monta e paga<br/>sem identificação]
-    X --> Y([Pedido segue anônimo])
-    Y -.->|opcional, depois| Z[Vincula pedido à conta<br/>via app]
-    Z --> W
-```
+![Figura 3 — Diagrama de atividade da identificação no totem físico](../images/atividade-autenticacao-totem.svg)
+
+**Figura 3** — As duas rotas de identificação no totem: QR code vinculado à sessão do app, ou pedido anônimo com vínculo posterior à conta.
 
 ## Interface do Atendente/Administrador
 
 Além do Cliente, o sistema prevê um segundo perfil de usuário: o Atendente/Administrador da padaria, responsável pela gestão de catálogo (produtos base e ingredientes) e de estoque. Esse é um perfil de uso interno, operado por quem trabalha na padaria, e não pelo cliente final — por isso seu canal de acesso é tratado separadamente do totem e do aplicativo do cliente.
 
-Diferente do Cliente, não há indicação nas fontes do projeto (Minimundo ou arquitetura) de um dispositivo dedicado para esse perfil. O caminho mais plausível, dado que a arquitetura já prevê um frontend web (SPA React ou Angular) consumindo a mesma API Unespão, é que o Atendente/Administrador acesse um painel administrativo web, separado da experiência de totem/app do cliente, autenticado com suas próprias credenciais de funcionário. Como já indicado, também aqui não há telas prototipadas; o que segue é uma descrição textual e estrutural das operações que ele precisa suportar, sem propor layout algum.
+O Atendente/Administrador acessa um painel administrativo web, servido pelo mesmo SPA React que atende o Cliente no totem e no navegador, mas com uma rota e um conjunto de telas próprios, visíveis apenas após autenticação com credenciais de funcionário. Esse painel é deliberadamente mais simples do que a experiência do Cliente: não há personalização de pedido nem etapas sequenciais a percorrer, apenas duas telas de gestão (Catálogo e Estoque) acessíveis a qualquer momento pelo menu principal.
 
 A interface desse perfil é estruturalmente mais simples que a do Cliente: não envolve personalização de pedido, atualização incremental de preço, pagamento ou avaliação de prato. Suas operações centrais são de CRUD (criação, leitura, atualização e remoção) sobre duas famílias de dados:
 

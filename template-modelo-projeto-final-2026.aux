@@ -44,43 +44,55 @@
 \@writefile{toc}{\contentsline {section}{\numberline {3.4}Padrões de projeto}{19}{section.3.4}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Estrutura clássica do padrão Adapter (Target/Adapter/Adaptee) instanciada com as classes reais do caso de pagamento: \texttt  {PedidoService} (Client) depende apenas de \texttt  {IGatewayPagamentoAdapter} (Target); \texttt  {GatewayPagamentoAdapter} implementa essa interface e traduz cada chamada para o SDK do gateway externo (Adaptee), cuja interface própria o sistema não controla.}}{20}{figure.3.3}\protected@file@percent }
 \newlabel{fig:padrao-adapter}{{3.3}{20}{Estrutura clássica do padrão Adapter (Target/Adapter/Adaptee) instanciada com as classes reais do caso de pagamento: \texttt {PedidoService} (Client) depende apenas de \texttt {IGatewayPagamentoAdapter} (Target); \texttt {GatewayPagamentoAdapter} implementa essa interface e traduz cada chamada para o SDK do gateway externo (Adaptee), cuja interface própria o sistema não controla}{figure.3.3}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Projeto de Interface do Usuário}{22}{chapter.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Estrutura do padrão Decorator (Component/ConcreteComponent/Decorator) aplicada à montagem de um Item Personalizado, com um exemplo concreto de instanciação (pão francês com queijo extra e bacon) mostrando como o preço se acumula a cada decorador empilhado.}}{22}{figure.3.4}\protected@file@percent }
+\newlabel{fig:padrao-decorator}{{3.4}{22}{Estrutura do padrão Decorator (Component/ConcreteComponent/Decorator) aplicada à montagem de um Item Personalizado, com um exemplo concreto de instanciação (pão francês com queijo extra e bacon) mostrando como o preço se acumula a cada decorador empilhado}{figure.3.4}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Projeto de Interface do Usuário}{23}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Estado atual dos artefatos de interface}{22}{section.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Canais de interação do Cliente}{22}{section.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Fluxo principal de interação do cliente}{23}{section.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Decisão de projeto: autenticação no totem físico}{24}{section.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}Interface do Atendente/Administrador}{24}{section.4.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Especificação e Estratégia de Testes}{26}{chapter.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Artefatos de interface}{23}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Canais de interação do Cliente}{23}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Fluxo principal de interação do cliente}{24}{section.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Passo 1 do fluxo (escolha da base), com o painel de resumo em tempo real à direita: o preço do item é recalculado a cada seleção, antes mesmo de o cliente começar a adicionar ingredientes.}}{24}{figure.4.1}\protected@file@percent }
+\newlabel{fig:tela-escolha-base-resumo}{{4.1}{24}{Passo 1 do fluxo (escolha da base), com o painel de resumo em tempo real à direita: o preço do item é recalculado a cada seleção, antes mesmo de o cliente começar a adicionar ingredientes}{figure.4.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Diagrama de atividade das oito etapas do fluxo do Cliente, da identificação no canal até a geração de sugestões personalizadas em pedidos futuros.}}{25}{figure.4.2}\protected@file@percent }
+\newlabel{fig:atividade-fluxo-cliente}{{4.2}{25}{Diagrama de atividade das oito etapas do fluxo do Cliente, da identificação no canal até a geração de sugestões personalizadas em pedidos futuros}{figure.4.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Decisão de projeto: autenticação no totem físico}{26}{section.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces As duas rotas de identificação no totem: QR code vinculado à sessão do app, ou pedido anônimo com vínculo posterior à conta.}}{27}{figure.4.3}\protected@file@percent }
+\newlabel{fig:atividade-autenticacao-totem}{{4.3}{27}{As duas rotas de identificação no totem: QR code vinculado à sessão do app, ou pedido anônimo com vínculo posterior à conta}{figure.4.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}Interface do Atendente/Administrador}{27}{section.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Especificação e Estratégia de Testes}{28}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Planejamento e níveis de teste}{26}{section.5.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces A pirâmide de testes é um modelo conceitual conhecido da literatura de teste de software (não um conteúdo específico dos slides da disciplina), usado aqui apenas para situar visualmente os dois níveis que de fato adotamos -- muitos testes de unidade rápidos na base, menos testes de integração acima -- e por que o nível de sistema, no topo, fica de fora nesta fase.}}{27}{figure.5.1}\protected@file@percent }
-\newlabel{fig:piramide-testes}{{5.1}{27}{A pirâmide de testes é um modelo conceitual conhecido da literatura de teste de software (não um conteúdo específico dos slides da disciplina), usado aqui apenas para situar visualmente os dois níveis que de fato adotamos -- muitos testes de unidade rápidos na base, menos testes de integração acima -- e por que o nível de sistema, no topo, fica de fora nesta fase}{figure.5.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Testes de unidade}{27}{section.5.2}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.1}Teste sem mock, com repositório e gateway em memória.}{27}{lstlisting.5.1}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.2}Testes com Moq, cobrindo pagamento aprovado e pagamento recusado.}{28}{lstlisting.5.2}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.3}Testes de \texttt  {EstoqueService} cobrindo saldo exato e saldo insuficiente.}{29}{lstlisting.5.3}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.4}Teste puro (sem mock) do cálculo de preço de um item personalizado.}{29}{lstlisting.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Testes de integração}{30}{section.5.3}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.5}Teste de integração de \texttt  {PedidoRepository} contra um banco PostgreSQL de teste.}{30}{lstlisting.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Critérios de conclusão e cobertura}{31}{section.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Automação e ferramentas}{31}{section.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Gestão de Configuração e Manutenção}{33}{chapter.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Planejamento e níveis de teste}{28}{section.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces A pirâmide de testes é um modelo conceitual conhecido da literatura de teste de software (não um conteúdo específico dos slides da disciplina), usado aqui para situar visualmente os três níveis adotados: muitos testes de unidade rápidos na base, um número intermediário de testes de integração e, no topo, um conjunto mais enxuto de testes de sistema ponta a ponta.}}{29}{figure.5.1}\protected@file@percent }
+\newlabel{fig:piramide-testes}{{5.1}{29}{A pirâmide de testes é um modelo conceitual conhecido da literatura de teste de software (não um conteúdo específico dos slides da disciplina), usado aqui para situar visualmente os três níveis adotados: muitos testes de unidade rápidos na base, um número intermediário de testes de integração e, no topo, um conjunto mais enxuto de testes de sistema ponta a ponta}{figure.5.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Testes de unidade}{29}{section.5.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.1}Teste sem mock, com repositório e gateway em memória.}{29}{lstlisting.5.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.2}Testes com Moq, cobrindo pagamento aprovado e pagamento recusado.}{30}{lstlisting.5.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.3}Testes de \texttt  {EstoqueService} cobrindo saldo exato e saldo insuficiente.}{31}{lstlisting.5.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.4}Teste puro (sem mock) do cálculo de preço de um item personalizado.}{31}{lstlisting.5.4}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.5}Testes de \texttt  {ClienteService} cobrindo token do Google válido e inválido.}{32}{lstlisting.5.5}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.6}Testes de \texttt  {PedidoService} cobrindo remoção de item em pedido aberto e em pedido já confirmado.}{33}{lstlisting.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Testes de integração}{33}{section.5.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.7}Teste de integração de \texttt  {PedidoRepository} contra um banco PostgreSQL de teste.}{34}{lstlisting.5.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Testes de sistema}{34}{section.5.4}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.8}Cenários de teste de sistema em Playwright cobrindo a rota de QR code e a rota de pagamento recusado.}{35}{lstlisting.5.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Critérios de conclusão e cobertura}{35}{section.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Automação e ferramentas}{36}{section.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Gestão de Configuração e Manutenção}{38}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Repositório e itens de configuração}{33}{section.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Gestão de dependências e alterações}{34}{section.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Rastreabilidade}{34}{section.6.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Linha do tempo da branch \texttt  {main} combinando duas partes: os cinco primeiros marcos (até o Merge PR \#2) reproduzem o histórico real do repositório, com as branches \texttt  {00davidsarago00-patch-1} e \texttt  {docs} integradas via PR \#1 e PR \#2; os marcos seguintes (PR \#3, PR \#4, ajustes finais e a tag v1.0), marcados com nós vazados e linhas tracejadas, são uma projeção ilustrativa de como o mesmo fluxo de revisão por Pull Request se manteria até a conclusão da implementação e a entrega do projeto -- não commits ou branches que já existem no repositório.}}{35}{figure.6.1}\protected@file@percent }
-\newlabel{fig:fluxo-git}{{6.1}{35}{Linha do tempo da branch \texttt {main} combinando duas partes: os cinco primeiros marcos (até o Merge PR \#2) reproduzem o histórico real do repositório, com as branches \texttt {00davidsarago00-patch-1} e \texttt {docs} integradas via PR \#1 e PR \#2; os marcos seguintes (PR \#3, PR \#4, ajustes finais e a tag v1.0), marcados com nós vazados e linhas tracejadas, são uma projeção ilustrativa de como o mesmo fluxo de revisão por Pull Request se manteria até a conclusão da implementação e a entrega do projeto -- não commits ou branches que já existem no repositório}{figure.6.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}\textit  {Build}, integração e entrega}{35}{section.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{Controle de Versões do Documento}{36}{chapter*.7}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Histórico de versões do documento.}}{36}{table.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Repositório e itens de configuração}{38}{section.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Gestão de dependências e alterações}{39}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Rastreabilidade}{39}{section.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Metade esquerda: histórico real da branch \texttt  {main}, do commit inicial ao Merge PR \#2, cada marco chegado por uma branch de feature revisada via Pull Request. Metade direita, em traço pontilhado: o mesmo padrão de fluxo projetado para as próximas features do sistema, incluindo a tag de versão que marcará a entrega.}}{40}{figure.6.1}\protected@file@percent }
+\newlabel{fig:fluxo-git}{{6.1}{40}{Metade esquerda: histórico real da branch \texttt {main}, do commit inicial ao Merge PR \#2, cada marco chegado por uma branch de feature revisada via Pull Request. Metade direita, em traço pontilhado: o mesmo padrão de fluxo projetado para as próximas features do sistema, incluindo a tag de versão que marcará a entrega}{figure.6.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}\textit  {Build}, integração e entrega}{40}{section.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Controle de Versões do Documento}{41}{chapter*.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Histórico de versões do documento.}}{41}{table.6.1}\protected@file@percent }
 \citation{*}
 \bibstyle{plainnat}
 \bibdata{refs}
 \bibcite{roos2023}{{1}{2023}{{Roos}}{{}}}
 \bibcite{arc42}{{2}{2024}{{Starke and Hruschka}}{{}}}
-\gdef \@abspage@last{39}
+\gdef \@abspage@last{44}

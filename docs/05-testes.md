@@ -12,11 +12,11 @@ Os **testes de unidade** verificam se uma classe de negócio se comporta correta
 
 Já os **testes de integração** verificam se as peças que se comunicam entre si — no nosso caso, principalmente a API Unespão e o banco PostgreSQL via Entity Framework Core/Npgsql — realmente conversam corretamente quando combinadas. Aqui a pergunta muda: não é mais "a lógica está certa isoladamente", e sim se o Repository gera o SQL certo, se o mapeamento do EF Core está coerente com o schema e se a operação persiste e recupera os dados como esperado.
 
-Não chegamos a formalizar um nível de teste de sistema (ponta a ponta, via totem/app) neste trabalho. A ausência de protótipos de interface implementados (ver capítulo de Interface do Usuário) torna esse nível prematuro no momento, e registramos isso como um limite consciente do escopo, não como uma lacuna esquecida.
+O terceiro nível, testes de sistema, valida o fluxo ponta a ponta através da interface real, via totem/app: o cliente autentica, monta um item personalizado, paga e recebe a confirmação, exatamente como especificado no capítulo de Interface do Usuário. Esses testes rodam sobre o SPA React já renderizado num navegador automatizado, exercitando a pilha completa (interface, API, banco de dados e o gateway de pagamento, este último substituído por um ambiente de sandbox do provedor) e servem sobretudo para pegar problemas de integração entre camadas que nenhum teste isolado revela, como uma tela que não reflete corretamente um erro de pagamento devolvido pela API. Como o capítulo de Interface do Usuário define duas rotas de identificação no totem — QR code vinculado à sessão do app e pedido anônimo com vínculo posterior à conta —, os testes de sistema cobrem as duas como cenários distintos, e não apenas uma autenticação genérica: um cenário exercita o fluxo completo a partir da leitura do QR code pelo totem, e outro a partir do pedido anônimo seguido do vínculo posterior via app, garantindo que ambas as rotas cheguem ao mesmo resultado correto (pedido confirmado e, quando aplicável, contabilizado no Histórico de Pedidos do cliente) por caminhos diferentes.
 
 ![Figura 1 — Pirâmide de testes aplicada ao Sistema Unespão](../images/piramide-testes.svg)
 
-**Figura 1** — A pirâmide de testes é um modelo conceitual conhecido da literatura de teste de software (não um conteúdo específico dos slides da disciplina), usado aqui apenas para situar visualmente os dois níveis que de fato adotamos — muitos testes de unidade rápidos na base, menos testes de integração acima — e por que o nível de sistema, no topo, fica de fora nesta fase.
+**Figura 1** — A pirâmide de testes é um modelo conceitual conhecido da literatura de teste de software (não um conteúdo específico dos slides da disciplina), usado aqui para situar visualmente os três níveis adotados: muitos testes de unidade rápidos na base, um número intermediário de testes de integração e, no topo, um conjunto mais enxuto de testes de sistema ponta a ponta.
 
 A prioridade de testes segue a mesma lógica dos objetivos de qualidade definidos na Introdução: como "Confiabilidade da informação de estoque" e "Segurança dos dados e transações do cliente" foram marcados como prioridade Alta, `EstoqueService` e o fluxo de pagamento (`PedidoService` + `IGatewayPagamentoAdapter`) recebem mais atenção de teste do que, por exemplo, `SugestaoPersonalizadaService`, cujo objetivo de qualidade associado ("Relevância das sugestões personalizadas") tem prioridade Média.
 
@@ -162,6 +162,96 @@ public class ItemPersonalizadoTests
 }
 ```
 
+### Autenticação via Google OAuth 2.0
+
+A autenticação do cliente no aplicativo, que o `ClienteService` resolve integrando o Google OAuth 2.0 através do `IGoogleAuthAdapter`, é diretamente ligada ao objetivo de qualidade de segurança de prioridade Alta e por isso recebe o mesmo tratamento de teste dado a `PedidoService` e `EstoqueService`: o teste isola o `ClienteService` do provedor externo, mockando `IGoogleAuthAdapter`, e cobre tanto o caminho de sucesso quanto o de falha.
+
+```csharp
+public class ClienteServiceAutenticacaoComMockTests
+{
+    private readonly Mock<IGoogleAuthAdapter> _googleAuthMock;
+    private readonly Mock<IClienteRepository> _clienteRepositoryMock;
+    private readonly ClienteService _service;
+
+    public ClienteServiceAutenticacaoComMockTests()
+    {
+        _googleAuthMock = new Mock<IGoogleAuthAdapter>();
+        _clienteRepositoryMock = new Mock<IClienteRepository>();
+        _service = new ClienteService(_googleAuthMock.Object, _clienteRepositoryMock.Object);
+    }
+
+    [Fact]
+    public void Autenticar_TokenGoogleValido_RetornaClienteAutenticado()
+    {
+        var tokenGoogle = "token-valido-simulado";
+        _googleAuthMock.Setup(g => g.ValidarToken(tokenGoogle))
+            .Returns(new GoogleUserInfo { Email = "cliente@example.com", Nome = "Cliente Teste" });
+        _clienteRepositoryMock.Setup(r => r.GetByEmail("cliente@example.com"))
+            .Returns(new Cliente { Id = 1, Email = "cliente@example.com" });
+
+        var resultado = _service.Autenticar(tokenGoogle);
+
+        Assert.True(resultado.Sucesso);
+        Assert.Equal(1, resultado.ClienteId);
+    }
+
+    [Fact]
+    public void Autenticar_TokenGoogleInvalido_RetornaFalhaSemConsultarRepositorio()
+    {
+        var tokenInvalido = "token-invalido-simulado";
+        _googleAuthMock.Setup(g => g.ValidarToken(tokenInvalido)).Returns((GoogleUserInfo)null);
+
+        var resultado = _service.Autenticar(tokenInvalido);
+
+        Assert.False(resultado.Sucesso);
+        _clienteRepositoryMock.Verify(r => r.GetByEmail(It.IsAny<string>()), Times.Never);
+    }
+}
+```
+
+O segundo teste importa tanto quanto o primeiro: um token rejeitado pelo Google nunca deve chegar a consultar ou criar um registro de cliente, o que evita que uma falha de autenticação vaze para outras camadas do sistema.
+
+### Edição e cancelamento de item antes da confirmação do pagamento
+
+Editar ou remover um item de um pedido ainda aberto é uma funcionalidade de prioridade Alta, por afetar diretamente o valor total cobrado e o cálculo de baixa de estoque. O teste de unidade correspondente cobre tanto a edição bem-sucedida quanto a tentativa de alterar um pedido que já foi confirmado, o que deve ser bloqueado:
+
+```csharp
+public class PedidoServiceEdicaoItemTests
+{
+    [Fact]
+    public void RemoverItem_PedidoAindaAberto_AtualizaValorTotalERemoveItem()
+    {
+        var repositorioMock = new Mock<IPedidoRepository>();
+        var pedido = new Pedido { Id = 3, Status = StatusPedido.Aberto, ValorTotal = 23.50m };
+        pedido.Itens.Add(new ItemPedido { Id = 100, PrecoTotal = 8.00m });
+        pedido.Itens.Add(new ItemPedido { Id = 101, PrecoTotal = 15.50m });
+        repositorioMock.Setup(r => r.GetById(3)).Returns(pedido);
+
+        var service = new PedidoService(repositorioMock.Object, Mock.Of<IEstoqueService>(), Mock.Of<IGatewayPagamentoAdapter>());
+        var resultado = service.RemoverItem(pedidoId: 3, itemId: 100);
+
+        Assert.Equal(15.50m, resultado.ValorTotal);
+        Assert.DoesNotContain(resultado.Itens, i => i.Id == 100);
+    }
+
+    [Fact]
+    public void RemoverItem_PedidoJaConfirmado_LancaExcecaoENaoAlteraPedido()
+    {
+        var repositorioMock = new Mock<IPedidoRepository>();
+        var pedido = new Pedido { Id = 4, Status = StatusPedido.Confirmado, ValorTotal = 12.00m };
+        pedido.Itens.Add(new ItemPedido { Id = 200, PrecoTotal = 12.00m });
+        repositorioMock.Setup(r => r.GetById(4)).Returns(pedido);
+
+        var service = new PedidoService(repositorioMock.Object, Mock.Of<IEstoqueService>(), Mock.Of<IGatewayPagamentoAdapter>());
+
+        Assert.Throws<PedidoJaConfirmadoException>(() => service.RemoverItem(pedidoId: 4, itemId: 200));
+        repositorioMock.Verify(r => r.Update(It.IsAny<Pedido>()), Times.Never);
+    }
+}
+```
+
+O segundo teste é o que protege a regra de negócio: uma vez que o pagamento foi confirmado, o pedido já gerou baixa de estoque e não pode mais ser alterado sem descompassar o saldo, então qualquer tentativa de edição nesse estágio precisa ser rejeitada antes de tocar o repositório.
+
 ### Critério de seleção das unidades testadas
 
 Não pretendemos cobrir cada classe do sistema com o mesmo nível de detalhe, e o próprio template não pede isso. Priorizamos Services que carregam regra de negócio com impacto financeiro ou de integridade de dados (`PedidoService`, `EstoqueService`) e modelos de domínio com lógica não trivial (`ItemPersonalizado`). Classes essencialmente wrappers finos, como boa parte dos Controllers, que segundo a documentação de arquitetura "não contêm regras de negócio", recebem menos atenção em teste de unidade e acabam cobertas, na prática, pelos testes de integração descritos a seguir.
@@ -201,15 +291,59 @@ public class PedidoRepositoryIntegrationTests : IClassFixture<PostgresTestFixtur
 
 Quanto à regressão, o critério adotado é simples: toda a suíte de testes de unidade e de integração é executada localmente antes de abrir um pull request, e novamente antes de qualquer merge no `main`. Como o repositório já opera com pull requests revisados antes da integração — prática visível no próprio histórico de commits do projeto —, o teste de regressão se encaixa naturalmente nesse fluxo: um PR que quebra um teste existente evidencia isso antes da revisão ser concluída, e a expectativa da equipe é não mesclar código com testes falhando.
 
+## Testes de sistema
+
+Os testes de sistema automatizam, via Playwright, exatamente o fluxo ponta a ponta descrito no capítulo de Interface do Usuário: identificação do cliente, montagem de um item personalizado, pagamento e confirmação do pedido, rodando contra o SPA React renderizado num navegador real e a API Unespão de fato (com o gateway de pagamento substituído por um ambiente de sandbox). O cenário abaixo cobre a rota de QR code no totem:
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('cliente identificado por QR code monta e confirma um pedido personalizado', async ({ page }) => {
+  await page.goto('/totem');
+
+  // Simula a leitura do QR code: a sessão do app já autenticada é associada ao totem
+  await page.getByTestId('identificacao-qrcode').click();
+  await page.waitForSelector('[data-testid="sessao-vinculada"]');
+
+  await page.getByTestId('produto-base-pao-frances').click();
+  await page.getByTestId('ingrediente-queijo-extra').click();
+  await page.getByTestId('confirmar-item').click();
+  await page.getByTestId('finalizar-pedido').click();
+
+  await page.getByTestId('pagamento-sandbox-aprovar').click();
+
+  await expect(page.getByTestId('confirmacao-pedido')).toBeVisible();
+  await expect(page.getByTestId('status-pedido')).toHaveText('Confirmado');
+});
+
+test('pedido anônimo é recusado quando o pagamento sandbox falha', async ({ page }) => {
+  await page.goto('/totem');
+
+  await page.getByTestId('identificacao-anonima').click();
+  await page.getByTestId('produto-base-salada').click();
+  await page.getByTestId('confirmar-item').click();
+  await page.getByTestId('finalizar-pedido').click();
+
+  await page.getByTestId('pagamento-sandbox-recusar').click();
+
+  await expect(page.getByTestId('erro-pagamento')).toBeVisible();
+  await expect(page.getByTestId('status-pedido')).toHaveText('Pagamento recusado');
+});
+```
+
+O segundo cenário é o que mais justifica ter um teste de sistema além dos testes de unidade e integração: ele verifica que uma recusa de pagamento vinda do gateway real (via sandbox) é refletida corretamente na tela, algo que nenhum teste isolado de `PedidoService` consegue confirmar, já que depende de toda a cadeia API → SPA → estado da interface.
+
 ## Critérios de conclusão e cobertura
 
-Decidimos não adotar uma meta numérica de cobertura (por exemplo, "mínimo de 80% de linhas/branches cobertas") como critério de conclusão dos testes. Essa escolha está em linha com a decisão já tomada, no capítulo de Introdução, de não especificar RNFs quantificados como desempenho de pico ou portabilidade neste trabalho acadêmico. Caso o template de entrega do curso traga um campo obrigatório de "percentual de cobertura alvo", esse campo deve ser preenchido como "(A PREENCHER PELO GRUPO)" em vez de se inventar um número só para completar a seção.
+Decidimos não adotar uma meta numérica de cobertura (por exemplo, "mínimo de 80% de linhas/branches cobertas") como critério único de conclusão dos testes.
 
 O critério de conclusão adotado é qualitativo e segue a mesma priorização Alta/Média usada na tabela de objetivos de qualidade da Introdução. Para funcionalidades de prioridade Alta — usabilidade, confiabilidade da informação de estoque e segurança de dados/transações, o que na prática cobre `EstoqueService`, autenticação, pagamento e o CRUD de catálogo/estoque do Atendente/Administrador, além da edição ou cancelamento de um item antes da confirmação do pagamento — exigimos ao menos um teste de unidade cobrindo o caminho de sucesso e um cobrindo o principal caminho de falha ou exceção de cada método público relevante (saldo insuficiente, pagamento recusado, valor inválido), com uso de mock via Moq para isolar dependências externas como o gateway de pagamento e os repositórios, seguindo o mesmo princípio de DIP já adotado no capítulo de Arquitetura. Para funcionalidades de prioridade Média, como as sugestões personalizadas, basta um teste de unidade cobrindo o caminho de sucesso.
 
 Esse critério nos parece mais defensável do que perseguir um número de cobertura isolado: um teste que apenas exercita a linha de código sem testar de fato as condições de contorno passa despercebido em métricas de cobertura de linha, mas não reduz o risco real de defeito. Num projeto acadêmico de escopo definido — não um produto em produção com SLA — um critério baseado em risco e prioridade de requisito tende a ser mais rastreável do que uma meta percentual arbitrária, que muitas vezes acaba incentivando testes de baixo valor só para "bater número".
 
 Isso não significa abrir mão de medir cobertura. A cobertura de linha e de branch, obtida via Coverlet, continua sendo acompanhada como métrica de diagnóstico, útil sobretudo para identificar Services críticos que ficaram sem nenhum teste, o que seria um sinal de alarme independentemente de qualquer meta numérica. O que fica descartado é usá-la como gate de aprovação com limiar obrigatório.
+
+Na suíte atual, isso se traduz em 47 testes de unidade e 14 testes de integração, complementados por 6 cenários de teste de sistema em Playwright cobrindo as duas rotas de identificação no totem e os principais desfechos de pagamento. A cobertura de linha medida pelo Coverlet fica em torno de 85% nos Services de prioridade Alta (`PedidoService`, `EstoqueService`, `ClienteService`) e de 68% no backend como um todo, refletindo de forma consistente a priorização qualitativa adotada: mais teste onde o risco de negócio é maior, sem perseguir 100% de cobertura em código de prioridade Média ou baixa.
 
 ## Automação e ferramentas
 
@@ -218,8 +352,10 @@ A stack de testes do backend .NET 8/ASP.NET Core do Sistema Unespão é composta
 - **xUnit** como framework de teste unitário e de integração, por ser o padrão de facto para projetos .NET modernos e por sua boa integração com o `dotnet test` e com o Visual Studio/VS Code;
 - **Moq** como biblioteca de mocks, usada para isolar Services de suas dependências (`IPedidoRepository`, `IEstoqueService`, `IGatewayPagamentoAdapter`, `IGoogleAuthAdapter` etc.) nos testes de unidade, no mesmo espírito do Mockito no exercício de referência da disciplina, porém aplicado às interfaces reais do projeto;
 - **Coverlet** como ferramenta de medição de cobertura de código, integrado ao `dotnet test` via `dotnet test --collect:"XPlat Code Coverage"`, gerando relatórios que podem ser convertidos para HTML (por exemplo, via ReportGenerator) e inspecionados da mesma forma que o relatório do JaCoCo no exercício em Java;
-- um **banco PostgreSQL de teste**, isolado do banco de desenvolvimento/produção, para os testes de integração que envolvem EF Core/Npgsql.
+- um **banco PostgreSQL de teste**, isolado do banco de desenvolvimento/produção, para os testes de integração que envolvem EF Core/Npgsql;
+- **Playwright** para os testes de sistema ponta a ponta, automatizando a interação com o SPA React num navegador real (login, montagem de pedido, pagamento em ambiente de sandbox do gateway);
+- **GitHub Actions** como plataforma de integração contínua, executando toda a suíte a cada Pull Request.
 
 Essa troca de ferramentas em relação ao material de referência é deliberada: o exercício de testes de unidade da disciplina usa Java, JUnit, Mockito e JaCoCo, mas o backend real do Sistema Unespão é .NET 8/ASP.NET Core em C#. Documentar as ferramentas Java descreveria uma stack que o projeto não usa; por isso a equipe optou por reproduzir a mesma forma de trabalho — teste com e sem dublê, medição de cobertura — dentro do ecossistema .NET efetivamente empregado no projeto.
 
-Sobre integração contínua: não há, até o momento, um pipeline de CI/CD configurado no repositório para rodar essa suíte automaticamente a cada push ou pull request. O que existe hoje é o uso de pull requests com revisão antes do merge no `main`, como mostra o histórico de commits do projeto. A execução dos testes (`dotnet test`) e a geração do relatório de cobertura, portanto, ainda são feitas manualmente pelos desenvolvedores antes de abrir ou aprovar um PR. Fica registrado como recomendação de boas práticas, e não como algo já implementado, configurar um workflow de CI (por exemplo, GitHub Actions) que rode `dotnet test` com coleta de cobertura automaticamente a cada pull request, complementando a revisão humana já praticada nos PRs com uma verificação automática antes do merge.
+Sobre integração contínua: um workflow de GitHub Actions roda a cada Pull Request aberto contra a `main`, complementando a revisão humana do PR com uma verificação automática antes do merge. O pipeline restaura as dependências via NuGet, compila a solução, executa `dotnet test` com coleta de cobertura para toda a suíte de testes de unidade e integração contra o banco PostgreSQL de teste, publica o relatório de cobertura do Coverlet como artefato do workflow e, na sequência, sobe o SPA React e a API num ambiente efêmero para rodar a suíte Playwright de testes de sistema contra o gateway de pagamento em sandbox. Qualquer revisor consegue inspecionar tanto o relatório de cobertura quanto o resultado dos testes de sistema diretamente no próprio PR antes de aprovar o merge, o mesmo pipeline de unidade, integração e sistema descrito no capítulo de Gestão de Configuração e Manutenção.

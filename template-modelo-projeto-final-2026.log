@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.9.12)  12 SEP 2026 19:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.9.12)  12 SEP 2026 23:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -707,7 +707,7 @@ LaTeX Font Warning: Font shape `T1/lmtt/bx/ui' undefined
 LaTeX Font Warning: Font shape `T1/lmtt/m/In' undefined
 (Font)              using `T1/lmtt/m/n' instead on input line 104.
 
-<images/AV01A.jpg, id=139, 628.0263pt x 224.2779pt>
+<images/AV01A.jpg, id=143, 628.0263pt x 224.2779pt>
 File: images/AV01A.jpg Graphic file (type jpg)
 <use images/AV01A.jpg>
 Package pdftex.def Info: images/AV01A.jpg  used on input line 114.
@@ -782,16 +782,16 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.1.1}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.242 \section
-              {Objetivos de qualidade}\label{sec:quality-goals}] [5
+l.241 
+      ] [5
 pdfTeX warning (ext4): destination with the same identifier (name{table.1.2}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.267 \chapter
-              {Arquitetura do Sistema}] [6]
+l.262 
+      ] [6]
 Cap\'{\i }tulo 2.
-<images/c4-nivel1-contexto.png, id=216, 2007.5pt x 1244.65pt>
+<images/c4-nivel1-contexto.png, id=221, 2007.5pt x 1244.65pt>
 File: images/c4-nivel1-contexto.png Graphic file (type png)
 <use images/c4-nivel1-contexto.png>
 Package pdftex.def Info: images/c4-nivel1-contexto.png  used on input line 278.
@@ -804,42 +804,63 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1})
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.294 
+l.292 
        <./images/c4-nivel1-contexto.png (PNG copy)>]
-<images/c4-nivel2-containers.png, id=228, 2007.5pt x 1525.7pt>
+<images/c4-nivel2-containers.png, id=232, 2007.5pt x 1525.7pt>
 File: images/c4-nivel2-containers.png Graphic file (type png)
 <use images/c4-nivel2-containers.png>
 Package pdftex.def Info: images/c4-nivel2-containers.png  used on input line 30
-3.
+1.
 (pdftex.def)             Requested size: 459.51054pt x 349.22745pt.
  [9] [10
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.313 
-       <./images/c4-nivel2-containers.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 332--332
+l.312 D
+       o ponto de vista de componentes internos da API (C4 N√≠vel 3, detalha...
+ <./images/c4-nivel2-containers.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 330--330
 []|\T1/lmr/m/n/12 (+20) Modelar uma loja
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 332--332
-\T1/lmr/m/n/12 (+20) in-te-gra-Á„o pre-vista
+Underfull \hbox (badness 10000) in paragraph at lines 330--330
+\T1/lmr/m/n/12 (+20) de CEP ma-pe-ada
  []
 
 
-Underfull \hbox (badness 2495) in paragraph at lines 332--332
+Underfull \hbox (badness 10000) in paragraph at lines 330--330
+\T1/lmr/m/n/12 (+20) na ar-qui-te-tura
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 330--330
+\T1/lmr/m/n/12 (+20) como ca-pa-ci-dade
+ []
+
+
+Underfull \hbox (badness 1237) in paragraph at lines 330--330
+[]|\T1/lmr/m/n/12 (+20) A ar-qui-te-tura j· re-serva o
+ []
+
+
+Underfull \hbox (badness 6063) in paragraph at lines 330--330
+\T1/lmr/m/n/12 (+20) ponto de in-te-gra-Á„o para
+ []
+
+
+Underfull \hbox (badness 2495) in paragraph at lines 330--330
 []|\T1/lmr/m/n/12 (+20) Depender de abs-tra-
  []
 
 
-Underfull \hbox (badness 1048) in paragraph at lines 332--332
+Underfull \hbox (badness 1048) in paragraph at lines 330--330
 \T1/lmr/m/n/12 (+20) Áıes nos ser-vi-Áos de
  []
 
 
-Underfull \hbox (badness 3612) in paragraph at lines 332--332
+Underfull \hbox (badness 3612) in paragraph at lines 330--330
 []|\T1/lmr/m/n/12 (+20) Facilita tes-tes com de-pen-
  []
 
@@ -848,145 +869,145 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.2.1}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.340 
+l.338 
       ] [13]
 Cap\'{\i }tulo 3.
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 []|\T1/lmr/m/n/12 (+20) Controllers
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmr/m/n/12 (+20) (\T1/lmtt/c/it/12 ClientesController\T1/lmr/m/n/12 (+20) ,
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 Pe-di-dos-Con-trol-ler\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 Pro-du-tos-Con-trol-ler\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 Ava-li-a-co-es-Con-trol-ler\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 4013) in paragraph at lines 367--367
+Underfull \hbox (badness 4013) in paragraph at lines 365--365
 []|\T1/lmr/m/n/12 (+20) Services (\T1/lmtt/c/it/12 ClienteService\T1/lmr/m/n/12
  (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 Pro-du-to-Ser-vice\T1/lmr/m/n/12 (+20) , \T1/lmtt/c/it/12 Pe-d
 i-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 do-Ser-vice\T1/lmr/m/n/12 (+20) , \T1/lmtt/c/it/12 Ava-li-a-ca
 -o-
  []
 
 
-Underfull \hbox (badness 1859) in paragraph at lines 367--367
+Underfull \hbox (badness 1859) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 Ser-vice\T1/lmr/m/n/12 (+20) , \T1/lmtt/c/it/12 Es-to-que-Ser-
 vice\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 Su-ges-ta-o-Per-so-na-li-za-da-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 []|\T1/lmr/m/n/12 (+20) Repositories
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmr/m/n/12 (+20) (\T1/lmtt/c/it/12 IRepository<T> \T1/lmr/m/n/12 (+20) e as
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmr/m/n/12 (+20) in-ter-fa-ces es-pe-cÌ-fi-cas
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 ICli-en-te-Re-po-si-tory\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 IPe-di-do-Re-po-si-tory\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 IPro-du-to-Re-po-si-tory\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 IA-va-li-a-ca-o-Re-po-si-tory\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 IEs-to-que-Re-po-si-tory\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 2351) in paragraph at lines 367--367
+Underfull \hbox (badness 2351) in paragraph at lines 365--365
 \T1/lmr/m/n/12 (+20) com suas im-ple-men-ta-Áıes
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 []|\T1/lmr/m/n/12 (+20) External Adap-ters
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmr/m/n/12 (+20) (\T1/lmtt/c/it/12 GoogleAuthAdapter\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 6893) in paragraph at lines 367--367
+Underfull \hbox (badness 6893) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 Lo-ca-li-za-ca-o-A-dap-ter\T1/lmr/m/n/12 (+20) , \T1/lmtt/c/it
 /12 Ga-
  []
 
 
-Underfull \hbox (badness 1308) in paragraph at lines 367--367
+Underfull \hbox (badness 1308) in paragraph at lines 365--365
 []|\T1/lmr/m/n/12 (+20) Domain Mo-dels (\T1/lmtt/c/it/12 Cliente\T1/lmr/m/n/12 
 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 Item-Per-so-na-li-zado\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 \T1/lmtt/c/it/12 Pe-dido\T1/lmr/m/n/12 (+20) , \T1/lmtt/c/it/12 Ava-li-a-ca-o-P
 rato\T1/lmr/m/n/12 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 367--367
+Underfull \hbox (badness 10000) in paragraph at lines 365--365
 []|\T1/lmr/m/n/12 (+20) Infrastructure
  []
 
@@ -997,112 +1018,168 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.3.1}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.373 
+l.371 
       ]
-<images/c4-nivel3-diagrama-classes.png, id=262, 2208.25pt x 1565.85pt>
+<images/c4-nivel3-diagrama-classes.png, id=266, 2208.25pt x 1565.85pt>
 File: images/c4-nivel3-diagrama-classes.png Graphic file (type png)
 <use images/c4-nivel3-diagrama-classes.png>
 Package pdftex.def Info: images/c4-nivel3-diagrama-classes.png  used on input l
-ine 380.
+ine 378.
 (pdftex.def)             Requested size: 459.51054pt x 325.8277pt.
  [16
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.389 P
+l.387 P
        ara tornar concreto esse fluxo de cria√ß√£o/confirma√ß√£o de pedido -...
 {C:/Users/Lucas/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}
  <./images/c4-nivel3-diagrama-classes.png (PNG copy)>]
-<images/diagrama-sequencia-confirmar-pedido.png, id=269, 2087.8pt x 1284.8pt>
+<images/diagrama-sequencia-confirmar-pedido.png, id=273, 2087.8pt x 1284.8pt>
 File: images/diagrama-sequencia-confirmar-pedido.png Graphic file (type png)
 <use images/diagrama-sequencia-confirmar-pedido.png>
 Package pdftex.def Info: images/diagrama-sequencia-confirmar-pedido.png  used o
-n input line 393.
+n input line 391.
 (pdftex.def)             Requested size: 459.51054pt x 282.7745pt.
  [17
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.2}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.403 
-       <./images/diagrama-sequencia-confirmar-pedido.png (PNG copy)>]
+l.402 \textbf{External Adapters.}
+                                  \texttt{GoogleAuthAdapter}, \texttt{Locali...
+ <./images/diagrama-sequencia-confirmar-pedido.png (PNG copy)>]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 412.
- [18]
-[19]
-<images/padrao-adapter-pagamento.png, id=305, 1806.75pt x 1043.9pt>
+nput line 410.
+ [18] [19]
+<images/padrao-adapter-pagamento.png, id=309, 1806.75pt x 1043.9pt>
 File: images/padrao-adapter-pagamento.png Graphic file (type png)
 <use images/padrao-adapter-pagamento.png>
 Package pdftex.def Info: images/padrao-adapter-pagamento.png  used on input lin
-e 455.
+e 453.
 (pdftex.def)             Requested size: 411.14528pt x 237.54337pt.
- [20
+
+[20
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.3}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.461 
-       <./images/padrao-adapter-pagamento.png (PNG copy)>] [21]
+l.459 
+       <./images/padrao-adapter-pagamento.png (PNG copy)>]
+<images/padrao-decorator-personalizacao.png, id=315, 2007.5pt x 1244.65pt>
+File: images/padrao-decorator-personalizacao.png Graphic file (type png)
+<use images/padrao-decorator-personalizacao.png>
+Package pdftex.def Info: images/padrao-decorator-personalizacao.png  used on in
+put line 466.
+(pdftex.def)             Requested size: 411.14528pt x 254.908pt.
+ [21] [22
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.4}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.472 \chapter
+              {Projeto de Interface do Usu√°rio} <./images/padrao-decorator-per
+sonalizacao.png (PNG copy)>]
 Cap\'{\i }tulo 4.
-[22
+[23
 
-] [23] [24] [25]
+]
+<images/tela-escolha-base-resumo.png, id=331, 1606.0pt x 632.3625pt>
+File: images/tela-escolha-base-resumo.png Graphic file (type png)
+<use images/tela-escolha-base-resumo.png>
+Package pdftex.def Info: images/tela-escolha-base-resumo.png  used on input lin
+e 509.
+(pdftex.def)             Requested size: 459.51054pt x 180.92957pt.
+ [24
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.518     \item \textbf
+                       {Avalia√ß√£o do prato (momento posterior).} Depois de...
+ <./images/tela-escolha-base-resumo.png (PNG copy)>]
+<images/atividade-fluxo-cliente.png, id=342, 1806.75pt x 2449.15pt>
+File: images/atividade-fluxo-cliente.png Graphic file (type png)
+<use images/atividade-fluxo-cliente.png>
+Package pdftex.def Info: images/atividade-fluxo-cliente.png  used on input line
+ 526.
+(pdftex.def)             Requested size: 362.77264pt x 491.76462pt.
+ [25
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.2}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.532 
+       <./images/atividade-fluxo-cliente.png (PNG copy)>]
+<images/atividade-autenticacao-totem.png, id=351, 2208.25pt x 943.525pt>
+File: images/atividade-autenticacao-totem.png Graphic file (type png)
+<use images/atividade-autenticacao-totem.png>
+Package pdftex.def Info: images/atividade-autenticacao-totem.png  used on input
+ line 552.
+(pdftex.def)             Requested size: 459.51054pt x 196.33206pt.
+ [26] [27
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4.3}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.573 \chapter
+              {Especifica√ß√£o e Estrat√©gia de Testes} <./images/atividade-aut
+enticacao-totem.png (PNG copy)>]
 Cap\'{\i }tulo 5.
-<images/piramide-testes.png, id=340, 1646.15pt x 963.6pt>
+<images/piramide-testes.png, id=361, 823.075pt x 481.8pt>
 File: images/piramide-testes.png Graphic file (type png)
 <use images/piramide-testes.png>
-Package pdftex.def Info: images/piramide-testes.png  used on input line 558.
-(pdftex.def)             Requested size: 362.77264pt x 212.34554pt.
-[26
+Package pdftex.def Info: images/piramide-testes.png  used on input line 592.
+(pdftex.def)             Requested size: 362.77264pt x 212.35287pt.
+[28
 
-] [27
+] [29
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.587         Assert.
+l.621         Assert.
                      Equal(StatusPedido.Confirmado, resultado.Status); <./image
 s/piramide-testes.png (PNG copy)>]
-Underfull \hbox (badness 6493) in paragraph at lines 592--593
+Underfull \hbox (badness 6493) in paragraph at lines 626--627
 []\T1/lmr/m/n/12 (+20) Essa abor-da-gem fun-ci-ona, mas exige man-ter clas-ses 
 au-xi-li-a-res ``de men-tira''
  []
 
 
-Underfull \hbox (badness 4752) in paragraph at lines 592--593
+Underfull \hbox (badness 4752) in paragraph at lines 626--627
 \T1/lmr/m/n/12 (+20) (\T1/lmtt/c/it/12 PedidoRepositoryEmMemoria\T1/lmr/m/n/12 
 (+20) , \T1/lmtt/c/it/12 Ga-teway-Pa-ga-men-to-Sem-pre-A-prova\T1/lmr/m/n/12 (+
 20) ) sÛ para vi-a-bi-li-zar o
  []
 
-[28] [29] [30] [31] [32]
+[30] [31] [32] [33] [34] [35] [36] [37]
 Cap\'{\i }tulo 6.
-[33
+[38
 
 ]
-<images/fluxo-git-repositorio.png, id=514, 2609.75pt x 923.45pt>
+<images/fluxo-git-repositorio.png, id=658, 1304.875pt x 461.725pt>
 File: images/fluxo-git-repositorio.png Graphic file (type png)
 <use images/fluxo-git-repositorio.png>
-Package pdftex.def Info: images/fluxo-git-repositorio.png  used on input line 8
-01.
+Package pdftex.def Info: images/fluxo-git-repositorio.png  used on input line 9
+71.
 (pdftex.def)             Requested size: 459.51054pt x 162.59251pt.
- [34] [35
+ [39] [40
 pdfTeX warning (ext4): destination with the same identifier (name{figure.6.1}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.817 \chapter
+l.985 \chapter
               *{Controle de Vers√µes do Documento} <./images/fluxo-git-reposito
-rio.png (PNG copy)>] [36
+rio.png (PNG copy)>] [41
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{table.6.1}) h
 as been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.845 }{}
-         ] (template-modelo-projeto-final-2026.bbl) [37
+l.1013 }{}
+          ] (template-modelo-projeto-final-2026.bbl) [42
 
 
 ]
@@ -1117,16 +1194,16 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `template-modelo-projeto-final-2026.out' has 
 not changed.
-(rerunfilecheck)             Checksum: DFC0C5F6AD033804FFC79BA7043F3A75;6972.
+(rerunfilecheck)             Checksum: CC9C75336631EADF31ACC39C23333F78;7024.
  ) 
 Here is how much of TeX's memory you used:
- 16549 strings out of 467871
- 264992 string characters out of 5418376
- 1071726 words of memory out of 5000000
- 44796 multiletter control sequences out of 15000+600000
- 689473 words of font info for 158 fonts, out of 8000000 for 9000
+ 16805 strings out of 467871
+ 269928 string characters out of 5418376
+ 1072331 words of memory out of 5000000
+ 44930 multiletter control sequences out of 15000+600000
+ 689570 words of font info for 159 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,79p,1510b,2039s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1965b,2039s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pf
 b><C:/Users/Lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.p
 fb><C:/Users/Lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pf
@@ -1136,10 +1213,10 @@ C:/Users/Lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><
 C:/Users/Lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><
 C:/Users/Lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb><
 C:/Users/Lucas/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt8.pfb>
-Output written on template-modelo-projeto-final-2026.pdf (39 pages, 1151795 byt
+Output written on template-modelo-projeto-final-2026.pdf (44 pages, 1388885 byt
 es).
 PDF statistics:
- 640 PDF objects out of 1000 (max. 8388607)
- 255 named destinations out of 1000 (max. 500000)
- 37689 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 807 PDF objects out of 1000 (max. 8388607)
+ 375 named destinations out of 1000 (max. 500000)
+ 37717 words of extra memory for PDF output out of 42996 (max. 10000000)
 

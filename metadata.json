@@ -1,0 +1,6 @@
+{
+  "name": "Sistema Unespão",
+  "description": "Plataforma de panificação artesanal com seleção de perfis: Visão do Cliente com padarias próximas, personalização de lanches estilo iFood e reviews online; e Visão do Padeiro com acompanhamento em tempo real dos pedidos chegando ao forno.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
