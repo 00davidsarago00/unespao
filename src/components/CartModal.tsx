@@ -17,7 +17,7 @@ export const CartModal: React.FC<CartModalProps> = ({
   cartItems,
   onRemoveItem,
   onConfirmOrder,
-  clienteNomePadrao = 'Thiago (Aluno UNESP)',
+  clienteNomePadrao = 'Thiago Nomura',
 }) => {
   if (!isOpen) return null;
 
@@ -31,17 +31,15 @@ export const CartModal: React.FC<CartModalProps> = ({
   const handleFinalizar = () => {
     if (cartItems.length === 0) return;
 
-    const codigoUnico = `UNESP-${Math.floor(100 + Math.random() * 900)}`;
+    const codigoUnico = `UNESPAO-${Math.floor(100 + Math.random() * 900)}`;
     const novoPedido: Pedido = {
       id: `ped-${Date.now()}`,
       codigo: codigoUnico,
-      padariaId: cartItems[0]?.padariaId || 'padaria-1',
-      padariaNome: cartItems[0]?.padariaNome || 'Padaria Central Unesp',
       canal: 'app_mobile',
-      clienteNome: clienteNome.trim() || 'Cliente UNESP',
+      clienteNome: clienteNome.trim() || 'Cliente',
       itens: [...cartItems],
       valorTotal: totalGeral,
-      status: 'aguardando_preparo',
+      status: 'confirmado',
       metodoPagamento,
       criadoEm: 'Agora mesmo',
       tempoEstimadoMin: 15,
@@ -72,10 +70,10 @@ export const CartModal: React.FC<CartModalProps> = ({
             </div>
             <div>
               <h2 className="text-lg sm:text-xl font-bold text-[#3E2512] font-['Space_Grotesk']">
-                {isFinalizado ? 'Pedido Enviado à Cozinha!' : 'Sua Sacola de Lanches'}
+                {isFinalizado ? 'Pedido Confirmado!' : 'Sua Sacola de Lanches'}
               </h2>
               <p className="text-xs text-[#75604C]">
-                {isFinalizado ? 'Acompanhe a chamada na tela do padeiro' : `${cartItems.length} item(ns) selecionados`}
+                {isFinalizado ? 'Aguarde a chamada da sua senha no balcão' : `${cartItems.length} item(ns) selecionados`}
               </p>
             </div>
           </div>
@@ -105,7 +103,7 @@ export const CartModal: React.FC<CartModalProps> = ({
                   {pedidoGerado.codigo}
                 </div>
                 <p className="text-xs sm:text-sm text-[#75604C] mt-1.5 max-w-sm mx-auto">
-                  Seu lanche personalizado já apareceu na tela do forno da <strong>{pedidoGerado.padariaNome}</strong>!
+                  Seu lanche personalizado foi registrado na <strong>Padaria Unespão</strong>!
                 </p>
               </div>
 
@@ -137,13 +135,13 @@ export const CartModal: React.FC<CartModalProps> = ({
               <ShoppingBag className="w-12 h-12 text-[#D6C5AF] mx-auto" />
               <h3 className="text-base font-bold text-[#3E2512]">Sua sacola está vazia</h3>
               <p className="text-xs text-[#75604C] max-w-xs mx-auto">
-                Escolha uma das padarias no campus ou em Bauru e monte seu lanche com ingredientes personalizados!
+                Escolha um produto no cardápio e monte seu lanche com ingredientes personalizados!
               </p>
               <button
                 onClick={onClose}
                 className="mt-2 px-5 py-2 rounded-xl bg-[#4A2F17] text-white font-bold text-xs"
               >
-                Explorar Padarias
+                Ver Cardápio
               </button>
             </div>
           ) : (
@@ -298,7 +296,7 @@ export const CartModal: React.FC<CartModalProps> = ({
               onClick={handleFinalizar}
               className="w-full flex items-center justify-between bg-[#E5A823] hover:bg-[#D99A16] text-[#3B220B] font-bold py-3.5 px-6 rounded-xl shadow-xs transition-colors"
             >
-              <span>Confirmar & Enviar ao Padeiro</span>
+              <span>Confirmar Pedido</span>
               <span className="bg-[#FAF6EF]/70 px-3 py-1 rounded-lg text-sm sm:text-base font-extrabold">
                 R$ {totalGeral.toFixed(2)}
               </span>

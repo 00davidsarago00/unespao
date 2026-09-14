@@ -1,23 +1,17 @@
 import React, { useState } from 'react';
-import { 
-  Padaria, 
-  ProdutoBase, 
-  Ingrediente, 
-  ItemPersonalizado, 
-  ReviewOnline, 
-  Pedido, 
-  OrderStatus 
+import {
+  ProdutoBase,
+  Ingrediente,
+  ItemPersonalizado,
+  ReviewOnline
 } from '../types';
+import { TOUR_STEPS } from '../data/spotlightTourData';
 import { ClientView } from './ClientView';
-import { BakerView } from './BakerView';
+import { AdminStockPanel } from './AdminStockPanel';
 import { SpotlightTourOverlay } from './SpotlightTourOverlay';
-import { SpotlightRoleSelectorModal } from './SpotlightRoleSelectorModal';
 
 interface GuidedPresentationTourProps {
   onExit: () => void;
-  onOpenClientView: () => void;
-  onOpenBakerView: () => void;
-  padarias: Padaria[];
   bases: ProdutoBase[];
   ingredientes: Ingrediente[];
   reviews: ReviewOnline[];
@@ -25,18 +19,16 @@ interface GuidedPresentationTourProps {
   onOpenCart: () => void;
   onAddToCart: (item: ItemPersonalizado) => void;
   onAddReview: (review: ReviewOnline) => void;
-  pedidos: Pedido[];
-  onUpdateOrderStatus: (id: string, status: OrderStatus) => void;
-  onSimulateIncomingOrder: () => void;
-  onOpenC4Modal: () => void;
-  initialRole?: 'cliente' | 'padeiro';
+  onUpdateBaseStock: (id: string, newStock: number) => void;
+  onUpdateIngredientStock: (id: string, newStock: number) => void;
+  onAddNewIngredient: (ing: Partial<Ingrediente>) => void;
+  onRemoveIngredient: (id: string) => void;
+  onAddNewBase: (base: Partial<ProdutoBase>) => void;
+  onRemoveBase: (id: string) => void;
 }
 
 export const GuidedPresentationTour: React.FC<GuidedPresentationTourProps> = ({
   onExit,
-  onOpenClientView,
-  onOpenBakerView,
-  padarias,
   bases,
   ingredientes,
   reviews,
@@ -44,43 +36,33 @@ export const GuidedPresentationTour: React.FC<GuidedPresentationTourProps> = ({
   onOpenCart,
   onAddToCart,
   onAddReview,
-  pedidos,
-  onUpdateOrderStatus,
-  onSimulateIncomingOrder,
-  onOpenC4Modal,
-  initialRole,
+  onUpdateBaseStock,
+  onUpdateIngredientStock,
+  onAddNewIngredient,
+  onRemoveIngredient,
+  onAddNewBase,
+  onRemoveBase,
 }) => {
-  // Papel selecionado para o tour ('cliente' ou 'padeiro')
-  const [selectedRole, setSelectedRole] = useState<'cliente' | 'padeiro' | null>(initialRole || null);
-
-  // Passo atual do tour (0 a 7, representando os 8 tópicos da documentação)
+  // Fluxo linear único de 20 passos — sem seleção prévia de papel.
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
 
-  // Se nenhum papel foi escolhido ainda, exibe o modal seletor com as duas opções
-  if (!selectedRole) {
-    return (
-      <div className="relative min-h-[85vh] flex items-center justify-center p-4">
-        <SpotlightRoleSelectorModal
-          isOpen={true}
-          onSelectRole={(role) => setSelectedRole(role)}
-          onCancel={onExit}
-        />
-      </div>
-    );
-  }
+  // Determina qual tela de app fica por baixo: usa a fase do passo atual se
+  // for um passo de prática, senão mantém a última fase de prática já vista
+  // (os passos de teoria cobrem a tela inteira, então isso só importa para a
+  // transição ficar suave ao voltar a um passo de prática).
+  const backgroundFase = React.useMemo(() => {
+    for (let i = currentStepIndex; i >= 0; i--) {
+      const step = TOUR_STEPS[i];
+      if (step.fase === 'cliente' || step.fase === 'atendente') return step.fase;
+    }
+    return 'cliente' as const;
+  }, [currentStepIndex]);
 
   return (
     <div className="relative min-h-screen pb-40 animate-in fade-in duration-200">
-      
-      {/* CONTEÚDO DO SOFTWARE NO FUNDO:
-          Deslocado para a esquerda nas vistas de tour para abrir amplo espaço
-          limpo e desobstruído para o painel anti-sobreposição flutuante à direita */}
-      <div className="w-full lg:max-w-[calc(100%-410px)] xl:max-w-[calc(100%-450px)] lg:mr-auto lg:ml-0 transition-all duration-300">
-        
-        {/* 1. VISÃO DO CLIENTE EM TEMPO REAL NO FUNDO */}
-        {selectedRole === 'cliente' && (
+      <div className="w-full transition-all duration-300">
+        {backgroundFase === 'cliente' ? (
           <ClientView
-            padarias={padarias}
             bases={bases}
             ingredientes={ingredientes}
             reviews={reviews}
@@ -88,32 +70,27 @@ export const GuidedPresentationTour: React.FC<GuidedPresentationTourProps> = ({
             onOpenCart={onOpenCart}
             onAddToCart={onAddToCart}
             onAddReview={onAddReview}
-            activeTourStep={currentStepIndex + 1}
           />
-        )}
-
-        {/* 2. VISÃO DO PADEIRO EM TEMPO REAL NO FUNDO */}
-        {selectedRole === 'padeiro' && (
-          <BakerView
-            pedidos={pedidos}
-            onUpdateOrderStatus={onUpdateOrderStatus}
-            onSimulateIncomingOrder={onSimulateIncomingOrder}
+        ) : (
+          <AdminStockPanel
+            bases={bases}
+            ingredientes={ingredientes}
+            onUpdateBaseStock={onUpdateBaseStock}
+            onUpdateIngredientStock={onUpdateIngredientStock}
+            onAddNewIngredient={onAddNewIngredient}
+            onRemoveIngredient={onRemoveIngredient}
+            onAddNewBase={onAddNewBase}
+            onRemoveBase={onRemoveBase}
           />
         )}
       </div>
 
-      {/* 3. CAMADA SPOTLIGHT COM TELA ESCURECIDA, DESTAQUE NA FERRAMENTA E EXPLICAÇÃO DE ES2 */}
       <SpotlightTourOverlay
-        role={selectedRole}
-        onToggleRole={(newRole) => setSelectedRole(newRole)}
+        steps={TOUR_STEPS}
         currentStepIndex={currentStepIndex}
-        onStepChange={(newStepIndex) => setCurrentStepIndex(newStepIndex)}
+        onStepChange={setCurrentStepIndex}
         onExitTour={onExit}
-        onOpenC4Modal={onOpenC4Modal}
-        onSimulateOrder={onSimulateIncomingOrder}
-        onOpenCart={onOpenCart}
       />
-
     </div>
   );
 };

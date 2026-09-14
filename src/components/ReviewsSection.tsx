@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { Star, MessageSquare, Plus, CheckCircle2, User, ThumbsUp } from 'lucide-react';
-import { ReviewOnline, Padaria } from '../types';
+import { ReviewOnline } from '../types';
 
 interface ReviewsSectionProps {
-  padaria: Padaria;
   reviews: ReviewOnline[];
   onAddReview: (review: ReviewOnline) => void;
 }
 
 export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
-  padaria,
   reviews,
   onAddReview,
 }) => {
@@ -22,17 +20,14 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
   const [lancheFavorito, setLancheFavorito] = useState('');
   const [sucessoMsg, setSucessoMsg] = useState(false);
 
-  const padariaReviews = reviews.filter(r => r.padariaId === padaria.id);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!nome.trim() || !comentario.trim()) return;
 
     const novoReview: ReviewOnline = {
       id: `rev-${Date.now()}`,
-      padariaId: padaria.id,
       autorNome: nome.trim(),
-      autorCargoOuCurso: curso.trim() || 'Comunidade UNESP Bauru',
+      autorCargoOuCurso: curso.trim() || 'Cliente Unespão',
       nota,
       data: 'Agora mesmo',
       comentario: comentario.trim(),
@@ -53,9 +48,9 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
   };
 
   // Calcular média de avaliações
-  const mediaNotas = padariaReviews.length > 0 
-    ? (padariaReviews.reduce((acc, r) => acc + r.nota, 0) / padariaReviews.length).toFixed(1)
-    : padaria.nota.toFixed(1);
+  const mediaNotas = reviews.length > 0
+    ? (reviews.reduce((acc, r) => acc + r.nota, 0) / reviews.length).toFixed(1)
+    : '—';
 
   return (
     <div className="space-y-6">
@@ -75,7 +70,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
               Avaliações Online de Clientes
             </h3>
             <p className="text-xs sm:text-sm text-[#75604C] mt-0.5">
-              {padariaReviews.length} avaliações verificadas de alunos e moradores de Bauru
+              {reviews.length} avaliações verificadas de clientes
             </p>
             <div className="flex items-center gap-1.5 mt-1 text-xs text-[#9B6F26] font-semibold">
               <span>✓ 98% dos clientes recomendam os lanches personalizados</span>
@@ -88,7 +83,7 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#E5A823] hover:bg-[#D99A16] text-[#3B220B] font-bold text-xs sm:text-sm shadow-xs transition-colors"
         >
           <Plus className="w-4 h-4" />
-          <span>{isFormOpen ? 'Fechar Formulário' : 'Avaliar Esta Padaria'}</span>
+          <span>{isFormOpen ? 'Fechar Formulário' : 'Avaliar a Padaria Unespão'}</span>
         </button>
       </div>
 
@@ -100,9 +95,9 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
         >
           <div className="flex items-center justify-between border-b border-[#F2EADB] pb-3">
             <h4 className="font-bold text-[#3E2512] text-sm sm:text-base font-['Space_Grotesk']">
-              Escrever Avaliação para {padaria.nome}
+              Escrever Avaliação para a Padaria Unespão
             </h4>
-            <span className="text-xs text-[#75604C]">Sua opinião ajuda outros alunos</span>
+            <span className="text-xs text-[#75604C]">Sua opinião ajuda outros clientes</span>
           </div>
 
           {sucessoMsg ? (
@@ -157,13 +152,13 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-[#3E2512] mb-1">
-                    Curso ou Vínculo (Opcional)
+                    Profissão ou Vínculo (Opcional)
                   </label>
                   <input
                     type="text"
                     value={curso}
                     onChange={e => setCurso(e.target.value)}
-                    placeholder="Ex.: Ciência da Computação • UNESP"
+                    placeholder="Ex.: Designer Gráfica"
                     className="w-full bg-[#FAF6EF] border border-[#E0D3C1] rounded-xl px-3 py-2 text-xs sm:text-sm text-[#3E2512] focus:outline-hidden focus:ring-2 focus:ring-[#DE9E1E]"
                   />
                 </div>
@@ -220,14 +215,14 @@ export const ReviewsSection: React.FC<ReviewsSectionProps> = ({
 
       {/* Lista de Reviews */}
       <div className="space-y-3.5">
-        {padariaReviews.length === 0 ? (
+        {reviews.length === 0 ? (
           <div className="bg-white rounded-2xl p-8 text-center border border-[#EADBCA] text-[#75604C]">
             <MessageSquare className="w-8 h-8 text-[#DE9E1E] mx-auto mb-2 opacity-70" />
-            <p className="font-bold text-[#3E2512]">Nenhuma avaliação ainda para esta padaria.</p>
+            <p className="font-bold text-[#3E2512]">Nenhuma avaliação ainda.</p>
             <p className="text-xs mt-1">Seja o primeiro a avaliar e compartilhar sua experiência!</p>
           </div>
         ) : (
-          padariaReviews.map(rev => (
+          reviews.map(rev => (
             <div 
               key={rev.id}
               className="bg-white rounded-2xl p-5 border border-[#EADBCA] shadow-2xs space-y-2.5 hover:border-[#DE9E1E] transition-colors"

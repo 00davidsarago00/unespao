@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { 
-  ShoppingBag, 
-  ChefHat, 
-  MapPin, 
-  Sliders, 
-  Star, 
-  Bell, 
-  CheckCircle2, 
-  Flame, 
-  ArrowRight, 
-  BookOpen, 
+import {
+  ShoppingBag,
+  ClipboardList,
+  Package,
+  Sliders,
+  Star,
+  Boxes,
+  CheckCircle2,
+  PlusCircle,
+  ArrowRight,
+  BookOpen,
   Sparkles,
   Presentation,
   Compass,
@@ -19,17 +19,15 @@ import {
 } from 'lucide-react';
 
 interface HomeSelectionViewProps {
-  onSelectRole: (role: 'cliente' | 'padeiro') => void;
-  onStartGuidedTour: (role?: 'cliente' | 'padeiro') => void;
+  onSelectRole: (role: 'cliente' | 'atendente') => void;
+  onStartGuidedTour: () => void;
   onOpenDocs?: () => void;
-  pedidosPendentesCount: number;
 }
 
 export const HomeSelectionView: React.FC<HomeSelectionViewProps> = ({
   onSelectRole,
   onStartGuidedTour,
   onOpenDocs,
-  pedidosPendentesCount,
 }) => {
   // Estado de seleção do modo na mesma página: 'livre' ou 'guiado'
   const [selectedExperienceMode, setSelectedExperienceMode] = useState<'livre' | 'guiado'>('livre');
@@ -54,7 +52,7 @@ export const HomeSelectionView: React.FC<HomeSelectionViewProps> = ({
               id="unespao-hero-subtitle"
               viewBox="0 0 367.41464 24" 
               className="w-full h-auto mt-2 select-none overflow-visible"
-              aria-label="Sistema de padarias"
+              aria-label="Padaria Unespão"
             >
               <text
                 x="0"
@@ -66,7 +64,7 @@ export const HomeSelectionView: React.FC<HomeSelectionViewProps> = ({
                 textLength="367.41464"
                 lengthAdjust="spacing"
               >
-                Sistema de padarias
+                Padaria Unespão
               </text>
             </svg>
           </div>
@@ -106,14 +104,14 @@ export const HomeSelectionView: React.FC<HomeSelectionViewProps> = ({
 
                 <h3 className="text-sm sm:text-base font-black text-[#3E2512] mt-0.5 font-['Space_Grotesk']">
                   {selectedExperienceMode === 'guiado'
-                    ? 'Apresentação Guiada dos 8 Tópicos de Engenharia de Software II'
-                    : 'Navegação Livre e Autônoma pelas Padarias do Campus'}
+                    ? 'Apresentação Guiada dos Tópicos de Engenharia de Software II'
+                    : 'Navegação Livre e Autônoma pelo Sistema Unespão'}
                 </h3>
-                
+
                 <p className="text-xs text-[#75604C] mt-1 leading-relaxed max-w-2xl">
                   {selectedExperienceMode === 'guiado'
-                    ? 'O modo tour conduz você passo a passo pelos 8 tópicos de ES II (C4, SOLID, GoF Adapter, pirâmide de testes e CI/CD) com holofotes interativos sobre o sistema real.'
-                    : 'Acesse diretamente e sem restrições a visão do Cliente (montagem de lanches artesanais) ou a visão do Padeiro (chapa e fila de pedidos em tempo real).'}
+                    ? 'O modo tour conduz você passo a passo pelos tópicos de ES II (C4, SOLID, GoF Adapter, pirâmide de testes e CI/CD) com holofotes interativos sobre o sistema real.'
+                    : 'Acesse diretamente e sem restrições a visão do Cliente (montagem de lanches artesanais) ou a visão do Atendente/Administrador (catálogo e estoque).'}
                 </p>
               </div>
             </div>
@@ -188,7 +186,7 @@ export const HomeSelectionView: React.FC<HomeSelectionViewProps> = ({
                   Trilha Didática Completa
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-[#FAF6EF] mt-1 font-['Space_Grotesk']">
-                  Demonstração Guiada dos 8 Tópicos de ES II
+                  Demonstração Guiada dos Tópicos de ES II
                 </h2>
                 <p className="text-xs sm:text-sm text-stone-300 mt-1 max-w-2xl leading-relaxed">
                   Percorra pela fundamentação teórica conectada ao Unespão. Inclui pop-up interativo com os diagramas C4 oficiais, simulador do padrão Adapter de pagamentos e runner de testes xUnit.
@@ -197,83 +195,60 @@ export const HomeSelectionView: React.FC<HomeSelectionViewProps> = ({
 
               <div className="flex flex-col gap-3 w-full sm:w-auto sm:min-w-[260px] lg:w-72 flex-shrink-0">
                 <button
-                  id="btn-iniciar-tour-cliente"
-                  onClick={() => onStartGuidedTour('cliente')}
-                  className="w-full py-3.5 px-5 rounded-2xl bg-[#FAF6EF] hover:bg-white text-[#3E2512] font-bold text-sm sm:text-base flex items-center justify-between shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-[#FAF0DC] flex items-center justify-center">
-                      <ShoppingBag className="w-4.5 h-4.5 text-[#DE9E1E]" />
-                    </div>
-                    <span>Tour no Cliente</span>
-                  </div>
-                  <ArrowRight className="w-4 h-4 text-[#9B6F26]" />
-                </button>
-
-                <button
-                  id="btn-iniciar-tour-padeiro"
-                  onClick={() => onStartGuidedTour('padeiro')}
+                  id="btn-iniciar-tour-guiado"
+                  onClick={() => onStartGuidedTour()}
                   className="w-full py-3.5 px-5 rounded-2xl bg-[#DE9E1E] hover:bg-[#CF921A] text-[#3E2512] font-bold text-sm sm:text-base flex items-center justify-between shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-xl bg-[#3E2512] text-[#DE9E1E] flex items-center justify-center">
-                      <ChefHat className="w-4.5 h-4.5 text-[#DE9E1E]" />
+                      <Presentation className="w-4.5 h-4.5 text-[#DE9E1E]" />
                     </div>
-                    <span>Tour no Padeiro</span>
+                    <span>Iniciar Apresentação Guiada</span>
                   </div>
                   <ArrowRight className="w-4 h-4 text-[#3E2512]" />
                 </button>
+                <p className="text-[11px] text-stone-400 text-center">
+                  Fluxo único de 28 slides, alternando teoria, o app real, diagramas e código.
+                </p>
               </div>
             </div>
 
-            {/* Relação dos 8 Tópicos que serão percorridos */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            {/* Relação dos 6 Capítulos que serão percorridos */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
               <div className="bg-[#4E311A] p-3 rounded-xl border border-[#694222]">
-                <span className="text-[10px] font-bold text-[#DE9E1E] block">TÓPICO 1</span>
-                <h4 className="text-xs font-bold text-[#FAF6EF]">1. Introdução & Objetivos</h4>
-                <p className="text-[10px] text-stone-300 mt-0.5">Escopo UNESP e ISO 25010</p>
+                <span className="text-[10px] font-bold text-[#DE9E1E] block">CAP. 1</span>
+                <h4 className="text-xs font-bold text-[#FAF6EF]">Introdução & Objetivos</h4>
+                <p className="text-[10px] text-stone-300 mt-0.5">Escopo, requisitos e qualidade</p>
               </div>
 
               <div className="bg-[#4E311A] p-3 rounded-xl border border-[#694222]">
-                <span className="text-[10px] font-bold text-[#DE9E1E] block">TÓPICO 2</span>
-                <h4 className="text-xs font-bold text-[#FAF6EF]">2. Arquitetura do Sistema</h4>
-                <p className="text-[10px] text-stone-300 mt-0.5">Clean Arch, C4 & Pop-up</p>
+                <span className="text-[10px] font-bold text-[#DE9E1E] block">CAP. 2</span>
+                <h4 className="text-xs font-bold text-[#FAF6EF]">Arquitetura do Sistema</h4>
+                <p className="text-[10px] text-stone-300 mt-0.5">Clean Architecture & C4</p>
               </div>
 
               <div className="bg-[#4E311A] p-3 rounded-xl border border-[#694222]">
-                <span className="text-[10px] font-bold text-[#DE9E1E] block">TÓPICO 3</span>
-                <h4 className="text-xs font-bold text-[#FAF6EF]">3. Projeto de Componentes</h4>
-                <p className="text-[10px] text-stone-300 mt-0.5">Padrão GoF Adapter & Repos</p>
+                <span className="text-[10px] font-bold text-[#DE9E1E] block">CAP. 3</span>
+                <h4 className="text-xs font-bold text-[#FAF6EF]">Projeto de Componentes</h4>
+                <p className="text-[10px] text-stone-300 mt-0.5">SOLID, Repository, Adapter, Decorator</p>
               </div>
 
               <div className="bg-[#4E311A] p-3 rounded-xl border border-[#694222]">
-                <span className="text-[10px] font-bold text-[#DE9E1E] block">TÓPICO 4</span>
-                <h4 className="text-xs font-bold text-[#FAF6EF]">4. Interface do Usuário</h4>
-                <p className="text-[10px] text-stone-300 mt-0.5">Visão Cliente vs Padeiro</p>
+                <span className="text-[10px] font-bold text-[#DE9E1E] block">CAP. 4</span>
+                <h4 className="text-xs font-bold text-[#FAF6EF]">Interface do Usuário</h4>
+                <p className="text-[10px] text-stone-300 mt-0.5">Visão Cliente e Atendente</p>
               </div>
 
               <div className="bg-[#4E311A] p-3 rounded-xl border border-[#694222]">
-                <span className="text-[10px] font-bold text-[#DE9E1E] block">TÓPICO 5</span>
-                <h4 className="text-xs font-bold text-[#DE9E1E] block">5. Estratégia de Testes</h4>
+                <span className="text-[10px] font-bold text-[#DE9E1E] block">CAP. 5</span>
+                <h4 className="text-xs font-bold text-[#DE9E1E] block">Estratégia de Testes</h4>
                 <p className="text-[10px] text-stone-300 mt-0.5">Pirâmide & xUnit com Moq</p>
               </div>
 
               <div className="bg-[#4E311A] p-3 rounded-xl border border-[#694222]">
-                <span className="text-[10px] font-bold text-[#DE9E1E] block">TÓPICO 6</span>
-                <h4 className="text-xs font-bold text-[#FAF6EF]">6. Gestão de Configuração</h4>
-                <p className="text-[10px] text-stone-300 mt-0.5">GitFlow, ICs e CI/CD</p>
-              </div>
-
-              <div className="bg-[#4E311A] p-3 rounded-xl border border-[#694222]">
-                <span className="text-[10px] font-bold text-[#DE9E1E] block">TÓPICO 7</span>
-                <h4 className="text-xs font-bold text-[#FAF6EF]">7. Glossário e Siglas</h4>
-                <p className="text-[10px] text-stone-300 mt-0.5">Dicionário Técnico</p>
-              </div>
-
-              <div className="bg-[#4E311A] p-3 rounded-xl border border-[#694222]">
-                <span className="text-[10px] font-bold text-[#DE9E1E] block">TÓPICO 8</span>
-                <h4 className="text-xs font-bold text-[#FAF6EF]">8. Controle de Versões</h4>
-                <p className="text-[10px] text-stone-300 mt-0.5">Histórico de Entregas</p>
+                <span className="text-[10px] font-bold text-[#DE9E1E] block">CAP. 6</span>
+                <h4 className="text-xs font-bold text-[#FAF6EF]">Gestão de Configuração</h4>
+                <p className="text-[10px] text-stone-300 mt-0.5">Rastreabilidade e CI/CD</p>
               </div>
             </div>
           </div>
@@ -295,7 +270,7 @@ export const HomeSelectionView: React.FC<HomeSelectionViewProps> = ({
                       <ShoppingBag className="w-6 h-6 text-[#E5A823]" />
                     </div>
                     <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#F5ECDC] text-[#7A561D]">
-                      Para Alunos & Clientes
+                      Para Clientes
                     </span>
                   </div>
 
@@ -303,17 +278,17 @@ export const HomeSelectionView: React.FC<HomeSelectionViewProps> = ({
                     Visão do Cliente
                   </h2>
                   <p className="text-xs sm:text-sm text-[#75604C] mb-6 leading-relaxed">
-                    Descubra padarias próximas conectadas ao Unespão, monte seus lanches adicionando ou retirando ingredientes e confira avaliações reais.
+                    Monte seu lanche na Padaria Unespão adicionando ou retirando ingredientes e confira avaliações reais da comunidade.
                   </p>
 
                   <div className="space-y-3.5 border-t border-[#F2EADB] pt-5">
                     <div className="flex items-start gap-3">
                       <div className="w-7 h-7 rounded-full bg-[#4A2F17] text-white flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <MapPin className="w-3.5 h-3.5 text-[#E5A823]" />
+                        <Package className="w-3.5 h-3.5 text-[#E5A823]" />
                       </div>
                       <div>
-                        <h4 className="text-xs sm:text-sm font-bold text-[#3E2512]">Padarias Próximas</h4>
-                        <p className="text-[11px] sm:text-xs text-[#75604C]">Veja distância, tempo de espera e taxas no campus e Bauru.</p>
+                        <h4 className="text-xs sm:text-sm font-bold text-[#3E2512]">Cardápio Completo</h4>
+                        <p className="text-[11px] sm:text-xs text-[#75604C]">Pães artesanais, bases leves e ingredientes disponíveis em tempo real.</p>
                       </div>
                     </div>
 
@@ -351,49 +326,49 @@ export const HomeSelectionView: React.FC<HomeSelectionViewProps> = ({
                 </div>
               </div>
 
-              {/* Card 2: Visão do Padeiro */}
-              <div 
-                id="card-visao-padeiro"
-                onClick={() => onSelectRole('padeiro')}
+              {/* Card 2: Visão do Atendente/Administrador */}
+              <div
+                id="card-visao-atendente"
+                onClick={() => onSelectRole('atendente')}
                 className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-[#E9DFCE] hover:border-[#4A2F17] hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
                     <div className="w-12 h-12 rounded-full bg-[#4A2F17] text-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                      <ChefHat className="w-6 h-6 text-[#E5A823]" />
+                      <ClipboardList className="w-6 h-6 text-[#E5A823]" />
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#F5ECDC] text-[#7A561D]">
-                        Para a Cozinha & Forno
+                        Para a Gestão da Padaria
                       </span>
                     </div>
                   </div>
 
                   <h2 className="text-xl sm:text-2xl font-bold text-[#3E2512] mb-2 font-['Space_Grotesk']">
-                    Visão do Padeiro
+                    Visão do Atendente/Administrador
                   </h2>
                   <p className="text-xs sm:text-sm text-[#75604C] mb-6 leading-relaxed">
-                    Painel direto e objetivo para o padeiro. Visualize em tempo real os pedidos que estão chegando, veja exatamente cada personalização e despache.
+                    Painel direto e objetivo para quem administra a padaria: mantenha o catálogo de produtos e ingredientes e os níveis de estoque sempre atualizados.
                   </p>
 
                   <div className="space-y-3.5 border-t border-[#F2EADB] pt-5">
                     <div className="flex items-start gap-3">
                       <div className="w-7 h-7 rounded-full bg-[#4A2F17] text-white flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Bell className="w-3.5 h-3.5 text-[#E5A823]" />
+                        <Boxes className="w-3.5 h-3.5 text-[#E5A823]" />
                       </div>
                       <div>
-                        <h4 className="text-xs sm:text-sm font-bold text-[#3E2512]">Pedidos Chegando em Tempo Real</h4>
-                        <p className="text-[11px] sm:text-xs text-[#75604C]">Fila limpa com senhas, horários e notificações instantâneas.</p>
+                        <h4 className="text-xs sm:text-sm font-bold text-[#3E2512]">Controle de Estoque</h4>
+                        <p className="text-[11px] sm:text-xs text-[#75604C]">Ajuste rapidamente os níveis de produtos base e ingredientes.</p>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3">
                       <div className="w-7 h-7 rounded-full bg-[#4A2F17] text-white flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Flame className="w-3.5 h-3.5 text-[#E5A823]" />
+                        <PlusCircle className="w-3.5 h-3.5 text-[#E5A823]" />
                       </div>
                       <div>
-                        <h4 className="text-xs sm:text-sm font-bold text-[#3E2512]">Destaque de Itens & Exceções</h4>
-                        <p className="text-[11px] sm:text-xs text-[#75604C]">Visualização nítida de ingredientes adicionados e itens retirados.</p>
+                        <h4 className="text-xs sm:text-sm font-bold text-[#3E2512]">Cadastro de Catálogo</h4>
+                        <p className="text-[11px] sm:text-xs text-[#75604C]">Crie e remova produtos base e ingredientes disponíveis para o cliente.</p>
                       </div>
                     </div>
 
@@ -402,20 +377,20 @@ export const HomeSelectionView: React.FC<HomeSelectionViewProps> = ({
                         <CheckCircle2 className="w-3.5 h-3.5 text-[#E5A823]" />
                       </div>
                       <div>
-                        <h4 className="text-xs sm:text-sm font-bold text-[#3E2512]">Operação Rápida em 1 Toque</h4>
-                        <p className="text-[11px] sm:text-xs text-[#75604C]">Avance o status do pedido para 'Na Chapa' e 'Pronto no Balcão'.</p>
+                        <h4 className="text-xs sm:text-sm font-bold text-[#3E2512]">Disponibilidade Imediata</h4>
+                        <p className="text-[11px] sm:text-xs text-[#75604C]">Toda alteração reflete instantaneamente no totem e no aplicativo do cliente.</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="mt-8 pt-4 border-t border-[#F2EADB]">
-                  <button 
-                    id="btn-entrar-padeiro"
+                  <button
+                    id="btn-entrar-atendente"
                     type="button"
                     className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-[#4A2F17] hover:bg-[#3B220B] text-white font-bold text-sm sm:text-base shadow-xs transition-colors"
                   >
-                    <span>Acessar Painel do Padeiro</span>
+                    <span>Acessar Painel do Atendente</span>
                     <ArrowRight className="w-4 h-4 text-[#E5A823]" />
                   </button>
                 </div>

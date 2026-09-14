@@ -196,7 +196,7 @@ export const TotemOrdering: React.FC<TotemOrderingProps> = ({
                   <div className="w-5 h-5 bg-white border border-stone-900" />
                   <div className="w-5 h-5 bg-white border border-stone-900" />
                 </div>
-                <div className="text-[8px] text-center text-amber-400 font-mono">UNESP-AUTH</div>
+                <div className="text-[8px] text-center text-amber-400 font-mono">UNESPAO-AUTH</div>
                 <div className="flex justify-between">
                   <div className="w-5 h-5 bg-white border border-stone-900" />
                   <div className="w-2 h-2 bg-white" />

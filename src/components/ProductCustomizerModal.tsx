@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { X, Plus, Minus, Check, AlertCircle, Sparkles } from 'lucide-react';
-import { ProdutoBase, Ingrediente, ItemPersonalizado, Padaria } from '../types';
+import { ProdutoBase, Ingrediente, ItemPersonalizado } from '../types';
 
 interface ProductCustomizerModalProps {
   isOpen: boolean;
   onClose: () => void;
   produto: ProdutoBase | null;
-  padaria: Padaria | null;
   ingredientesDisponiveis: Ingrediente[];
   onAddToCart: (item: ItemPersonalizado) => void;
 }
@@ -15,7 +14,6 @@ export const ProductCustomizerModal: React.FC<ProductCustomizerModalProps> = ({
   isOpen,
   onClose,
   produto,
-  padaria,
   ingredientesDisponiveis,
   onAddToCart,
 }) => {
@@ -61,8 +59,6 @@ export const ProductCustomizerModal: React.FC<ProductCustomizerModalProps> = ({
     const item: ItemPersonalizado = {
       id: `item-${Date.now()}`,
       produtoBase: produto,
-      padariaId: padaria?.id,
-      padariaNome: padaria?.nome,
       ingredientes: ingredientesSelecionados,
       ingredientesRemovidos: ingredientesRemovidos,
       observacoes: observacoes.trim() || undefined,
@@ -104,11 +100,6 @@ export const ProductCustomizerModal: React.FC<ProductCustomizerModalProps> = ({
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#9B6F26] bg-[#F4E9D8] px-2.5 py-0.5 rounded-full">
                   Personalização Estilo iFood
                 </span>
-                {padaria && (
-                  <span className="text-xs text-[#75604C] truncate max-w-[200px]">
-                    • {padaria.nome}
-                  </span>
-                )}
               </div>
               <h2 className="text-xl sm:text-2xl font-bold text-[#3E2512] mt-0.5 font-['Space_Grotesk']">
                 {produto.nome}
@@ -249,18 +240,18 @@ export const ProductCustomizerModal: React.FC<ProductCustomizerModalProps> = ({
           {/* Observações para a Cozinha */}
           <div className="bg-[#FAF6EF] p-4 sm:p-5 rounded-2xl border border-[#EADBCA] space-y-2">
             <label className="block text-xs sm:text-sm font-bold text-[#3E2512]">
-              Alguma observação para o padeiro?
+              Alguma observação para o preparo?
             </label>
             <textarea
               value={observacoes}
               onChange={e => setObservacoes(e.target.value)}
-              placeholder="Ex.: Pão bem tostadinho e crocante na chapa, caprichar no queijo..."
+              placeholder="Ex.: Pão bem tostadinho e crocante, caprichar no queijo..."
               maxLength={140}
               rows={2}
               className="w-full bg-white border border-[#E0D3C1] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-[#3E2512] placeholder-[#A89684] focus:outline-hidden focus:ring-2 focus:ring-[#DE9E1E] resize-none"
             />
             <div className="flex justify-between text-[11px] text-[#75604C]">
-              <span>O padeiro verá esse bilhete na comanda da cozinha</span>
+              <span>Sua observação é registrada junto com o item do pedido</span>
               <span>{observacoes.length}/140</span>
             </div>
           </div>

@@ -1,4 +1,4 @@
-export type UserRole = 'cliente' | 'padeiro';
+export type UserRole = 'cliente' | 'atendente';
 
 export type ClientChannel = 'totem_qrcode' | 'totem_anonimo' | 'app_mobile';
 
@@ -11,25 +11,8 @@ export type IngredientCategory =
   | 'Molho Artesanal' 
   | 'Crocante & Toque Final';
 
-export interface Padaria {
-  id: string;
-  nome: string;
-  distanciaKm: number;
-  tempoMin: string;
-  nota: number;
-  avaliacoesQtd: number;
-  endereco: string;
-  icone: string;
-  destaque: string;
-  taxaEntrega: number;
-  produtosDisponiveisIds: string[];
-  aberta: boolean;
-  horarioFuncionamento: string;
-}
-
 export interface ReviewOnline {
   id: string;
-  padariaId: string;
   autorNome: string;
   autorCargoOuCurso: string;
   nota: number; // 1 a 5
@@ -66,8 +49,6 @@ export interface Ingrediente {
 export interface ItemPersonalizado {
   id: string;
   produtoBase: ProdutoBase;
-  padariaId?: string;
-  padariaNome?: string;
   ingredientes: Ingrediente[]; // Adicionados
   ingredientesRemovidos?: string[]; // Removidos (ex: sem manteiga, sem cebola)
   observacoes?: string;
@@ -75,11 +56,10 @@ export interface ItemPersonalizado {
   precoTotal: number;
 }
 
-export type OrderStatus = 
-  | 'aguardando_preparo'
-  | 'em_preparo'
-  | 'pronto'
-  | 'concluido'
+export type OrderStatus =
+  | 'aberto'
+  | 'confirmado'
+  | 'pagamento_recusado'
   | 'cancelado';
 
 export type PaymentMethod = 'pix' | 'cartao_credito' | 'cartao_debito' | 'balcao';
@@ -95,9 +75,7 @@ export interface AvaliacaoPrato {
 
 export interface Pedido {
   id: string;
-  codigo: string; // Ex: UNESP-104
-  padariaId: string;
-  padariaNome: string;
+  codigo: string; // Ex: UNESPAO-104
   canal: ClientChannel;
   clienteNome: string;
   clienteEmail?: string;

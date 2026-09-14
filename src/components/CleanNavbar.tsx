@@ -1,19 +1,17 @@
 import React from 'react';
-import { ChefHat, User, Home, BookOpen, Presentation } from 'lucide-react';
+import { ClipboardList, User, Home, BookOpen, Presentation } from 'lucide-react';
 
 interface CleanNavbarProps {
-  currentView: 'home' | 'cliente' | 'padeiro' | 'guiado';
-  onNavigate: (view: 'home' | 'cliente' | 'padeiro' | 'guiado') => void;
+  currentView: 'home' | 'cliente' | 'atendente' | 'guiado';
+  onNavigate: (view: 'home' | 'cliente' | 'atendente' | 'guiado') => void;
   cartCount?: number;
   onOpenCart?: () => void;
-  pedidosPendentesCount: number;
   onOpenDocs: () => void;
 }
 
 export const CleanNavbar: React.FC<CleanNavbarProps> = ({
   currentView,
   onNavigate,
-  pedidosPendentesCount,
   onOpenDocs,
 }) => {
   return (
@@ -62,19 +60,16 @@ export const CleanNavbar: React.FC<CleanNavbarProps> = ({
           </button>
 
           <button
-            id="nav-btn-padeiro"
-            onClick={() => onNavigate('padeiro')}
+            id="nav-btn-atendente"
+            onClick={() => onNavigate('atendente')}
             className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold transition-all relative ${
-              currentView === 'padeiro'
+              currentView === 'atendente'
                 ? 'bg-[#4A2F17] text-white shadow-2xs'
                 : 'text-[#75604C] hover:text-[#3E2512]'
             }`}
           >
-            <ChefHat className={`w-3.5 h-3.5 ${currentView === 'padeiro' ? 'text-[#E5A823]' : 'text-[#DE9E1E]'}`} />
-            <span>Padeiro</span>
-            {pedidosPendentesCount > 0 && (
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-            )}
+            <ClipboardList className={`w-3.5 h-3.5 ${currentView === 'atendente' ? 'text-[#E5A823]' : 'text-[#DE9E1E]'}`} />
+            <span>Atendente</span>
           </button>
 
           <button
@@ -85,7 +80,7 @@ export const CleanNavbar: React.FC<CleanNavbarProps> = ({
                 ? 'bg-[#DE9E1E] text-[#3E2512] shadow-2xs ring-1 ring-[#DE9E1E]'
                 : 'text-[#75604C] hover:text-[#3E2512]'
             }`}
-            title="Apresentação Guiada dos 8 Tópicos de Engenharia de Software II"
+            title="Apresentação Guiada dos Tópicos de Engenharia de Software II"
           >
             <Presentation className="w-3.5 h-3.5 text-[#9B6F26]" />
             <span className="hidden md:inline">Apresentação Guiada</span>

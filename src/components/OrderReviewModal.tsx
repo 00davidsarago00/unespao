@@ -55,14 +55,12 @@ export const OrderReviewModal: React.FC<OrderReviewModalProps> = ({
       const randomOrderNum = Math.floor(100 + Math.random() * 900);
       const newPedido: Pedido = {
         id: `ped-${Date.now()}`,
-        codigo: `UNESP-${randomOrderNum}`,
-        padariaId: cartItems[0]?.padariaId || 'padaria-1',
-        padariaNome: cartItems[0]?.padariaNome || 'Padaria Central Unesp',
+        codigo: `UNESPAO-${randomOrderNum}`,
         canal: channel,
         clienteNome,
         itens: [...cartItems],
         valorTotal: totalOrderValue,
-        status: 'em_preparo',
+        status: 'confirmado',
         metodoPagamento: paymentMethod,
         criadoEm: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) + ' - Hoje',
         tempoEstimadoMin: 10 + Math.floor(Math.random() * 6),

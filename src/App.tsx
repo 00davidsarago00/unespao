@@ -1,34 +1,30 @@
 import React, { useState } from 'react';
-import { 
-  ProdutoBase, 
-  Ingrediente, 
-  Pedido, 
-  ItemPersonalizado, 
-  OrderStatus,
-  Padaria,
+import {
+  ProdutoBase,
+  Ingrediente,
+  Pedido,
+  ItemPersonalizado,
   ReviewOnline
 } from './types';
-import { 
-  INITIAL_BASES, 
-  INITIAL_INGREDIENTS, 
+import {
+  INITIAL_BASES,
+  INITIAL_INGREDIENTS,
   INITIAL_ORDERS,
-  INITIAL_BAKERIES,
   INITIAL_REVIEWS
 } from './data/initialData';
 import { CleanNavbar } from './components/CleanNavbar';
 import { HomeSelectionView } from './components/HomeSelectionView';
 import { ClientView } from './components/ClientView';
-import { BakerView } from './components/BakerView';
+import { AdminStockPanel } from './components/AdminStockPanel';
 import { CartModal } from './components/CartModal';
 import { TechnicalDocsModal } from './components/TechnicalDocsModal';
 import { GuidedPresentationTour } from './components/GuidedPresentationTour';
 
 export const App: React.FC = () => {
-  // Navegação principal: 'home' | 'cliente' | 'padeiro' | 'guiado'
-  const [currentView, setCurrentView] = useState<'home' | 'cliente' | 'padeiro' | 'guiado'>('home');
+  // Navegação principal: 'home' | 'cliente' | 'atendente' | 'guiado'
+  const [currentView, setCurrentView] = useState<'home' | 'cliente' | 'atendente' | 'guiado'>('home');
 
   // Dados do Sistema
-  const [padarias, setPadarias] = useState<Padaria[]>(INITIAL_BAKERIES);
   const [bases, setBases] = useState<ProdutoBase[]>(INITIAL_BASES);
   const [ingredientes, setIngredientes] = useState<Ingrediente[]>(INITIAL_INGREDIENTS);
   const [reviews, setReviews] = useState<ReviewOnline[]>(INITIAL_REVIEWS);
@@ -49,7 +45,7 @@ export const App: React.FC = () => {
     setCartItems(prev => prev.filter(i => i.id !== itemId));
   };
 
-  // Confirmar Pedido e Despachar para a Cozinha do Padeiro
+  // Confirmar Pedido (EstoqueService: baixa de insumos / PedidoService: registro do pedido)
   const handleConfirmOrder = (novoPedido: Pedido) => {
     // 1. Redução de estoque das bases (Princípio SRP / EstoqueService)
     setBases(prevBases =>
@@ -78,105 +74,53 @@ export const App: React.FC = () => {
       })
     );
 
-    // 3. Adicionar pedido na lista em tempo real
+    // 3. Registrar o pedido confirmado
     setPedidos(prev => [novoPedido, ...prev]);
 
     // 4. Limpar itens da sacola
     setCartItems([]);
   };
 
-  // Ações de Atualização de Status pelo Padeiro
-  const handleUpdateOrderStatus = (pedidoId: string, status: OrderStatus) => {
-    setPedidos(prev => prev.map(p => p.id === pedidoId ? { ...p, status } : p));
-  };
-
-  // Adicionar Nova Avaliação e Atualizar a Média da Padaria
+  // Adicionar Nova Avaliação
   const handleAddReview = (novoReview: ReviewOnline) => {
     setReviews(prev => [novoReview, ...prev]);
-
-    // Recalcular nota média da padaria
-    setPadarias(prevPadarias =>
-      prevPadarias.map(padaria => {
-        if (padaria.id === novoReview.padariaId) {
-          const reviewsDaPadaria = [...reviews.filter(r => r.padariaId === padaria.id), novoReview];
-          const novaSoma = reviewsDaPadaria.reduce((sum, r) => sum + r.nota, 0);
-          const novaMedia = parseFloat((novaSoma / reviewsDaPadaria.length).toFixed(1));
-          return {
-            ...padaria,
-            nota: novaMedia,
-            avaliacoesQtd: reviewsDaPadaria.length,
-          };
-        }
-        return padaria;
-      })
-    );
   };
 
-  // Simular Pedido Chegando para Teste no Painel do Padeiro
-  const handleSimulateIncomingOrder = () => {
-    const randomNum = Math.floor(105 + Math.random() * 890);
-    const mockStudentNames = [
-      'Lucas Prado (Eng. Civil • UNESP)',
-      'Juliana Mendes (Educação Física)',
-      'Felipe Rocha (Ciência da Computação)',
-      'Larissa Takahashi (Design UNESP)',
-      'Matheus Neves (Química)'
-    ];
-    const chosenName = mockStudentNames[Math.floor(Math.random() * mockStudentNames.length)];
-
-    const simulatedOrder: Pedido = {
-      id: `ped-sim-${Date.now()}`,
-      codigo: `UNESP-${randomNum}`,
-      padariaId: 'padaria-1',
-      padariaNome: 'Padaria Central Unesp',
-      canal: 'app_mobile',
-      clienteNome: chosenName,
-      valorTotal: 27.50,
-      status: 'aguardando_preparo',
-      metodoPagamento: 'pix',
-      criadoEm: 'Agora mesmo',
-      tempoEstimadoMin: 12,
-      itens: [
-        {
-          id: `item-sim-${Date.now()}`,
-          produtoBase: bases[1] || bases[0], // Ciabatta ou Francês
-          ingredientes: [
-            ingredientes[0], // Frango
-            ingredientes[4], // Queijo Canastra
-            ingredientes[13], // Maionese temperada
-          ],
-          ingredientesRemovidos: ['Sal de ervas aromáticas'],
-          quantidade: 1,
-          precoTotal: 27.50,
-          observacoes: 'Caprichar na crosta crocante da ciabatta!'
-        }
-      ]
-    };
-
-    setPedidos(prev => [simulatedOrder, ...prev]);
+  // Ações do Atendente/Administrador — Estoque
+  const handleUpdateBaseStock = (id: string, newStock: number) => {
+    setBases(prev => prev.map(b => b.id === id ? { ...b, estoque: newStock } : b));
   };
 
-  // Contagem de pedidos pendentes para notificações
-  const pedidosPendentesCount = pedidos.filter(p => p.status === 'aguardando_preparo').length;
+  const handleUpdateIngredientStock = (id: string, newStock: number) => {
+    setIngredientes(prev => prev.map(i => i.id === id ? { ...i, estoque: newStock } : i));
+  };
 
-  // Estado para armazenar papel inicial do tour se disparado diretamente
-  const [tourInitialRole, setTourInitialRole] = useState<'cliente' | 'padeiro' | undefined>(undefined);
+  // Ações do Atendente/Administrador — Catálogo (CRUD)
+  const handleAddNewIngredient = (ing: Partial<Ingrediente>) => {
+    setIngredientes(prev => [...prev, ing as Ingrediente]);
+  };
+
+  const handleRemoveIngredient = (id: string) => {
+    setIngredientes(prev => prev.filter(i => i.id !== id));
+  };
+
+  const handleAddNewBase = (base: Partial<ProdutoBase>) => {
+    setBases(prev => [...prev, base as ProdutoBase]);
+  };
+
+  const handleRemoveBase = (id: string) => {
+    setBases(prev => prev.filter(b => b.id !== id));
+  };
 
   return (
     <div className="min-h-screen bg-[#F7F2E8] text-[#3E2512] flex flex-col antialiased selection:bg-[#DE9E1E]/30 selection:text-[#3E2512]">
-      
+
       {/* Top Navbar Clean */}
       <CleanNavbar
         currentView={currentView}
-        onNavigate={(view) => {
-          if (view === 'guiado') {
-            setTourInitialRole(undefined);
-          }
-          setCurrentView(view);
-        }}
+        onNavigate={setCurrentView}
         cartCount={cartItems.length}
         onOpenCart={() => setIsCartModalOpen(true)}
-        pedidosPendentesCount={pedidosPendentesCount}
         onOpenDocs={() => setIsDocsModalOpen(true)}
       />
 
@@ -186,17 +130,13 @@ export const App: React.FC = () => {
           ? 'max-w-[1700px] px-2 sm:px-4 lg:pl-6 lg:pr-4'
           : 'max-w-6xl mx-auto px-3 sm:px-6'
       }`}>
-        
+
         {/* VISÃO 1: TELA INICIAL COM SELEÇÃO DO MODO NA MESMA PÁGINA */}
         {currentView === 'home' && (
           <HomeSelectionView
             onSelectRole={role => setCurrentView(role)}
-            onStartGuidedTour={(role) => {
-              setTourInitialRole(role);
-              setCurrentView('guiado');
-            }}
+            onStartGuidedTour={() => setCurrentView('guiado')}
             onOpenDocs={() => setIsDocsModalOpen(true)}
-            pedidosPendentesCount={pedidosPendentesCount}
           />
         )}
 
@@ -204,9 +144,6 @@ export const App: React.FC = () => {
         {currentView === 'guiado' && (
           <GuidedPresentationTour
             onExit={() => setCurrentView('home')}
-            onOpenClientView={() => setCurrentView('cliente')}
-            onOpenBakerView={() => setCurrentView('padeiro')}
-            padarias={padarias}
             bases={bases}
             ingredientes={ingredientes}
             reviews={reviews}
@@ -214,18 +151,18 @@ export const App: React.FC = () => {
             onOpenCart={() => setIsCartModalOpen(true)}
             onAddToCart={handleAddToCart}
             onAddReview={handleAddReview}
-            pedidos={pedidos}
-            onUpdateOrderStatus={handleUpdateOrderStatus}
-            onSimulateIncomingOrder={handleSimulateIncomingOrder}
-            onOpenC4Modal={() => setIsDocsModalOpen(true)}
-            initialRole={tourInitialRole}
+            onUpdateBaseStock={handleUpdateBaseStock}
+            onUpdateIngredientStock={handleUpdateIngredientStock}
+            onAddNewIngredient={handleAddNewIngredient}
+            onRemoveIngredient={handleRemoveIngredient}
+            onAddNewBase={handleAddNewBase}
+            onRemoveBase={handleRemoveBase}
           />
         )}
 
-        {/* VISÃO 2: CLIENTE (PADARIAS PRÓXIMAS + PERSONALIZAÇÃO IFOOD + REVIEWS) */}
+        {/* VISÃO 2: CLIENTE (CARDÁPIO + PERSONALIZAÇÃO IFOOD + REVIEWS) */}
         {currentView === 'cliente' && (
           <ClientView
-            padarias={padarias}
             bases={bases}
             ingredientes={ingredientes}
             reviews={reviews}
@@ -236,12 +173,17 @@ export const App: React.FC = () => {
           />
         )}
 
-        {/* VISÃO 3: PADEIRO (APENAS PEDIDOS CHEGANDO EM TEMPO REAL) */}
-        {currentView === 'padeiro' && (
-          <BakerView
-            pedidos={pedidos}
-            onUpdateOrderStatus={handleUpdateOrderStatus}
-            onSimulateIncomingOrder={handleSimulateIncomingOrder}
+        {/* VISÃO 3: ATENDENTE/ADMINISTRADOR (CATÁLOGO & ESTOQUE) */}
+        {currentView === 'atendente' && (
+          <AdminStockPanel
+            bases={bases}
+            ingredientes={ingredientes}
+            onUpdateBaseStock={handleUpdateBaseStock}
+            onUpdateIngredientStock={handleUpdateIngredientStock}
+            onAddNewIngredient={handleAddNewIngredient}
+            onRemoveIngredient={handleRemoveIngredient}
+            onAddNewBase={handleAddNewBase}
+            onRemoveBase={handleRemoveBase}
           />
         )}
 
@@ -254,7 +196,7 @@ export const App: React.FC = () => {
         cartItems={cartItems}
         onRemoveItem={handleRemoveFromCart}
         onConfirmOrder={handleConfirmOrder}
-        clienteNomePadrao="Thiago (Aluno UNESP)"
+        clienteNomePadrao="Thiago Nomura"
       />
 
       {/* Modal de Documentação & Diagramas C4 da UNESP */}
@@ -269,7 +211,7 @@ export const App: React.FC = () => {
           <div className="flex items-center space-x-2 font-['Space_Grotesk']">
             <span className="font-extrabold text-[#3E2512]">UNESPÃO</span>
             <span>•</span>
-            <span>Faculdade de Ciências de Bauru • UNESP 2026</span>
+            <span>Sistema de Pedidos Personalizados • 2026</span>
           </div>
 
           <div className="flex items-center gap-4 text-[11px]">
