@@ -3,3 +3,10 @@ dist/
 tsconfig.tsbuildinfo
 .env
 .env.local
+.DS_Store
+
+# Ferramental de apresentação local de BD1 — experimentos, não entregável.
+# slides/slides.md é o entregável oficial (iii); o resto ficou só local.
+materias/banco-de-dados-1-2026/apresentacao-tour/
+materias/banco-de-dados-1-2026/apresentacao/
+materias/banco-de-dados-1-2026/slides/slides.pptx
