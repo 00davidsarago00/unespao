@@ -178,7 +178,7 @@ export const ProjectFilesViewer: React.FC = () => {
               Exercício modelo de padrões de projeto (Decorator) da disciplina.
             </p>
             <a
-              href="/Exercicio-ESII-padrao-decorador.docx.pdf"
+              href="/exercicios-referencia/Exercicio-ESII-padrao-decorador.docx.pdf"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center space-x-1 text-xs font-bold text-amber-600 hover:text-amber-700 pt-2"
@@ -199,7 +199,7 @@ export const ProjectFilesViewer: React.FC = () => {
               Exercício de testes de unidade e referência para o capítulo de testes.
             </p>
             <a
-              href="/Exercicio-teste-unidade-Java.docx.pdf"
+              href="/exercicios-referencia/Exercicio-teste-unidade-Java.docx.pdf"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center space-x-1 text-xs font-bold text-amber-600 hover:text-amber-700 pt-2"
