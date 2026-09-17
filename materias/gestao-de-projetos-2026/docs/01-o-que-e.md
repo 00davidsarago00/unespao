@@ -4,6 +4,8 @@
 
 Critério atendido: **C1**. Tempo no roteiro: ~3 min.
 
+> **Alimenta:** Abertura e **Bloco 2 — O Transformer (2017–2022)**. A tabela dos três modos (§1.2) é o slide conceitual central do bloco 2.
+
 ## 1.1 Em uma frase
 
 Um **LLM** (Large Language Model) é um modelo treinado para prever a próxima parte de um texto. Como

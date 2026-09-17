@@ -38,7 +38,11 @@ O material-base define o deck como um arquivo HTML único, com uma demo funciona
 mudando por era (terminal CRT → web 2010 → IDE escura → dashboard claro → quase vazio). A mudança
 visual é parte do argumento, não decoração.
 
-As demos, na ordem: **ELIZA com painel de regras** · **tokenizador + mapa de atenção estático** ·
+Estrutura oficial dos blocos, na ordem de montagem: **1 · As origens (1948–2016)** ·
+**2 · O Transformer (2017–2022)** · **3 · Hoje I: o ciclo de vida (2023–2026)** ·
+**4 · Hoje II: a evidência (2026)** · **5 · Futuro (2027+)**.
+
+As demos, uma por bloco: **ELIZA com painel de regras** · **tokenizador + mapa de atenção estático** ·
 **agente resolvendo uma issue (reprodução passo a passo)** · **simulador de gargalo com slider** ·
 **extrapolador da curva METR com modo cético**.
 
@@ -48,9 +52,9 @@ Por isso o escopo aqui é priorizado:
 
 | Camada | Demo | Por quê |
 |---|---|---|
-| **Obrigatória** | Simulador de gargalo (bloco 4) | É a tese do seminário virando animação: aumenta-se a capacidade de implementação e a fila de review explode |
-| **Obrigatória** | Extrapolador da curva METR com **modo cético** (bloco 5) | O contraste entre estimativa central e limite inferior do intervalo **é** o argumento |
-| Desejável | ELIZA com painel de regras (bloco 1) | Efeito narrativo de 60 s; bom, não estrutural |
+| **Obrigatória** | Simulador de gargalo (bloco 4 · Hoje II: a evidência) | É a tese do seminário virando animação: aumenta-se a capacidade de implementação e a fila de review explode |
+| **Obrigatória** | Extrapolador da curva METR com **modo cético** (bloco 5 · Futuro) | O contraste entre estimativa central e limite inferior do intervalo **é** o argumento |
+| Desejável | ELIZA com painel de regras (bloco 1 · As origens) | Efeito narrativo de 60 s; bom, não estrutural |
 | Opcional | Tokenizador, mapa de atenção, reprodução do agente | Ilustrativos; viram imagem sem perda de argumento |
 
 As demos **não precisam estar embutidas no deck**: podem ser arquivos abertos em abas separadas, o que

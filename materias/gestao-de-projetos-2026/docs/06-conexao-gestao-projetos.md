@@ -4,6 +4,8 @@
 
 Critério atendido: **C3**. Tempo no roteiro: ~4 min.
 
+> **Alimenta todos os blocos:** §6.2 no bloco 2 · §6.3 a §6.5 no bloco 3 · §6.8 e §6.9 no bloco 4 · §6.6 e §6.7 no bloco 5. Cada bloco fecha com 1 ou 2 conceitos da aula.
+
 Estrutura: para cada aula, **o conceito visto** → **o que o LLM muda** → **a evidência**. Os slides
 de aula estão identificados como `A-xx sNN` (ver `99-fontes.md`).
 
