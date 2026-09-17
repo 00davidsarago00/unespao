@@ -75,13 +75,16 @@ Regras derivadas:
 
 ## 5. Estado da pesquisa (2026-09-17)
 
-- 49 fontes externas registradas, 8 aulas mapeadas e 7 evidências do repositório.
+- 58 fontes externas registradas, 8 aulas mapeadas e 7 evidências do repositório.
 - **Validação (GP-01) concluída em 2026-09-17:** 48 das 49 fontes estão conferidas na origem (**P**).
   A exceção é F-11 (página da OpenAI responde HTTP 403), marcada **X** e conferida em cobertura
   secundária.
 - **Revisão por equipe de especialistas (GP-05), 2026-09-17:** quatro revisões independentes
   (narrativa, relevância, rigor e design de informação). As correções de conteúdo estão aplicadas;
   o registro está em `../../../docs/done/GP-05-revisao-especialistas.md`.
+- **Integração do material-base e auditoria (2026-09-17):** o roteiro mestre de outro membro do grupo
+  virou a espinha; suas 25 alegações foram auditadas em `09-verificacao-material-base.md`. Depois da
+  tarefa GP-07, o placar é **19 ✅ e 6 ⚠️**, sem nenhum item sem veredito.
 - **Lacunas conhecidas:**
   - Não há survey de adoção de LLM por **desenvolvedores brasileiros**. O que existe é adoção de IA por
     **empresas** brasileiras [F-40] e o tamanho da base brasileira no GitHub [F-24]. A comparação entre

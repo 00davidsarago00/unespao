@@ -16,9 +16,12 @@ ler_antes:
 saida:
   - materias/gestao-de-projetos-2026/slides/seminario.html
 criterios_de_aceite:
+  - "OBRIGATÓRIO: as 2 demos que carregam argumento funcionam — simulador de gargalo (bloco 4) e extrapolador da curva com modo cético (bloco 5)"
+  - "DESEJÁVEL: ELIZA com painel de regras (bloco 1)"
+  - "OPCIONAL: tokenizador/mapa de atenção (bloco 2) e reprodução do agente (bloco 3) — viram imagem estática se o tempo apertar"
   - Arquivo único, abre offline, sem rede/API/CDN (testado com o wi-fi desligado)
   - Os 5 blocos na ordem do 08-roteiro-aula.md, com a estética mudando por era
-  - As 5 demos funcionam; cada uma tem GIF de fallback embutido no próprio slide
+  - Cada demo entregue tem GIF de fallback embutido no próprio slide
   - Todo número na tela bate com a versão verificada de 08; nada marcado ◐ ou ❌ em 09 aparece na tela
   - Todo slide com número tem a fonte no rodapé
   - Testado no navegador do notebook que será usado e no projetor
@@ -39,7 +42,20 @@ As demos, na ordem: **ELIZA com painel de regras** · **tokenizador + mapa de at
 **agente resolvendo uma issue (reprodução passo a passo)** · **simulador de gargalo com slider** ·
 **extrapolador da curva METR com modo cético**.
 
-O simulador de gargalo (bloco 4) é o mais importante: é a tese do seminário virando animação.
+**Escopo em camadas (ajuste de 2026-09-17).** O material-base pede cinco demos, mas ele próprio já
+prevê corte: três delas estão na lista de corte de emergência e todas aceitam GIF como substituto.
+Por isso o escopo aqui é priorizado:
+
+| Camada | Demo | Por quê |
+|---|---|---|
+| **Obrigatória** | Simulador de gargalo (bloco 4) | É a tese do seminário virando animação: aumenta-se a capacidade de implementação e a fila de review explode |
+| **Obrigatória** | Extrapolador da curva METR com **modo cético** (bloco 5) | O contraste entre estimativa central e limite inferior do intervalo **é** o argumento |
+| Desejável | ELIZA com painel de regras (bloco 1) | Efeito narrativo de 60 s; bom, não estrutural |
+| Opcional | Tokenizador, mapa de atenção, reprodução do agente | Ilustrativos; viram imagem sem perda de argumento |
+
+As demos **não precisam estar embutidas no deck**: podem ser arquivos abertos em abas separadas, o que
+desacopla o material de apoio do risco de build e permite usar o deck do Canva como caminho visual.
+Se nada disso ficar pronto, o plano B (`../slides/roteiro-slides-canva.md`) cobre o mesmo conteúdo.
 
 ## Prompt de partida
 

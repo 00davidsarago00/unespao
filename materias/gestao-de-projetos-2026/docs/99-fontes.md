@@ -18,14 +18,15 @@ conferido só em fonte secundária (reverificar na tarefa GP-01 antes de pôr em
 primária inacessível (403) e número conferido em secundária.
 
 Data de acesso de todas as fontes externas: **2026-09-17**. A validação linha a linha (tarefa GP-01) foi
-feita em 2026-09-17: das 53 fontes, 52 estão em **P**. A exceção é F-11, marcada **X**, porque a página
+feita em 2026-09-17: das 58 fontes, 57 estão em **P**. A exceção é F-11, marcada **X**, porque a página
 oficial da OpenAI responde HTTP 403 e o conteúdo foi conferido em cobertura secundária.
 
 As fontes **F-45 a F-49** entraram em 2026-09-17, depois da revisão da equipe revisora (ver
 `../../../docs/done/GP-05-revisao-especialistas.md`), para cobrir custo/ROI, efeito sobre quem usa e
 risco jurídico. As fontes **F-50 a F-53**, e a atualização de F-22 e F-25, vieram da integração do
 `../material-base/Material-base.pdf` — a auditoria alegação por alegação está em
-`09-verificacao-material-base.md`.
+`09-verificacao-material-base.md`. As fontes **F-54 a F-58** entraram ao fechar a dívida de
+verificação (tarefa GP-07, 2026-09-17).
 
 ## Fontes externas
 
@@ -83,10 +84,16 @@ risco jurídico. As fontes **F-50 a F-53**, e a atualização de F-22 e F-25, vi
 | F-48 | U.S. Copyright Office, *Copyright and Artificial Intelligence, Part 2: Copyrightability*, 29/01/2025: autoria humana é requisito; prompts sozinhos não bastam | Documento oficial | N2 | P | https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-2-Copyrightability-Report.pdf |
 | F-49 | *Doe v. GitHub, Microsoft e OpenAI*: 20 das 22 alegações rejeitadas; seguem violação de licença open source e quebra de contrato; sustentação oral no 9º Circuito em 11/02/2026 | Litígio (cobertura jurídica) | N4 | P | https://en.wikipedia.org/wiki/Doe_v._GitHub,_Microsoft,_and_OpenAI |
 
-| F-50 | METR, *Time Horizon 1.1*, 29/01/2026: tempo de duplicação de 195,8 dias na série completa, 130,8 dias desde 2023 e 88,6 dias desde 2024; Claude Opus 4.5 com horizonte de 50% em 320 min (IC 170–729) | Pesquisa | N2 | P | https://metr.org/blog/2026-1-29-time-horizon-1-1/ |
+| F-50 | METR, *Time Horizon 1.1*, 29/01/2026: duplicação de 195,8 dias na série completa, 130,8 desde 2023 e 88,6 desde 2024; Claude Opus 4.5 com horizonte de 50% em 320 min (IC 170–729). A página de horizontes avisa: *"Measurements above 16 hrs are unreliable with our current task suite"* | Pesquisa | N2 | P | https://metr.org/blog/2026-1-29-time-horizon-1-1/ · https://metr.org/time-horizons/ |
 | F-51 | PMI, *The Standard for Artificial Intelligence in Portfolio, Program, and Project Management*, 09/06/2026: primeiro padrão de IA aprovado pela ANSI para a profissão; ~300 páginas; 8 princípios e 5 domínios de desempenho | Padrão profissional | N2 | P | https://www.pmi.org/standards/artificial-intelligence |
-| F-52 | GitHub, *Migrating the GitHub Copilot runtime to Rust, using Copilot* (09/2026): mais de 800 mil linhas de Rust em produção, 128 PRs integrados, agentes escreveram a maior parte. **Relato de primeira parte** | Relato de fornecedor | N3 | P | https://github.blog/ai-and-ml/generative-ai/migrating-the-github-copilot-runtime-to-rust-using-copilot/ |
+| F-52 | GitHub, *Migrating the GitHub Copilot runtime to Rust, using Copilot* (09/2026): **832.378 linhas de Rust de produção** e 468.689 de testes; **128 PRs**; **135 releases** entre 12/05 e 21/08/2026 (~1,3/dia); *"completed primarily by a single developer, in only a few months"*; agentes escreveram a maior parte. **Relato de primeira parte** | Relato de fornecedor | N3 | P | https://github.blog/ai-and-ml/generative-ai/migrating-the-github-copilot-runtime-to-rust-using-copilot/ |
 | F-53 | Fu et al., *Security Weaknesses of Copilot-Generated Code in GitHub Projects: An Empirical Study*, TOSEM: 733 trechos reais; weaknesses em 29,5% (Python) e 24,2% (JavaScript), em 43 categorias CWE; até 55,5% corrigíveis com aviso de análise estática | Artigo | N1 | P | https://arxiv.org/abs/2310.02059 |
+
+| F-54 | Scale AI, *SWE-Bench Pro* (09/2025): 1.865 instâncias (731 públicas, 858 retidas, 276 comerciais) em 41 repositórios; no lançamento, GPT-5 fez 23,3% e Claude Opus 4.1 23,1% no conjunto público. Placar padronizado atual no topo em ~61,5% | Benchmark + artigo | N2 | P | https://scale.com/blog/swe-bench-pro · https://arxiv.org/abs/2509.16941 |
+| F-55 | U.S. Bureau of Labor Statistics, *Occupational Outlook Handbook — Software Developers*: projeção de **+10% entre 2025 e 2035**, com ~174.700 novos empregos para desenvolvedores | Estatística oficial | N2 | P | https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm |
+| F-56 | Karger et al., *Forecasting the Economic Effects of AI*, NBER Working Paper 35046: ao cenário rápido de progresso até 2030, superprevisores atribuíram **12,6%** e economistas **14,0%** | Working paper | N2 | P | https://www.nber.org/papers/w35046 |
+| F-57 | Hindle, Barr, Su, Gabel, Devanbu, *On the Naturalness of Software*, ICSE 2012 (Most Influential Paper, ICSE 2022): entropia do código entre **3 e 4 bits**; plugin de sugestão no Eclipse economiza **até 61%** de teclas | Artigo | N1 | P | https://earlbarr.com/publications/naturalness.pdf |
+| F-58 | Hutchins, *The Georgetown-IBM Experiment Demonstrated in January 1954*, AMTA 2004: 250 palavras, seis regras de gramática, mais de sessenta sentenças russas traduzidas | Artigo histórico | N1 | P | https://aclanthology.org/2004.amta-papers.12/ |
 
 ## Material de aula (Prof. Bruno Elias Penteado, UNESP)
 

@@ -12,6 +12,10 @@ ser dito**. Todas as verificações foram feitas em 2026-09-17, indo à fonte.
 - ◐ **Parcial** — parte confere, parte não foi encontrada. Dizer com ressalva.
 - ❌ **Não confirmado** — não achamos a fonte. **Não afirmar.**
 
+> **Dívida fechada em 2026-09-17 (tarefa GP-07).** Os 8 itens ◐ e o item ❌ foram à fonte. Resultado
+> final: **19 ✅, 6 ⚠️, 0 ◐, 0 ❌**. Nenhuma alegação do material ficou sem veredito, e **nada precisa
+> ser omitido por falta de fonte** — seis itens só precisam do número corrigido.
+
 ## 1. As alegações de maior impacto
 
 | # | Alegação do material | Status | O que dizer na apresentação |
@@ -24,21 +28,21 @@ ser dito**. Todas as verificações foram feitas em 2026-09-17, indo à fonte.
 | 6 | METR mudou o desenho em fev/2026 por viés de seleção; **30–50%** evitaram submeter tarefas | ✅ | Pode dizer [F-16] |
 | 7 | METR: duplicação do horizonte em **196,5 / 130,8 / 88,6 dias** | ⚠️ | A fonte primária (Time Horizon 1.1) traz **195,8** dias na série completa, 130,8 desde 2023 e 88,6 desde 2024. Usar 195,8 [F-50] |
 | 8 | Claude Opus 4.5 com **320 min** de horizonte de 50% | ✅ | Pode dizer; intervalo de 170 a 729 min [F-50] |
-| 9 | Claude Opus 4.6 com **~14,5 h** (870 min), em fev/2026 | ◐ | A página consultada não traz esse valor, e há cobertura secundária divergente (~12 h e ~14 h). **Dizer "mais de 12 horas, dependendo da medição"**, ou omitir o modelo |
-| 10 | Aviso da METR: **"medições acima de 16 h não são confiáveis"** | ◐ | Não localizei essa frase na página. Ou mostrar a captura da fonte, ou trocar por: *"a própria METR documenta limites de confiabilidade nas tarefas mais longas"* |
+| 9 | Claude Opus 4.6 com **~14,5 h** (870 min), em fev/2026 | ⚠️ | O valor não aparece na página do Time Horizon 1.1, e a cobertura secundária diverge (~12 h e ~14 h). **Dizer "mais de 12 horas, dependendo da medição"** e mostrar o gráfico da METR, que é atualizado |
+| 10 | Aviso da METR: **"medições acima de 16 h não são confiáveis"** | ✅ | **Confirmado literalmente** na página de horizontes: *"Measurements above 16 hrs are unreliable with our current task suite"* [F-50]. É a frase mais forte do bloco 5 — pode citar como está |
 | 11 | GitHub migrou o runtime do Copilot para **mais de 800 mil linhas de Rust**, **128 PRs**, agentes escreveram a maior parte | ✅ | Pode dizer. É relato de primeira parte do GitHub — o material já diz isso, mantenha [F-52] |
-| 12 | Migração com **135 releases em ~14,5 semanas**, "um desenvolvedor em alguns meses" | ◐ | O volume e os 128 PRs conferem; esses dois detalhes não foram conferidos na fonte. Dizer sem o número de releases, ou conferir no post antes |
+| 12 | Migração com **135 releases em ~14,5 semanas**, "um desenvolvedor em alguns meses" | ✅ | **Confirmado no post**: 832.378 linhas de Rust de produção mais 468.689 de teste; 135 releases (100 pré-lançamentos e 35 estáveis) entre 12/05 e 21/08/2026, ~1,3 por dia; *"completed primarily by a single developer, in only a few months"* [F-52] |
 | 13 | **PMI — Standard for AI in PPPM**, jun/2026, primeiro padrão de IA aprovado pela ANSI para a profissão | ⚠️ | Publicado em **09/06/2026**, ANSI-approved, **quase 300 páginas** (o material diz 275). Ajustar para "quase 300" [F-51] |
 | 14 | Estudo de segurança: **733 trechos**, weaknesses em **29,5% (Python)** e **24,2% (JavaScript)**, 43 categorias CWE | ✅ | Pode dizer. É Fu et al., em projetos reais do GitHub [F-53] |
 | 15 | Stack Overflow: uso **84%**, confiança **caindo de 43% para 33%**, **66%** frustrados com código "quase certo" | ⚠️ | Uso e 66% conferem. Sobre confiança, a fonte primária de 2025 dá **3,1% "confia muito" + 29,6% "confia um pouco" = 32,7%**, contra **45,7%** que desconfiam. Usar esses números, não "43% para 33%" [F-23] |
 | 16 | DORA 2024: **+7,5%** documentação, **+3,4%** qualidade, **+3,1%** review, **−1,5%** vazão, **−7,2%** estabilidade | ✅ | Pode dizer — mas como **associação**, não causa: são coeficientes sobre survey [F-19] |
 | 17 | Stanford/ADP: 22–25 anos em ocupações expostas **~19% abaixo** dos pares | ✅ | Pode dizer, com a ressalva que o próprio material já traz: **não é estimativa causal** [F-33] |
-| 18 | BLS: **+15,8%** e **+267.700 vagas** para desenvolvedores na década | ◐ | A direção (crescimento) é conhecida, mas não conferi o número na fonte do BLS. **Conferir antes de projetar, ou dizer só "projeção oficial de crescimento de dois dígitos"** |
-| 19 | SWE-bench Verified **saturou em ~95%**; SWE-bench Pro caiu para **~23%** e um ano depois **61,5%** | ◐ | A saturação e a troca por SWE-bench Pro estão confirmadas [F-11]; os três percentuais **não** foram conferidos em fonte primária. Falar da saturação sem citar os números, ou conferir antes |
-| 20 | Metaculus projeta AGI em **jun/2031**; NBER dá **12,6–14%** ao cenário rápido até 2030 | ❌ | Não conferido. **Não afirmar.** Se quiser manter o bloco de cenários, apresentar como "previsões de mercados de previsão, que variam muito" sem números |
-| 21 | Hindle et al. (2012): código tem **2–4 bits de entropia** contra ~8 da prosa; autocomplete economizava **61%** de teclas | ◐ | O artigo (*On the Naturalness of Software*, ICSE 2012) existe e sustenta a tese da previsibilidade. Os dois números não foram conferidos. Dizer a tese sem os números, ou conferir |
-| 22 | Georgetown-IBM (1954): **250 itens de vocabulário, 6 regras**; ALPAC (1966) | ◐ | Amplamente documentado e coerente com a literatura histórica, mas não conferido por nós. É baixo risco: um erro aqui não muda a tese |
-| 23 | XCON economizou **~US$ 40 mi** para a DEC | ◐ | Idem: histórico, amplamente citado, não conferido |
+| 18 | BLS: **+15,8%** e **+267.700 vagas** para desenvolvedores na década | ⚠️ | **Número desatualizado.** A projeção vigente do BLS é de **+10% entre 2025 e 2035**, com **~174.700** novos empregos para *software developers* [F-55]. Usar esses valores |
+| 19 | SWE-bench Verified **saturou em ~95%**; SWE-bench Pro caiu para **~23%** e um ano depois **61,5%** | ✅ | Confirmado. No lançamento (09/2025), GPT-5 fez **23,3%** e Claude Opus 4.1 **23,1%** no conjunto público [F-54]; hoje o topo da lista padronizada da Scale está em **~61,5%**. **Dizer que outros placares reportam valores mais altos (~81%) porque usam outro arranjo** |
+| 20 | Metaculus projeta AGI em **jun/2031**; NBER dá **12,6–14%** ao cenário rápido até 2030 | ⚠️ | **NBER confirmado** (w35046): superprevisores deram **12,6%** ao cenário rápido e economistas, **14,0%** [F-56]. **Metaculus desatualizado**: a mediana da comunidade em meados de 2026 está em **jan/2033**, com 25% até 2029 — e a definição dela inclui tarefa robótica. Usar a data nova, dizendo que é mediana de comunidade, não previsão de especialista |
+| 21 | Hindle et al. (2012): código tem **2–4 bits de entropia**; autocomplete economizava **61%** de teclas | ⚠️ | Confirmado com ajuste: a entropia do código no artigo fica **entre 3 e 4 bits**, e o plugin do Eclipse economizava **até 61%** de teclas [F-57]. Trocar "2–4" por "3–4" e "economizava 61%" por "até 61%" |
+| 22 | Georgetown-IBM (1954): **250 itens de vocabulário, 6 regras**; ALPAC (1966) | ✅ | Confirmado: demonstração de janeiro de 1954, com 250 palavras, seis regras de gramática e mais de sessenta sentenças russas traduzidas [F-58] |
+| 23 | XCON economizou **~US$ 40 mi** para a DEC | ⚠️ | As fontes divergem: as estimativas vão de **US$ 10 mi a US$ 40 mi por ano**, sendo US$ 25 mi (1986) o valor mais repetido. Dizer **"dezenas de milhões por ano, conforme a estimativa"** |
 | 24 | Knight Capital: **US$ 460 mi em 45 min** | ✅ | Está nos slides do professor (Aula 7, s22) — fonte da própria disciplina |
 | 25 | Curva PNR: comprimir o prazo em 25% custa **+216% de esforço** | ✅ | Vem do exercício da Aula 6. Citar como "o exercício da aula" |
 

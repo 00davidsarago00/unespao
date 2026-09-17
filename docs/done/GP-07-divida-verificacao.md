@@ -2,8 +2,8 @@
 id: GP-07
 titulo: Fechar a dívida de verificação do material-base
 materia: gestao-de-projetos-2026
-status: aberta
-owner:
+status: concluida
+owner: David Sarago
 criado: 2026-09-17
 prazo: 2026-09-18
 depende_de: []
@@ -53,4 +53,19 @@ Ao final, me diga quantos itens mudaram de status.
 
 ## Resultado
 
-Preencher ao concluir.
+Fechada em 2026-09-17. Os 8 itens ◐ e o item ❌ foram à fonte. Placar final da auditoria: **19 ✅ e
+6 ⚠️**, sem nenhum item sem veredito — **nada precisa ser omitido da apresentação por falta de fonte**.
+
+Confirmados: o aviso literal da METR (*"Measurements above 16 hrs are unreliable with our current task
+suite"*), a trajetória do SWE-bench Pro (23,3% no lançamento → ~61,5% hoje no placar padronizado da
+Scale), os números completos da migração do Copilot (832.378 linhas de Rust, 128 PRs, 135 releases em
+14,5 semanas, "primarily by a single developer") e a demonstração Georgetown-IBM de 1954.
+
+Corrigidos: **BLS** (a projeção vigente é +10% de 2025 a 2035 e ~174.700 vagas, não +15,8% e
++267.700); **Hindle et al.** (entropia entre 3 e 4 bits, e "até" 61% de teclas); **Metaculus** (mediana
+da comunidade em jan/2033, não jun/2031); **XCON** (as estimativas vão de US$ 10 mi a 40 mi por ano).
+
+O NBER, que estava sem fonte, foi confirmado: 12,6% dos superprevisores e 14,0% dos economistas ao
+cenário rápido até 2030.
+
+Cinco fontes novas registradas (F-54 a F-58).

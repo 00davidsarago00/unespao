@@ -34,21 +34,27 @@ Só entram números com status ✅ ou ⚠️ em `09-verificacao-material-base.md
 valor diferente, **vale o daqui**.
 
 ### Bloco 1 — origens
-- Georgetown-IBM (1954): 250 itens de vocabulário e 6 regras; ALPAC (1966) encerra o ciclo. ◐ —
-  histórico, baixo risco.
+- Georgetown-IBM (1954): **250 palavras, 6 regras de gramática**, mais de 60 sentenças traduzidas;
+  ALPAC (1966) encerra o ciclo [F-58]. ✅
+- XCON/DEC: dizer **"dezenas de milhões de dólares por ano"** — as estimativas vão de US$ 10 mi a
+  US$ 40 mi, e US$ 25 mi (1986) é o valor mais repetido. ⚠️
 - Shannon (1948/1951), Turing (1950), ELIZA (1966): narrativa, sem número crítico.
 - **Falar:** "tudo que vocês vão ver começa com uma ideia de 1948: prever o próximo símbolo contando o
   que veio antes."
 
 ### Bloco 2 — o Transformer
 - *Attention Is All You Need* (jun/2017) [F-01].
+- Hindle et al. (2012): a entropia do código fica **entre 3 e 4 bits** e o plugin do Eclipse economizava
+  **até 61%** de teclas — cinco anos antes do Transformer [F-57]. ⚠️ não dizer "2–4 bits".
 - SWE-bench (2023): o melhor modelo resolvia **1,96%** das issues reais [F-06]. **Marco histórico,
   nunca retrato de hoje.**
 - Tabela LLM × assistente × agente — é o slide conceitual central.
 
 ### Bloco 3 — o ciclo de vida
-- GitHub migrou o runtime do Copilot para **mais de 800 mil linhas de Rust**, em **128 PRs**, com
-  agentes escrevendo a maior parte [F-52]. **Dizer em voz alta que é relato de primeira parte.**
+- GitHub migrou o runtime do Copilot para **832.378 linhas de Rust de produção** (mais 468.689 de
+  testes), em **128 PRs** e **135 releases entre 12/05 e 21/08/2026** (~1,3 por dia), *"primarily by a
+  single developer, in only a few months"*, com agentes escrevendo a maior parte [F-52]. **Dizer em voz
+  alta que é relato de primeira parte.**
 - Ligação com a disciplina: recusaram o *big bang rewrite* (risco, Aula 7); main sempre entregável
   (cadência, Aula 3); E2E a cada etapa (quality gate, Aula 9).
 - Lei dos 90-90 e Lei de Brooks: a pergunta é se um agente "conta como adicionar gente a um projeto
@@ -77,13 +83,20 @@ valor diferente, **vale o daqui**.
 ### Bloco 5 — futuro
 - Horizonte de tarefa: duplicação a cada **195,8 dias** na série completa, **130,8** desde 2023 e
   **88,6** desde 2024 [F-50]. Claude Opus 4.5 em **320 min** (IC 170–729) [F-50].
-- ◐ **Opus 4.6 em ~14,5 h** e a frase "acima de 16 h não sabemos medir": não confirmados. Dizer "mais
-  de 12 horas, dependendo da medição" e "a própria METR documenta limites de confiabilidade".
-- ❌ Metaculus (jun/2031) e NBER (12,6–14%): **não citar números**. Falar de cenários sem previsão
-  numérica.
+- ✅ **A frase mais forte do bloco:** a própria METR avisa na página que *"Measurements above 16 hrs
+  are unreliable with our current task suite"* [F-50].
+- ⚠️ **Opus 4.6:** dizer "mais de 12 horas, dependendo da medição" — o valor de 14,5 h não está na
+  página do Time Horizon 1.1 e a cobertura secundária diverge.
+- ✅ **Benchmarks:** o SWE-bench Verified saturou perto de 95%; o Pro nasceu em 09/2025 com o melhor
+  modelo em **23,3%** e hoje o topo da lista padronizada da Scale está em **~61,5%** [F-54]. Dizer que
+  outros placares reportam ~81% porque usam outro arranjo.
+- ⚠️ **Cenários:** o NBER dá **12,6%** (superprevisores) e **14,0%** (economistas) ao cenário rápido
+  até 2030 [F-56]. Já a mediana da comunidade do Metaculus está em **jan/2033** (não jun/2031), com 25%
+  até 2029 — e a definição dela inclui tarefa robótica.
 - Stanford/ADP: 22–25 anos em ocupações expostas **~19% abaixo** dos pares, por **redução de
   contratação**; os autores dizem que **não é estimativa causal** [F-33].
-- ◐ BLS (+15,8%, +267.700 vagas): conferir antes, ou dizer só "projeção oficial de crescimento".
+- ⚠️ **BLS:** a projeção vigente é **+10% entre 2025 e 2035**, com **~174.700** novos empregos para
+  desenvolvedores [F-55] — **não** os "+15,8% / +267.700" do material, que são de uma projeção anterior.
 - **PMI** publicou em **09/06/2026** o primeiro padrão de IA aprovado pela ANSI para a profissão, com
   human-in-the-loop no centro [F-51].
 - Governança escrita com as palavras da Aula 7: **apetite**, **tolerância**, **exposição**. E a
@@ -123,4 +136,5 @@ Três coisas que o PDF não tem e que valem no critério de profundidade:
   confortável com números; o bloco 1, para quem gosta de contar história.
 - **Demo com issue real do repositório** (`00davidsarago00/unespao`) no bloco 3: rodar ao vivo ou
   gravar a sessão e reproduzir como JSON.
-- **Pendências ◐ e ❌** de `09`: se ninguém conferir até a apresentação, a fala vai **sem** o número.
+- ~~Pendências de verificação~~ — **fechadas em 2026-09-17 (GP-07):** 19 ✅ e 6 ⚠️, nenhuma sem
+  veredito. Os seis ⚠️ têm o número corrigido acima; é só usar a versão daqui.
