@@ -1,6 +1,6 @@
 ---
 id: GP-02
-titulo: Montar o deck de slides do seminário a partir do roteiro
+titulo: Montar o deck de slides do seminário a partir do roteiro (plano B, desde a adoção do material-base)
 materia: gestao-de-projetos-2026
 status: revisao
 owner: David Sarago

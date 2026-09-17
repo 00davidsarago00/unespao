@@ -2,6 +2,12 @@
 
 # Deck do seminário — especificação de montagem no Canva
 
+> **⚠️ PLANO B (desde 2026-09-17).** A espinha do seminário passou a ser
+> `../material-base/Material-base.pdf`: 5 blocos, 5 apresentadores e um arquivo HTML único com demos
+> funcionais offline (ver `../docs/08-roteiro-aula.md` e a tarefa GP-06). Esta especificação continua
+> válida e pronta como **contingência**: se o HTML não ficar pronto ou falhar na sala, o deck do Canva
+> cobre o mesmo conteúdo. O conteúdo dos dois é o mesmo; a estrutura de blocos é que difere.
+
 Entregável da tarefa **GP-02**, revisado pela equipe revisora (GP-05) em 2026-09-17. Este arquivo é a
 **fonte**: o Canva é só a renderização. Todo número aqui vem de `../docs/` e traz o ID da fonte
 (`../docs/99-fontes.md`).

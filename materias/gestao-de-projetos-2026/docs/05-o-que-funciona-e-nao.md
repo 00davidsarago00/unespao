@@ -25,6 +25,10 @@ forte disponível** (`00` §3).
 No survey de 2026 do mesmo grupo [F-17], a mediana autorreportada é de ganho de **1,4× a 2×** em valor,
 mas os autores lembram que, no RCT, as pessoas superestimaram o efeito em **40 pontos percentuais**.
 
+**O número que explica a divergência:** o DORA mede **35–40% de ganho em tarefas greenfield** contra
+**~10% ou menos em código legado complexo** [F-22]. Não é "a IA funciona ou não funciona": é que o
+contexto onde ela é usada muda o resultado por um fator de 3 a 4.
+
 **Síntese:**
 - **Funciona** em tarefas bem delimitadas, código novo e para quem tem menos experiência no problema
   [F-12][F-13][F-14].
@@ -59,9 +63,10 @@ seis meses de piloto, apesar de US$ 30–40 bi investidos [F-45]. **Limitação 
 
 ## 5.3 Qualidade e manutenção
 
-- **GitClear** [F-25], 211 mi de linhas alteradas entre 2020 e 2024:
-  - Linhas "copiadas/coladas" (clones) passaram de **8,3% para 12,3%** das linhas alteradas (2021→2024).
-  - Linhas de refatoração ("movidas") caíram de **25% para menos de 10%**.
+- **GitClear** [F-25], *The Maintainability Gap*, 623 mi de mudanças entre 2023 e 2026:
+  - Linhas de **refatoração** ("movidas") caíram de **21% (2022) para 3,8% (2026)**.
+  - **Blocos duplicados cresceram 81%** desde 2023; copy/paste dentro do commit foi de 9,4% (2022) a
+    15,7% (1º semestre de 2026).
   - Limitação: fornecedor de ferramenta de métricas; é correlação temporal, não causa isolada.
 - **Thoughtworks Radar vol. 34** [F-36] chama isso de **dívida cognitiva**: a IA gera mais código do que
   a equipe entende, e o Radar recomenda "voltar aos fundamentos de engenharia".
@@ -75,6 +80,9 @@ seis meses de piloto, apesar de US$ 30–40 bi investidos [F-45]. **Limitação 
 - **Código vulnerável:**
   - **2021:** ~**40%** de 1.689 programas gerados pelo Copilot em cenários de alto risco eram
     vulneráveis [F-26].
+  - **Em projetos reais:** 733 trechos atribuídos a assistentes tinham falhas de segurança em **29,5%**
+    (Python) e **24,2%** (JavaScript), em 43 categorias CWE — e até **55,5%** delas foram corrigidas
+    quando o aviso da análise estática foi devolvido ao modelo [F-53].
   - **2025–2026:** em 80 tarefas e mais de 150 modelos, só **~55%** das gerações são seguras **quando
     nenhuma instrução de segurança é dada no prompt**. A taxa **não melhorou em dois anos**, embora os
     modelos compilem cada vez melhor. Em XSS, só 15% passam [F-27].
