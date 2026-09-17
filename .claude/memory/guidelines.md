@@ -1,4 +1,4 @@
-<!-- Last updated: 2026-09-15 -->
+<!-- Last updated: 2026-09-17 -->
 
 # Guidelines — unespao
 
@@ -13,12 +13,14 @@ Por decisão do usuário (2026-09-15), este repositório agora organiza conhecim
 | Camada | Contém | Agnóstico? |
 |---|---|---|
 | **`../../produto/`** | `business.md`, `architecture.md` — domínio, atores, stack, C4, SOLID, decisões do Sistema Unespão. | **Sim** — reutilizável por múltiplas disciplinas/apresentações. |
-| **`../../materias/<nome>/`** | Entregável completo de uma disciplina: documento final, protótipo, `CLAUDE.md` com regras normativas. | **Não** — específico de uma disciplina. Hoje: `materias/engenharia-software-2-2026/`. |
+| **`../../materias/<nome>/`** | Entregável completo de uma disciplina: documento final, protótipo, `CLAUDE.md` com regras normativas. | **Não** — específico de uma disciplina. Hoje: `engenharia-software-2-2026/`, `banco-de-dados-1-2026/`, `gestao-de-projetos-2026/`. |
 
 **Roteamento para agentes:**
 - Dúvida sobre domínio/arquitetura do Sistema Unespão? → `../../produto/{business,architecture}.md`.
 - Trabalho de redação em ESII? → `../../materias/engenharia-software-2-2026/CLAUDE.md` (normas completas).
-- Criando nova matéria? → Copie `materias/engenharia-software-2-2026/` como modelo, reutilize `produto/`.
+- Trabalho em BD1 ou GP? → `../../materias/<nome>/CLAUDE.md` da matéria (normas completas, prazos próprios).
+- Pegando/criando atividade do grupo? → `../../docs/COLABORACAO.md` + `../../docs/todo/` (decisão: ADR-0001).
+- Criando nova matéria? → Copie a matéria mais parecida como modelo (ver `../../CLAUDE.md`), reutilize `produto/`.
 
 ## O que este repositório é
 
@@ -95,7 +97,9 @@ implementação real da API .NET/SPA), registrar aqui.
 Dúvida sobre domínio/requisitos?     → ../../produto/business.md
 Dúvida sobre arquitetura/stack?      → ../../produto/architecture.md
 Redação de capítulo em ESII?         → ../../materias/engenharia-software-2-2026/CLAUDE.md
-Criando nova matéria/disciplina?     → Copie materias/engenharia-software-2-2026/ como modelo
+Redação/entrega em BD1 ou GP?        → ../../materias/<nome>/CLAUDE.md
+Pegar/criar tarefa do grupo?         → ../../docs/COLABORACAO.md + ../../docs/todo/
+Criando nova matéria/disciplina?     → Copie a matéria mais parecida (ver ../../CLAUDE.md)
 Mais detalhes?                       → ../../CLAUDE.md (raiz)
 ```
 
