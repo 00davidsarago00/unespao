@@ -4,6 +4,8 @@
 
 Critério atendido: **C2**. Tempo no roteiro: ~1,5 min (junto com o fechamento).
 
+> **Alimenta:** **Bloco 5 — Futuro (2027+)**.
+
 Cada tendência traz a **força do sinal**:
 - **Forte:** várias fontes independentes.
 - **Médio:** uma fonte de pesquisa.

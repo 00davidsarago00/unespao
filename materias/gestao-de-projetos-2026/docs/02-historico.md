@@ -4,6 +4,8 @@
 
 Critério atendido: **C2**. Tempo no roteiro: ~3 min.
 
+> **Alimenta:** **Bloco 1 — As origens (1948–2016)** e **Bloco 2 — O Transformer (2017–2022)**. A linha do tempo se parte nesses dois blocos, não é apresentada inteira de uma vez.
+
 ## 2.1 Linha do tempo
 
 | Data | Marco | Por que importa | Fonte |

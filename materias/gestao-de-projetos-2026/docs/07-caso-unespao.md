@@ -4,6 +4,8 @@
 
 Critério atendido: **C4**. Tempo no roteiro: ~2,5 min.
 
+> **Alimenta:** fecho do **Bloco 3 — Hoje I (2023–2026)**, e serve de resposta na seção de perguntas prováveis.
+
 **Regra deste capítulo:** só entra o que é **verificável no repositório** (`R-xx`) ou nos slides de aula
 (`A-xx`). Nada de "achamos que". A pergunta a responder é: o que o grupo viveu usando LLM (Claude Code)
 para produzir as entregas de três disciplinas?

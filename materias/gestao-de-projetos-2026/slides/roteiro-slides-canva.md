@@ -21,7 +21,25 @@ Entregável da tarefa **GP-02**, revisado pela equipe revisora (GP-05) em 2026-0
   **tempo alvo em segundos**. Esse orçamento existe porque a primeira versão deste deck estava
   dimensionada para ~28 min.
 
-**Mapa bloco do roteiro → slides** (os 8 blocos de `../docs/08-roteiro-aula.md`, na mesma ordem):
+> **Mapa para a estrutura oficial (5 blocos).** Este deck foi desenhado antes da adoção do
+> material-base e segue a divisão antiga de 8 blocos. Se o plano B for acionado, a correspondência é:
+>
+> | Bloco oficial | Slides deste deck |
+> |---|---|
+> | Abertura e tese | S1–S3 |
+> | **1 · As origens (1948–2016)** | **não existe aqui** — ver lacuna abaixo |
+> | **2 · O Transformer (2017–2022)** | S4–S6 (conceitos) + S7 até o marco de 2022 |
+> | **3 · Hoje I: o ciclo de vida (2023–2026)** | S7 (2023 em diante), S9–S12, S22 |
+> | **4 · Hoje II: a evidência (2026)** | S8, S13–S18, S24, S25–S26 |
+> | **5 · Futuro (2027+)** | S13 (regulação), S23, S27 |
+> | Fecho | S28 · Referências S29 |
+>
+> **Lacuna conhecida:** a nossa pesquisa começa em 2017, então **o bloco 1 (1948–2016) não tem slides
+> aqui**. Se este deck virar o caminho principal, são necessários ~3 slides novos — Georgetown-IBM
+> 1954, Shannon/Turing/ELIZA e os dois invernos —, cujo conteúdo está no `../material-base/` e com os
+> números já verificados em `../docs/09-verificacao-material-base.md` (itens 22 e 23).
+
+**Mapa interno deste deck** (a divisão antiga de 8 blocos, mantida para referência):
 
 | Bloco | Alvo | Slides | Soma das fichas |
 |---|---|---|---|

@@ -4,6 +4,8 @@
 
 Critérios atendidos: **C2, C4**. Tempo no roteiro: ~3 min.
 
+> **Alimenta:** **Bloco 3 — Hoje I: o ciclo de vida (2023–2026)** (§3.1 a §3.4) e **Bloco 5 — Futuro (2027+)** (§3.5 regulação e §3.6 mercado de trabalho).
+
 ## 3.1 Adoção: uso praticamente universal
 
 | Indicador | Valor | Fonte (ano de coleta) |

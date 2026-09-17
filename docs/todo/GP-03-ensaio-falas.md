@@ -1,6 +1,6 @@
 ---
 id: GP-03
-titulo: Definir falantes por bloco e ensaiar com cronômetro
+titulo: Ensaiar com cronômetro e medir o tempo real de cada bloco
 materia: gestao-de-projetos-2026
 status: aberta
 owner:
@@ -14,7 +14,6 @@ ler_antes:
 saida:
   - materias/gestao-de-projetos-2026/docs/08-roteiro-aula.md (coluna Apresentador e tempos reais)
 criterios_de_aceite:
-  - Coluna Apresentador preenchida com os 5 nomes confirmados pelo grupo (não pelo Claude)
   - Os três ensaios do material-base realizados: conteúdo (sem slide), transições (só as viradas) e cronometrado completo
   - Tempo real de cada bloco medido e anotado
   - Total real entre 20 e 25 min
@@ -23,20 +22,20 @@ fora_de_escopo:
   - Mudar o conteúdo dos blocos
 ---
 
-# GP-03 — Ensaio e divisão de falas
+# GP-03 — Ensaio e tempo real
 
 ## Contexto
 
-Critério C6 do professor: comunicação, postura e gestão do tempo. O roteiro tem 23 min planejados em
-5 blocos e apresentadores "a definir". Essa é uma decisão **do grupo**: o Claude só registra.
+Critério C6 do professor: comunicação, postura e gestão do tempo. O roteiro tem 23 min planejados nos
+5 blocos de `08-roteiro-aula.md`.
 
-São **5 apresentadores** e 5 transições. O material-base é explícito: transição mal ensaiada é o que
+**A divisão de falas já está definida pelo grupo e não é registrada no repositório.** O que falta é
+medir: são 5 blocos e 5 transições, e o material-base é explícito — transição mal ensaiada é o que
 mais custa ponto em apresentação de grupo.
 
 ## Passos sugeridos
 
-1. Combinar no grupo quem fala cada bloco.
-2. Ensaiar com cronômetro e anotar o tempo real.
+1. Ensaiar com cronômetro e anotar o tempo real de cada bloco.
 3. Se passar de 25 min, seguir a ordem de corte de `08-roteiro-aula.md`: gerador n-grama → mapa de
    atenção → Brooks e PNR → tabela de cenários. **O bloco 4 não se corta.**
 
@@ -45,7 +44,7 @@ mais custa ponto em apresentação de grupo.
 ```
 Vou executar a tarefa docs/todo/GP-03-ensaio-falas.md.
 Leia a tarefa inteira e todos os arquivos listados em ler_antes.
-Não escolha falantes: pergunte-me os nomes definidos pelo grupo e só então preencha.
+Não atribua falantes: a divisão já é conhecida do grupo. Registre apenas os tempos reais medidos.
 Ao final, confira cada criterio_de_aceite e me diga quais passaram.
 ```
 

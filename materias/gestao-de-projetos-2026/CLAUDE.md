@@ -28,11 +28,20 @@ A tabela de critérios C1–C6 e onde cada um é atendido está em `docs/00-estr
 - Uma "quase aula": cenário global, análise histórica, tendências, o que funciona e o que não funciona.
 - O Unespão e este repositório entram como caso prático.
 - **Espinha:** `material-base/Material-base.pdf`, roteiro mestre produzido por outro membro do grupo e
-  adotado como estrutura oficial — 5 blocos, 5 apresentadores, uma demo funcional por bloco, estética
-  mudando por era. A versão operacional está em `docs/08-roteiro-aula.md`.
+  adotado como estrutura oficial. A versão operacional está em `docs/08-roteiro-aula.md`.
+- **Estrutura oficial de montagem — usar estes títulos e eras, nesta ordem:**
+  1. **As origens** (1948–2016)
+  2. **O Transformer** (2017–2022)
+  3. **Hoje I: o ciclo de vida** (2023–2026)
+  4. **Hoje II: a evidência** (2026)
+  5. **Futuro** (2027+)
+
+  Uma demo funcional por bloco e a estética mudando por era. Os capítulos de `docs/` são anteriores a
+  esta divisão: o mapa capítulo → bloco está em `docs/08-roteiro-aula.md`.
+- **Divisão de falas:** já definida pelo grupo; não se registra aqui.
 - **Material de apoio:** arquivo HTML único e offline (tarefa GP-06). O deck do Canva
   (`slides/roteiro-slides-canva.md`) fica como **plano B**.
-- **Apresentadores: 5** (confirmado pelo usuário em 2026-09-17).
+- **Apresentadores: 5** (confirmado pelo usuário em 2026-09-17); a atribuição por bloco é conhecida do grupo.
 
 ### Prazo
 

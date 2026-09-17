@@ -14,16 +14,22 @@ blocos, com os números substituídos pelos **verificados** e com o status de ca
 
 ## Estrutura
 
-| # | Bloco | Apresentador | Tempo | Demo que fecha | Conceitos de GP |
+**Esta é a estrutura oficial de montagem.** Os títulos e as eras abaixo são os que valem — slides,
+demos e falas seguem exatamente esta ordem e esta nomenclatura.
+
+| # | Bloco | Era | Tempo | Demo que fecha | Conceitos de GP |
 |---|---|---|---|---|---|
-| — | Abertura e tese | a definir (GP-03) | 1 min | — | — |
-| 1 | 1948–2016: a ideia é velha, faltava escala | a definir | 4 min | ELIZA com painel de regras | Estimativa e expectativa (Aulas 2 e 5) |
-| 2 | 2017–2022: o Transformer, e por que código caiu primeiro | a definir | 3 min | Tokenizador + mapa de atenção | Business case e valoração, TAP (Aulas 2 e 3) |
-| 3 | Hoje I: a IA não está só na implementação | a definir | 5 min | Agente resolvendo uma issue | EAP, Brooks, Lei dos 90-90 (Aulas 3, 5 e 6) |
-| 4 | Hoje II: +26%, −19% e o gargalo que mudou de lugar | a definir | 5 min | Simulador de gargalo | EVA/SPI/CPI, burndown, QA × QC, Goodhart (Aulas 9 e 10) |
-| 5 | 2027+: a curva, os cenários e como se preparar | a definir | 4 min | Extrapolador da curva METR | Matriz de riscos, apetite/tolerância/exposição, governança (Aulas 7 e 10) |
-| — | Fecho e volta à Aula 1 | a definir | 1 min | — | Viés algorítmico como falha de engenharia |
+| — | Abertura e tese | — | 1 min | — | — |
+| **1** | **As origens** | **1948–2016** | 4 min | ELIZA com painel de regras | Estimativa e gestão de expectativas (Aulas 2 e 5) |
+| **2** | **O Transformer** | **2017–2022** | 3 min | Tokenizador + mapa de atenção | Business case e valoração, TAP (Aulas 2 e 3) |
+| **3** | **Hoje I: o ciclo de vida** | **2023–2026** | 5 min | Agente resolvendo uma issue | EAP, Brooks, Lei dos 90-90 (Aulas 3, 5 e 6) |
+| **4** | **Hoje II: a evidência** | **2026** | 5 min | Simulador de gargalo | EVA/SPI/CPI, burndown, QA × QC, Goodhart (Aulas 9 e 10) |
+| **5** | **Futuro** | **2027+** | 4 min | Extrapolador da curva METR | Matriz de riscos, apetite/tolerância/exposição, governança (Aulas 7 e 10) |
+| — | Fecho e volta à Aula 1 | — | 1 min | — | Viés algorítmico como falha de engenharia |
 | | **Total** | | **23 min** | | |
+
+A divisão de falas já é conhecida do grupo e por isso não é registrada aqui. O que a tarefa GP-03
+precisa produzir é o **tempo real medido** de cada bloco, não a atribuição de nomes.
 
 **Pergunta que organiza os 23 minutos:** *quando a capacidade de gerar software aumenta, qual passa a
 ser o novo gargalo do projeto?*
@@ -33,7 +39,7 @@ ser o novo gargalo do projeto?*
 Só entram números com status ✅ ou ⚠️ em `09-verificacao-material-base.md`. Onde o material-base traz
 valor diferente, **vale o daqui**.
 
-### Bloco 1 — origens
+### Bloco 1 — As origens (1948–2016)
 - Georgetown-IBM (1954): **250 palavras, 6 regras de gramática**, mais de 60 sentenças traduzidas;
   ALPAC (1966) encerra o ciclo [F-58]. ✅
 - XCON/DEC: dizer **"dezenas de milhões de dólares por ano"** — as estimativas vão de US$ 10 mi a
@@ -42,7 +48,7 @@ valor diferente, **vale o daqui**.
 - **Falar:** "tudo que vocês vão ver começa com uma ideia de 1948: prever o próximo símbolo contando o
   que veio antes."
 
-### Bloco 2 — o Transformer
+### Bloco 2 — O Transformer (2017–2022)
 - *Attention Is All You Need* (jun/2017) [F-01].
 - Hindle et al. (2012): a entropia do código fica **entre 3 e 4 bits** e o plugin do Eclipse economizava
   **até 61%** de teclas — cinco anos antes do Transformer [F-57]. ⚠️ não dizer "2–4 bits".
@@ -50,7 +56,7 @@ valor diferente, **vale o daqui**.
   nunca retrato de hoje.**
 - Tabela LLM × assistente × agente — é o slide conceitual central.
 
-### Bloco 3 — o ciclo de vida
+### Bloco 3 — Hoje I: o ciclo de vida (2023–2026)
 - GitHub migrou o runtime do Copilot para **832.378 linhas de Rust de produção** (mais 468.689 de
   testes), em **128 PRs** e **135 releases entre 12/05 e 21/08/2026** (~1,3 por dia), *"primarily by a
   single developer, in only a few months"*, com agentes escrevendo a maior parte [F-52]. **Dizer em voz
@@ -61,7 +67,7 @@ valor diferente, **vale o daqui**.
   atrasado". Deixar em aberto — não há estudo controlado sobre isso.
 - PNR: comprimir o prazo em 25% custa **+216% de esforço** (exercício da Aula 6).
 
-### Bloco 4 — a evidência (o ponto alto)
+### Bloco 4 — Hoje II: a evidência (2026) — o ponto alto
 - **Cui et al.**: **+26,08%** de tarefas concluídas, **4.867 devs**, 3 RCTs de campo, *Management
   Science* [F-13].
 - **METR 2025**: **19% mais lentos**, **16 devs**, 246 issues reais [F-15].
@@ -80,7 +86,7 @@ valor diferente, **vale o daqui**.
 - **Segurança em projetos reais:** 733 trechos atribuídos a assistentes, com falhas em **29,5%**
   (Python) e **24,2%** (JavaScript) [F-53].
 
-### Bloco 5 — futuro
+### Bloco 5 — Futuro (2027+)
 - Horizonte de tarefa: duplicação a cada **195,8 dias** na série completa, **130,8** desde 2023 e
   **88,6** desde 2024 [F-50]. Claude Opus 4.5 em **320 min** (IC 170–729) [F-50].
 - ✅ **A frase mais forte do bloco:** a própria METR avisa na página que *"Measurements above 16 hrs
@@ -101,6 +107,22 @@ valor diferente, **vale o daqui**.
   human-in-the-loop no centro [F-51].
 - Governança escrita com as palavras da Aula 7: **apetite**, **tolerância**, **exposição**. E a
   declaração de uso de IA como item do **Termo de Aceite** (Aula 10).
+
+## De onde vem o conteúdo de cada bloco
+
+Os capítulos de `docs/` foram escritos antes desta estrutura. O mapa abaixo diz **o que abrir para
+montar cada bloco** — é por ele que se monta a apresentação, não pela ordem dos arquivos.
+
+| Bloco | Capítulos que alimentam | Seções específicas |
+|---|---|---|
+| Abertura | `01` §1.4 | a tese: delegar move o trabalho humano |
+| **1 · As origens** | `02` §2.1 (primeira metade) | marcos até 2016; Georgetown-IBM, Shannon, Turing, ELIZA, invernos |
+| **2 · O Transformer** | `01` §1.2, §1.3 · `02` §2.1–2.2 | tabela LLM × assistente × agente; Transformer, Codex, SWE-bench 1,96% |
+| **3 · Hoje I** | `03` §3.1–3.4 · `06` §6.3–6.5 · `07` | adoção e confiança; escopo, estimativa, Brooks; caso GitHub/Rust; caso Unespão |
+| **4 · Hoje II** | `05` inteiro · `06` §6.8–6.9 | Cui × METR, percepção ≠ medida, DORA, GitClear, gargalo da revisão, QA × QC, EVA |
+| **5 · Futuro** | `04` · `03` §3.5–3.6 · `06` §6.6 | curva METR, cenários, regulação, mercado de trabalho, matriz de riscos, governança |
+| Fecho | `05` §5.8 | as três recomendações |
+| Transversal | `09` | status de verificação de cada número |
 
 ## Cobertura dos critérios
 
@@ -132,8 +154,6 @@ Três coisas que o PDF não tem e que valem no critério de profundidade:
 
 ## O que ainda depende do grupo
 
-- **Quem fica com cada bloco** (GP-03). Sugestão do material: o bloco 4 vai para quem estiver mais
-  confortável com números; o bloco 1, para quem gosta de contar história.
 - **Demo com issue real do repositório** (`00davidsarago00/unespao`) no bloco 3: rodar ao vivo ou
   gravar a sessão e reproduzir como JSON.
 - ~~Pendências de verificação~~ — **fechadas em 2026-09-17 (GP-07):** 19 ✅ e 6 ⚠️, nenhuma sem

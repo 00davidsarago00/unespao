@@ -4,6 +4,8 @@
 
 Critérios atendidos: **C2, C4**. Tempo no roteiro: ~5 min. **É o núcleo da aula.**
 
+> **Alimenta:** **Bloco 4 — Hoje II: a evidência (2026)**, que é o ponto alto da apresentação. O §5.8 também fecha a apresentação inteira.
+
 Regra deste capítulo: cada resultado aparece **com a limitação ao lado** e **com o contraponto mais
 forte disponível** (`00` §3).
 
