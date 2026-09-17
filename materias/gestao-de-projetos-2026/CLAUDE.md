@@ -27,6 +27,12 @@ A tabela de critérios C1–C6 e onde cada um é atendido está em `docs/00-estr
 
 - Uma "quase aula": cenário global, análise histórica, tendências, o que funciona e o que não funciona.
 - O Unespão e este repositório entram como caso prático.
+- **Espinha:** `material-base/Material-base.pdf`, roteiro mestre produzido por outro membro do grupo e
+  adotado como estrutura oficial — 5 blocos, 5 apresentadores, uma demo funcional por bloco, estética
+  mudando por era. A versão operacional está em `docs/08-roteiro-aula.md`.
+- **Material de apoio:** arquivo HTML único e offline (tarefa GP-06). O deck do Canva
+  (`slides/roteiro-slides-canva.md`) fica como **plano B**.
+- **Apresentadores: 5** (confirmado pelo usuário em 2026-09-17).
 
 ### Prazo
 
@@ -47,11 +53,19 @@ A regra "Não há pressa" de ESII **não vale** aqui.
 ## 3. Fluxo de produção
 
 ```
-docs/00–08, 99 (Markdown, fonte de verdade)  →  deck de slides (GP-02)  →  ensaio (GP-03)
+material-base/Material-base.pdf (espinha, não editado)
+        ↓ verificação alegação por alegação
+docs/09-verificacao-material-base.md  →  docs/08-roteiro-aula.md (versão operacional)
+        ↓
+deck HTML offline com demos (GP-06)   ·   deck Canva como plano B (GP-02)
+        ↓
+ensaio cronometrado (GP-03)
 ```
 
-- **Markdown primeiro.** Números, textos e exemplos nascem em `docs/`. O deck só **transcreve**.
-- **Formato do deck:** a definir por quem pegar GP-02. Não assumir ferramenta.
+- **O PDF do material-base não é editado.** Correções entram em `docs/`, com a divergência registrada
+  na auditoria `09`.
+- **Números:** onde o material-base e `docs/` divergirem, **vale `docs/`** — é o lado verificado.
+- Alegação marcada ◐ ou ❌ em `09` **não vai para a tela nem para a fala** sem conferência.
 
 ## 4. Regras normativas
 

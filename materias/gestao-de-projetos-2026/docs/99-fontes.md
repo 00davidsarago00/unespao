@@ -18,12 +18,14 @@ conferido só em fonte secundária (reverificar na tarefa GP-01 antes de pôr em
 primária inacessível (403) e número conferido em secundária.
 
 Data de acesso de todas as fontes externas: **2026-09-17**. A validação linha a linha (tarefa GP-01) foi
-feita em 2026-09-17: das 49 fontes, 48 estão em **P**. A exceção é F-11, marcada **X**, porque a página
+feita em 2026-09-17: das 53 fontes, 52 estão em **P**. A exceção é F-11, marcada **X**, porque a página
 oficial da OpenAI responde HTTP 403 e o conteúdo foi conferido em cobertura secundária.
 
 As fontes **F-45 a F-49** entraram em 2026-09-17, depois da revisão da equipe revisora (ver
 `../../../docs/done/GP-05-revisao-especialistas.md`), para cobrir custo/ROI, efeito sobre quem usa e
-risco jurídico.
+risco jurídico. As fontes **F-50 a F-53**, e a atualização de F-22 e F-25, vieram da integração do
+`../material-base/Material-base.pdf` — a auditoria alegação por alegação está em
+`09-verificacao-material-base.md`.
 
 ## Fontes externas
 
@@ -50,10 +52,10 @@ risco jurídico.
 | F-19 | Google Cloud/DORA, *Announcing the 2024 DORA report* | Survey | N2 | P | https://cloud.google.com/blog/products/devops-sre/announcing-the-2024-dora-report |
 | F-20 | Google/DORA, *State of AI-assisted Software Development 2025* (post oficial + dora.dev) | Survey | N2 | P | https://blog.google/innovation-and-ai/technology/developers-tools/dora-report-2025/ · https://dora.dev/dora-report-2025/ |
 | F-21 | DORA, *AI Capabilities Model* (7 capacidades), 23/09/2025: 78 entrevistas em profundidade + ~5.000 respondentes | Survey | N2 | P | https://cloud.google.com/blog/products/ai-machine-learning/introducing-doras-inaugural-ai-capabilities-model · https://dora.dev/ai/capabilities-model/report/ |
-| F-22 | DORA, *ROI of AI-assisted Software Development* (2026.01, atualizado 22/04/2026): curva J de realização de valor; causas da queda inicial = curva de aprendizado, "imposto de verificação" da revisão e adaptação de processos. Números do modelo (ROI ~39% no 1º ano, retorno em ~8 meses para uma org-modelo de 500 engenheiros) conferidos na cobertura do InfoQ, não na página do relatório | Relatório + imprensa | N2/N4 | P | https://dora.dev/ai/roi/report/ · https://www.infoq.com/news/2026/05/dora-roi-ai-assisted-dev-report/ |
+| F-22 | DORA, *ROI of AI-assisted Software Development* (2026.01, atualizado 22/04/2026): curva J; causas da queda inicial = curva de aprendizado, "imposto de verificação" da revisão e adaptação de processos; **35–40% de ganho em greenfield contra ~10% ou menos em código legado**. Números do modelo (ROI ~39% no 1º ano) e o relato de clientes (727% em 3 anos) conferidos em cobertura secundária, não na página do relatório | Relatório + imprensa | N2/N4 | P | https://dora.dev/ai/roi/report/ · https://www.infoq.com/news/2026/05/dora-roi-ai-assisted-dev-report/ |
 | F-23 | Stack Overflow, *2025 Developer Survey — AI* | Survey | N2 | P | https://survey.stackoverflow.co/2025/ai |
 | F-24 | GitHub, *Octoverse 2025*, 28/10/2025 | Relatório de fornecedor | N3 | P | https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/ |
-| F-25 | GitClear, *AI Copilot Code Quality: 2025 Research* (vende ferramenta de métricas) | Relatório de fornecedor | N3 | P | https://www.gitclear.com/ai_assistant_code_quality_2025_research |
+| F-25 | GitClear, *The Maintainability Gap: AI Code Quality in 2026* (623 mi de mudanças, 2023–2026): linhas de refatoração caem de 21% (2022) para 3,8% (2026); blocos duplicados +81% desde 2023; copy/paste de 9,4% (2022) para 15,7% (1º semestre de 2026). Edição anterior (2025, 211 mi de linhas): clones de 8,3% para 12,3%. **Fornecedor de ferramenta de métricas** | Relatório de fornecedor | N3 | P | https://www.gitclear.com/the_ai_code_quality_maintainability_gap |
 | F-26 | Pearce et al., *Asleep at the Keyboard? Assessing the Security of GitHub Copilot's Code Contributions*, IEEE S&P 2022 | Artigo | N1 | P | https://arxiv.org/abs/2108.09293 |
 | F-27 | Veracode, *2025 GenAI Code Security Report* e *Spring 2026 GenAI Code Security Update* (24/03/2026) | Relatório de fornecedor | N3 | P | https://www.veracode.com/blog/spring-2026-genai-code-security/ |
 | F-28 | Spracklen et al., *We Have a Package for You!…*, USENIX Security 2025: 16 modelos, 576.000 amostras de código, 205.474 nomes de pacote alucinados únicos | Artigo | N1 | P | https://arxiv.org/abs/2406.10279 |
@@ -80,6 +82,11 @@ risco jurídico.
 | F-47 | GitHub Copilot — planos e preços: Free US$ 0, Pro US$ 10, Pro+ US$ 39, Max US$ 100 por pessoa/mês (Business e Enterprise sob consulta) | Página de fornecedor | N3 | P | https://github.com/features/copilot/plans |
 | F-48 | U.S. Copyright Office, *Copyright and Artificial Intelligence, Part 2: Copyrightability*, 29/01/2025: autoria humana é requisito; prompts sozinhos não bastam | Documento oficial | N2 | P | https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-2-Copyrightability-Report.pdf |
 | F-49 | *Doe v. GitHub, Microsoft e OpenAI*: 20 das 22 alegações rejeitadas; seguem violação de licença open source e quebra de contrato; sustentação oral no 9º Circuito em 11/02/2026 | Litígio (cobertura jurídica) | N4 | P | https://en.wikipedia.org/wiki/Doe_v._GitHub,_Microsoft,_and_OpenAI |
+
+| F-50 | METR, *Time Horizon 1.1*, 29/01/2026: tempo de duplicação de 195,8 dias na série completa, 130,8 dias desde 2023 e 88,6 dias desde 2024; Claude Opus 4.5 com horizonte de 50% em 320 min (IC 170–729) | Pesquisa | N2 | P | https://metr.org/blog/2026-1-29-time-horizon-1-1/ |
+| F-51 | PMI, *The Standard for Artificial Intelligence in Portfolio, Program, and Project Management*, 09/06/2026: primeiro padrão de IA aprovado pela ANSI para a profissão; ~300 páginas; 8 princípios e 5 domínios de desempenho | Padrão profissional | N2 | P | https://www.pmi.org/standards/artificial-intelligence |
+| F-52 | GitHub, *Migrating the GitHub Copilot runtime to Rust, using Copilot* (09/2026): mais de 800 mil linhas de Rust em produção, 128 PRs integrados, agentes escreveram a maior parte. **Relato de primeira parte** | Relato de fornecedor | N3 | P | https://github.blog/ai-and-ml/generative-ai/migrating-the-github-copilot-runtime-to-rust-using-copilot/ |
+| F-53 | Fu et al., *Security Weaknesses of Copilot-Generated Code in GitHub Projects: An Empirical Study*, TOSEM: 733 trechos reais; weaknesses em 29,5% (Python) e 24,2% (JavaScript), em 43 categorias CWE; até 55,5% corrigíveis com aviso de análise estática | Artigo | N1 | P | https://arxiv.org/abs/2310.02059 |
 
 ## Material de aula (Prof. Bruno Elias Penteado, UNESP)
 

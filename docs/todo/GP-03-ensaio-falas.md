@@ -6,18 +6,19 @@ status: aberta
 owner:
 criado: 2026-09-17
 prazo: 2026-09-18
-depende_de: [GP-02]
+depende_de: [GP-06]
 ler_antes:
   - CLAUDE.md
   - materias/gestao-de-projetos-2026/CLAUDE.md
   - materias/gestao-de-projetos-2026/docs/08-roteiro-aula.md
 saida:
-  - materias/gestao-de-projetos-2026/docs/08-roteiro-aula.md (coluna Falante e tempos reais)
+  - materias/gestao-de-projetos-2026/docs/08-roteiro-aula.md (coluna Apresentador e tempos reais)
 criterios_de_aceite:
-  - Coluna Falante preenchida com nomes confirmados pelo grupo (não pelo Claude)
-  - Tempo real de cada bloco medido em ensaio e anotado
+  - Coluna Apresentador preenchida com os 5 nomes confirmados pelo grupo (não pelo Claude)
+  - Os três ensaios do material-base realizados: conteúdo (sem slide), transições (só as viradas) e cronometrado completo
+  - Tempo real de cada bloco medido e anotado
   - Total real entre 20 e 25 min
-  - Transições entre falantes combinadas (quem passa a palavra para quem)
+  - Transições entre apresentadores combinadas (quem passa a palavra para quem)
 fora_de_escopo:
   - Mudar o conteúdo dos blocos
 ---
@@ -26,15 +27,18 @@ fora_de_escopo:
 
 ## Contexto
 
-Critério C6 do professor: comunicação, postura e gestão do tempo. O roteiro tem 23 min planejados e
-falantes "a definir". Essa é uma decisão **do grupo**: o Claude só registra.
+Critério C6 do professor: comunicação, postura e gestão do tempo. O roteiro tem 23 min planejados em
+5 blocos e apresentadores "a definir". Essa é uma decisão **do grupo**: o Claude só registra.
+
+São **5 apresentadores** e 5 transições. O material-base é explícito: transição mal ensaiada é o que
+mais custa ponto em apresentação de grupo.
 
 ## Passos sugeridos
 
 1. Combinar no grupo quem fala cada bloco.
 2. Ensaiar com cronômetro e anotar o tempo real.
-3. Se passar de 25 min: cortar primeiro o bloco 3 (histórico) e depois o bloco 4, preservando o 5
-   e o 6.
+3. Se passar de 25 min, seguir a ordem de corte de `08-roteiro-aula.md`: gerador n-grama → mapa de
+   atenção → Brooks e PNR → tabela de cenários. **O bloco 4 não se corta.**
 
 ## Prompt de partida
 
