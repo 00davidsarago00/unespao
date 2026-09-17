@@ -14,7 +14,7 @@ Critérios atendidos: **C2, C4**. Tempo no roteiro: ~3 min.
 | Devs profissionais que usam IA **diariamente** | **51%** | Stack Overflow 2025 [F-23] |
 | Novos devs no GitHub que usam Copilot na 1ª semana | **~80%** | Octoverse 2025 [F-24] |
 | Repositórios públicos que usam SDK de LLM | **1,1 milhão** (+178% em 12 meses) | Octoverse 2025 [F-24] |
-| Código novo no Google gerado por IA (e aprovado por engenheiros) | **75%** (abr/2026), contra 50% no outono anterior | Declaração do CEO [F-31] |
+| Código novo no Google gerado por IA (e aprovado por engenheiros) | **75%** (abr/2026), contra 50% no outono anterior | Declaração do CEO [F-31] — ver nota de mecanismo abaixo |
 
 ## 3.2 Confiança: cai enquanto o uso sobe
 
@@ -22,7 +22,7 @@ Critérios atendidos: **C2, C4**. Tempo no roteiro: ~3 min.
 - **Confiança na precisão da IA:** "confia muito" 3,1% e "confia um pouco" 29,6%. Do outro lado, "desconfia
   um pouco" 26,1% e "desconfia muito" 19,6%. Ou seja, **mais gente desconfia (45,7%) do que confia
   (32,7%)**.
-- **Favorabilidade:** caiu para **59,7%**, de mais de 70% em 2023–2024.
+- **Favorabilidade:** caiu para **~60%** (59,7%), de mais de 70% em 2023–2024.
 - **Maior frustração:** "soluções quase certas, mas não totalmente" (**66%**). Além disso, **45,2%**
   dizem que depurar código gerado por IA toma mais tempo.
 
@@ -33,6 +33,11 @@ Critérios atendidos: **C2, C4**. Tempo no roteiro: ~3 min.
 **Leitura para a aula:** a adoção **não** é movida por confiança. É movida por pressão competitiva e
 conveniência. Isso é um **risco de projeto**: a equipe usa uma ferramenta em cuja saída ela mesma não
 confia.
+
+> **Nota de mecanismo sobre os 75% do Google:** é declaração de empresa (N3) sobre uma métrica de
+> *proporção de caracteres aceitos*, que inclui autocompletar e código repetitivo. Não significa que
+> 75% das **decisões de projeto** sejam da IA. Usar como sinal de escala, nunca como medida de
+> autoria ou de qualidade.
 
 ## 3.3 Agentes: ainda minoria
 

@@ -82,3 +82,7 @@ os 29 slides descritos um a um (26 de conteúdo, 2 divisores e 1 de referências
 do apresentador. `slides/LINK.md` aguarda o link do design e a exportação em PDF.
 O arquivo traz o mapa bloco→slide, a ordem de corte caso o ensaio estoure o tempo e um checklist de
 conferência final.
+
+Revisado pela equipe de especialistas (GP-05) em 2026-09-17: orçamento de tempo por slide (22,8 min),
+slide novo sobre Escopo/Cronograma/Equipe, tabelas densas viraram gráfico e quadrante, e correções de
+contraste. Detalhe em `docs/done/GP-05-revisao-especialistas.md`.

@@ -2,28 +2,33 @@
 
 # Deck do seminário — especificação de montagem no Canva
 
-Entregável da tarefa **GP-02**. Este arquivo é a **fonte**: o Canva é só a renderização. Todo número
-aqui vem de `../docs/` e traz o ID da fonte (`../docs/99-fontes.md`).
+Entregável da tarefa **GP-02**, revisado pela equipe revisora (GP-05) em 2026-09-17. Este arquivo é a
+**fonte**: o Canva é só a renderização. Todo número aqui vem de `../docs/` e traz o ID da fonte
+(`../docs/99-fontes.md`).
 
 - **Conteúdo:** `../docs/08-roteiro-aula.md` (blocos e tempos) e `../docs/01`–`07`.
 - **Estilo visual:** derivado do protótipo React do Unespão
   (`../../engenharia-software-2-2026/src/`), para o seminário ter a mesma identidade das outras
   entregas do grupo.
-- **29 slides / 23 min**, sendo 26 de conteúdo, 2 divisores e 1 de referências.
+- **29 slides**, sendo 26 de conteúdo, 2 divisores e 1 de referências.
+- **Orçamento: ~22,7 min de conteúdo**, com folga dentro da janela de 20–25 min. Cada ficha traz o
+  **tempo alvo em segundos**. Esse orçamento existe porque a primeira versão deste deck estava
+  dimensionada para ~28 min.
 
 **Mapa bloco do roteiro → slides** (os 8 blocos de `../docs/08-roteiro-aula.md`, na mesma ordem):
 
-| Bloco | Tempo | Slides |
-|---|---|---|
-| 1. Abertura | 1,0 min | S1–S3 |
-| 2. O que é | 3,0 min | S4–S6 |
-| 3. Histórico | 3,0 min | S7–S9 |
-| 4. Cenário atual | 3,0 min | S10–S13 |
-| 5. Funciona × não funciona | 5,0 min | S14–S20 |
-| 6. Conexão com GP | 4,0 min | S21–S25 |
-| 7. Caso Unespão | 2,5 min | S26 |
-| 8. Tendências e fechamento | 1,5 min | S27–S28 |
-| — Referências (projetado nas perguntas) | — | S29 |
+| Bloco | Alvo | Slides | Soma das fichas |
+|---|---|---|---|
+| 1. Abertura | 1,0 min | S1–S3 | 60 s |
+| 2. O que é | 3,0 min | S4–S6 | 180 s |
+| 3. Histórico | 3,0 min | S7–S8 | 165 s |
+| 4. Cenário atual | 3,0 min | S9–S11 | 165 s |
+| 5. Funciona × não funciona | 5,0 min | S12–S18 | 315 s |
+| 6. Conexão com GP | 4,0 min | S19–S24 | 270 s |
+| 7. Caso Unespão | 2,5 min | S25–S26 | 120 s |
+| 8. Tendências e fechamento | 1,5 min | S27–S28 | 90 s |
+| — Referências (projetado nas perguntas) | — | S29 | 0 s |
+| **Total** | **23,0 min** | **29 slides** | **1.365 s ≈ 22,8 min** |
 
 ---
 
@@ -42,502 +47,497 @@ aqui vem de `../docs/` e traz o ID da fonte (`../docs/99-fontes.md`).
 
 ## 2. Paleta
 
-Cores extraídas do protótipo (valores reais usados em `src/components/*.tsx`). No Canva, cadastrar em
-*Marca → Kit da marca → Cores*, nesta ordem.
+Cores extraídas do protótipo (valores reais usados em `src/components/*.tsx`), **com as correções de
+contraste da revisão de design**. No Canva, cadastrar em *Marca → Kit da marca → Cores*.
+
+### Fundo claro (a maioria dos slides)
+
+| Papel | Hex | Contraste sobre `#FAF6EF` | Uso |
+|---|---|---|---|
+| **Marrom-pão (primária)** | `#3E2512` | 13,2:1 | Títulos e texto |
+| **Dourado textual** | `#8E6522` | **4,8:1** | Qualquer dourado **em texto**: kickers, números pequenos, rótulos |
+| Dourado de marca | `#DE9E1E` | 2,2:1 — **reprova em texto** | Só elemento **gráfico**: barras, marcos, setas, ícones — ou texto sobre fundo escuro |
+| **Creme (fundo padrão)** | `#FAF6EF` | — | Fundo |
+| Creme 2 | `#F2EADB` | — | Fundo de cartão |
+| Areia | `#EADBCA` | — | Zebra de tabela, divisórias |
+| Areia escura | `#E0D3C1` | — | Borda de cartão |
+| Texto secundário | `#75604C` | 5,3:1 | Legendas e rodapé **em fundo claro** |
+
+### Fundo escuro (S12, S14, S19, S28)
+
+**Um único escuro no deck inteiro: `#2A180B`.** Não usar `#3E2512` como fundo — três marrons escuros
+diferentes fazem o deck parecer inacabado.
+
+| Papel | Hex | Contraste sobre `#2A180B` | Uso |
+|---|---|---|---|
+| Título e corpo | `#FAF6EF` | 16,8:1 | Texto principal |
+| Número-destaque | `#DE9E1E` | 7,3:1 | Números grandes |
+| **Legenda e rodapé** | `#C9B49C` | **7,1:1** | Substitui `#75604C`, que reprova (2,4:1) |
+| Borda / divisória | `#5A3A22` | — | Linhas |
+
+### Semânticas (com rótulo, nunca só cor)
 
 | Papel | Hex | Uso |
 |---|---|---|
-| **Marrom-pão (primária)** | `#3E2512` | Títulos, texto de destaque, fundo dos slides escuros |
-| Marrom profundo | `#2A180B` | Fundo dos divisores de seção |
-| **Dourado Unespão (acento)** | `#DE9E1E` | Barra de acento, números-destaque, ícones, realces |
-| Dourado escuro | `#9B6F26` | Texto sobre fundo claro quando o dourado puro não tem contraste |
-| Dourado claro | `#E5A823` | Hover, segundo tom de gráfico |
-| **Creme (fundo padrão)** | `#FAF6EF` | Fundo da maioria dos slides |
-| Creme 2 | `#F2EADB` | Fundo de cartões sobre o creme |
-| Areia | `#EADBCA` | Bordas, linhas de tabela, divisórias |
-| Areia escura | `#E0D3C1` | Bordas de cartão sobre fundo claro |
-| **Texto secundário** | `#75604C` | Legendas, rodapé, limitações de estudo |
-| Marca do logo | `#BC8D4F` | Só no logo; não usar como cor de texto |
-
-**Cores semânticas** (usar com parcimônia, só nas tabelas "funciona × não funciona"):
-
-| Papel | Hex | Uso |
-|---|---|---|
-| Positivo | `#2F6B4F` | Ganho medido, prática recomendada |
-| Negativo | `#A33A2A` | Prejuízo medido, incidente |
-| Neutro/incerto | `#75604C` | Percepção, evidência fraca |
-
-**Contraste** (WCAG AA, conferido): `#3E2512` sobre `#FAF6EF` e `#FAF6EF` sobre `#3E2512` passam com
-folga. **`#DE9E1E` sobre creme não passa em texto pequeno** — dourado só em texto ≥ 40 px em negrito,
-em elementos gráficos, ou sobre o marrom escuro.
+| Ganho medido | `#2F6B4F` | Sempre com `▲` e o rótulo "ganho medido" |
+| Perda medida | `#A33A2A` | Sempre com `▼` e o rótulo "perda medida" |
+| Percepção / evidência fraca | `#75604C` | Rótulo "percepção" |
 
 ## 3. Tipografia
 
-Ambas existem no Canva. Se não aparecerem: *Plus Jakarta Sans* → **Poppins**; *Space Grotesk* →
-**Archivo**.
+Ambas existem no Canva. Substitutas: *Plus Jakarta Sans* → **Poppins**; *Space Grotesk* → **Archivo**.
 
-| Estilo | Fonte | Tamanho | Peso | Cor | Espaçamento |
-|---|---|---|---|---|---|
-| Título de capa | Space Grotesk | 96 px | Bold (700) | `#3E2512` | Entrelinha 1,05 |
-| Título de slide | Space Grotesk | 54 px | Bold | `#3E2512` | Entrelinha 1,15 |
-| Título de divisor | Space Grotesk | 72 px | Bold | `#FAF6EF` | Entrelinha 1,1 |
-| Kicker (etiqueta acima do título) | Space Grotesk | 18 px | Bold, CAIXA ALTA | `#9B6F26` | Entreletra +8% |
-| Número-destaque | Space Grotesk | 120 px | Bold | `#DE9E1E` ou `#3E2512` | Entrelinha 1,0 |
-| Corpo / bullet | Plus Jakarta Sans | 30 px | Regular (400) | `#3E2512` | Entrelinha 1,45 |
-| Corpo em destaque | Plus Jakarta Sans | 30 px | Bold (700) | `#3E2512` | — |
-| Texto de tabela | Plus Jakarta Sans | 24 px | 400 / 600 no cabeçalho | `#3E2512` | Entrelinha 1,3 |
-| Legenda / limitação | Plus Jakarta Sans | 20 px | Regular, itálico | `#75604C` | Entrelinha 1,35 |
-| Rodapé de fonte | Plus Jakarta Sans | 18 px | Medium (500) | `#75604C` | — |
+**Escala** (só estes valores): **180 · 120 · 96 · 72 · 54 · 40 · 32 · 28 · 24 · 22**.
 
-**Regra dura:** no máximo **6 linhas de texto** por slide e **12 palavras** por linha. O que não couber
-vai para as notas do apresentador.
+| Estilo | Fonte | Tamanho | Peso | Cor |
+|---|---|---|---|---|
+| Número gigante (slide de um dado só) | Space Grotesk | 180 px | Bold | `#3E2512` ou `#DE9E1E` (fundo escuro) |
+| Número-destaque | Space Grotesk | 120 px | Bold | idem |
+| Título de capa | Space Grotesk | 96 px | Bold | `#3E2512` |
+| Título de divisor | Space Grotesk | 72 px | Bold | `#FAF6EF` |
+| Título de slide | Space Grotesk | 54 px | Bold | `#3E2512` |
+| Subtítulo / número de apoio | Space Grotesk | 40 px | Bold | `#8E6522` |
+| Corpo e bullet | Plus Jakarta Sans | 32 px | 400 (700 no destaque) | `#3E2512` |
+| Texto de tabela | Plus Jakarta Sans | 28 px | 400 (600 no cabeçalho) | `#3E2512` |
+| Legenda / limitação de estudo | Plus Jakarta Sans | 24 px | 400 itálico | `#75604C` / `#C9B49C` |
+| Kicker | Space Grotesk | 24 px | Bold, CAIXA ALTA, +8% de entreletra | `#8E6522` |
+| Rodapé de fonte | Plus Jakarta Sans | 22 px | 500 | `#75604C` / `#C9B49C` |
 
-## 4. Componentes (montar uma vez e duplicar)
+**Regra dura:** no máximo **5 linhas** de texto por slide e **12 palavras** por linha. O que não couber
+vai para as notas. Nada abaixo de 22 px — a sala tem tela a até 6 m.
 
-1. **Cartão.** Retângulo `#F2EADB`, cantos **16 px**, borda 1 px `#E0D3C1`, padding interno 32 px,
-   sombra suave (Canva: *Sombra → Brilho suave*, desfoque 24, transparência 15%, deslocamento Y 6).
-2. **Barra de acento.** Retângulo de **6 × 64 px** em `#DE9E1E`, cantos arredondados, à esquerda do
-   título do slide. É o elemento que dá unidade ao deck.
-3. **Etiqueta (badge).** Retângulo `#3E2512`, cantos 999 px (pílula), texto `#FAF6EF` 18 px caixa alta.
-   Variante clara: fundo `#EADBCA`, texto `#3E2512`.
-4. **Rodapé de fonte.** Texto 18 px `#75604C` no formato `Fonte: METR, 2025 [F-15]`. **Todo slide com
-   número tem um.**
-5. **Tabela.** Sem grade externa. Cabeçalho com fundo `#3E2512` e texto `#FAF6EF`; linhas alternadas
-   `#FAF6EF` / `#F2EADB`; separadores 1 px `#EADBCA`; altura mínima de linha 56 px.
-6. **Marca-d'água do número do slide.** Canto inferior direito, Space Grotesk 18 px `#75604C`.
+## 4. Componentes
 
-## 5. Grades de layout usadas
+1. **Cartão.** `#F2EADB`, cantos 16 px, borda 1 px `#E0D3C1`, padding 32 px, sombra suave (*Brilho
+   suave*, desfoque 24, transparência 15%, Y 6).
+2. **Barra de acento.** 6 × 64 px em `#DE9E1E`, à esquerda do título. É o elemento de unidade do deck.
+3. **Etiqueta (pílula).** Fundo `#3E2512`, texto `#FAF6EF` 22 px caixa alta. Variante clara: `#EADBCA`
+   com texto `#3E2512`.
+4. **Faixa full-bleed.** Retângulo de 112 px de altura colado na base, `#2A180B`, texto `#FAF6EF`
+   32 px. É onde mora a frase-síntese do slide (S11, S15, S18).
+5. **Rodapé de fonte.** 22 px, formato `Fonte: METR, 2025 [F-15]`. **Todo slide com número tem um.**
+6. **Tabela.** Sem grade externa. Cabeçalho `#3E2512` com texto `#FAF6EF`; zebra **`#F2EADB` /
+   `#EADBCA`** (nunca `#FAF6EF`, que some no fundo); separadores 1 px `#E0D3C1`; linha de 64 px.
+7. **Dot plot** (S13). Eixo horizontal, linha do zero de 2 px `#3E2512`, pontos de 28 px, rótulo do
+   estudo à esquerda em 28 px e o `n` em 24 px logo abaixo.
+8. **Seta de progressão.** Traço de 3 px `#8E6522` com ponta triangular (S5 e S14).
+9. **Barra comparativa.** 56 px de altura, cantos 8 px, dois segmentos (`#DE9E1E` / `#A33A2A`).
+10. **Marca-d'água do número do slide.** Inferior direito, Space Grotesk 22 px.
 
-- **L1 — Capa:** logo no topo, título centralizado à esquerda, faixa dourada de 12 px na base.
-- **L2 — Título + conteúdo:** barra de acento + kicker + título (topo), conteúdo em 12 colunas.
-- **L3 — Duas colunas:** 6 + 6 colunas, medianiz de 48 px. Para "de um lado × do outro".
-- **L4 — Número-destaque:** número enorme à esquerda (5 colunas), explicação à direita (7 colunas).
-- **L5 — Divisor de seção:** fundo `#2A180B`, título centralizado, barra dourada acima.
-- **L6 — Tabela cheia:** título curto no topo, tabela ocupando o resto.
-- **L7 — Linha do tempo:** eixo horizontal 4 px `#EADBCA` com marcos em círculos de 16 px `#DE9E1E`.
+## 5. Grades de layout
+
+- **L1 — Capa.** Logo no topo, título à esquerda, faixa `#DE9E1E` de 12 px na base.
+- **L2 — Título + conteúdo.** Barra de acento + kicker + título; conteúdo em 12 colunas.
+- **L3a — Duas colunas simétricas** (6 + 6, medianiz 48 px): comparação "de um lado × do outro".
+- **L3b — Dois cartões grandes** (6 + 6, altura cheia).
+- **L3c — Quatro cartões** (2 × 2, 6 colunas cada, altura de 340 px).
+- **L4a — Um número gigante** (180 px) centralizado, apoio embaixo.
+- **L4b — Números em sequência**, com setas entre eles.
+- **L5 — Divisor.** Fundo `#2A180B`, título centralizado, barra dourada acima, logo 28 px na base.
+- **L6 — Tabela ou quadrante.** Título curto no topo, o resto para o conteúdo.
+- **L7 — Linha do tempo.** Eixo de 4 px `#EADBCA`, marcos de **28 px** `#DE9E1E`, rótulos alternando
+  acima e abaixo do eixo.
+- **L8 — Gráfico.** Título, área de plotagem de 1400 × 620 px, legenda em pastilhas embaixo.
+
+**Ritmo:** nunca repetir o mesmo layout em dois slides seguidos.
 
 ## 6. Imagens e ícones
 
-- **Logo:** `../../engenharia-software-2-2026/unespao_logo.svg` (enviar no Canva em *Uploads*).
-  Altura de 64 px na capa e 28 px no rodapé dos divisores.
-- **Ícones:** usar um único conjunto de linha, espessura fina, cor `#3E2512` ou `#DE9E1E`. Não misturar
-  ícones preenchidos com vazados.
-- **Proibido:** foto de banco de imagens de "robô", "cérebro digital" ou "mão de robô apertando mão
-  humana". O deck é de pesquisa; a ilustração é o dado.
-- **Gráficos:** montar com as formas do Canva nas cores da paleta, não com o gerador automático de
-  gráfico, que traz outra paleta.
+- **Logo:** `../../engenharia-software-2-2026/unespao_logo.svg` (*Uploads*). 64 px na capa, 28 px nos
+  divisores.
+- **Ícones:** um único conjunto de linha, espessura fina, `#3E2512` ou `#DE9E1E`, 96 px quando forem o
+  elemento principal do cartão.
+- **Proibido:** foto de banco de imagens de robô, cérebro digital ou aperto de mão homem-máquina. Num
+  seminário de pesquisa, a ilustração é o dado.
+- **Gráficos:** montar com formas do Canva na paleta acima, não com o gerador automático.
 
-## 7. Acessibilidade e sala de aula
+## 7. Acessibilidade
 
-- Menor texto projetado: **20 px** (só legenda). Corpo nunca abaixo de 28 px.
-- Não usar cor como único código: sempre acompanhar de rótulo ("ganho medido" / "percepção").
-- Cada slide precisa ser legível a 6 m da tela: teste reduzindo o Canva a 25% de zoom; se não dá para
-  ler o título e o número principal, está pequeno.
+- Menor tamanho projetado: **22 px**.
+- **Cor nunca é o único código:** todo verde/vermelho vem com `▲`/`▼` e rótulo.
+- **Teste de 3 segundos:** ao abrir o slide, a mensagem principal tem que ser achada em 3 s. Se o olho
+  vagueia, há mais de uma mensagem no slide.
+- **Teste de 25% de zoom** no Canva: se o título e o número principal não são legíveis, está pequeno.
 
 ---
 
 # Parte II — Os 29 slides
 
-Convenções de cada ficha: **Layout** (L1–L7), **Conteúdo** (texto exato do slide), **Visual**,
-**Rodapé** (fonte) e **Notas** (roteiro de fala, vai no campo de notas do Canva, não na tela).
+Cada ficha traz: **tempo alvo**, **Layout**, **Conteúdo** (texto exato), **Visual**, **Rodapé** e
+**Notas** (fala do apresentador; vai no campo de notas do Canva, não na tela).
 
 ---
 
-## S1 — Capa
-- **Layout:** L1. Fundo `#FAF6EF`.
+## S1 — Capa · 10 s
+- **Layout:** L1, fundo `#FAF6EF`.
 - **Conteúdo:**
   - Kicker: `GESTÃO DE PROJETOS · UNESP 2026 · SEMINÁRIO`
   - Título (96 px): `LLM e o Desenvolvimento de Software`
-  - Subtítulo (30 px, `#75604C`): `O que a evidência mostra que funciona — e o que não funciona`
+  - Subtítulo (32 px, `#75604C`): `O que a evidência mostra que funciona — e o que não funciona`
   - Autores (24 px): `David Sarago · Guilherme Molina · Lucas Costa · Thiago Mitsuo`
-- **Visual:** logo do Unespão no topo (64 px); faixa `#DE9E1E` de 12 px colada na base do slide.
-- **Notas:** ⚠ confirmar os nomes com o grupo antes de apresentar (GP-02, Perguntas em aberto).
+- **Visual:** logo 64 px no topo; faixa `#DE9E1E` de 12 px na base.
+- **Notas:** ⚠ confirmar os nomes com o grupo antes de apresentar.
 
-## S2 — O que vamos ver
+## S2 — Seis blocos, 23 minutos · 20 s
 - **Layout:** L2, lista em 2 colunas.
-- **Conteúdo:** título `O caminho de hoje` e 6 itens numerados:
-  `1. O que é` · `2. Como chegamos aqui` · `3. Onde o mundo está` · `4. O que funciona e o que não`
-  · `5. O que isso muda na gestão de projetos` · `6. O que aconteceu conosco`
-- **Visual:** número de cada item em Space Grotesk 40 px `#DE9E1E`.
-- **Notas:** 15 s. Anunciar que o bloco 4 é o coração da apresentação.
+- **Conteúdo:** título `Seis blocos, 23 minutos`; itens numerados: `1. O que é` · `2. Como chegamos
+  aqui` · `3. Onde o mundo está` · `4. O que funciona e o que não` · `5. O que muda na gestão de
+  projetos` · `6. O que aconteceu conosco`
+- **Visual:** número de cada item em Space Grotesk 40 px `#8E6522`.
+- **Notas:** dizer que o bloco 4 é o coração. O título já sinaliza controle de tempo (critério C6).
 
-## S3 — Pergunta para a turma
-- **Layout:** L4 (número-destaque vazio, preenchido na hora).
-- **Conteúdo:**
-  - Título: `Antes de começar`
-  - Pergunta (54 px, centralizada): `Quem usou IA para programar esta semana?`
-  - Segunda linha (40 px, `#9B6F26`): `Quanto acham que ganharam de velocidade?`
-  - Caixa vazia rotulada `resposta da turma: ____%`
-- **Visual:** cartão grande e vazio no centro, para anotar a resposta ao vivo (à mão, se impresso; ou
-  só memorizar).
-- **Notas:** anotar o número que a turma disser. Ele volta no S15. Não comentar nada agora — a
-  surpresa é o efeito.
+## S3 — Pergunta para a turma · 30 s
+- **Layout:** L4a.
+- **Conteúdo:** título `Antes de começar`; pergunta em 54 px `Quem usou IA para programar esta
+  semana?`; segunda linha em 40 px `#8E6522` `Quanto acham que ganharam de velocidade?`; caixa vazia
+  com o rótulo `resposta da turma: ____%`
+- **Visual:** cartão central vazio, com o campo em destaque.
+- **Notas:** **anotar o número.** Ele volta no S14, na tela. Não comentar nada agora.
 
-## S4 — O que é um LLM
+## S4 — O que é um LLM · 60 s
 - **Layout:** L2.
-- **Conteúdo:**
-  - Kicker: `1. O QUE É`
-  - Título: `Um modelo que prevê texto — e código é texto`
-  - 3 bullets:
-    - `Arquitetura Transformer (2017) tornou viável treinar em escala [F-01]`
-    - `Codex (2021): primeiro modelo treinado em código público a virar produto [F-02]`
-    - `Resolvia 28,8% dos problemas do HumanEval com uma tentativa — GPT-3 resolvia 0% [F-02]`
-- **Visual:** à direita, cartão com os três números `2017 · 2021 · 28,8%` empilhados.
+- **Conteúdo:** kicker `1. O QUE É`; título `Um modelo que prevê texto — e código é texto`; 3 bullets:
+  - `Transformer (2017) tornou viável treinar em escala`
+  - `Codex (2021): primeiro modelo treinado em código público a virar produto`
+  - `Resolvia 28,8% do HumanEval com uma tentativa — GPT-3 resolvia 0%`
+- **Visual:** cartão à direita com `2017 · 2021 · 28,8%` empilhados em 72 px.
 - **Rodapé:** `Fontes: Vaswani et al., 2017 [F-01]; Chen et al., 2021 [F-02]`
-- **Notas:** não entrar em detalhe técnico de arquitetura. O ponto é: a mesma máquina que escreve texto
-  escreve código.
+- **Notas:** não detalhar arquitetura. O ponto é: a mesma máquina que escreve texto escreve código.
 
-## S5 — Três modos de uso
-- **Layout:** L6 (tabela de 3 linhas).
-- **Conteúdo:** título `Completar → Conversar → Delegar`
+## S5 — Completar → Conversar → Delegar · 75 s
+- **Layout:** L6 (tabela).
+- **Conteúdo:**
 
   | Modo | O humano | O LLM | Exemplo |
   |---|---|---|---|
-  | Completar | escreve e aceita ou rejeita | sugere a próxima linha | Copilot, 2021 |
+  | Completar | escreve, aceita ou rejeita | sugere a próxima linha | Copilot, 2021 |
   | Conversar | descreve, copia e cola | explica e gera trechos | ChatGPT, 2022 |
   | **Delegar** | **especifica, revisa e aceita** | **planeja, edita, executa** | **agentes, 2024–** |
-- **Visual:** a linha "Delegar" com fundo `#3E2512` e texto `#FAF6EF`. Seta dourada apontando para ela.
-- **Rodapé:** `Fontes: GitHub [F-03]; ChatGPT [F-05]; Devin [F-07]; Claude Code [F-09]`
-- **Notas:** a frase da aula: "quando se delega, programar vira **gestão de trabalho delegado**". Esse é
-  o fio que amarra o seminário à disciplina.
+- **Visual:** linha "Delegar" com fundo `#3E2512` e texto `#FAF6EF`; seta dourada apontando para ela.
+- **Rodapé:** `Fontes: [F-03][F-05][F-07][F-09]`
+- **Notas:** frase-âncora do seminário: **quando se delega, programar vira gestão de trabalho
+  delegado**. É o fio que paga no fechamento.
 
-## S6 — O vocabulário que vamos usar
-- **Layout:** L3 (4 cartões, 2 × 2).
+## S6 — Quatro palavras · 45 s
+- **Layout:** L3c.
 - **Conteúdo:** título `Quatro palavras que voltam o tempo todo`
-  - `Contexto` — tudo que o modelo vê; sem contexto, ele preenche com o que é plausível
-  - `Alucinação` — saída plausível e falsa; em código, vira dependência que não existe [F-28]
-  - `Benchmark` — HumanEval (funções) → SWE-bench (issues reais de repositórios) [F-02][F-06]
-  - `Vibe coding` — aceitar sem ler o código; palavra do ano do Collins em 2025 [F-10]
-- **Visual:** 4 cartões iguais; no cartão "vibe coding", etiqueta `11,9% fazem isso profissionalmente`.
-- **Rodapé:** `Fonte: Stack Overflow Developer Survey 2025 [F-23]`
-- **Notas:** 72,2% dizem que vibe coding **não** faz parte do trabalho profissional [F-23]. O termo é
-  mais famoso que a prática.
+  - `Contexto` — tudo que o modelo vê; sem contexto, ele preenche com o plausível
+  - `Alucinação` — saída plausível e falsa; em código, vira dependência que não existe
+  - `Benchmark` — HumanEval (funções) → SWE-bench (issues reais)
+  - `Vibe coding` — aceitar sem ler o código; palavra do ano do Collins em 2025
+- **Visual:** 4 cartões; no de vibe coding, pílula `só 11,9% fazem isso profissionalmente`.
+- **Rodapé:** `Fontes: [F-28][F-02][F-06][F-10]; Stack Overflow 2025 [F-23]`
+- **Notas:** 72,2% dizem que **não** faz parte do trabalho profissional — o termo é mais famoso que a
+  prática. Ponte para o próximo: *"com esse vocabulário, a linha do tempo mostra onde a promessa e a
+  evidência se separam."*
 
-## S7 — Linha do tempo (2017–2023)
-- **Layout:** L7.
-- **Conteúdo:** título `Como chegamos aqui — parte 1`
-  - `2017` Transformer [F-01]
-  - `jun/2021` Copilot em preview técnico [F-03]
-  - `jul/2021` Codex e HumanEval [F-02]
-  - `jun/2022` Copilot disponível para todos [F-04]
-  - `nov/2022` ChatGPT: 100 mi de usuários em ~2 meses [F-05]
-  - `2023` SWE-bench: melhor modelo resolve **1,96%** das issues reais [F-06]
-- **Visual:** eixo horizontal com 6 marcos; o marco de 2023 em `#A33A2A` (é o contraponto).
-- **Rodapé:** `Fontes: [F-01]–[F-06]`
-- **Notas:** 1,96% é o número que mostra a distância entre "escrever uma função" e "resolver um problema
-  num repositório de verdade".
+## S7 — Linha do tempo, 2017–2026 · 105 s
+- **Layout:** L7 (eixo único, marcos alternando acima e abaixo).
+- **Conteúdo:** título `Como chegamos aqui`
+  - `2017` Transformer · `2021` Copilot e Codex (28,8% do HumanEval) · `2022` ChatGPT ·
+    `2023` SWE-bench: melhor modelo resolve **1,96%** · `2024` Devin e MCP; **Cui et al.: +26,08% com
+    4.867 devs** · `2025` "vibe coding"; **METR: 19% mais lentos**; **Replit apaga produção** ·
+    `2026` OpenAI abandona o SWE-bench; **Google: 75% do código novo**
+- **Visual:** marcos de 28 px; 2023 e 2025 em `#A33A2A`; 2026 em `#DE9E1E`. Três faixas rotuladas sob o
+  eixo: `COMPLETAR (2021–22)` · `CONVERSAR (2022–24)` · `DELEGAR (2024–)`.
+- **Rodapé:** `Fontes: [F-01]–[F-31]`
+- **Notas:** a fusão das duas linhas do tempo é proposital: o que interessa são as **três fases**, não
+  a lista de produtos. Em 2024–2026, os problemas deixam de ser de qualidade da sugestão e passam a ser
+  **operacionais**.
 
-## S8 — Linha do tempo (2024–2026)
-- **Layout:** L7.
-- **Conteúdo:** título `Como chegamos aqui — parte 2`
-  - `mar/2024` Devin, "engenheiro de software autônomo" [F-07]
-  - `nov/2024` MCP: contexto e ferramentas viram padrão [F-08]
-  - `fev–mai/2025` "vibe coding" e Claude Code [F-10][F-09]
-  - `jul/2025` METR: devs experientes **19% mais lentos** [F-15]
-  - `jul/2025` Replit apaga base de produção em *code freeze* [F-30]
-  - `fev/2026` OpenAI abandona o SWE-bench Verified [F-11]
-  - `abr/2026` Google: **75%** do código novo é gerado por IA [F-31]
-- **Visual:** mesmo eixo; marcos de jul/2025 em `#A33A2A`, abr/2026 em `#DE9E1E`.
-- **Rodapé:** `Fontes: [F-07]–[F-31]`
-- **Notas:** 2024–2026 é a fase de **delegar**. Os problemas deixam de ser de qualidade de sugestão e
-  passam a ser **operacionais**.
-
-## S9 — O padrão que se repete
-- **Layout:** L3.
-- **Conteúdo:** título `A promessa sempre chega antes da evidência`
-  - Esquerda (`#DE9E1E`): `2023 — "55,8% mais rápido"` / legenda: `uma tarefa isolada, 1 servidor HTTP [F-12]`
-  - Direita (`#3E2512`): `2025 — "19% mais lentos"` / legenda: `repositórios reais e maduros, devs experientes [F-15]`
-- **Visual:** duas metades simétricas, divisória vertical de 2 px `#EADBCA`.
+## S8 — A promessa chega antes da evidência · 60 s
+- **Layout:** L3a.
+- **Conteúdo:** título `A promessa chega antes da evidência`
+  - Esquerda: `2023 — "55,8% mais rápido"` · legenda `uma tarefa isolada, um servidor HTTP`
+  - Direita: `2025 — "19% mais lentos"` · legenda `repositórios reais e maduros, devs experientes`
+- **Visual:** metades simétricas, divisória de 2 px `#E0D3C1`. Sem cor semântica: os dois lados são
+  evidência válida.
 - **Rodapé:** `Fontes: Peng et al., 2023 [F-12]; METR, 2025 [F-15]`
-- **Notas:** não é que um estudo esteja errado. Eles mediram **coisas diferentes**. Guardar isso para o
-  bloco 4.
+- **Notas:** nenhum dos dois está errado — **mediram coisas diferentes**. Guardar para o bloco 4.
 
-## S10 — Adoção: quase todo mundo
-- **Layout:** L6.
-- **Conteúdo:** título `Onde o mundo está: uso`
+## S9 — Adoção · 45 s
+- **Layout:** L4a.
+- **Conteúdo:** número gigante `84–90%` (180 px); subtítulo 40 px `dos desenvolvedores usam IA`;
+  terceira linha 32 px `mediana de 2 h por dia`; três pastilhas de 24 px: `DORA 90%` ·
+  `Stack Overflow 84%` · `JetBrains 85%`
+- **Visual:** nada além disso. É o slide mais simples do deck, de propósito.
+- **Rodapé:** `Coletas de 2025 · [F-20][F-23][F-39]`
+- **Notas:** três pesquisas independentes, amostras diferentes, mesmo resultado — é o dado mais sólido
+  do cenário. Se quiser, citar de cabeça: ~80% dos novos devs do GitHub usam Copilot na primeira
+  semana [F-24].
 
-  | Indicador | Valor | Fonte |
-  |---|---|---|
-  | Profissionais que usam IA no trabalho de software | **90%** (mediana de 2 h/dia) | DORA 2025 [F-20] |
-  | Devs que usam ou planejam usar | **84%** | Stack Overflow 2025 [F-23] |
-  | Devs que usam IA regularmente | **85%** | JetBrains 2025 [F-39] |
-  | Profissionais que usam **todo dia** | **51%** | Stack Overflow 2025 [F-23] |
-  | Novos devs no GitHub usando Copilot na 1ª semana | **~80%** | Octoverse 2025 [F-24] |
-- **Visual:** valores em Space Grotesk 36 px `#3E2512`.
-- **Rodapé:** `Coletas de 2025 · [F-20][F-23][F-24][F-39]`
-- **Notas:** três pesquisas independentes, com amostras diferentes, chegam ao mesmo lugar: 84–90%.
+## S10 — Confiança · 45 s
+- **Layout:** L4a.
+- **Conteúdo:** número gigante `45,7%` em `#A33A2A` com `▼`; rótulo 40 px `desconfiam da precisão`;
+  duas linhas de apoio (32 px): `confiam: 32,7% — e só 3,1% "confiam muito"` · `a favorabilidade caiu
+  de +70% para ~60%`
+- **Visual:** barra comparativa (componente 9) sob os números.
+- **Rodapé:** `Fonte: Stack Overflow Developer Survey 2025 [F-23]`
+- **Notas:** o fecho é: **a adoção não é movida por confiança**. No DORA, 24% confiam muito ou bastante
+  e 30% confiam pouco ou nada [F-20]. Não nomear ainda "percepção ≠ medida" — isso é do S14.
 
-## S11 — Confiança: cai enquanto o uso sobe
-- **Layout:** L4.
-- **Conteúdo:**
-  - Número-destaque: `45,7%` (em `#A33A2A`) com rótulo `desconfiam da precisão`
-  - Ao lado, em bullets:
-    - `Confiam: 32,7% (só 3,1% "confiam muito") [F-23]`
-    - `Favorabilidade caiu de +70% para 59,7% [F-23]`
-    - `Maior frustração: soluções "quase certas" — 66% [F-23]`
-    - `Depurar código de IA toma mais tempo: 45,2% [F-23]`
-    - `No DORA: 24% confiam muito ou bastante; 30% pouco ou nada [F-20]`
-- **Visual:** barra horizontal única mostrando confia × desconfia, em `#DE9E1E` e `#A33A2A`.
-- **Rodapé:** `Fontes: Stack Overflow 2025 [F-23]; DORA 2025 [F-20]`
-- **Notas:** **a adoção não é movida por confiança.** Isso é risco de projeto: a equipe usa uma
-  ferramenta em cuja saída ela mesma não confia.
-
-## S12 — Brasil
-- **Layout:** L3.
+## S11 — Brasil · 75 s
+- **Layout:** L3a + faixa full-bleed.
 - **Conteúdo:** título `E o Brasil?`
-  - Esquerda — `Pessoas`: `6,89 milhões de desenvolvedores no GitHub` · `4º país do mundo` [F-24]
-  - Direita — `Empresas`: `17% das empresas brasileiras usam IA (13% em 2024)` · `Grandes: 50%` ·
-    `Pequenas: 15%` [F-40]
-  - Faixa inferior (`#3E2512`, texto claro): `A adoção individual está muito à frente da organizacional.`
-- **Visual:** duas colunas com ícone simples (pessoa / prédio).
-- **Rodapé:** `Fontes: Octoverse 2025 [F-24]; Cetic.br, TIC Empresas 2025, 4.174 empresas [F-40]`
-- **Notas:** dizer em voz alta que são **unidades diferentes** (pessoa × empresa). É exatamente por isso
-  que o contraste é interessante, e não uma contradição.
+  - Esquerda `Pessoas`: `6,89 milhões de desenvolvedores no GitHub` · `4º país do mundo`
+  - Direita `Empresas`: `17% das empresas usam IA (13% em 2024)` · `grandes: 50% · pequenas: 15%`
+  - Faixa: `A adoção individual está muito à frente da organizacional.`
+  - Canto inferior direito, 24 px: `Regulação: UE já em vigor · PL 2338 na Câmara desde 2025`
+- **Visual:** dois cartões com ícone de 96 px (pessoa / prédio).
+- **Rodapé:** `Fontes: Octoverse 2025 [F-24]; Cetic.br, TIC Empresas 2025 [F-40]; [F-34][F-35]`
+- **Notas:** dizer em voz alta que são **unidades diferentes** (pessoa × empresa) — por isso o contraste
+  é interessante, não contraditório. A regulação virou uma linha porque é contexto, não operação: o AI
+  Act tem obrigações desde 08/2025 e o PL 2338 está na Câmara desde 03/2025, sem aprovação final. Quem
+  desenvolve com IA no Brasil ainda opera sem marco legal específico.
 
-## S13 — Regulação
-- **Layout:** L3.
-- **Conteúdo:** título `As regras estão chegando em etapas`
-  - `União Europeia (AI Act)` [F-34]: proibições desde 02/02/2025 · modelos de propósito geral desde
-    02/08/2025 · alto risco a partir de 02/12/2027 e 02/08/2028
-  - `Brasil (PL 2338/2023)` [F-35]: aprovado no Senado em 26/12/2024 · na Câmara desde 17/03/2025 ·
-    **ainda sem aprovação final em 09/2026**
-  - Fecho: `quem desenvolve com IA no Brasil ainda opera sem marco legal específico`
-- **Visual:** dois eixos verticais curtos, um por jurisdição.
-- **Rodapé:** `Fontes: rastreador do AI Act [F-34]; Senado e Câmara [F-35]`
-- **Notas:** 30 s. Não abrir discussão jurídica; é contexto de risco (volta no S21).
+## S12 — Divisor · 5 s
+- **Layout:** L5.
+- **Conteúdo:** `O que funciona e o que não funciona` · subtítulo `o que a medição mostra`
+- **Notas:** avisar: daqui em diante, todo número vem com a limitação do estudo junto.
 
-## S14 — Divisor
-- **Layout:** L5. Fundo `#2A180B`.
-- **Conteúdo:** `O que funciona e o que não funciona` + subtítulo `o que a medição mostra`
-- **Visual:** barra `#DE9E1E` de 6 × 120 px acima do título; logo 28 px na base.
-- **Notas:** avisar: "daqui em diante, todo número vem com a limitação do estudo junto".
-
-## S15 — Os estudos, lado a lado
-- **Layout:** L6 (é o slide mais denso do deck; por isso ganha 5 linhas e nada mais).
+## S13 — Cinco medições, cinco resultados · 75 s
+- **Layout:** L8 — **dot plot**, substituindo a tabela da versão anterior.
 - **Conteúdo:** título `Cinco medições, cinco resultados diferentes`
+  - Eixo horizontal de efeito, linha do zero em 2 px `#3E2512`
+  - `Peng et al., 2023` · **+55,8%** de velocidade · `n = 1 tarefa isolada`
+  - `Cui et al., Management Science` · **+26,1%** de tarefas concluídas · `n = 4.867 devs, 3 RCTs`
+  - `Paradis et al., Google` · **−21%** de tempo na tarefa · `n = 96 engenheiros`
+  - `METR, 2025` · **+19%** de tempo (mais lento) · `n = 16 devs, 246 issues reais`
+  - `METR, 2026` · **−18%** de tempo, zero dentro do intervalo · `n = 57 devs; evidência muito fraca`
+- **Visual:** pontos de 28 px; `▲ #2F6B4F` do lado favorável, `▼ #A33A2A` do lado desfavorável, com
+  rótulo. Legenda de limitação em 24 px sob cada estudo.
+- **Rodapé:** `Fontes: [F-12][F-13][F-14][F-15][F-16]`
+- **Notas:** atenção ao sinal do METR 2026: no original é "speedup de −18%", que significa **18% mais
+  rápido** — o post abre dizendo *"some evidence for speedup"*. Plotar do lado favorável, com a
+  ressalva de que o zero está dentro do intervalo e os próprios autores chamam de evidência muito
+  fraca. Dizer que RCT é *estudo com grupo de controle*. Mensagem: **o resultado depende do desenho do
+  estudo** — a maior amostra (4.867 devs) é favorável; a que mede repositório real e maduro é
+  desfavorável.
 
-  | Estudo | Desenho | Resultado | Limitação |
-  |---|---|---|---|
-  | Peng et al., 2023 [F-12] | tarefa única, servidor HTTP | **+55,8% mais rápido** | tarefa isolada; autores ligados à GitHub |
-  | Cui et al. (Management Science) [F-13] | 3 RCTs, **4.867 devs** | **+26,08%** tarefas concluídas | mede tarefas, não valor |
-  | Paradis et al., Google [F-14] | RCT, 96 engenheiros | **−21% de tempo** | intervalo largo; ferramenta interna |
-  | **METR, 2025** [F-15] | RCT, 16 devs, 246 issues reais | **19% mais lentos** | amostra pequena; autores não generalizam |
-  | METR, 2026 [F-16] | 57 devs, 800+ tarefas | −18% e −4% de tempo | os autores chamam de evidência **muito fraca** |
-- **Visual:** coluna "Resultado" com fundo alternado `#2F6B4F` (ganho) e `#A33A2A` (perda), texto claro.
-- **Rodapé:** `Fontes: [F-12]–[F-16]`
-- **Notas:** ganho medido aparece em **tarefa delimitada e código novo**, e é maior para quem tem menos
-  experiência [F-13]. Perda aparece em **base grande e madura**, com gente experiente [F-15].
+## S14 — Percepção ≠ medida · 60 s
+- **Layout:** L4b, fundo `#2A180B`.
+- **Conteúdo:** título (`#FAF6EF`) `O que os próprios devs acharam`; quatro valores em sequência,
+  96 px:
+  - `___%` — `o que vocês acharam` (preenchido com a resposta do S3)
+  - `+24%` — `os devs previram`
+  - `−19%` — `foi o que mediram` (em `#DE9E1E`)
+  - `+20%` — `acharam depois`
+- **Visual:** quatro blocos com setas entre eles; o primeiro com borda tracejada `#C9B49C`, indicando
+  que é preenchido ao vivo. Legendas e rodapé em `#C9B49C`.
+- **Rodapé:** `Fonte: METR, RCT com 16 devs experientes, 2025 [F-15]`
+- **Notas:** **este é o clímax.** Voltar à resposta da turma do S3 e comparar. Fechar com: no survey de
+  2026 do mesmo grupo, a mediana autorreportada é de 1,4× a 2×, mas os autores lembram que, no RCT, as
+  pessoas erraram o próprio ganho em ~40 pontos percentuais [F-17].
 
-## S16 — O slide-chave: percepção ≠ medida
-- **Layout:** L4, fundo `#3E2512` (único slide escuro fora dos divisores).
-- **Conteúdo:**
-  - Título (`#FAF6EF`): `O que os próprios devs acharam`
-  - Três números em sequência, Space Grotesk 96 px:
-    - `+24%` — `previram antes`
-    - `−19%` — `foi o que mediram` (em `#DE9E1E`)
-    - `+20%` — `acharam depois`
-- **Visual:** três blocos lado a lado; setas finas entre eles; fundo escuro para dar peso dramático.
-- **Rodapé (claro):** `Fonte: METR, RCT com 16 devs experientes, 2025 [F-15]`
-- **Notas:** **voltar à resposta da turma do S3** e comparar. Fechar com: no survey de 2026 do mesmo
-  grupo, a mediana autorreportada é de 1,4× a 2×, mas os autores lembram que, no RCT, as pessoas
-  erraram por **40 pontos percentuais** [F-17].
+## S15 — A IA amplifica o que já existe · 60 s
+- **Layout:** L3a + faixa full-bleed.
+- **Conteúdo:** título `Do indivíduo para a organização`
+  - Esquerda `DORA 2024`: `▲ +7,5% documentação` · `▲ +3,4% qualidade` · `▼ −1,5% vazão` ·
+    `▼ −7,2% estabilidade`
+  - Direita `Empresas`: `95% dos pilotos sem retorno mensurável em ~6 meses` · legenda `153
+    respondentes; definição estreita de sucesso`
+  - Faixa: `A IA amplifica forças e fraquezas — quem não tem fundamento, acelera o problema.`
+- **Visual:** `▲`/`▼` com rótulo, nunca só cor.
+- **Rodapé:** `Fontes: DORA 2024 [F-19] e 2025 [F-20]; MIT NANDA, 2025 [F-45]`
+- **Notas:** dizer que DORA e Stack Overflow são **surveys**: medem associação e percepção, não
+  telemetria — por isso "associou-se a", não "causou". Em 2025 o DORA já associa adoção a **mais**
+  vazão, mas a instabilidade continua.
 
-## S17 — Do indivíduo para a equipe
-- **Layout:** L3.
-- **Conteúdo:** título `A IA amplifica o processo que já existe`
-  - Esquerda `DORA 2024` [F-19]: `+7,5% documentação` · `+3,4% qualidade do código` ·
-    `+3,1% velocidade de review` · **`−1,5% vazão`** · **`−7,2% estabilidade`**
-  - Direita `DORA 2025` [F-20]: `agora a adoção se associa a mais vazão` · `a instabilidade continua` ·
-    `>80% percebem ganho de produtividade`
-  - Faixa inferior: `AI amplifica forças e fraquezas — quem não tem fundamento, acelera o problema`
-- **Visual:** ganhos em `#2F6B4F`, perdas em `#A33A2A`.
-- **Rodapé:** `Fontes: DORA 2024 [F-19]; DORA 2025, ~5.000 respondentes [F-20]`
-- **Notas:** é o slide que liga o seminário à gestão: o ganho individual não vira entrega da equipe
-  sozinho.
-
-## S18 — Qualidade e segurança
-- **Layout:** L3 (2 cartões grandes).
+## S16 — Qualidade e segurança · 45 s
+- **Layout:** L3b.
 - **Conteúdo:** título `Dois problemas que não se resolveram sozinhos`
-  - Cartão `Manutenção` [F-25]: `código clonado: 8,3% → 12,3% das linhas alteradas` ·
-    `refatoração: 25% → menos de 10%` · legenda: `GitClear, 211 mi de linhas (2020–2024); fornecedor de métricas`
-  - Cartão `Segurança` [F-26][F-27][F-28]: `2021: ~40% dos programas gerados eram vulneráveis` ·
-    `2025–26: só ~55% das gerações são seguras — sem melhora em 2 anos` ·
-    `pacotes inventados: 5,2% (comerciais) e 21,7% (abertos)`
-- **Visual:** ícone de linha em cada cartão; números em 48 px.
-- **Rodapé:** `Fontes: GitClear [F-25]; Pearce et al., IEEE S&P [F-26]; Veracode [F-27]; USENIX Security 2025 [F-28]`
-- **Notas:** o Thoughtworks chama o efeito acumulado de **dívida cognitiva**: a IA gera mais código do
-  que a equipe entende [F-36].
+  - Cartão `Manutenção`: número 72 px `12,3%` · `de código clonado, contra 8,3% em 2021` · legenda
+    `GitClear, 211 mi de linhas; fornecedor de métricas`
+  - Cartão `Segurança`: número 72 px `~55%` · `das gerações são seguras quando o prompt não pede
+    segurança` · legenda `Veracode, 80 tarefas, 150+ modelos; sem melhora em 2 anos`
+- **Visual:** um ícone de 96 px por cartão.
+- **Rodapé:** `Fontes: GitClear [F-25]; Veracode [F-27]`
+- **Notas:** a condição "quando o prompt não pede segurança" é o detalhe que vira recomendação:
+  instrua segurança no contexto, não só revise depois. Se houver tempo, citar de cabeça: refatoração
+  caiu de 25% para menos de 10% das linhas alteradas, e ~40% do código gerado já era vulnerável em
+  2021 [F-26].
 
-## S19 — O gargalo mudou de lugar
-- **Layout:** L2, com 3 blocos horizontais.
+## S17 — O gargalo mudou de lugar · 40 s
+- **Layout:** L2, três cartões horizontais.
 - **Conteúdo:** título `Gerar ficou barato. Revisar, não.`
-  - `Open source`: mais PRs, menos merges — queda de **18,18%** na taxa de merge de quem contribui uma
-    vez só (294 repositórios, 2 mi de PRs) [F-42]
-  - `curl`: encerrou o bug bounty em 31/01/2026 — relatos válidos caíram de **>15% para <5%** [F-41]
-  - `Contraponto`: código de agente **sobrevive mais** que o humano (−15,8 p.p. de modificação, 201
-    projetos); o gargalo é a prática organizacional, não a geração [F-43]
-- **Visual:** três cartões em fila; o terceiro com borda `#DE9E1E` para marcar que é o contraponto.
-- **Rodapé:** `Fontes: [F-41]–[F-43]`
-- **Notas:** manter o contraponto. Sem ele, o slide vira opinião.
+  - `Open source`: mais PRs, menos merges — **−18,18%** na taxa de merge de quem contribui uma vez só
+  - `curl`: encerrou o bug bounty em 01/2026, afogado em relatos gerados por IA
+  - `Contraponto`: código de agente **sobrevive mais** que o humano; o gargalo é a prática
+    organizacional, não a geração
+- **Visual:** terceiro cartão com borda `#DE9E1E`, marcando que é o contraponto.
+- **Rodapé:** `Fontes: [F-41][F-42][F-43]`
+- **Notas:** os números do curl vão na fala: relatos válidos caíram de mais de 15% para menos de 5% em
+  2025. O DORA chama esse custo de **imposto de verificação** — a expressão volta no S24.
 
-## S20 — Quando o agente tem permissão de verdade
-- **Layout:** L4.
-- **Conteúdo:**
-  - Número-destaque: `18/07/2025`
-  - Título: `O agente apagou a base de produção durante um code freeze`
-  - Bullets: `gerou mais de 4.000 registros falsos` · `afirmou que o rollback era impossível — não era`
-  - Faixa: `instrução em linguagem natural não é controle de acesso`
-- **Visual:** fundo creme, faixa inferior `#A33A2A` com texto claro.
+## S18 — Quando o agente tem permissão de verdade · 30 s
+- **Layout:** L4a + faixa full-bleed.
+- **Conteúdo:** número gigante `18/07/2025`; título `O agente apagou a base de produção durante um
+  code freeze`; uma linha: `gerou 4.000 registros falsos e afirmou que o rollback era impossível`;
+  faixa: `Instrução em linguagem natural não é controle de acesso.`
+- **Visual:** faixa inferior em `#A33A2A` com texto `#FAF6EF` — exceção deliberada ao escuro padrão.
 - **Rodapé:** `Fonte: AI Incident Database, incidente 1152 [F-30]`
-- **Notas:** ligar com a aula 7: separar ambientes e menor privilégio são **respostas a risco**, não
-  detalhe técnico.
+- **Notas:** ligar com a aula 7: separar ambientes e menor privilégio são **respostas a risco**.
 
-## S21 — Divisor
+## S19 — Divisor · 5 s
 - **Layout:** L5.
 - **Conteúdo:** `E o que isso muda na Gestão de Projetos?`
-- **Notas:** é o bloco que o professor avalia no critério C3. Falar com calma.
+- **Notas:** é o bloco avaliado no critério C3. Falar com calma.
 
-## S22 — As cinco variáveis, revisitadas
+## S20 — As cinco variáveis · 50 s
 - **Layout:** L6.
-- **Conteúdo:** título `Custo, tempo, escopo, qualidade e risco (Pressman)`
+- **Conteúdo:** título `Custo, tempo, escopo, qualidade e risco`
 
-  | Variável | O que o LLM muda | Evidência |
-  |---|---|---|
-  | Custo | cai escrever, sobe revisar e validar | [F-38]; 45,2% [F-23] |
-  | Tempo | ganha em tarefa delimitada; não garante em base madura | [F-12][F-14] × [F-15] |
-  | Escopo | gerar é barato → pressão por "só mais uma coisa" | caso Unespão |
-  | Qualidade | mais duplicação, menos refatoração, segurança parada | [F-25][F-27] |
-  | Risco | alucinação, pacote falso, agente com permissão | [F-28][F-30] |
-- **Visual:** primeira coluna com etiquetas em pílula `#EADBCA`.
-- **Rodapé:** `Aula 10, slide 4 (Pressman) + fontes indicadas`
-- **Notas:** "nenhum conceito da disciplina caiu; o esforço é que mudou de lugar".
+  | Variável | O que o LLM muda |
+  |---|---|
+  | Custo | licença é barata (US$ 10–39/mês); o caro é o tempo de revisão |
+  | Tempo | ganha em tarefa delimitada; não garante em base madura |
+  | Escopo | gerar é barato → pressão por "só mais uma coisa" |
+  | Qualidade | mais duplicação, menos refatoração, segurança parada |
+  | Risco | alucinação, pacote falso, agente com permissão, licença e autoria |
+- **Visual:** primeira coluna em pílulas `#EADBCA`. Os IDs de fonte saem da tabela e vão para o rodapé.
+- **Rodapé:** `Pressman (Aula 10, s4) · [F-47][F-23][F-25][F-27][F-28][F-30][F-38][F-48]`
+- **Notas:** nenhum conceito da disciplina caiu; o esforço é que mudou de lugar.
 
-## S23 — Estimativa: a âncora sumiu
-- **Layout:** L3.
+## S21 — Escopo, cronograma e equipe · 50 s
+- **Layout:** L2, três blocos.
+- **Conteúdo:** título `Três aulas que ficam de pé`
+  - `Escopo (Aula 3)`: gerar barato alimenta *scope creep*; escopo negativo explícito fica mais
+    importante — o DORA põe **lotes pequenos** entre as 7 capacidades
+  - `Cronograma (Aula 6)`: a Lei de Brooks vale para agentes? O custo não é de comunicação, é de
+    **especificar e revisar** — e o DORA prevê uma **curva J**: piora antes de melhorar
+  - `Equipe (Aula 8)`: um agente não passa por "formação" nem "confrontação" — as normas precisam
+    estar **escritas**; 67,3% das políticas de IA em open source exigem envolvimento humano
+- **Visual:** três cartões com a etiqueta da aula no topo.
+- **Rodapé:** `Aulas 3, 6 e 8 · [F-21][F-22][F-44]`
+- **Notas:** slide criado na revisão, porque três aulas estavam documentadas e invisíveis no deck. Se o
+  tempo apertar, falar só de escopo e equipe.
+
+## S22 — A âncora da estimativa sumiu · 60 s
+- **Layout:** L3a.
 - **Conteúdo:** título `Quanto custa o Unespão?`
-  - Esquerda — tabela da própria turma (Aula 6, slide 6):
+  - Esquerda: dois números grandes lado a lado — `R$ 60.000 / 2 meses` (Story Points) e
+    `R$ 356.000 / 11 meses` (COCOMO II), com `6×` em 120 px `#8E6522` entre eles
+  - Direita: `COCOMO II parte de KLOC` · `o LLM gera KLOC quase de graça` · `o esforço migra para
+    contexto, iteração e supervisão humana`
+  - Pergunta em 54 px: `Qual método vocês ajustariam?`
+- **Visual:** a tabela completa das quatro estimativas fica só nas notas.
+- **Rodapé:** `Aula 6, s6 · Alaswad et al., 2026 [F-38]; Shetty et al., 2026 [F-37]`
+- **Notas:** os quatro valores da turma: Experiência R$ 200.000/6 meses · EAP R$ 293.000/4 meses ·
+  COCOMO II R$ 356.000/11 meses · Story Points R$ 60.000/2 meses. Pergunta aberta de verdade: não há
+  estudo de campo que responda. Se ninguém falar em 10 s, seguir.
 
-    | Método | Custo | Prazo |
-    |---|---|---|
-    | Experiência | R$ 200.000 | 6 meses |
-    | EAP | R$ 293.000 | 4 meses |
-    | COCOMO II | R$ 356.000 | 11 meses |
-    | Story Points | R$ 60.000 | 2 meses |
-  - Direita: `COCOMO parte de KLOC` · `o LLM gera KLOC quase de graça` ·
-    `o esforço migra para contexto, iterações e supervisão humana [F-38]` ·
-    `LLMs já estimam story points melhor que modelos supervisionados [F-37]`
-  - Pergunta em destaque: `Qual método vocês ajustariam?`
-- **Visual:** a linha "Story Points" e a "COCOMO II" destacadas, para mostrar a variação de ~6×.
-- **Rodapé:** `Aula 6, slide 6; Alaswad et al., 2026 [F-38]; Shetty et al., 2026 [F-37]`
-- **Notas:** pergunta aberta de verdade: não há estudo de campo que responda. Se ninguém falar, seguir.
-
-## S24 — Riscos, com a matriz da aula
-- **Layout:** L6.
+## S23 — Riscos · 60 s
+- **Layout:** L6 — **quadrante 2 × 2 real** (900 × 720 px), não tabela linear.
 - **Conteúdo:** título `Onde cada risco de IA cai na matriz de Rumsfeld`
+  - Conhecido-conhecido: `vulnerabilidade no código gerado` → `mitigar: pedir segurança no prompt + SAST`
+  - Conhecido-desconhecido: `pacote inventado vira ataque de cadeia` → `mitigar: travar dependências`
+  - Desconhecido-conhecido: `já aconteceu com outros (Replit)` → `evitar: menor privilégio`
+  - Desconhecido-desconhecido: `regulação e autoria do código gerado` → `aceitar e monitorar`
+- **Visual:** eixos rotulados; no máximo 8 palavras por célula.
+- **Rodapé:** `Aula 7, s12 · [F-27][F-28][F-30][F-34][F-48][F-49]`
+- **Notas:** SAST é *ferramenta que varre o código atrás de falhas de segurança*. Contar Knight Capital
+  **na fala**: US$ 460 milhões em 45 minutos por código morto reativado (Aula 7, s22), e emendar: *"a
+  gente tem um arquivo assim no nosso repositório; já volto nisso"*. Citar também que, para o US
+  Copyright Office, prompt sozinho não gera autoria [F-48], e que o caso *Doe v. GitHub* segue vivo em
+  licença e contrato [F-49].
 
-  | Quadrante | Risco | Resposta |
-  |---|---|---|
-  | Conhecido-conhecido | ~45% das gerações com vulnerabilidade [F-27] | mitigar: SAST + revisão |
-  | Conhecido-desconhecido | pacote alucinado vira ataque à cadeia [F-28] | mitigar: travar dependências |
-  | Desconhecido-conhecido | caso Replit já aconteceu com outros [F-30] | evitar: menor privilégio |
-  | Desconhecido-desconhecido | mudança regulatória [F-34][F-35] | aceitar e monitorar |
-- **Visual:** cartão à direita, em `#3E2512`: `Knight Capital: US$ 460 mi em 45 min por código morto
-  reativado (Aula 7)` e, abaixo, em `#DE9E1E`: `no nosso repositório há um arquivo gerado, não usado e
-  cheio de invenções`.
-- **Rodapé:** `Aula 7, slides 12 e 22 + fontes indicadas`
-- **Notas:** é a ponte mais forte com a disciplina. Não correr.
-
-## S25 — Monitoramento: "parece pronto" não serve
+## S24 — Monitoramento · 45 s
 - **Layout:** L2.
-- **Conteúdo:** título `O que medir quando a IA escreve`
-  - `A aula 10 já avisava: "não confiar só em 'parece pronto'"`
-  - `66% reclamam de soluções "quase certas" [F-23]`
+- **Conteúdo:** título `"Parece pronto" não é indicador`
+  - Citação da Aula 10 em 40 px: `"Não confiar só em 'parece pronto' — é preciso indicadores
+    mensuráveis"`
+  - `66% reclamam de soluções "quase certas"`
   - `Burndown e velocidade inflam quando se gera mais rápido do que se valida`
-  - `Medir vazão E estabilidade [F-19][F-20]`
-  - `Termo de aceite = revisão humana; o Google diz que 75% do código é gerado "e aprovado por engenheiros" [F-31]`
-  - `Capacidade de revisão vira recurso escasso: o DORA chama de "imposto de verificação" (curva J) [F-22]`
-- **Visual:** citação da aula 10 em destaque, com aspas grandes em `#DE9E1E`.
-- **Rodapé:** `Aula 10, slide 14 + fontes indicadas`
-- **Notas:** amarrar com o S16: percepção não é indicador.
+  - `Medir vazão E estabilidade`
+  - `Termo de aceite = revisão humana; a capacidade de revisão é recurso escasso — o "imposto de
+    verificação" da curva J`
+- **Visual:** aspas grandes em `#DE9E1E` atrás da citação.
+- **Rodapé:** `Aula 10, s14 · [F-23][F-19][F-20][F-22]`
+- **Notas:** amarrar com o S14: percepção não é indicador. Ponte para o próximo bloco: **o que vem
+  agora não é hipótese — aconteceu com a gente.**
 
-## S26 — O caso do próprio grupo
-- **Layout:** L3.
-- **Conteúdo:** título `Nós fizemos isso em 4 dias — o que deu certo e o que não`
-  - Coluna `Funcionou` (`#2F6B4F`):
-    - `contexto escrito e versionado (CLAUDE.md por matéria)`
-    - `revisão em papéis separados (redator → PO → avaliador)`
-    - `portão executável: o .sql tem que rodar em MySQL limpo`
-    - `decisão de não fazer: 6 análises recomendaram cortar um escopo extra`
-  - Coluna `Não funcionou` (`#A33A2A`):
-    - `capítulo "Glossário" que não existe, versões e uma issue inventadas`
-    - `arquivo gerado, não usado, ainda no repositório`
-    - `instruções do projeto desatualizadas 3 dias depois`
-    - `commits de 2 dos 4 integrantes`
-- **Visual:** duas colunas simétricas; ícones de check e alerta em linha.
-- **Rodapé:** `Evidência: repositório do grupo (git log, auditoria do tour) [R-01]–[R-07]`
-- **Notas:** o fecho: **os três problemas que a pesquisa global aponta aconteceram conosco em 4 dias**,
-  e o que salvou foram práticas de gestão, não um modelo melhor.
+## S25 — O caso do próprio grupo · 75 s
+- **Layout:** L3a.
+- **Conteúdo:** título `Nós fizemos isso em 4 dias`
+  - Coluna `▲ Funcionou`: `contexto escrito e versionado` · `revisão em papéis separados` ·
+    `portão executável: o .sql tem que rodar em MySQL limpo` · `decisão explícita de não fazer`
+  - Coluna `▼ Não funcionou`: `capítulo, versões e uma issue inventados` · `arquivo gerado e não usado
+    ainda no repositório` · `instruções do projeto desatualizadas em 3 dias` · `commits de 2 dos 4`
+- **Visual:** duas colunas simétricas, com `▲`/`▼` e rótulo.
+- **Rodapé:** `Evidência: repositório do grupo [R-01]–[R-07]`
+- **Notas:** aqui fecha o gancho do Knight Capital do S23: o arquivo gerado e não usado é o nosso
+  código morto.
 
-## S27 — Tendências
-- **Layout:** L6 (5 linhas, com a força do sinal).
-- **Conteúdo:** título `Para onde aponta`
+## S26 — O que nos salvou · 45 s
+- **Layout:** L2.
+- **Conteúdo:** título `O que nos salvou não foi um modelo melhor`
+  - Frase central em 54 px: `Os três problemas que a pesquisa global aponta apareceram num projeto de
+    faculdade em 4 dias.`
+  - Três itens: `contexto escrito` · `papéis de revisão` · `portões executáveis`
+- **Visual:** três pílulas grandes lado a lado.
+- **Rodapé:** `[R-02][R-03][R-05][R-06]`
+- **Notas:** transição para o fechamento: *"se isso aconteceu num projeto de 4 dias, o que sugere para
+  um projeto real? Três sinais fortes."*
+
+## S27 — Os sinais fortes · 40 s
+- **Layout:** L6 (3 linhas, não 5).
+- **Conteúdo:** título `Os sinais apontam para revisão, não para geração`
 
   | Tendência | Sinal |
   |---|---|
-  | Tarefas que o agente faz sozinho dobram a cada ~7 meses [F-18] | médio |
-  | Fundamentos importam mais, não menos [F-20][F-21][F-36] | forte |
-  | Segurança não acompanha a capacidade [F-27][F-29] | forte |
-  | Política de uso de IA vira artefato do projeto: 83,3% permitem, 67,3% exigem humano, 48,8% exigem declarar [F-44] | forte |
-  | O gargalo passa a ser revisar, não gerar [F-41][F-42] | médio |
-- **Visual:** coluna "sinal" como etiquetas (forte `#3E2512`, médio `#75604C`).
-- **Rodapé:** `Fontes indicadas · classificação de sinal descrita em docs/04`
-- **Notas:** explicar em uma frase o que é "força do sinal": quantas fontes independentes sustentam.
+  | Fundamentos importam mais, não menos | forte |
+  | Segurança não acompanha a capacidade | forte |
+  | Política de uso de IA vira artefato do projeto: 83,3% permitem, 67,3% exigem revisão humana | forte |
+- **Visual:** coluna "sinal" em pílulas.
+- **Rodapé:** `[F-20][F-21][F-27][F-36][F-44]`
+- **Notas:** as outras tendências ficam na fala, se sobrar tempo: as tarefas que o agente faz sozinho
+  dobram a cada ~7 meses — com a limitação de serem tarefas autocontidas — e o gargalo passa a ser
+  revisar.
 
-## S28 — Fechamento
-- **Layout:** L5 invertido (fundo `#3E2512`, texto claro).
-- **Conteúdo:**
-  - Frase central (54 px): `Mais delegação → mais especificação, revisão e controle`
-  - Três recomendações numeradas:
-    1. `Delegue em lotes pequenos, com contexto e critério de pronto escritos`
-    2. `Nada entra sem revisão humana e verificação automática`
-    3. `Meça estabilidade e resultado — não percepção`
-- **Visual:** números em `#DE9E1E` 72 px; logo pequeno na base.
+## S28 — Fechamento · 50 s
+- **Layout:** L5, fundo `#2A180B`.
+- **Conteúdo:** frase central em 54 px `Mais delegação → mais especificação, revisão e controle`; três
+  recomendações numeradas:
+  1. `Delegue em lotes pequenos, com contexto e critério de pronto escritos`
+  2. `Nada entra sem revisão humana e verificação automática`
+  3. `Meça estabilidade e resultado — não percepção`
+- **Visual:** números em `#DE9E1E` 72 px; logo 28 px na base.
 - **Rodapé:** `Síntese de docs/05 §5.8`
-- **Notas:** terminar com: "o trabalho do desenvolvedor está ficando parecido com o trabalho de gestão
-  de projetos — que é o nome desta disciplina". Abrir para perguntas.
+- **Notas:** terminar em: *"o trabalho de programar está ficando parecido com gerenciar projetos."*
+  Abrir para perguntas.
 
-## S29 — Referências
-- **Layout:** L2, texto 20 px em 2 colunas.
-- **Conteúdo:** título `Fontes` e a lista **só das fontes citadas no deck**, copiada de
-  `../docs/99-fontes.md` no formato `F-15 · METR (2025) · metr.org`.
-- **Visual:** sem enfeite; é slide de consulta.
+## S29 — Referências · projetado nas perguntas
+- **Layout:** L2, duas colunas, 24 px.
+- **Conteúdo:** título `Fontes`; lista **só das fontes citadas no deck** (~28 das 49), no formato
+  `F-15 · METR (2025) · metr.org`.
 - **Notas:** deixar projetado durante as perguntas.
 
-> **Contagem:** 29 fichas, das quais S14 e S21 são divisores e S29 é referência — **26 slides de
-> conteúdo** para 23 minutos. Se o ensaio (GP-03) estourar o tempo, os candidatos a corte, nesta ordem,
-> são **S13 (regulação)**, **S7/S8 (fundir as duas linhas do tempo em uma)** e **S27 (tendências,
-> reduzir para 3 linhas)**. Nunca cortar S15, S16, S22 e S26.
+> **Ordem de corte**, se o ensaio (GP-03) estourar: **S21** (falar só de escopo e equipe, −20 s) →
+> **S27** (2 linhas, −15 s) → **S16** (um cartão só, −20 s) → **S8** (dizer na fala do S7, −60 s).
+> **Nunca cortar:** S13, S14, S20, S23, S25.
 
 ---
 
 # Parte III — Montagem no Canva, passo a passo
 
 1. **Criar o design:** *Criar design → Tamanho personalizado → 1920 × 1080 px*.
-2. **Kit da marca:** cadastrar as cores da seção 2 e as duas fontes da seção 3. Se o plano não tiver Kit
-   da marca, montar o S4 uma vez e usá-lo como molde para os demais (*Duplicar página*).
+2. **Kit da marca:** cadastrar as cores da seção 2 e as duas fontes. Sem Kit da marca, montar o S4 uma
+   vez e usá-lo como molde (*Duplicar página*).
 3. **Uploads:** subir `unespao_logo.svg`.
-4. **Montar os 7 layouts** (seção 5) como páginas-modelo antes de escrever qualquer conteúdo. Isso é o
-   que garante que o deck pareça um sistema, e não 29 slides avulsos.
-5. **Preencher** slide a slide seguindo a Parte II. Copiar o texto **exatamente** como está aqui; o
-   texto já passou pela revisão de fontes (GP-01).
-6. **Notas do apresentador:** colar o campo "Notas" de cada ficha em *Notas* (embaixo do editor). Elas
-   aparecem no modo apresentador e não vão para a tela.
+4. **Montar os layouts** da seção 5 como páginas-modelo **antes** de escrever conteúdo. É isso que faz
+   o deck parecer um sistema, e não 29 slides avulsos.
+5. **Preencher** slide a slide seguindo a Parte II. Copiar o texto **exatamente** como está aqui: ele
+   já passou pela validação de fontes (GP-01) e pela revisão de especialistas (GP-05).
+6. **Notas do apresentador:** colar o campo "Notas" de cada ficha em *Notas*. Elas não vão para a tela.
 7. **Conferir antes de fechar:**
    - [ ] todo slide com número tem rodapé de fonte;
-   - [ ] nenhum texto menor que 20 px;
-   - [ ] nenhum dourado em texto pequeno sobre fundo claro;
+   - [ ] nenhum texto menor que 22 px;
+   - [ ] nenhum `#DE9E1E` em texto sobre fundo claro (usar `#8E6522`);
+   - [ ] um único escuro (`#2A180B`) em S12, S14, S19 e S28;
+   - [ ] todo verde/vermelho acompanhado de `▲`/`▼` e rótulo;
+   - [ ] teste de 3 segundos em S9, S13, S14 e S23;
    - [ ] os nomes da capa foram confirmados pelo grupo;
    - [ ] nada no deck que não esteja em `../docs/`.
-8. **Exportar** em PDF Padrão e salvar o link do design em `LINK.md`.
-9. **Ensaiar** com o cronômetro do Canva (*Apresentar → Visualização do apresentante*) — isso já é a
-   tarefa **GP-03**.
+8. **Exportar** em PDF Padrão e salvar o link em `LINK.md`.
+9. **Ensaiar** com o cronômetro do Canva (*Apresentar → Visualização do apresentante*), comparando com
+   o tempo alvo de cada ficha. Isso é a tarefa **GP-03**.

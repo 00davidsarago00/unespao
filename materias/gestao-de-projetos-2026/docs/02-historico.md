@@ -17,9 +17,10 @@ Critério atendido: **C2**. Tempo no roteiro: ~3 min.
 | 10/2023 | **SWE-bench** (issues reais do GitHub): o melhor modelo resolve **1,96%** | Mostra o abismo entre função isolada e projeto real | [F-06] |
 | 03/2024 | **Devin**, anunciado como "engenheiro de software autônomo" | Início da narrativa de agentes | [F-07] |
 | 11/2024 | **MCP** aberto como padrão de conexão modelo ↔ ferramentas | Contexto e ferramentas viram infraestrutura | [F-08] |
+| 2024–2025 | **Cui et al.**: 3 RCTs de campo com **4.867 devs** (Microsoft, Accenture, Fortune 100) medem **+26,08%** de tarefas concluídas | A maior amostra experimental disponível — e favorável | [F-13] |
 | 02/2025 | Termo **"vibe coding"**; Claude Code em preview | Delegação total entra no vocabulário | [F-10][F-09] |
 | 05/2025 | Claude Code em disponibilidade geral | Agentes no terminal/IDE para uso diário | [F-09] |
-| 07/2025 | **RCT do METR**: devs experientes **19% mais lentos** com IA | Primeiro contraponto experimental forte | [F-15] |
+| 07/2025 | **RCT do METR**: devs experientes **19% mais lentos** com IA | Primeiro contraponto experimental forte, com só **16 devs** | [F-15] |
 | 07/2025 | **Incidente Replit**: agente apaga base de produção durante *code freeze* | Risco operacional de agentes vira caso público | [F-30] |
 | 11/2025 | "Vibe coding" é palavra do ano do Collins | Fenômeno cultural, não só técnico | [F-10] |
 | 02/2026 | OpenAI deixa de reportar SWE-bench Verified (saturação e contaminação) | Benchmarks não acompanham a capacidade dos modelos | [F-11] |

@@ -11,7 +11,7 @@ de aula estão identificados como `A-xx sNN` (ver `99-fontes.md`).
 
 | Variável | Efeito do LLM | Evidência |
 |---|---|---|
-| **Custo** | Cai o custo de *escrever* código; sobe o custo de *revisar e validar* | [F-38]; 45,2% dizem que depurar código de IA toma mais tempo [F-23] |
+| **Custo** | Licença é barata (Copilot: US$ 10 a 39 por pessoa/mês [F-47]); o custo real é o **tempo de revisão**: 45,2% dizem que depurar código de IA toma mais tempo [F-23]. No agregado, 95% das empresas pesquisadas não viram retorno no resultado em ~6 meses [F-45] | [F-38][F-23][F-45][F-47] |
 | **Tempo** | Ganho em tarefas delimitadas; em repositórios maduros o ganho não é garantido | [F-12][F-14] vs. [F-15] |
 | **Escopo** | Gerar ficou barato, então cresce a tentação de "só mais uma funcionalidade" | Caso Unespão, tour guiado (`07`) |
 | **Qualidade** | Mais código duplicado, menos refatoração, segurança estagnada | [F-25][F-27] |
@@ -78,6 +78,8 @@ de aula estão identificados como `A-xx sNN` (ver `99-fontes.md`).
 | Desconhecido-conhecido | Outra empresa já sofreu com agente destrutivo (Replit) [F-30], mas a equipe não sabe | **Evitar**: menor privilégio, separar dev/prod |
 | Desconhecido-desconhecido | Mudança regulatória (AI Act, PL 2338) [F-34][F-35] | **Aceitar e monitorar** |
 
+**Risco jurídico que quase nunca entra no plano:** o US Copyright Office (01/2025) sustenta que *prompt sozinho não gera autoria* — código sem contribuição humana suficiente **não é protegível por direito autoral** [F-48]. E o caso *Doe v. GitHub* teve 20 das 22 alegações rejeitadas, sobrando violação de licença open source e quebra de contrato, com recurso em julgamento no 9º Circuito em 11/02/2026 [F-49]. Para o projeto, isso é **premissa e restrição** (Aula 3, s50), não curiosidade.
+
 **Ponte com o caso da aula:** a Knight Capital quebrou em 45 min por **código morto reativado**
 (A-07 s22). No Unespão, um arquivo **gerado e não usado** continua no repositório com conteúdo
 inventado [R-04]. É o mesmo tipo de risco, em escala acadêmica.
@@ -98,6 +100,9 @@ inventado [R-04]. É o mesmo tipo de risco, em escala acadêmica.
 - **Stakeholders:**
   - Os menos experientes ganham mais com IA [F-13].
   - As vagas de entrada estão sob pressão [F-33].
+  - **E há um custo de formação:** quanto maior a confiança na ferramenta, menor o esforço de
+    pensamento crítico de quem a usa (319 trabalhadores, CHI 2025) [F-46]. Quem nunca fez sem IA tem
+    menos repertório para revisar o que a IA fez.
   - Formar júniores passa a ser uma decisão de gestão.
 
 ## 6.8 Aula 9: Qualidade

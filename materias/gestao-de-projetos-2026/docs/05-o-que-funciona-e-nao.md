@@ -14,8 +14,8 @@ forte disponível** (`00` §3).
 | Peng et al. 2023 [F-12] | Experimento controlado, tarefa única (servidor HTTP em JavaScript) | Com Copilot, **55,8% mais rápido** | Tarefa pequena, isolada, do zero; autores ligados à GitHub/Microsoft |
 | Cui et al. (Management Science) [F-13] | 3 RCTs de campo (Microsoft, Accenture, Fortune 100), **4.867 devs** | **+26,08%** tarefas concluídas (erro-padrão de 10,3%); **menos experientes ganham mais** | Mede tarefas concluídas, não qualidade nem valor entregue |
 | Paradis et al. 2024 (Google) [F-14] | RCT, **96 engenheiros** | **~21% menos tempo** na tarefa | Intervalo de confiança largo; ferramenta interna do Google |
-| **METR 2025** [F-15] | RCT, **16 devs experientes**, **246 issues reais** de repositórios grandes e maduros | **19% mais lentos** com IA | Amostra pequena; pouca experiência prévia com Cursor; os autores **não** generalizam |
-| METR 2026 (novo desenho) [F-16] | 57 devs, 800+ tarefas | Estimativa de aceleração: veteranos −18% de tempo (IC −38% a +9%), novatos −4% (IC −15% a +9%) | Os próprios autores chamam de **evidência muito fraca**: 30–50% dos devs deixaram de submeter tarefas que não queriam fazer sem IA |
+| **METR 2025** [F-15] | RCT, **16 devs experientes**, **246 issues reais** de repositórios grandes e maduros | **19% mais lentos** com IA (IC +2% a +39%) | Amostra pequena; quase todos já tinham dezenas ou centenas de horas com LLMs, mas poucos tinham mais de 50 h de **Cursor**; os autores **não** generalizam |
+| METR 2026 (novo desenho) [F-16] | 57 devs, 800+ tarefas | *"Some evidence for speedup"*: **−18%** de tempo entre os veteranos e **−4%** entre os novos — ou seja, ~18% e ~4% **mais rápidos**, mas com o zero **dentro** do intervalo (IC −38% a +9% e −15% a +9%) | Os próprios autores chamam de **evidência muito fraca**: 30–50% dos devs deixaram de submeter tarefas que não queriam fazer sem IA |
 
 **O achado mais útil para gestão: percepção ≠ medida.** No RCT do METR 2025 [F-15]:
 - Antes, os devs **previam** ser **24% mais rápidos**.
@@ -33,18 +33,29 @@ mas os autores lembram que, no RCT, as pessoas superestimaram o efeito em **40 p
 
 ## 5.2 Da pessoa para a equipe: IA é amplificador
 
+> **Atenção de método:** DORA e Stack Overflow são **surveys**. Medem percepção e associação
+> estatística, não telemetria. Por isso o verbo correto é "associou-se a", não "causou".
+
 - **DORA 2024** [F-19]:
-  - Com +25% de adoção de IA vieram ganhos locais: **+7,5%** na qualidade da documentação, **+3,4%**
-    na qualidade do código e **+3,1%** na velocidade de code review.
-  - Na entrega, porém, houve **−1,5%** de vazão (*throughput*) e **−7,2%** de estabilidade.
+  - +25% de adoção de IA **associou-se a** ganhos locais: **+7,5%** na qualidade da documentação,
+    **+3,4%** na qualidade do código e **+3,1%** na velocidade de code review.
+  - Na entrega, a mesma adoção **associou-se a** **−1,5%** de vazão (*throughput*) e **−7,2%** de
+    estabilidade.
 - **DORA 2025** [F-20]:
   - A adoção passa a se associar a **mais vazão**, mas **a instabilidade continua**.
   - Conclusão central: a IA **amplifica** as forças e as fraquezas que a organização já tem.
+
+**E no nível da empresa?** O contraponto mais duro vem do MIT NANDA, *The GenAI Divide* (2025):
+**95%** das organizações pesquisadas não viram retorno mensurável no resultado financeiro em cerca de
+seis meses de piloto, apesar de US$ 30–40 bi investidos [F-45]. **Limitação importante:** a base é de
+153 respondentes, 52 entrevistas e 300+ implantações públicas, e a definição de sucesso é estreita
+(impacto em P&L em ~6 meses) — a crítica ao estudo mira a precisão do número, não a direção.
 
 **Síntese:**
 - **Funciona** para acelerar indivíduos.
 - **Não funciona automaticamente** para a entrega da equipe. Sem fundamentos (lotes pequenos, testes,
   plataforma), a velocidade vira instabilidade.
+- **No nível da empresa, o retorno é a parte menos comprovada de todas.**
 
 ## 5.3 Qualidade e manutenção
 
@@ -54,15 +65,21 @@ mas os autores lembram que, no RCT, as pessoas superestimaram o efeito em **40 p
   - Limitação: fornecedor de ferramenta de métricas; é correlação temporal, não causa isolada.
 - **Thoughtworks Radar vol. 34** [F-36] chama isso de **dívida cognitiva**: a IA gera mais código do que
   a equipe entende, e o Radar recomenda "voltar aos fundamentos de engenharia".
+- **E em quem usa:** num estudo com 319 trabalhadores do conhecimento e 936 exemplos reais de uso
+  (CHI 2025), **quanto maior a confiança na IA, menor o esforço de pensamento crítico**; e quanto maior
+  a autoconfiança da pessoa, maior esse esforço. O trabalho migra de *produzir* para *verificar*
+  [F-46]. Limitação: autorrelato.
 
 ## 5.4 Segurança: o problema que não melhorou
 
 - **Código vulnerável:**
   - **2021:** ~**40%** de 1.689 programas gerados pelo Copilot em cenários de alto risco eram
     vulneráveis [F-26].
-  - **2025–2026:** em 80 tarefas e mais de 150 modelos, só **~55%** das gerações são seguras. A taxa
-    **não melhorou em dois anos**, embora os modelos compilem cada vez melhor. Em XSS, só 15% passam
-    [F-27].
+  - **2025–2026:** em 80 tarefas e mais de 150 modelos, só **~55%** das gerações são seguras **quando
+    nenhuma instrução de segurança é dada no prompt**. A taxa **não melhorou em dois anos**, embora os
+    modelos compilem cada vez melhor. Em XSS, só 15% passam [F-27].
+  - Isso é argumento **a favor** de instrução explícita de segurança no contexto do agente, não só de
+    revisão depois.
 - **Pacotes alucinados** (dependência que não existe e que um atacante pode registrar):
   - **2025:** ≥**5,2%** em modelos comerciais e **21,7%** em modelos abertos [F-28].
   - **2026:** entre **4,62% e 6,10%** em modelos de ponta, ainda com nomes registráveis e
@@ -118,10 +135,11 @@ retrabalho e em desgaste de quem revisa.
 |---|---|
 | Posição clara da organização sobre uso de IA; dados internos acessíveis à IA; versionamento forte; **lotes pequenos**; foco no usuário; plataforma interna de qualidade | As 7 capacidades do DORA AI Capabilities Model [F-21] |
 | **Controles antecipados** (especificação, skills e instruções de agente) + **controles de retorno** (testes, mutation testing) + execução em sandbox | Thoughtworks Radar vol. 34 [F-36] |
-| **Revisão humana obrigatória** antes do merge | O Google declara que o código gerado é "aprovado por engenheiros" [F-31]; 67,3% das políticas de OSS exigem envolvimento humano forte [F-44] |
+| **Revisão humana obrigatória** antes do merge | 67,3% das políticas de IA de projetos open source exigem envolvimento humano forte [F-44] (a declaração do Google de que o código é "aprovado por engenheiros" [F-31] mostra a prática adotada, não a eficácia medida) |
 | **Declarar o uso de IA** na contribuição (PR ou commit) | 48,8% das políticas de OSS já exigem [F-44] |
 | Tarefas pequenas e bem delimitadas | Maiores ganhos medidos em tarefas isoladas [F-12][F-14]; lotes pequenos [F-21] |
-| Esperar uma **curva J** (queda antes do ganho) | DORA ROI 2026 [F-22] |
+| **Dar instrução de segurança no prompt**, não só revisar depois | A taxa de ~55% de código seguro é medida **sem** orientação de segurança [F-27] |
+| Esperar uma **curva J** (queda antes do ganho) | DORA ROI 2026 [F-22] — é **modelo** de uma organização-fictícia, não medição de campo; o contraponto é o MIT NANDA [F-45] |
 
 ## 5.9 Mensagem para o slide
 
