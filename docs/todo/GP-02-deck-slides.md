@@ -1,9 +1,9 @@
 ---
 id: GP-02
-titulo: Montar o deck de slides do seminário a partir do roteiro
+titulo: Montar o deck de slides do seminário a partir do roteiro (plano B, desde a adoção do material-base)
 materia: gestao-de-projetos-2026
-status: aberta
-owner:
+status: revisao
+owner: David Sarago
 criado: 2026-09-17
 prazo: 2026-09-18
 depende_de: []
@@ -20,7 +20,8 @@ ler_antes:
   - materias/gestao-de-projetos-2026/docs/07-caso-unespao.md
   - materias/gestao-de-projetos-2026/docs/99-fontes.md
 saida:
-  - materias/gestao-de-projetos-2026/slides/ (formato escolhido por quem pegar a tarefa; registrar a escolha em Resultado)
+  - materias/gestao-de-projetos-2026/slides/roteiro-slides-canva.md
+  - materias/gestao-de-projetos-2026/slides/LINK.md
 criterios_de_aceite:
   - Os 8 blocos de 08-roteiro-aula.md estão no deck, na mesma ordem
   - Todo número no slide tem fonte curta no rodapé e existe em docs/
@@ -67,9 +68,21 @@ Ao final, confira cada criterio_de_aceite e me diga quais passaram.
 
 ## Perguntas em aberto
 
-- Formato do deck (pptx, Google Slides, Canva, HTML…) — decidir ao pegar a tarefa. Se for ferramenta online, `slides/` guarda o link (`slides/LINK.md`) e uma exportação em PDF.
-- Nomes da capa — confirmar com o grupo.
+- ~~Formato do deck~~ — **decidido em 2026-09-17: Canva.** O repositório guarda a especificação de
+  montagem (`roteiro-slides-canva.md`) e o link do design (`LINK.md`).
+- **Nomes da capa** — a capa está com os quatro nomes que já constam da capa dos slides de BD1
+  (`materias/banco-de-dados-1-2026/slides/slides.md`). Confirmar com o grupo antes de apresentar.
+- **Divisão de falas** — fica na GP-03; o deck traz a coluna vazia.
 
 ## Resultado
 
-Preencher ao concluir.
+Especificação completa de montagem no Canva entregue em `slides/roteiro-slides-canva.md`:
+sistema visual derivado do protótipo React do Unespão (cores, tipografia, componentes, grid) e
+os 29 slides descritos um a um (26 de conteúdo, 2 divisores e 1 de referências) — layout, texto exato, elementos gráficos, rodapé de fonte e notas
+do apresentador. `slides/LINK.md` aguarda o link do design e a exportação em PDF.
+O arquivo traz o mapa bloco→slide, a ordem de corte caso o ensaio estoure o tempo e um checklist de
+conferência final.
+
+Revisado pela equipe de especialistas (GP-05) em 2026-09-17: orçamento de tempo por slide (22,8 min),
+slide novo sobre Escopo/Cronograma/Equipe, tabelas densas viraram gráfico e quadrante, e correções de
+contraste. Detalhe em `docs/done/GP-05-revisao-especialistas.md`.
