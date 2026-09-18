@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM e o Desenvolvimento de Software</title>
+<meta name="description" content="Seminário de Gestão de Projetos — 24 slides, cinco blocos, a interface envelhecendo junto com a linha do tempo.">
+<style>
+/* ============================================================
+   SISTEMA DE ÉPOCAS
+   A identidade visual viaja: papel 1950 → web 2010 → IDE →
+   dashboard → quase vazio. A mudança não é decoração: é o argumento.
+   ============================================================ */
+:root{
+  --paper:#F2EADB; --paper-2:#E6D8C2; --ink:#3E2512; --ink-2:#7A6247;
+  --cream:#FAF6EF; --sand:#EADBCA; --sand-d:#E0D3C1;
+  --gold:#DE9E1E; --gold-t:#8E6522;
+  --dark:#2A180B; --on-dark:#FAF6EF; --on-dark-2:#C9B49C; --rule-dark:#5A3A22;
+  --void:#121010; --on-void:#F7F3EC; --on-void-2:#9A9088;
+  --gain:#2F6B4F; --loss:#A33A2A;
+  --f-serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --f-sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --f-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#0b0908}
+body{font-family:var(--f-sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+#deck{display:block}
+
+.page{
+  width:1600px; height:900px; position:relative; overflow:hidden;
+  background:var(--bg); color:var(--fg); font-family:var(--f-body);
+  margin:0 auto 26px; padding:86px 104px;
+}
+
+/* ---------- ÉPOCA 1 · 1948–2016 · papel, simetria, régua ---------- */
+.era-1{
+  --bg:#F2EADB; --fg:#3E2512; --dim:#7A6247; --accent:#8E6522; --rule:#C9B79B;
+  --f-body:var(--f-serif); --f-head:var(--f-serif);
+  text-align:center;
+}
+.era-1::before{
+  content:""; position:absolute; inset:34px; border:1px solid var(--rule);
+  pointer-events:none;
+}
+.era-1::after{
+  content:""; position:absolute; inset:41px; border:3px double var(--rule);
+  pointer-events:none;
+}
+
+/* ---------- ÉPOCA 2 · 2017–2022 · web flat, cartões, grade ---------- */
+.era-2{
+  --bg:#FAF6EF; --fg:#3E2512; --dim:#75604C; --accent:#8E6522; --rule:#E0D3C1;
+  --f-body:var(--f-sans); --f-head:var(--f-sans);
+}
+.era-2::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:7px;
+  background:linear-gradient(90deg,var(--gold) 0%, #E8BE62 100%);
+}
+
+/* ---------- ÉPOCA 3 · 2023–2026 · IDE escura, densidade ---------- */
+.era-3{
+  --bg:#2A180B; --fg:#FAF6EF; --dim:#C9B49C; --accent:#DE9E1E; --rule:#5A3A22;
+  --f-body:var(--f-sans); --f-head:var(--f-sans);
+}
+.era-3::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--gold);
+}
+
+/* ---------- ÉPOCA 4 · 2026 · dashboard claro, dados ---------- */
+.era-4{
+  --bg:#FAF6EF; --fg:#3E2512; --dim:#75604C; --accent:#8E6522; --rule:#E0D3C1;
+  --f-body:var(--f-sans); --f-head:var(--f-sans);
+}
+.era-4::before{
+  content:""; position:absolute; inset:0;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 79px,rgba(62,37,18,.045) 79px 80px),
+    repeating-linear-gradient(90deg,transparent 0 79px,rgba(62,37,18,.045) 79px 80px);
+  pointer-events:none;
+}
+
+/* ---------- ÉPOCA 5 · 2027+ · quase vazio, moderno ---------- */
+.era-5{
+  --bg:#121010; --fg:#F7F3EC; --dim:#9A9088; --accent:#DE9E1E; --rule:#2C2825;
+  --f-body:var(--f-sans); --f-head:var(--f-sans);
+  padding:104px 132px;
+}
+.era-5 h1,.era-5 h2{font-weight:250; letter-spacing:-.022em}
+
+/* ============================================================
+   COMPONENTES
+   ============================================================ */
+.kicker{
+  font-family:var(--f-mono); font-size:19px; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:26px; max-width:none;
+}
+.era-1 .kicker{letter-spacing:.42em; font-family:var(--f-serif); font-size:20px}
+.era-5 .kicker{letter-spacing:.34em; font-size:17px; color:var(--dim)}
+
+h1{font-family:var(--f-head); font-size:96px; line-height:1.03; letter-spacing:-.02em; font-weight:700}
+h2{font-family:var(--f-head); font-size:62px; line-height:1.08; letter-spacing:-.018em; font-weight:700; margin-bottom:26px}
+.era-1 h2{font-weight:400; font-size:58px}
+h3{font-size:34px; line-height:1.2; font-weight:650; margin-bottom:14px}
+p{font-size:29px; line-height:1.48; color:var(--fg); max-width:30ch}
+.lead{font-size:37px; line-height:1.38; max-width:26ch}
+.dim{color:var(--dim)}
+.wide{max-width:none}
+b,strong{font-weight:760}
+em{font-style:italic}
+
+.rule{height:1px; background:var(--rule); margin:30px 0}
+.era-1 .stack{justify-content:center}
+.era-1 p,.era-1 .lead{margin-left:auto; margin-right:auto}
+.era-1 .rule{height:3px; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); background:none; margin:34px auto; width:340px}
+
+.huge{font-family:var(--f-mono); font-size:168px; line-height:.94; font-weight:700; letter-spacing:-.03em; color:var(--accent)}
+.era-1 .huge{font-family:var(--f-serif); font-weight:400; color:var(--ink)}
+.big{font-family:var(--f-mono); font-size:96px; line-height:1; font-weight:700; letter-spacing:-.025em}
+.mid{font-family:var(--f-mono); font-size:60px; line-height:1; font-weight:700}
+
+.quote{font-size:40px; line-height:1.34; font-style:italic; max-width:27ch}
+.era-1 .quote{font-size:38px; max-width:34ch; margin:0 auto}
+.cite{font-family:var(--f-mono); font-size:19px; color:var(--dim); margin-top:18px; letter-spacing:.04em; font-style:normal; max-width:none}
+
+.cols{display:flex; gap:44px; align-items:flex-start}
+.cols>*{flex:1; min-width:0}
+.cols.tight{gap:30px}
+
+.card{background:rgba(62,37,18,.045); border:1px solid var(--rule); border-radius:14px; padding:28px 30px}
+.era-3 .card{background:rgba(250,246,239,.055)}
+.era-5 .card{background:rgba(247,243,236,.035); border-radius:4px}
+.era-1 .card{border-radius:0; background:none; border:1px solid var(--rule)}
+.card h3{font-size:30px; margin-bottom:10px}
+.card p{font-size:24px; line-height:1.4; max-width:none; color:var(--dim)}
+
+.stat{border-top:3px solid var(--accent); padding-top:18px}
+.stat .n{font-family:var(--f-mono); font-size:74px; font-weight:700; line-height:1; letter-spacing:-.02em}
+.stat .l{font-size:22px; color:var(--dim); margin-top:10px; line-height:1.34}
+
+.tbl{width:100%; border-collapse:collapse; font-size:24px}
+.tbl th{
+  font-family:var(--f-mono); font-size:17px; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--accent); text-align:left; padding:0 18px 13px 0; font-weight:600;
+  border-bottom:2px solid var(--rule);
+}
+.tbl td{padding:15px 18px 15px 0; border-bottom:1px solid var(--rule); vertical-align:top; line-height:1.34}
+.tbl tr:last-child td{border-bottom:none}
+.tbl .mono{font-family:var(--f-mono)}
+.tbl.compact td{padding:10px 16px 10px 0}
+.tbl.compact th{padding-bottom:10px}
+
+.pill{
+  display:inline-block; font-family:var(--f-mono); font-size:19px; padding:6px 15px;
+  border-radius:999px; border:1px solid var(--rule); color:var(--dim);
+}
+.pill.y{border-color:var(--gain); color:var(--gain)}
+.pill.n{border-color:var(--loss); color:var(--loss)}
+
+.tie{
+  border-left:6px solid var(--accent); padding:20px 0 20px 28px; margin-top:auto;
+  background:linear-gradient(90deg, rgba(222,158,30,.10), transparent 62%);
+}
+.tie .lbl{
+  font-family:var(--f-mono); font-size:18px; letter-spacing:.17em; text-transform:uppercase;
+  color:var(--accent); display:block; margin-bottom:9px;
+}
+.tie p{font-size:27px; line-height:1.4; max-width:none}
+
+.src{
+  position:absolute; left:104px; right:104px; bottom:42px;
+  font-family:var(--f-mono); font-size:17px; color:var(--dim);
+  display:flex; justify-content:space-between; gap:20px;
+}
+.era-1 .src{justify-content:center; gap:34px}
+.era-5 .src{left:132px; right:132px}
+
+.era-tag{
+  position:absolute; right:104px; top:44px;
+  font-family:var(--f-mono); font-size:18px; letter-spacing:.2em; color:var(--dim);
+}
+.era-1 .era-tag{right:auto; left:50%; transform:translateX(-50%); top:62px}
+.era-5 .era-tag{right:132px}
+
+.flow{display:flex; align-items:stretch; gap:0}
+.flow .step{flex:1; padding:22px 24px; border:1px solid var(--rule); border-right:none}
+.flow .step:last-child{border-right:1px solid var(--rule)}
+.flow .step .n{font-family:var(--f-mono); font-size:19px; color:var(--accent); letter-spacing:.14em}
+.flow .step h3{font-size:26px; margin:10px 0 8px}
+.flow .step p{font-size:21px; color:var(--dim); max-width:none; line-height:1.36}
+
+.stack{display:flex; flex-direction:column; height:100%}
+.grow{flex:1}
+
+/* ============================================================
+   VISUALIZAÇÃO
+   ============================================================ */
+svg.viz{display:block; width:100%; height:auto; overflow:visible}
+.viz text{font-family:var(--f-mono)}
+
+/* ============================================================
+   CHROME (não vira página no Canva)
+   ============================================================ */
+#ui{
+  position:fixed; right:16px; bottom:16px; z-index:99; display:flex; gap:8px;
+  font-family:var(--f-mono); font-size:13px;
+}
+#ui button{
+  background:#241a12; color:#F7F3EC; border:1px solid #4a372a; border-radius:8px;
+  padding:9px 14px; cursor:pointer; font-family:inherit; font-size:13px;
+}
+#ui button:hover{background:#33251a}
+body.present #ui{opacity:.25}
+body.present #ui:hover{opacity:1}
+body.present #deck .page{display:none}
+body.present #deck .page.on{display:block; margin:0 auto}
+#counter{
+  position:fixed; left:16px; bottom:16px; z-index:99; font-family:var(--f-mono);
+  font-size:13px; color:#9A9088; background:#241a12; border:1px solid #4a372a;
+  border-radius:8px; padding:9px 14px;
+}
+@media print{
+  #ui,#counter{display:none}
+  .page{margin:0; page-break-after:always; break-after:page}
+}
+</style>
+</head>
+<body>
+
+<main id="deck">
+
+<!-- ═══════════════ ABERTURA ═══════════════ -->
+
+<section class="page era-1" data-document-role="page" data-label="Capa"
+ data-speaker-notes="Apresentador 1. 20 segundos. Ler o título, dizer o tempo, e ir direto para a pergunta do slide seguinte. Não se apresentar aqui — a apresentação do grupo já foi feita.">
+  <div class="era-tag">1948</div>
+  <div class="stack" style="justify-content:center">
+    <p class="kicker">UNESP · Gestão de Projetos · 2026</p>
+    <h1 style="font-weight:400; font-size:104px">LLM e o Desenvolvimento<br>de Software</h1>
+    <div class="rule"></div>
+    <p class="lead dim" style="margin:0 auto; max-width:38ch; font-size:33px">
+      Uma linha do tempo de setenta e oito anos, e a pergunta que ela deixa
+      para quem gerencia projetos.
+    </p>
+  </div>
+  <div class="src"><span>Seminário · 20 minutos · 5 apresentadores</span></div>
+</section>
+
+<section class="page era-1" data-document-role="page" data-label="A tese"
+ data-speaker-notes="40 segundos. A citação é do professor, Aula 1. Dizer que o seminário inteiro é um teste dessa premissa — não uma contestação. Ler a pergunta grande devagar e deixar dois segundos de silêncio antes de virar.">
+  <div class="era-tag">A premissa</div>
+  <div class="stack" style="justify-content:center">
+    <p class="quote" style="margin:0 auto 6px">
+      “Software tem economia de escala na entrega,<br>mas não no desenvolvimento.”
+    </p>
+    <p class="cite">Aula 1 · Prof. Bruno Elias Penteado</p>
+    <div class="rule"></div>
+    <h2 style="max-width:26ch; margin:0 auto; font-size:60px; line-height:1.14">
+      O LLM é a primeira tecnologia<br>que ataca exatamente essa premissa.
+    </h2>
+    <p class="lead" style="margin:34px auto 0; max-width:30ch; color:var(--accent); font-size:35px">
+      Quando gerar software fica barato,<br><b>qual passa a ser o gargalo do projeto?</b>
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ BLOCO 1 · AS ORIGENS · 1948–2016 ═══════════════ -->
+
+<section class="page era-1" data-document-role="page" data-label="1954 — a promessa"
+ data-speaker-notes="Bloco 1, apresentador 1. 50 segundos. Abrir com a data. Os três números são verificados (Hutchins, AMTA 2004). A frase de Dostert é o gancho: guardar o tom de promessa, porque o slide seguinte cobra a conta.">
+  <div class="era-tag">7 de janeiro de 1954</div>
+  <div class="stack">
+    <p class="kicker">Georgetown · IBM</p>
+    <h2 style="margin-bottom:10px">A primeira demonstração pública<br>de tradução automática</h2>
+    <p class="dim" style="margin:0 auto 46px; max-width:44ch; font-size:27px">Russo para inglês, ao vivo, em Nova York.</p>
+
+    <div class="cols" style="margin-bottom:54px">
+      <div class="stat"><div class="n">250</div><div class="l">palavras de vocabulário</div></div>
+      <div class="stat"><div class="n">6</div><div class="l">regras de gramática</div></div>
+      <div class="stat"><div class="n">60+</div><div class="l">sentenças traduzidas</div></div>
+    </div>
+
+    <p class="quote" style="margin:0 auto">“Cinco, talvez três anos.”</p>
+    <p class="cite">Leon Dostert, sobre quando a tradução automática estaria resolvida</p>
+  </div>
+  <div class="src"><span>Hutchins, AMTA 2004 [F-58]</span></div>
+</section>
+
+<section class="page era-1" data-document-role="page" data-label="1966 — a conta"
+ data-speaker-notes="50 segundos. O ALPAC foi, na prática, uma auditoria de projeto: não matou a tradução automática por ela não funcionar, matou porque a entrega não correspondia à promessa de 1954. A amarração é com a Aula 5 — extrapolação linear de piloto. Dizer a conta em voz alta: 17 vezes mais regras para 80 vezes mais vocabulário.">
+  <div class="era-tag">1966 · doze anos depois</div>
+  <div class="stack">
+    <p class="quote" style="margin:0 auto 0">
+      “Não houve tradução automática de texto científico geral,<br>e nenhuma está em perspectiva imediata.”
+    </p>
+    <p class="cite">Relatório ALPAC, 1966</p>
+    <div class="rule"></div>
+    <p class="lead dim" style="margin:0 auto; max-width:40ch">
+      O financiamento americano em tradução automática<br>morreu por cerca de vinte anos.
+    </p>
+
+    <div class="tie" style="margin-top:52px; text-align:left">
+      <span class="lbl">Amarração · Aula 5 · Estimativas</span>
+      <p><b>Extrapolação linear de um piloto.</b> Dostert projetou 100 regras para 20.000 palavras
+      a partir de 6 regras para 250 itens: <b>17× mais regras para 80× mais vocabulário</b>.
+      É a falácia de estimativa que o professor nomeia como <em>“uma das maiores causas de fracasso”</em>.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page era-1" data-document-role="page" data-label="A ideia já estava lá"
+ data-speaker-notes="55 segundos. Três nomes, três antecipações. O ponto mais forte é o Shannon: o texto de bigramas é coerente por quatro palavras e incoerente no todo — é literalmente o modo de falha que hoje chamamos de alucinação. Turing, seção 7, descreveu pré-treino e fine-tuning em 1950.">
+  <div class="era-tag">1948 — 1966</div>
+  <div class="stack">
+    <h2>A ideia é velha.<br>O que faltava era escala.</h2>
+
+    <div class="cols" style="text-align:left; margin-top:38px">
+      <div class="card">
+        <p class="kicker" style="font-size:17px; margin-bottom:12px">Shannon · 1948</p>
+        <h3>Prever o próximo símbolo</h3>
+        <p>Gerou texto amostrando bigramas: coerente por quatro palavras, incoerente no todo.
+        <b>É o mesmo modo de falha que hoje chamamos de alucinação.</b></p>
+      </div>
+      <div class="card">
+        <p class="kicker" style="font-size:17px; margin-bottom:12px">Turing · 1950</p>
+        <h3>Seção 7, não o teste</h3>
+        <p><em>“Por que não produzir um programa que simule a mente da criança? Pouquíssimo
+        mecanismo e muitas folhas em branco.”</em> <b>Pré-treino e fine-tuning, em 1950.</b></p>
+      </div>
+      <div class="card">
+        <p class="kicker" style="font-size:17px; margin-bottom:12px">Weizenbaum · 1966</p>
+        <h3>ELIZA</h3>
+        <p>Casamento de padrões puro, sem aprendizado nenhum. A secretária de Weizenbaum
+        <b>pediu que ele saísse da sala</b> para conversar em privado com o programa.</p>
+      </div>
+    </div>
+  </div>
+  <div class="src"><span>Shannon 1948 · Turing 1950 · Weizenbaum, CACM 1966</span></div>
+</section>
+
+<section class="page era-1" data-document-role="page" data-label="2012 — código é previsível"
+ data-speaker-notes="45 segundos. Este é o slide que fecha o bloco 1 e prepara o 2. O achado de Hindle é que código é muito mais previsível que prosa — e o plugin deles no Eclipse já economizava até 61% das teclas. Cinco anos antes do Transformer. Números corrigidos: 3 a 4 bits, não 2 a 4.">
+  <div class="era-tag">2012 · cinco anos antes</div>
+  <div class="stack">
+    <p class="kicker">Hindle et al. · ICSE 2012</p>
+    <h2 style="margin-bottom:34px">Código é muito mais previsível<br>do que a linguagem natural.</h2>
+
+    <svg class="viz" viewBox="0 0 1000 220" style="max-width:1000px; margin:0 auto 26px">
+      <g font-size="22" fill="#7A6247">
+        <text x="0" y="46" text-anchor="start">código-fonte Java</text>
+        <rect x="250" y="24" width="210" height="34" fill="#3E2512"/>
+        <text x="476" y="48" fill="#3E2512" font-size="26" font-weight="700">3–4 bits</text>
+
+        <text x="0" y="128" text-anchor="start">prosa em inglês</text>
+        <rect x="250" y="106" width="470" height="34" fill="#C9B79B"/>
+        <text x="736" y="130" fill="#7A6247" font-size="26">~8 bits</text>
+
+        <line x1="250" y1="170" x2="720" y2="170" stroke="#C9B79B" stroke-width="1"/>
+        <text x="250" y="200" font-size="19">entropia por símbolo — menos é mais previsível</text>
+      </g>
+    </svg>
+
+    <div class="rule"></div>
+    <p class="lead" style="margin:0 auto; max-width:34ch">
+      O autocomplete deles, no Eclipse, já economizava
+      <b style="color:var(--accent)">até 61% das teclas</b>.
+    </p>
+  </div>
+  <div class="src"><span>On the Naturalness of Software [F-57]</span></div>
+</section>
+
+<!-- ═══════════════ BLOCO 2 · O TRANSFORMER · 2017–2022 ═══════════════ -->
+
+<section class="page era-2" data-document-role="page" data-label="2017 — o Transformer"
+ data-speaker-notes="Bloco 2, apresentador 2. 50 segundos. O título do paper é uma provocação direta ao Bahdanau 2014, que tinha inventado a atenção como muleta do LSTM. A mensagem: a muleta, sozinha, basta. O ganho real é paralelização — é isso que torna a escala viável.">
+  <div class="era-tag">junho de 2017</div>
+  <div class="stack">
+    <p class="kicker">Vaswani et al.</p>
+    <h2 style="margin-bottom:8px">Attention Is All You Need</h2>
+    <p class="dim wide" style="font-size:27px; margin-bottom:44px">
+      O título é uma provocação direta ao paper de Bahdanau, de 2014,
+      que inventara a atenção como <em>muleta</em> do LSTM.
+    </p>
+
+    <div class="cols" style="margin-bottom:auto">
+      <div class="card">
+        <p class="kicker" style="font-size:17px; margin-bottom:12px">antes</p>
+        <h3>Recorrência</h3>
+        <svg class="viz" viewBox="0 0 360 80" style="margin:16px 0">
+          <g fill="none" stroke="#75604C" stroke-width="2">
+            <circle cx="30" cy="40" r="17"/><circle cx="120" cy="40" r="17"/>
+            <circle cx="210" cy="40" r="17"/><circle cx="300" cy="40" r="17"/>
+            <path d="M47,40 L103,40M137,40 L193,40M227,40 L283,40" stroke-width="2.5"/>
+          </g>
+        </svg>
+        <p>Um símbolo de cada vez, em sequência. Não dá para paralelizar.</p>
+      </div>
+      <div class="card">
+        <p class="kicker" style="font-size:17px; margin-bottom:12px">depois</p>
+        <h3>Atenção</h3>
+        <svg class="viz" viewBox="0 0 360 80" style="margin:16px 0">
+          <g fill="none" stroke="#DE9E1E" stroke-width="1.6" opacity=".85">
+            <path d="M30,40 C110,-6 220,-6 300,40M30,40 C110,86 220,86 300,40M120,40 C170,4 250,4 300,40M30,40 C80,4 160,4 210,40"/>
+          </g>
+          <g fill="none" stroke="#3E2512" stroke-width="2">
+            <circle cx="30" cy="40" r="17"/><circle cx="120" cy="40" r="17"/>
+            <circle cx="210" cy="40" r="17"/><circle cx="300" cy="40" r="17"/>
+          </g>
+        </svg>
+        <p>Todos os símbolos de uma vez. <b>Treinar em escala vira viável.</b></p>
+      </div>
+    </div>
+  </div>
+  <div class="src"><span>arXiv:1706.03762 [F-01]</span><span>Bloco 2 · O Transformer</span></div>
+</section>
+
+<section class="page era-2" data-document-role="page" data-label="LLM × assistente × agente"
+ data-speaker-notes="O slide conceitual central da apresentação inteira. 60 segundos, e vale gastar. Quem confunde os três termos não entende o debate. A terceira linha — agente — é onde 2026 acontece, e é o gancho para o bloco 3.">
+  <div class="era-tag">Três coisas distintas</div>
+  <div class="stack">
+    <h2>Três coisas que<br>não são sinônimos.</h2>
+
+    <div class="cols tight" style="margin-top:34px">
+      <div class="card">
+        <p class="kicker" style="font-size:17px; margin-bottom:12px">01</p>
+        <h3>LLM</h3>
+        <p>O modelo que interpreta e gera texto e código.</p>
+        <p style="margin-top:14px; color:var(--accent)"><b>GPT · Claude · Gemini</b></p>
+      </div>
+      <div class="card">
+        <p class="kicker" style="font-size:17px; margin-bottom:12px">02</p>
+        <h3>Assistente de programação</h3>
+        <p>Produto que liga o modelo ao contexto do dev: IDE, arquivos, repositório.</p>
+        <p style="margin-top:14px; color:var(--accent)"><b>Copilot no VS Code</b></p>
+      </div>
+      <div class="card" style="border-color:var(--gold); border-width:2px">
+        <p class="kicker" style="font-size:17px; margin-bottom:12px">03</p>
+        <h3>Agente de software</h3>
+        <p>O modelo dentro de um ciclo <b>planejar → agir → observar → corrigir</b>: lê arquivos, edita, roda testes, itera.</p>
+        <p style="margin-top:14px; color:var(--accent)"><b>Resolve uma issue sozinho</b></p>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:auto; max-width:none; font-size:32px">
+      É na terceira linha que <b>2026</b> acontece.
+    </p>
+  </div>
+  <div class="src"><span>Material-base · tabela conceitual</span><span>Bloco 2 · O Transformer</span></div>
+</section>
+
+<section class="page era-2" data-document-role="page" data-label="2023 — SWE-bench"
+ data-speaker-notes="45 segundos. A régua mudou: saiu de 'escreva uma função' para 'resolva uma issue real neste repositório inteiro'. E o melhor modelo resolvia 1,96%. Dizer com ênfase: marco histórico, NUNCA retrato de hoje. O contraste é o que torna o bloco 3 impressionante.">
+  <div class="era-tag">2023</div>
+  <div class="stack">
+    <p class="kicker">SWE-bench · Jimenez et al.</p>
+    <h2 style="margin-bottom:16px">A régua parou de pedir<br>“escreva uma função”.</h2>
+    <p class="dim wide" style="font-size:27px; max-width:56ch">
+      Passou a entregar uma <b>issue real</b> e um <b>repositório inteiro</b>:
+      2.294 problemas, 12 repositórios Python.
+    </p>
+
+    <div class="cols" style="align-items:center; margin-top:auto">
+      <div>
+        <div class="huge">1,96%</div>
+        <p class="dim" style="font-size:25px; margin-top:16px">
+          das issues resolvidas pelo melhor modelo da avaliação original
+        </p>
+      </div>
+      <div class="card" style="border-color:var(--gold)">
+        <p style="font-size:27px; color:var(--fg)">
+          Guardem esse número como <b>marco histórico</b>.<br>
+          Nunca como retrato de hoje.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="src"><span>ICLR 2024 [F-06]</span><span>Bloco 2 · O Transformer</span></div>
+</section>
+
+<section class="page era-2" data-document-role="page" data-label="Amarração — Go/No-go e OKR"
+ data-speaker-notes="Amarração do bloco 2. 50 segundos. A Aula 2 exige decisão Go/No-go fundamentada em valoração. Adotar IA sem dizer QUAL valor se quer melhorar é o anti-padrão que o professor marcou como fonte de frustração de engenheiros. A tabela é o entregável: transformar adoção de IA em OKR, não em KPI de vaidade.">
+  <div class="era-tag">Aula 2 · Business case</div>
+  <div class="stack">
+    <p class="kicker">Amarração com a disciplina</p>
+    <h2 style="margin-bottom:16px">Adotar IA é uma decisão<br>de <em>business case</em>.</h2>
+    <p class="dim wide" style="font-size:26px; max-width:60ch; margin-bottom:34px">
+      A Aula 2 exige um <b>Go / No-go</b> fundamentado em valoração: ganho financeiro, gasto evitado,
+      ganho de eficiência. Adotar sem responder <b>qual deles</b> se pretende melhorar é o anti-padrão
+      que o professor marcou como <em>“fonte de frustração de engenheiros”</em>.
+    </p>
+
+    <table class="tbl">
+      <thead><tr><th style="width:50%">Não serve como KR</th><th>Serve como KR</th></tr></thead>
+      <tbody>
+        <tr><td class="dim">% de sugestões do Copilot aceitas</td><td><b>Reduzir o lead time de PR em 20%</b></td></tr>
+        <tr><td class="dim">Linhas de código geradas por IA</td><td><b>Manter cobertura de testes ≥ 80%</b></td></tr>
+        <tr><td class="dim">Número de prompts por dev</td><td><b>Reduzir defeitos escapados em 15%</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="src"><span>Aula 2 · Aula 5 (métrica válida, confiável, prática)</span><span>Bloco 2 · O Transformer</span></div>
+</section>
+
+<!-- ═══════════════ BLOCO 3 · HOJE I · 2023–2026 ═══════════════ -->
+
+<section class="page era-3" data-document-role="page" data-label="O ciclo de vida inteiro"
+ data-speaker-notes="Bloco 3, apresentador 3. 55 segundos. Quem reduz o tema a autocomplete perde o ponto. Percorrer o ciclo da Aula 1 mostrando que a IA encosta em todas as fases, mas com maturidade muito desigual. A coluna da direita é o que importa: cada etapa tem uma pergunta gerencial em aberto.">
+  <div class="era-tag">2023 — 2026</div>
+  <div class="stack">
+    <p class="kicker">Hoje I · o ciclo de vida</p>
+    <h2 style="margin-bottom:10px; font-size:52px">A IA não está só<br>na implementação.</h2>
+    <p class="dim wide" style="font-size:23px; max-width:70ch; margin-bottom:20px">
+      Ela encosta em todas as fases do ciclo, com maturidade muito desigual — e cada etapa
+      abre uma pergunta que é de gestão, não de tecnologia.
+    </p>
+
+    <table class="tbl compact" style="font-size:21px">
+      <thead><tr><th style="width:19%">Etapa</th><th style="width:34%">Uso de LLM</th><th>A pergunta gerencial</th></tr></thead>
+      <tbody>
+        <tr><td><b>Requisitos</b></td><td class="dim">Elicitação, histórias, ambiguidade</td><td>Entendeu a <b>necessidade real</b> do stakeholder?</td></tr>
+        <tr><td><b>Planejamento</b></td><td class="dim">Decomposição, dependências, estimativa</td><td>O plano é o trabalho real ou <b>só parece plausível</b>?</td></tr>
+        <tr><td><b>Implementação</b></td><td class="dim">Geração, refatoração, agentes em issues</td><td>Melhora o fluxo ou <b>só aumenta a fila</b>?</td></tr>
+        <tr><td><b>Testes</b></td><td class="dim">Unitários, casos extremos, falhas</td><td>Validam o <b>requisito</b> ou só o código gerado?</td></tr>
+        <tr><td><b>Code review</b></td><td class="dim">Resumo de diff, primeira triagem</td><td>Como evitar <b>falsa confiança</b>?</td></tr>
+        <tr><td><b>Operação</b></td><td class="dim">Diagnóstico, log, incidente</td><td>Quanta <b>autonomia</b> em produção?</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="src"><span>Ciclo da Aula 1 · Material-base</span><span>Bloco 3 · Hoje I</span></div>
+</section>
+
+<section class="page era-3" data-document-role="page" data-label="De copiloto a agente"
+ data-speaker-notes="45 segundos. As três fases da relação humano–modelo. O ponto que carrega o bloco inteiro: a terceira fase não aumenta só a velocidade — ela MOVE o trabalho humano. De digitar para especificar, delegar, revisar e integrar. Guardar essa frase; ela volta no bloco 5.">
+  <div class="era-tag">A relação humano–modelo</div>
+  <div class="stack">
+    <h2 style="margin-bottom:34px">De copiloto a agente.</h2>
+
+    <div class="flow">
+      <div class="step">
+        <div class="n">FASE 01</div>
+        <h3>Sugestão</h3>
+        <p>O dev escreve. A IA completa a linha.</p>
+      </div>
+      <div class="step">
+        <div class="n">FASE 02</div>
+        <h3>Conversa</h3>
+        <p>O dev pergunta. A IA explica e modifica.</p>
+      </div>
+      <div class="step" style="border-color:var(--gold); border-width:2px">
+        <div class="n" style="color:var(--gold)">FASE 03 · AGENTIC</div>
+        <h3>Delegação</h3>
+        <p>O humano dá uma intenção. O agente explora o repositório, planeja, edita, roda os testes, observa o erro, corrige e apresenta para revisão.</p>
+      </div>
+    </div>
+
+    <div class="tie" style="margin-top:46px">
+      <span class="lbl">O que muda de verdade</span>
+      <p>A terceira fase não aumenta só a velocidade. Ela <b>move o trabalho humano</b>
+      de <em>digitar</em> para <b>especificar, delegar, revisar e integrar</b>.</p>
+    </div>
+  </div>
+  <div class="src"><span>Material-base · bloco 3</span><span>Bloco 3 · Hoje I</span></div>
+</section>
+
+<section class="page era-3" data-document-role="page" data-label="O caso GitHub"
+ data-speaker-notes="55 segundos. Setembro de 2026. Dizer EM VOZ ALTA que é relato de primeira parte do GitHub, não estudo independente — isso vale nota. E o ponto não é o volume de código: é como foi gerenciado. A coluna da direita amarra cada prática a um conceito da disciplina.">
+  <div class="era-tag">setembro de 2026</div>
+  <div class="stack">
+    <p class="kicker">GitHub · runtime do Copilot migrado para Rust</p>
+    <div class="cols" style="align-items:flex-start; margin-bottom:30px">
+      <div style="flex:0 0 40%">
+        <div class="cols tight" style="gap:20px">
+          <div class="stat"><div class="n" style="font-size:52px">832.378</div><div class="l">linhas de Rust em produção</div></div>
+          <div class="stat"><div class="n" style="font-size:52px">128</div><div class="l">pull requests</div></div>
+        </div>
+        <div class="cols tight" style="gap:20px; margin-top:26px">
+          <div class="stat"><div class="n" style="font-size:52px">135</div><div class="l">releases em ~14,5 semanas</div></div>
+          <div class="stat"><div class="n" style="font-size:52px">1</div><div class="l">desenvolvedor, principalmente</div></div>
+        </div>
+        <p class="dim" style="font-size:21px; margin-top:26px; max-width:none">
+          <b style="color:var(--gold)">Relato de primeira parte.</b> Não é estudo independente — e dizer isso faz parte do argumento.
+        </p>
+      </div>
+      <div>
+        <table class="tbl" style="font-size:21px">
+          <thead><tr><th style="width:54%">O que o GitHub fez</th><th>Conceito da disciplina</th></tr></thead>
+          <tbody>
+            <tr><td>Recusou o <em>big bang rewrite</em></td><td class="dim">Mitigação de risco · Aula 7</td></tr>
+            <tr><td>Migrou componente por componente</td><td class="dim">Lotes pequenos · Aula 3</td></tr>
+            <tr><td><b>Main sempre entregável</b></td><td class="dim">Cadência de entregas · Aula 3</td></tr>
+            <tr><td>E2E a cada etapa; quebrou teste, não entra</td><td class="dim">Quality gate · Aula 9</td></tr>
+            <tr><td>Começou por pilotos técnicos</td><td class="dim">Cone da incerteza · Aula 3</td></tr>
+            <tr><td>Rollout progressivo</td><td class="dim">Monitoramento e controle · Aula 10</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="lead" style="margin-top:auto; max-width:none; font-size:31px">
+      O sucesso não veio de “a IA escreveu tudo sozinha”. Veio de
+      <b style="color:var(--gold)">IA dentro de um sistema de engenharia disciplinado</b>.
+    </p>
+  </div>
+  <div class="src"><span>github.blog, 09/2026 [F-52]</span><span>Bloco 3 · Hoje I</span></div>
+</section>
+
+<section class="page era-3" data-document-role="page" data-label="Amarração — EAP e a Lei dos 90-90"
+ data-speaker-notes="Amarração do bloco 3. 50 segundos. Duas aulas em uma. A Lei dos 90-90 explica o mecanismo: o LLM acelera a metade que já era barata. E a EAP cobra a conta: se revisar código de IA não é pacote de trabalho, esse custo não foi estimado — e reaparece como estouro. Fechar com a frase em destaque.">
+  <div class="era-tag">Aulas 5 e 6</div>
+  <div class="stack">
+    <p class="kicker">Amarração com a disciplina</p>
+    <div class="cols" style="margin-bottom:auto">
+      <div class="card">
+        <p class="kicker" style="font-size:17px; margin-bottom:12px">Aula 6 · Lei dos 90-90</p>
+        <p class="quote" style="font-size:27px; max-width:none">“Os primeiros 90% do código representam os primeiros 90% do tempo. Os 10% restantes representam os outros 90% do tempo.”</p>
+        <p class="cite">Tom Cargill, Bell Labs, ~1985</p>
+        <p style="margin-top:22px; font-size:25px; color:var(--fg)">
+          O LLM acelera dramaticamente os <b>primeiros 90%</b> — a metade que já era barata.
+          Integração, casos extremos e depurar código que você não escreveu permanecem.
+        </p>
+      </div>
+      <div class="card">
+        <p class="kicker" style="font-size:17px; margin-bottom:12px">Aula 5 · EAP</p>
+        <p class="quote" style="font-size:27px; max-width:none">“Se algo não está na EAP, não será estimado nem executado.”</p>
+        <p class="cite">Prof. Bruno Elias Penteado</p>
+        <p style="margin-top:22px; font-size:25px; color:var(--fg)">
+          <b>Revisão e validação de código assistido por IA</b> precisa ser um pacote de trabalho.
+          Se não for, o custo não é orçado — e reaparece como estouro.
+        </p>
+      </div>
+    </div>
+
+    <div class="tie" style="margin-top:38px">
+      <span class="lbl">A frase</span>
+      <p>Se revisar código de IA não está na EAP, esse trabalho <b>não foi estimado</b>.
+      E ele vai acontecer de qualquer jeito.</p>
+    </div>
+  </div>
+  <div class="src"><span>Aula 6 s17 · Aula 5</span><span>Bloco 3 · Hoje I</span></div>
+</section>
+
+<!-- ═══════════════ BLOCO 4 · HOJE II · A EVIDÊNCIA · 2026 ═══════════════ -->
+
+<section class="page era-4" data-document-role="page" data-label="O confronto"
+ data-speaker-notes="Bloco 4, apresentador 4. 55 segundos. Deixar os dois números na tela por uns segundos antes de explicar — o desconforto é parte do efeito. Dizer n=16 junto com o −19%. A faixa de baixo é a reconciliação: não é 'funciona ou não', é que o contexto muda o resultado por um fator de 3 a 4.">
+  <div class="era-tag">2026 · a evidência</div>
+  <div class="stack">
+    <p class="kicker">Hoje II</p>
+    <h2 style="margin-bottom:26px; font-size:56px">Dois estudos sérios.<br>Resultados opostos.</h2>
+
+    <div class="cols" style="margin-bottom:30px">
+      <div class="card" style="border-color:var(--gain); border-width:2px; padding:22px 26px">
+        <p class="kicker" style="font-size:17px; margin-bottom:10px; color:var(--gain)">Cui et al. · Management Science</p>
+        <div class="big" style="color:var(--gain); font-size:86px">+26,08%</div>
+        <p style="margin-top:16px; font-size:25px; color:var(--fg)">tarefas concluídas</p>
+        <div class="rule" style="margin:20px 0"></div>
+        <p style="font-size:22px">3 experimentos de campo · Microsoft, Accenture e uma Fortune 100 · <b>4.867 desenvolvedores</b> · familiaridade variada com o código</p>
+      </div>
+      <div class="card" style="border-color:var(--loss); border-width:2px; padding:22px 26px">
+        <p class="kicker" style="font-size:17px; margin-bottom:10px; color:var(--loss)">METR · RCT</p>
+        <div class="big" style="color:var(--loss); font-size:86px">−19%</div>
+        <p style="margin-top:16px; font-size:25px; color:var(--fg)">mais lentos com IA</p>
+        <div class="rule" style="margin:20px 0"></div>
+        <p style="font-size:22px">Repositórios open source maduros · <b>16 mantenedores</b> muito experientes · 246 issues reais · anos no mesmo repo</p>
+      </div>
+    </div>
+
+    <div class="tie" style="margin-top:auto">
+      <span class="lbl">Os dois estão certos · e o DORA explica</span>
+      <p><b>35–40%</b> de ganho em <em>greenfield</em> contra <b>~10% ou menos</b> em código legado complexo.
+      O contexto muda o resultado por um fator de 3 a 4.</p>
+    </div>
+  </div>
+  <div class="src"><span>[F-13] · [F-15] · [F-22]</span><span>Bloco 4 · Hoje II</span></div>
+</section>
+
+<section class="page era-4" data-document-role="page" data-label="Percepção ≠ medida"
+ data-speaker-notes="50 segundos. O achado mais útil do bloco para gestão. Ler os três estados em voz alta, na ordem. E então a honestidade que ninguém tem: em fevereiro de 2026 a própria METR mudou o desenho do experimento por viés de seleção. Citar o −19% sem citar a correção é desonesto — e esse é o momento mais forte do bloco.">
+  <div class="era-tag">O achado que importa para gestão</div>
+  <div class="stack">
+    <h2 style="margin-bottom:10px">Percepção não é medida.</h2>
+    <p class="dim wide" style="font-size:26px; max-width:62ch; margin-bottom:22px">
+      No mesmo experimento, com as mesmas 16 pessoas:
+    </p>
+
+    <svg class="viz" viewBox="0 0 1000 250" style="max-width:1120px">
+      <g font-size="21">
+        <line x1="453.6" y1="18" x2="453.6" y2="236" stroke="#E0D3C1" stroke-width="2"/>
+        <text x="453.6" y="248" fill="#75604C" text-anchor="middle" font-size="18">0%</text>
+
+        <text x="0" y="44" fill="#75604C">antes, previram</text>
+        <rect x="453.6" y="24" width="349" height="34" rx="4" fill="#DE9E1E"/>
+        <text x="814" y="49" fill="#8E6522" font-size="28" font-weight="700">+24%</text>
+
+        <text x="0" y="117" fill="#3E2512" font-weight="700">mediram</text>
+        <rect x="177.3" y="97" width="276.3" height="34" rx="4" fill="#A33A2A"/>
+        <text x="164" y="122" fill="#A33A2A" font-size="28" font-weight="700" text-anchor="end">−19%</text>
+
+        <text x="0" y="190" fill="#75604C">depois, acreditaram</text>
+        <rect x="453.6" y="170" width="291" height="34" rx="4" fill="#DE9E1E" opacity=".55"/>
+        <text x="756" y="195" fill="#8E6522" font-size="28" font-weight="700">+20%</text>
+      </g>
+    </svg>
+
+    <div class="tie" style="margin-top:auto">
+      <span class="lbl">E a honestidade que quase ninguém tem</span>
+      <p>Em <b>fev/2026 a própria METR mudou o desenho</b> do experimento, por viés de seleção:
+      <b>30 a 50%</b> dos devs evitavam submeter justamente as tarefas em que a IA mais ajudaria.
+      Citar o −19% sem citar a correção é desonesto.</p>
+    </div>
+  </div>
+  <div class="src"><span>[F-15] · [F-16]</span><span>Bloco 4 · Hoje II</span></div>
+</section>
+
+<section class="page era-4" data-document-role="page" data-label="Amarração C — burndown × SPI e CPI"
+ data-speaker-notes="AMARRAÇÃO C. 60 segundos. Abrir pela pergunta do professor no slide 35 da Aula 10. O burndown registra o que a equipe DECLARA no daily; ele não distingue escrito de verificado. Os dois CPI são calculados com a fórmula dele, sobre a mesma sprint, no mesmo dia — só muda de onde vem o %AC. Dizer em voz alta que o gráfico é modelo ilustrativo.">
+  <div class="era-tag">Aula 10 · EVA e burndown</div>
+  <div class="stack">
+    <p class="kicker">Amarração C</p>
+    <h2 style="margin-bottom:8px; font-size:54px">O burndown tem um eixo.<br>O EVA tem três.</h2>
+    <p class="dim wide" style="font-size:24px; max-width:66ch; margin-bottom:18px">
+      E nenhum dos dois tem eixo de <b>verificação</b> — porque o burndown registra o que a equipe
+      <b>declara</b> no <em>daily</em>, não o que passou no portão.
+    </p>
+
+    <div class="cols" style="align-items:center; gap:36px">
+      <div style="flex:0 0 58%">
+        <svg class="viz" viewBox="0 0 880 400">
+          <g font-size="17" fill="#75604C">
+            <line x1="90" y1="330" x2="790" y2="330" stroke="#E0D3C1" stroke-width="2"/>
+            <line x1="90" y1="30" x2="90" y2="330" stroke="#E0D3C1" stroke-width="2"/>
+            <text x="440" y="364" text-anchor="middle">dias úteis da sprint</text>
+            <text x="34" y="180" text-anchor="middle" transform="rotate(-90 34 180)">pontos restantes</text>
+            <text x="78" y="36" text-anchor="end">40</text>
+            <text x="78" y="336" text-anchor="end">0</text>
+
+            <line x1="90" y1="30" x2="790" y2="330" stroke="#E0D3C1" stroke-width="3" stroke-dasharray="8 7"/>
+            <text x="560" y="228" fill="#B8A387" font-size="17">decaimento linear</text>
+
+            <polyline points="90,30 160,171.75 230,313.5 300,321.75 370,321.75 440,321.75 510,321.75 580,321.75 650,321.75 720,321.75 790,321.75"
+              fill="none" stroke="#DE9E1E" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="300" y="300" fill="#8E6522" font-size="19" font-weight="700">declarado</text>
+
+            <polyline points="90,30 160,40.5 230,51 300,60.75 370,71.25 440,81.75 510,91.5 580,102 650,112.5 720,123 790,133.5"
+              fill="none" stroke="#A33A2A" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+            <text x="556" y="82" fill="#A33A2A" font-size="19" font-weight="700">verificado</text>
+
+            <line x1="790" y1="133.5" x2="790" y2="321.75" stroke="#75604C" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <text x="778" y="240" fill="#75604C" font-size="17" text-anchor="end">25 pts na fila</text>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="cols tight" style="gap:18px">
+          <div class="stat" style="border-color:var(--gain)">
+            <div class="n" style="font-size:58px; color:var(--gain)">1,55</div>
+            <div class="l"><b>CPI declarado</b><br>a leitura que vai para o relatório</div>
+          </div>
+          <div class="stat" style="border-color:var(--loss)">
+            <div class="n" style="font-size:58px; color:var(--loss)">0,55</div>
+            <div class="l"><b>CPI verificado</b><br>só o que passou no portão</div>
+          </div>
+        </div>
+        <p style="font-size:23px; margin-top:24px; max-width:none">
+          Mesma sprint, mesmo dia, <b>mesma fórmula</b> — <span class="pill">CPI = EV / AC</span>.
+          Só muda de onde vem o <b>%AC</b>.
+        </p>
+        <p class="dim" style="font-size:20px; margin-top:16px; max-width:none">
+          <b>Aula 10, slide 35:</b> cronograma atrasado, custo abaixo do previsto — <em>“o que pode ter acontecido?”</em>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="src"><span>Aula 10 s31–s35 · gráfico: modelo ilustrativo</span><span>Bloco 4 · Hoje II</span></div>
+</section>
+
+<section class="page era-4" data-document-role="page" data-label="Amarração E — Campbell e Goodhart"
+ data-speaker-notes="AMARRAÇÃO E. 60 segundos. São duas leis diferentes e vale separar: Goodhart é sobre a correlação; Campbell é sobre as pessoas e o processo, e é dose-resposta. Depois o bisturi da Aula 5: Goodhart não ataca a praticidade nem a confiabilidade — ataca a validade, e só ela. Fechar com o antídoto: nenhum indicador decide sozinho.">
+  <div class="era-tag">Aula 9 · Aula 5</div>
+  <div class="stack">
+    <p class="kicker">Amarração E</p>
+    <h2 style="margin-bottom:18px; font-size:50px">São duas leis,<br>e não dizem a mesma coisa.</h2>
+
+    <div class="cols tight" style="margin-bottom:20px">
+      <div class="card" style="padding:22px 24px">
+        <p class="kicker" style="font-size:16px; margin-bottom:8px">Goodhart · 1975</p>
+        <p style="font-size:23px; max-width:none">A <b>regularidade estatística</b> colapsa quando se aplica pressão de controle sobre ela.</p>
+        <p class="dim" style="font-size:19px; margin-top:12px; max-width:none">O que quebra é a correlação.</p>
+      </div>
+      <div class="card" style="padding:22px 24px">
+        <p class="kicker" style="font-size:16px; margin-bottom:8px">Campbell · 1979</p>
+        <p style="font-size:23px; max-width:none">Quanto mais o indicador <b>decide</b>, mais ele deforma o processo que deveria medir.</p>
+        <p class="dim" style="font-size:19px; margin-top:12px; max-width:none">O que quebra são as pessoas e o processo. E é dose-resposta.</p>
+      </div>
+      <div class="card" style="border-color:var(--gold); border-width:2px; padding:22px 24px">
+        <p class="kicker" style="font-size:16px; margin-bottom:8px">Aula 5 · o bisturi</p>
+        <p style="font-size:23px; max-width:none">Uma métrica deve ser <b>válida, confiável e prática</b>.</p>
+        <p style="font-size:21px; margin-top:12px; max-width:none; color:var(--accent)"><b>Goodhart não ataca as duas últimas. Ataca a validade.</b></p>
+      </div>
+    </div>
+
+    <table class="tbl" style="font-size:22px">
+      <thead><tr><th style="width:40%">Métrica de IA</th><th>Válida</th><th>Confiável</th><th>Prática</th><th>Como se destrói ao virar meta</th></tr></thead>
+      <tbody>
+        <tr><td><b>Linhas geradas por IA</b></td><td><span class="pill n">não</span></td><td><span class="pill y">sim</span></td><td><span class="pill y">sim</span></td><td class="dim">Duplicação sobe, refatoração some</td></tr>
+        <tr><td><b>% de sugestões aceitas</b></td><td><span class="pill n">não</span></td><td><span class="pill">~</span></td><td><span class="pill y">sim</span></td><td class="dim">Aceita-se sugestão ruim para bater o número</td></tr>
+        <tr><td><b>Defeitos escapados</b></td><td><span class="pill y">sim</span></td><td><span class="pill">~</span></td><td><span class="pill n">cara</span></td><td class="dim">Difícil de trapacear. A boa métrica é a incômoda</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="src"><span>Aula 9 s78 · Aula 5 s27 · [F-25]</span><span>Bloco 4 · Hoje II</span></div>
+</section>
+
+<!-- ═══════════════ BLOCO 5 · O PROCESSO · 2027+ ═══════════════ -->
+
+<section class="page era-5" data-document-role="page" data-label="A IA amplifica o que já existe"
+ data-speaker-notes="Bloco 5, apresentador 5. 50 segundos. Esta é a tese do bloco inteiro e ela é do DORA, não nossa: a IA amplifica as forças e as fraquezas que a organização já tem. Mesma ferramenta, organizações diferentes, resultados opostos. Dizer 'associou-se a', nunca 'causou' — é survey.">
+  <div class="era-tag">2027+</div>
+  <div class="stack">
+    <p class="kicker">O processo</p>
+    <h2 style="font-size:66px; margin-bottom:46px">A IA não conserta processo.<br>Ela <b style="font-weight:600">amplifica</b> o que já existe.</h2>
+
+    <svg class="viz" viewBox="0 0 1180 300" style="max-width:1180px">
+      <g font-family="system-ui,sans-serif" font-size="23">
+        <rect x="0" y="112" width="290" height="76" rx="6" fill="none" stroke="#3A3532" stroke-width="1.5"/>
+        <text x="145" y="158" fill="#F7F3EC" text-anchor="middle">a mesma ferramenta</text>
+
+        <path d="M300,150 L430,150" stroke="#9A9088" stroke-width="2" fill="none"/>
+        <path d="M430,150 C500,150 500,56 570,56" stroke="#2F6B4F" stroke-width="2.5" fill="none"/>
+        <path d="M430,150 C500,150 500,244 570,244" stroke="#A33A2A" stroke-width="2.5" fill="none"/>
+
+        <rect x="580" y="20" width="360" height="72" rx="6" fill="none" stroke="#2F6B4F" stroke-width="1.5"/>
+        <text x="604" y="64" fill="#63B98E">com processo definido</text>
+        <text x="978" y="64" fill="#63B98E" font-size="30" font-weight="700">vazão</text>
+
+        <rect x="580" y="208" width="360" height="72" rx="6" fill="none" stroke="#A33A2A" stroke-width="1.5"/>
+        <text x="604" y="252" fill="#E0796A">sem processo definido</text>
+        <text x="978" y="252" fill="#E0796A" font-size="30" font-weight="700">instabilidade</text>
+      </g>
+    </svg>
+
+    <p class="dim" style="font-size:23px; margin-top:38px; max-width:none">
+      DORA 2024: a adoção <b>associou-se a</b> +3,1% na velocidade de review e, ao mesmo tempo,
+      −1,5% de vazão e <b>−7,2% de estabilidade</b>. Em 2025 a vazão virou positiva.
+      <b>A relação negativa com estabilidade permaneceu.</b>
+    </p>
+  </div>
+  <div class="src"><span>[F-19] · [F-20] · survey, não experimento</span><span>Bloco 5 · O processo</span></div>
+</section>
+
+<section class="page era-5" data-document-role="page" data-label="O que a evidência diz que funciona"
+ data-speaker-notes="50 segundos. Quatro práticas, e nenhuma delas é 'escolher um modelo melhor'. Controles antecipados vêm antes da geração; controles de retorno vêm depois. Os três números de baixo mostram que isso já virou norma escrita em projetos open source — não é opinião nossa.">
+  <div class="era-tag">O que funciona</div>
+  <div class="stack">
+    <h2 style="font-size:60px; margin-bottom:44px">Nenhuma delas é<br>“escolher um modelo melhor”.</h2>
+
+    <div class="cols tight" style="margin-bottom:auto">
+      <div class="card">
+        <p class="kicker" style="font-size:15px; margin-bottom:10px">01 · antes</p>
+        <h3 style="font-size:27px">Controles antecipados</h3>
+        <p style="font-size:21px">Especificação, instruções de agente, contexto escrito e versionado.</p>
+      </div>
+      <div class="card">
+        <p class="kicker" style="font-size:15px; margin-bottom:10px">02 · depois</p>
+        <h3 style="font-size:27px">Controles de retorno</h3>
+        <p style="font-size:21px">Testes, portões executáveis, execução em <em>sandbox</em>.</p>
+      </div>
+      <div class="card">
+        <p class="kicker" style="font-size:15px; margin-bottom:10px">03 · fluxo</p>
+        <h3 style="font-size:27px">Lotes pequenos</h3>
+        <p style="font-size:21px">Uma das sete capacidades do DORA. E a IA empurra na direção contrária.</p>
+      </div>
+      <div class="card" style="border-color:var(--gold)">
+        <p class="kicker" style="font-size:15px; margin-bottom:10px">04 · portão</p>
+        <h3 style="font-size:27px">Revisão humana obrigatória</h3>
+        <p style="font-size:21px">O aceite formal continua sendo humano.</p>
+      </div>
+    </div>
+
+    <div class="rule" style="margin:42px 0 30px"></div>
+    <div class="cols" style="align-items:baseline">
+      <div><span class="mid" style="color:var(--accent)">83,3%</span><p class="dim" style="font-size:21px; margin-top:10px; max-width:none">das políticas de IA em projetos open source <b>permitem</b> o uso</p></div>
+      <div><span class="mid" style="color:var(--accent)">67,3%</span><p class="dim" style="font-size:21px; margin-top:10px; max-width:none">exigem <b>envolvimento humano forte</b></p></div>
+      <div><span class="mid" style="color:var(--accent)">48,8%</span><p class="dim" style="font-size:21px; margin-top:10px; max-width:none">exigem <b>declarar</b> que a IA foi usada</p></div>
+    </div>
+  </div>
+  <div class="src"><span>281 políticas analisadas [F-44] · [F-21] · [F-36]</span><span>Bloco 5 · O processo</span></div>
+</section>
+
+<section class="page era-5" data-document-role="page" data-label="Governança com as palavras da Aula 7"
+ data-speaker-notes="55 segundos. Aqui a disciplina entra inteira. Apetite, tolerância e exposição são as definições literais da Aula 7. O exemplo escrito é o mesmo formato do SLO de SRE que o professor usa em aula. E o fecho: a declaração de uso de IA deveria ser item do Termo de Aceite da Aula 10, não só do TAP.">
+  <div class="era-tag">Aula 7 · Aula 10</div>
+  <div class="stack">
+    <p class="kicker">Governança</p>
+    <h2 style="font-size:60px; margin-bottom:38px">Processo definido é<br>política escrita.</h2>
+
+    <div class="cols tight" style="margin-bottom:38px">
+      <div><div class="mid" style="font-size:40px; color:var(--accent)">apetite</div><p class="dim" style="font-size:21px; margin-top:12px; max-width:none">o grau de incerteza que a organização aceita em troca de recompensa</p></div>
+      <div><div class="mid" style="font-size:40px; color:var(--accent)">tolerância</div><p class="dim" style="font-size:21px; margin-top:12px; max-width:none">a variação aceitável em torno de um objetivo</p></div>
+      <div><div class="mid" style="font-size:40px; color:var(--accent)">exposição</div><p class="dim" style="font-size:21px; margin-top:12px; max-width:none">probabilidade × gravidade</p></div>
+    </div>
+
+    <div class="card" style="border-color:var(--gold); border-width:2px; border-radius:6px">
+      <p style="font-size:26px; max-width:none; color:var(--fg); line-height:1.5">
+        <b>Apetite:</b> aceitamos geração de código por LLM em módulos não críticos.<br>
+        <b>Tolerância:</b> limite de X% de defeitos escapados atribuíveis a código gerado.<br>
+        <b>Se ultrapassar:</b> suspende-se a geração assistida em módulos de pagamento.
+      </p>
+    </div>
+
+    <p class="dim" style="font-size:23px; margin-top:34px; max-width:none">
+      É o mesmo formato do exemplo de SRE da aula. E a <b>declaração de uso de IA</b> deveria ser item
+      do <b>Termo de Aceite</b> — não só do TAP. Foi o que o <b>PMI</b> institucionalizou em junho de 2026,
+      no primeiro padrão de IA aprovado pela ANSI para a profissão: <em>human-in-the-loop</em> no centro.
+    </p>
+  </div>
+  <div class="src"><span>Aula 7 · Aula 10 s68 · [F-51]</span><span>Bloco 5 · O processo</span></div>
+</section>
+
+<section class="page era-5" data-document-role="page" data-label="O caso do próprio grupo"
+ data-speaker-notes="55 segundos. Este é o caso real mais barato e mais honesto que temos: nós mesmos. Os três problemas que a pesquisa global aponta apareceram num projeto de faculdade em quatro dias. E o que salvou não foi um modelo melhor — foi processo. Fechar com a frase em destaque e deixar respirar.">
+  <div class="era-tag">12 a 15 de setembro de 2026</div>
+  <div class="stack">
+    <p class="kicker">Caso real · este repositório</p>
+    <h2 style="font-size:56px; margin-bottom:30px">Aconteceu com a gente,<br>em quatro dias.</h2>
+
+    <div class="cols">
+      <div>
+        <p class="kicker" style="color:#63B98E; font-size:16px; margin-bottom:18px">▲ Funcionou</p>
+        <table class="tbl" style="font-size:22px">
+          <tbody>
+            <tr><td>Contexto escrito e versionado</td></tr>
+            <tr><td>Papéis de revisão separados</td></tr>
+            <tr><td><b>Portão executável:</b> o <span class="pill" style="font-size:17px">.sql</span> tem que rodar em MySQL limpo</td></tr>
+            <tr><td>Decisão explícita de <b>não fazer</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p class="kicker" style="color:#E0796A; font-size:16px; margin-bottom:18px">▼ Não funcionou</p>
+        <table class="tbl" style="font-size:22px">
+          <tbody>
+            <tr><td>Capítulo, versões e uma issue <b>inventados</b></td></tr>
+            <tr><td>Arquivo gerado e não usado, ainda no repositório</td></tr>
+            <tr><td>Instruções do projeto desatualizadas em 3 dias</td></tr>
+            <tr><td>Commits de apenas 2 dos 4 integrantes</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="tie" style="margin-top:auto">
+      <span class="lbl">A lição</span>
+      <p>Os três problemas que a pesquisa global aponta apareceram num projeto de faculdade em quatro dias.
+      <b>O que nos salvou não foi um modelo melhor. Foi processo.</b></p>
+    </div>
+  </div>
+  <div class="src"><span>Evidência verificável no repositório [R-01]–[R-07]</span><span>Bloco 5 · O processo</span></div>
+</section>
+
+<!-- ═══════════════ FECHO ═══════════════ -->
+
+<section class="page era-5" data-document-role="page" data-label="Volta à Aula 1"
+ data-speaker-notes="40 segundos. O professor abriu a disciplina com um caso de viés algorítmico em sistemas de IA, classificado como falha de engenharia de software, ao lado do Therac-25 e do Ariane 5. O tema nunca foi externo à disciplina. Ele estava na primeira aula. Falar devagar.">
+  <div class="era-tag">Aula 1</div>
+  <div class="stack" style="justify-content:center">
+    <p class="kicker">O tema nunca foi externo à disciplina</p>
+    <h2 style="font-size:64px; margin-bottom:52px; max-width:24ch">
+      A primeira aula já tratava<br>IA como falha de engenharia.
+    </h2>
+
+    <div class="cols" style="max-width:1080px">
+      <div class="stat" style="border-color:#3A3532"><div class="n" style="font-size:38px; font-weight:400">Therac-25</div><div class="l">1985 — software de radioterapia</div></div>
+      <div class="stat" style="border-color:#3A3532"><div class="n" style="font-size:38px; font-weight:400">Ariane 5</div><div class="l">1996 — conversão de tipo</div></div>
+      <div class="stat" style="border-color:var(--gold)"><div class="n" style="font-size:38px; font-weight:400; color:var(--accent)">Viés algorítmico</div><div class="l">sistemas de IA — na mesma lista</div></div>
+    </div>
+  </div>
+  <div class="src"><span>Aula 1 · Prof. Bruno Elias Penteado</span><span>Fecho</span></div>
+</section>
+
+<section class="page era-5" data-document-role="page" data-label="A resposta"
+ data-speaker-notes="40 segundos. O fecho. Retomar a pergunta da abertura e responder com a ementa da disciplina. Ler a última linha devagar e parar. Não agradecer no slide — agradecer na fala, depois do silêncio.">
+  <div class="era-tag">2027+</div>
+  <div class="stack" style="justify-content:center">
+    <p class="kicker">A pergunta da abertura</p>
+    <h2 style="font-size:62px; margin-bottom:46px; max-width:26ch; font-weight:300">
+      Se implementar deixou de ser o gargalo,<br>onde o gerente deve investir?
+    </h2>
+
+    <p class="lead wide" style="font-size:44px; line-height:1.36; font-weight:300; color:var(--accent); margin-bottom:46px">
+      Requisitos · arquitetura · validação<br>segurança · integração · feedback · governança
+    </p>
+
+    <div class="rule" style="max-width:520px"></div>
+    <p class="lead wide" style="font-size:38px; font-weight:300; margin-top:36px">
+      Que é, literalmente, <b style="font-weight:600">a ementa desta disciplina</b>.
+    </p>
+  </div>
+  <div class="src"><span>Fontes e verificação: repositório 00davidsarago00/unespao</span><span>Obrigado</span></div>
+</section>
+
+</main>
+
+<div id="counter"></div>
+<div id="ui">
+  <button type="button" id="btnPresent">apresentar</button>
+  <button type="button" id="btnPrev">◀</button>
+  <button type="button" id="btnNext">▶</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var deck=document.getElementById('deck');
+  var pages=[].slice.call(deck.querySelectorAll('.page'));
+  var i=0, present=false;
+  var counter=document.getElementById('counter');
+
+  function fit(){
+    var pad = present ? 0 : 40;
+    var sw=(window.innerWidth-pad)/1600;
+    var sh=(window.innerHeight-pad)/900;
+    var s = present ? Math.min(sw,sh) : Math.min(1,sw);
+    deck.style.zoom=s;
+    if(present){
+      deck.style.height=(900*s)+'px';
+      deck.style.marginTop=Math.max(0,(window.innerHeight-900*s)/2/s)+'px';
+    } else {
+      deck.style.height=''; deck.style.marginTop='';
+    }
+  }
+  function show(n){
+    i=Math.max(0,Math.min(pages.length-1,n));
+    if(present){
+      pages.forEach(function(p,k){ p.classList.toggle('on',k===i); });
+    } else {
+      pages[i].scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    counter.textContent=(i+1)+' / '+pages.length;
+  }
+  function toggle(){
+    present=!present;
+    document.body.classList.toggle('present',present);
+    document.getElementById('btnPresent').textContent=present?'sair':'apresentar';
+    fit(); show(i);
+    if(present && document.documentElement.requestFullscreen){
+      document.documentElement.requestFullscreen().catch(function(){});
+    } else if(document.fullscreenElement && document.exitFullscreen){
+      document.exitFullscreen().catch(function(){});
+    }
+  }
+  document.getElementById('btnPresent').addEventListener('click',toggle);
+  document.getElementById('btnNext').addEventListener('click',function(){show(i+1)});
+  document.getElementById('btnPrev').addEventListener('click',function(){show(i-1)});
+  window.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();show(i+1)}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1)}
+    else if(e.key==='p'||e.key==='P'||e.key==='f'||e.key==='F'){toggle()}
+    else if(e.key==='Escape'&&present){toggle()}
+  });
+  window.addEventListener('resize',fit);
+  fit(); show(0);
+})();
+</script>
+</body>
+</html>
