@@ -90,6 +90,26 @@ body{font-family:var(--f-sans);-webkit-font-smoothing:antialiased;text-rendering
 }
 .era-5 h1,.era-5 h2{font-weight:250; letter-spacing:-.022em}
 
+/* ---------- TRANSIÇÃO · a linha do tempo avançando ---------- */
+.era-t{
+  --bg:#0E0C0B; --fg:#F7F3EC; --dim:#7E7670; --accent:#DE9E1E; --rule:#242020;
+  --f-body:var(--f-sans); --f-head:var(--f-sans);
+  padding:0;
+}
+.era-t .tnum{
+  position:absolute; left:140px; top:196px;
+  font-family:var(--f-mono); font-size:22px; letter-spacing:.34em; color:var(--dim);
+}
+.era-t .tyears{
+  position:absolute; left:140px; top:244px;
+  font-size:138px; font-weight:200; letter-spacing:-.035em; line-height:1; color:#F7F3EC;
+}
+.era-t .ttitle{
+  position:absolute; left:140px; top:414px;
+  font-size:52px; font-weight:300; letter-spacing:-.015em; line-height:1.1;
+}
+.era-t svg{position:absolute; left:0; top:560px; width:1600px; height:250px}
+
 /* ============================================================
    COMPONENTES
    ============================================================ */
@@ -234,7 +254,7 @@ body.present #deck .page.on{display:block; margin:0 auto}
 <!-- ═══════════════ ABERTURA ═══════════════ -->
 
 <section class="page era-1" data-document-role="page" data-label="Capa"
- data-speaker-notes="Apresentador 1. 20 segundos. Ler o título, dizer o tempo, e ir direto para a pergunta do slide seguinte. Não se apresentar aqui — a apresentação do grupo já foi feita.">
+ data-speaker-notes="Apresentador 1. 20 segundos. Ler o título, dizer o tempo, e ir direto para a pergunta do slide seguinte. Não se apresentar aqui — a apresentação do grupo já foi feita. [FONTE NA FALA, SE PERGUNTAREM: Seminário · 20 minutos · 5 apresentadores]">
   <div class="era-tag">1948</div>
   <div class="stack" style="justify-content:center">
     <p class="kicker">UNESP · Gestão de Projetos · 2026</p>
@@ -245,8 +265,7 @@ body.present #deck .page.on{display:block; margin:0 auto}
       para quem gerencia projetos.
     </p>
   </div>
-  <div class="src"><span>Seminário · 20 minutos · 5 apresentadores</span></div>
-</section>
+  </section>
 
 <section class="page era-1" data-document-role="page" data-label="A tese"
  data-speaker-notes="40 segundos. A citação é do professor, Aula 1. Dizer que o seminário inteiro é um teste dessa premissa — não uma contestação. Ler a pergunta grande devagar e deixar dois segundos de silêncio antes de virar.">
@@ -267,9 +286,17 @@ body.present #deck .page.on{display:block; margin:0 auto}
 </section>
 
 <!-- ═══════════════ BLOCO 1 · AS ORIGENS · 1948–2016 ═══════════════ -->
+<section class="page era-t" data-document-role="page" data-label="Transição — bloco 1"
+ data-speaker-notes="Slide de transição. 4 segundos, em silêncio ou com uma frase só. Deixe a plateia ver a linha do tempo avançar antes de falar. Entra o bloco 1: As origens.">
+  <div class="tnum">BLOCO 01</div>
+  <div class="tyears">1948–2016</div>
+  <div class="ttitle">As origens</div>
+  <svg viewBox="0 0 1600 250"><rect x="140" y="42" width="254" height="6" rx="3" fill="#8A6A42" opacity="1"/><text x="140" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#8A6A42" opacity="1">1948</text><text x="140" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">As origens</text><rect x="404" y="42" width="254" height="2" rx="1" fill="#DE9E1E" opacity="0.16"/><text x="404" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4A4440" opacity="0.7">2017</text><text x="404" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#3A3532">O Transformer</text><rect x="668" y="42" width="254" height="2" rx="1" fill="#E8833C" opacity="0.16"/><text x="668" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4A4440" opacity="0.7">2023</text><text x="668" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#3A3532">Hoje I</text><rect x="932" y="42" width="254" height="2" rx="1" fill="#4C9A7A" opacity="0.16"/><text x="932" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4A4440" opacity="0.7">2026</text><text x="932" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#3A3532">Hoje II</text><rect x="1196" y="42" width="254" height="2" rx="1" fill="#FFFFFF" opacity="0.16"/><text x="1196" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4A4440" opacity="0.7">2027</text><text x="1196" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#3A3532">O processo</text><circle cx="140" cy="45" r="26" fill="#8A6A42" opacity=".16"/><circle cx="140" cy="45" r="13" fill="#8A6A42"/></svg>
+</section>
+
 
 <section class="page era-1" data-document-role="page" data-label="1954 — a promessa"
- data-speaker-notes="Bloco 1, apresentador 1. 50 segundos. Abrir com a data. Os três números são verificados (Hutchins, AMTA 2004). A frase de Dostert é o gancho: guardar o tom de promessa, porque o slide seguinte cobra a conta.">
+ data-speaker-notes="Bloco 1, apresentador 1. 50 segundos. Abrir com a data. Os três números são verificados (Hutchins, AMTA 2004). A frase de Dostert é o gancho: guardar o tom de promessa, porque o slide seguinte cobra a conta. [FONTE NA FALA, SE PERGUNTAREM: Hutchins, AMTA 2004 [F-58]]">
   <div class="era-tag">7 de janeiro de 1954</div>
   <div class="stack">
     <p class="kicker">Georgetown · IBM</p>
@@ -285,8 +312,7 @@ body.present #deck .page.on{display:block; margin:0 auto}
     <p class="quote" style="margin:0 auto">“Cinco, talvez três anos.”</p>
     <p class="cite">Leon Dostert, sobre quando a tradução automática estaria resolvida</p>
   </div>
-  <div class="src"><span>Hutchins, AMTA 2004 [F-58]</span></div>
-</section>
+  </section>
 
 <section class="page era-1" data-document-role="page" data-label="1966 — a conta"
  data-speaker-notes="50 segundos. O ALPAC foi, na prática, uma auditoria de projeto: não matou a tradução automática por ela não funcionar, matou porque a entrega não correspondia à promessa de 1954. A amarração é com a Aula 5 — extrapolação linear de piloto. Dizer a conta em voz alta: 17 vezes mais regras para 80 vezes mais vocabulário.">
@@ -311,7 +337,7 @@ body.present #deck .page.on{display:block; margin:0 auto}
 </section>
 
 <section class="page era-1" data-document-role="page" data-label="A ideia já estava lá"
- data-speaker-notes="55 segundos. Três nomes, três antecipações. O ponto mais forte é o Shannon: o texto de bigramas é coerente por quatro palavras e incoerente no todo — é literalmente o modo de falha que hoje chamamos de alucinação. Turing, seção 7, descreveu pré-treino e fine-tuning em 1950.">
+ data-speaker-notes="55 segundos. Três nomes, três antecipações. O ponto mais forte é o Shannon: o texto de bigramas é coerente por quatro palavras e incoerente no todo — é literalmente o modo de falha que hoje chamamos de alucinação. Turing, seção 7, descreveu pré-treino e fine-tuning em 1950. [FONTE NA FALA, SE PERGUNTAREM: Shannon 1948 · Turing 1950 · Weizenbaum, CACM 1966]">
   <div class="era-tag">1948 — 1966</div>
   <div class="stack">
     <h2>A ideia é velha.<br>O que faltava era escala.</h2>
@@ -337,11 +363,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       </div>
     </div>
   </div>
-  <div class="src"><span>Shannon 1948 · Turing 1950 · Weizenbaum, CACM 1966</span></div>
-</section>
+  </section>
 
 <section class="page era-1" data-document-role="page" data-label="2012 — código é previsível"
- data-speaker-notes="45 segundos. Este é o slide que fecha o bloco 1 e prepara o 2. O achado de Hindle é que código é muito mais previsível que prosa — e o plugin deles no Eclipse já economizava até 61% das teclas. Cinco anos antes do Transformer. Números corrigidos: 3 a 4 bits, não 2 a 4.">
+ data-speaker-notes="45 segundos. Este é o slide que fecha o bloco 1 e prepara o 2. O achado de Hindle é que código é muito mais previsível que prosa — e o plugin deles no Eclipse já economizava até 61% das teclas. Cinco anos antes do Transformer. Números corrigidos: 3 a 4 bits, não 2 a 4. [FONTE NA FALA, SE PERGUNTAREM: On the Naturalness of Software [F-57]]">
   <div class="era-tag">2012 · cinco anos antes</div>
   <div class="stack">
     <p class="kicker">Hindle et al. · ICSE 2012</p>
@@ -368,13 +393,20 @@ body.present #deck .page.on{display:block; margin:0 auto}
       <b style="color:var(--accent)">até 61% das teclas</b>.
     </p>
   </div>
-  <div class="src"><span>On the Naturalness of Software [F-57]</span></div>
-</section>
+  </section>
 
 <!-- ═══════════════ BLOCO 2 · O TRANSFORMER · 2017–2022 ═══════════════ -->
+<section class="page era-t" data-document-role="page" data-label="Transição — bloco 2"
+ data-speaker-notes="Slide de transição. 4 segundos, em silêncio ou com uma frase só. Deixe a plateia ver a linha do tempo avançar antes de falar. Entra o bloco 2: O Transformer.">
+  <div class="tnum">BLOCO 02</div>
+  <div class="tyears">2017–2022</div>
+  <div class="ttitle">O Transformer</div>
+  <svg viewBox="0 0 1600 250"><rect x="140" y="42" width="254" height="6" rx="3" fill="#8A6A42" opacity="1"/><text x="140" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#8A6A42" opacity="1">1948</text><text x="140" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">As origens</text><rect x="404" y="42" width="254" height="6" rx="3" fill="#DE9E1E" opacity="1"/><text x="404" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#DE9E1E" opacity="1">2017</text><text x="404" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">O Transformer</text><rect x="668" y="42" width="254" height="2" rx="1" fill="#E8833C" opacity="0.16"/><text x="668" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4A4440" opacity="0.7">2023</text><text x="668" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#3A3532">Hoje I</text><rect x="932" y="42" width="254" height="2" rx="1" fill="#4C9A7A" opacity="0.16"/><text x="932" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4A4440" opacity="0.7">2026</text><text x="932" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#3A3532">Hoje II</text><rect x="1196" y="42" width="254" height="2" rx="1" fill="#FFFFFF" opacity="0.16"/><text x="1196" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4A4440" opacity="0.7">2027</text><text x="1196" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#3A3532">O processo</text><circle cx="404" cy="45" r="26" fill="#DE9E1E" opacity=".16"/><circle cx="404" cy="45" r="13" fill="#DE9E1E"/></svg>
+</section>
+
 
 <section class="page era-2" data-document-role="page" data-label="2017 — o Transformer"
- data-speaker-notes="Bloco 2, apresentador 2. 50 segundos. O título do paper é uma provocação direta ao Bahdanau 2014, que tinha inventado a atenção como muleta do LSTM. A mensagem: a muleta, sozinha, basta. O ganho real é paralelização — é isso que torna a escala viável.">
+ data-speaker-notes="Bloco 2, apresentador 2. 50 segundos. O título do paper é uma provocação direta ao Bahdanau 2014, que tinha inventado a atenção como muleta do LSTM. A mensagem: a muleta, sozinha, basta. O ganho real é paralelização — é isso que torna a escala viável. [FONTE NA FALA, SE PERGUNTAREM: arXiv:1706.03762 [F-01]]">
   <div class="era-tag">junho de 2017</div>
   <div class="stack">
     <p class="kicker">Vaswani et al.</p>
@@ -413,11 +445,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       </div>
     </div>
   </div>
-  <div class="src"><span>arXiv:1706.03762 [F-01]</span><span>Bloco 2 · O Transformer</span></div>
-</section>
+  </section>
 
 <section class="page era-2" data-document-role="page" data-label="LLM × assistente × agente"
- data-speaker-notes="O slide conceitual central da apresentação inteira. 60 segundos, e vale gastar. Quem confunde os três termos não entende o debate. A terceira linha — agente — é onde 2026 acontece, e é o gancho para o bloco 3.">
+ data-speaker-notes="O slide conceitual central da apresentação inteira. 60 segundos, e vale gastar. Quem confunde os três termos não entende o debate. A terceira linha — agente — é onde 2026 acontece, e é o gancho para o bloco 3. [FONTE NA FALA, SE PERGUNTAREM: Material-base · tabela conceitual]">
   <div class="era-tag">Três coisas distintas</div>
   <div class="stack">
     <h2>Três coisas que<br>não são sinônimos.</h2>
@@ -447,11 +478,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       É na terceira linha que <b>2026</b> acontece.
     </p>
   </div>
-  <div class="src"><span>Material-base · tabela conceitual</span><span>Bloco 2 · O Transformer</span></div>
-</section>
+  </section>
 
 <section class="page era-2" data-document-role="page" data-label="2023 — SWE-bench"
- data-speaker-notes="45 segundos. A régua mudou: saiu de 'escreva uma função' para 'resolva uma issue real neste repositório inteiro'. E o melhor modelo resolvia 1,96%. Dizer com ênfase: marco histórico, NUNCA retrato de hoje. O contraste é o que torna o bloco 3 impressionante.">
+ data-speaker-notes="45 segundos. A régua mudou: saiu de 'escreva uma função' para 'resolva uma issue real neste repositório inteiro'. E o melhor modelo resolvia 1,96%. Dizer com ênfase: marco histórico, NUNCA retrato de hoje. O contraste é o que torna o bloco 3 impressionante. [FONTE NA FALA, SE PERGUNTAREM: ICLR 2024 [F-06]]">
   <div class="era-tag">2023</div>
   <div class="stack">
     <p class="kicker">SWE-bench · Jimenez et al.</p>
@@ -476,11 +506,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       </div>
     </div>
   </div>
-  <div class="src"><span>ICLR 2024 [F-06]</span><span>Bloco 2 · O Transformer</span></div>
-</section>
+  </section>
 
 <section class="page era-2" data-document-role="page" data-label="Amarração — Go/No-go e OKR"
- data-speaker-notes="Amarração do bloco 2. 50 segundos. A Aula 2 exige decisão Go/No-go fundamentada em valoração. Adotar IA sem dizer QUAL valor se quer melhorar é o anti-padrão que o professor marcou como fonte de frustração de engenheiros. A tabela é o entregável: transformar adoção de IA em OKR, não em KPI de vaidade.">
+ data-speaker-notes="Amarração do bloco 2. 50 segundos. A Aula 2 exige decisão Go/No-go fundamentada em valoração. Adotar IA sem dizer QUAL valor se quer melhorar é o anti-padrão que o professor marcou como fonte de frustração de engenheiros. A tabela é o entregável: transformar adoção de IA em OKR, não em KPI de vaidade. [FONTE NA FALA, SE PERGUNTAREM: Aula 2 · Aula 5 (métrica válida, confiável, prática)]">
   <div class="era-tag">Aula 2 · Business case</div>
   <div class="stack">
     <p class="kicker">Amarração com a disciplina</p>
@@ -500,13 +529,20 @@ body.present #deck .page.on{display:block; margin:0 auto}
       </tbody>
     </table>
   </div>
-  <div class="src"><span>Aula 2 · Aula 5 (métrica válida, confiável, prática)</span><span>Bloco 2 · O Transformer</span></div>
-</section>
+  </section>
 
 <!-- ═══════════════ BLOCO 3 · HOJE I · 2023–2026 ═══════════════ -->
+<section class="page era-t" data-document-role="page" data-label="Transição — bloco 3"
+ data-speaker-notes="Slide de transição. 4 segundos, em silêncio ou com uma frase só. Deixe a plateia ver a linha do tempo avançar antes de falar. Entra o bloco 3: Hoje I · o ciclo de vida.">
+  <div class="tnum">BLOCO 03</div>
+  <div class="tyears">2023–2026</div>
+  <div class="ttitle">Hoje I · o ciclo de vida</div>
+  <svg viewBox="0 0 1600 250"><rect x="140" y="42" width="254" height="6" rx="3" fill="#8A6A42" opacity="1"/><text x="140" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#8A6A42" opacity="1">1948</text><text x="140" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">As origens</text><rect x="404" y="42" width="254" height="6" rx="3" fill="#DE9E1E" opacity="1"/><text x="404" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#DE9E1E" opacity="1">2017</text><text x="404" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">O Transformer</text><rect x="668" y="42" width="254" height="6" rx="3" fill="#E8833C" opacity="1"/><text x="668" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#E8833C" opacity="1">2023</text><text x="668" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">Hoje I</text><rect x="932" y="42" width="254" height="2" rx="1" fill="#4C9A7A" opacity="0.16"/><text x="932" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4A4440" opacity="0.7">2026</text><text x="932" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#3A3532">Hoje II</text><rect x="1196" y="42" width="254" height="2" rx="1" fill="#FFFFFF" opacity="0.16"/><text x="1196" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4A4440" opacity="0.7">2027</text><text x="1196" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#3A3532">O processo</text><circle cx="668" cy="45" r="26" fill="#E8833C" opacity=".16"/><circle cx="668" cy="45" r="13" fill="#E8833C"/></svg>
+</section>
+
 
 <section class="page era-3" data-document-role="page" data-label="O ciclo de vida inteiro"
- data-speaker-notes="Bloco 3, apresentador 3. 55 segundos. Quem reduz o tema a autocomplete perde o ponto. Percorrer o ciclo da Aula 1 mostrando que a IA encosta em todas as fases, mas com maturidade muito desigual. A coluna da direita é o que importa: cada etapa tem uma pergunta gerencial em aberto.">
+ data-speaker-notes="Bloco 3, apresentador 3. 55 segundos. Quem reduz o tema a autocomplete perde o ponto. Percorrer o ciclo da Aula 1 mostrando que a IA encosta em todas as fases, mas com maturidade muito desigual. A coluna da direita é o que importa: cada etapa tem uma pergunta gerencial em aberto. [FONTE NA FALA, SE PERGUNTAREM: Ciclo da Aula 1 · Material-base]">
   <div class="era-tag">2023 — 2026</div>
   <div class="stack">
     <p class="kicker">Hoje I · o ciclo de vida</p>
@@ -528,11 +564,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       </tbody>
     </table>
   </div>
-  <div class="src"><span>Ciclo da Aula 1 · Material-base</span><span>Bloco 3 · Hoje I</span></div>
-</section>
+  </section>
 
 <section class="page era-3" data-document-role="page" data-label="De copiloto a agente"
- data-speaker-notes="45 segundos. As três fases da relação humano–modelo. O ponto que carrega o bloco inteiro: a terceira fase não aumenta só a velocidade — ela MOVE o trabalho humano. De digitar para especificar, delegar, revisar e integrar. Guardar essa frase; ela volta no bloco 5.">
+ data-speaker-notes="45 segundos. As três fases da relação humano–modelo. O ponto que carrega o bloco inteiro: a terceira fase não aumenta só a velocidade — ela MOVE o trabalho humano. De digitar para especificar, delegar, revisar e integrar. Guardar essa frase; ela volta no bloco 5. [FONTE NA FALA, SE PERGUNTAREM: Material-base · bloco 3]">
   <div class="era-tag">A relação humano–modelo</div>
   <div class="stack">
     <h2 style="margin-bottom:34px">De copiloto a agente.</h2>
@@ -561,11 +596,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       de <em>digitar</em> para <b>especificar, delegar, revisar e integrar</b>.</p>
     </div>
   </div>
-  <div class="src"><span>Material-base · bloco 3</span><span>Bloco 3 · Hoje I</span></div>
-</section>
+  </section>
 
 <section class="page era-3" data-document-role="page" data-label="O caso GitHub"
- data-speaker-notes="55 segundos. Setembro de 2026. Dizer EM VOZ ALTA que é relato de primeira parte do GitHub, não estudo independente — isso vale nota. E o ponto não é o volume de código: é como foi gerenciado. A coluna da direita amarra cada prática a um conceito da disciplina.">
+ data-speaker-notes="55 segundos. Setembro de 2026. Dizer EM VOZ ALTA que é relato de primeira parte do GitHub, não estudo independente — isso vale nota. E o ponto não é o volume de código: é como foi gerenciado. A coluna da direita amarra cada prática a um conceito da disciplina. [FONTE NA FALA, SE PERGUNTAREM: github.blog, 09/2026 [F-52]]">
   <div class="era-tag">setembro de 2026</div>
   <div class="stack">
     <p class="kicker">GitHub · runtime do Copilot migrado para Rust</p>
@@ -603,11 +637,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       <b style="color:var(--gold)">IA dentro de um sistema de engenharia disciplinado</b>.
     </p>
   </div>
-  <div class="src"><span>github.blog, 09/2026 [F-52]</span><span>Bloco 3 · Hoje I</span></div>
-</section>
+  </section>
 
 <section class="page era-3" data-document-role="page" data-label="Amarração — EAP e a Lei dos 90-90"
- data-speaker-notes="Amarração do bloco 3. 50 segundos. Duas aulas em uma. A Lei dos 90-90 explica o mecanismo: o LLM acelera a metade que já era barata. E a EAP cobra a conta: se revisar código de IA não é pacote de trabalho, esse custo não foi estimado — e reaparece como estouro. Fechar com a frase em destaque.">
+ data-speaker-notes="Amarração do bloco 3. 50 segundos. Duas aulas em uma. A Lei dos 90-90 explica o mecanismo: o LLM acelera a metade que já era barata. E a EAP cobra a conta: se revisar código de IA não é pacote de trabalho, esse custo não foi estimado — e reaparece como estouro. Fechar com a frase em destaque. [FONTE NA FALA, SE PERGUNTAREM: Aula 6 s17 · Aula 5]">
   <div class="era-tag">Aulas 5 e 6</div>
   <div class="stack">
     <p class="kicker">Amarração com a disciplina</p>
@@ -638,13 +671,20 @@ body.present #deck .page.on{display:block; margin:0 auto}
       E ele vai acontecer de qualquer jeito.</p>
     </div>
   </div>
-  <div class="src"><span>Aula 6 s17 · Aula 5</span><span>Bloco 3 · Hoje I</span></div>
-</section>
+  </section>
 
 <!-- ═══════════════ BLOCO 4 · HOJE II · A EVIDÊNCIA · 2026 ═══════════════ -->
+<section class="page era-t" data-document-role="page" data-label="Transição — bloco 4"
+ data-speaker-notes="Slide de transição. 4 segundos, em silêncio ou com uma frase só. Deixe a plateia ver a linha do tempo avançar antes de falar. Entra o bloco 4: Hoje II · a evidência.">
+  <div class="tnum">BLOCO 04</div>
+  <div class="tyears">2026</div>
+  <div class="ttitle">Hoje II · a evidência</div>
+  <svg viewBox="0 0 1600 250"><rect x="140" y="42" width="254" height="6" rx="3" fill="#8A6A42" opacity="1"/><text x="140" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#8A6A42" opacity="1">1948</text><text x="140" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">As origens</text><rect x="404" y="42" width="254" height="6" rx="3" fill="#DE9E1E" opacity="1"/><text x="404" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#DE9E1E" opacity="1">2017</text><text x="404" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">O Transformer</text><rect x="668" y="42" width="254" height="6" rx="3" fill="#E8833C" opacity="1"/><text x="668" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#E8833C" opacity="1">2023</text><text x="668" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">Hoje I</text><rect x="932" y="42" width="254" height="6" rx="3" fill="#4C9A7A" opacity="1"/><text x="932" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4C9A7A" opacity="1">2026</text><text x="932" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">Hoje II</text><rect x="1196" y="42" width="254" height="2" rx="1" fill="#FFFFFF" opacity="0.16"/><text x="1196" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4A4440" opacity="0.7">2027</text><text x="1196" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#3A3532">O processo</text><circle cx="932" cy="45" r="26" fill="#4C9A7A" opacity=".16"/><circle cx="932" cy="45" r="13" fill="#4C9A7A"/></svg>
+</section>
+
 
 <section class="page era-4" data-document-role="page" data-label="O confronto"
- data-speaker-notes="Bloco 4, apresentador 4. 55 segundos. Deixar os dois números na tela por uns segundos antes de explicar — o desconforto é parte do efeito. Dizer n=16 junto com o −19%. A faixa de baixo é a reconciliação: não é 'funciona ou não', é que o contexto muda o resultado por um fator de 3 a 4.">
+ data-speaker-notes="Bloco 4, apresentador 4. 55 segundos. Deixar os dois números na tela por uns segundos antes de explicar — o desconforto é parte do efeito. Dizer n=16 junto com o −19%. A faixa de baixo é a reconciliação: não é 'funciona ou não', é que o contexto muda o resultado por um fator de 3 a 4. [FONTE NA FALA, SE PERGUNTAREM: [F-13] · [F-15] · [F-22]]">
   <div class="era-tag">2026 · a evidência</div>
   <div class="stack">
     <p class="kicker">Hoje II</p>
@@ -673,11 +713,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       O contexto muda o resultado por um fator de 3 a 4.</p>
     </div>
   </div>
-  <div class="src"><span>[F-13] · [F-15] · [F-22]</span><span>Bloco 4 · Hoje II</span></div>
-</section>
+  </section>
 
 <section class="page era-4" data-document-role="page" data-label="Percepção ≠ medida"
- data-speaker-notes="50 segundos. O achado mais útil do bloco para gestão. Ler os três estados em voz alta, na ordem. E então a honestidade que ninguém tem: em fevereiro de 2026 a própria METR mudou o desenho do experimento por viés de seleção. Citar o −19% sem citar a correção é desonesto — e esse é o momento mais forte do bloco.">
+ data-speaker-notes="50 segundos. O achado mais útil do bloco para gestão. Ler os três estados em voz alta, na ordem. E então a honestidade que ninguém tem: em fevereiro de 2026 a própria METR mudou o desenho do experimento por viés de seleção. Citar o −19% sem citar a correção é desonesto — e esse é o momento mais forte do bloco. [FONTE NA FALA, SE PERGUNTAREM: [F-15] · [F-16]]">
   <div class="era-tag">O achado que importa para gestão</div>
   <div class="stack">
     <h2 style="margin-bottom:10px">Percepção não é medida.</h2>
@@ -711,11 +750,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       Citar o −19% sem citar a correção é desonesto.</p>
     </div>
   </div>
-  <div class="src"><span>[F-15] · [F-16]</span><span>Bloco 4 · Hoje II</span></div>
-</section>
+  </section>
 
 <section class="page era-4" data-document-role="page" data-label="Amarração C — burndown × SPI e CPI"
- data-speaker-notes="AMARRAÇÃO C. 60 segundos. Abrir pela pergunta do professor no slide 35 da Aula 10. O burndown registra o que a equipe DECLARA no daily; ele não distingue escrito de verificado. Os dois CPI são calculados com a fórmula dele, sobre a mesma sprint, no mesmo dia — só muda de onde vem o %AC. Dizer em voz alta que o gráfico é modelo ilustrativo.">
+ data-speaker-notes="AMARRAÇÃO C. 60 segundos. Abrir pela pergunta do professor no slide 35 da Aula 10. O burndown registra o que a equipe DECLARA no daily; ele não distingue escrito de verificado. Os dois CPI são calculados com a fórmula dele, sobre a mesma sprint, no mesmo dia — só muda de onde vem o %AC. Dizer em voz alta que o gráfico é modelo ilustrativo. [FONTE NA FALA, SE PERGUNTAREM: Aula 10 s31–s35 · gráfico: modelo ilustrativo]">
   <div class="era-tag">Aula 10 · EVA e burndown</div>
   <div class="stack">
     <p class="kicker">Amarração C</p>
@@ -773,11 +811,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       </div>
     </div>
   </div>
-  <div class="src"><span>Aula 10 s31–s35 · gráfico: modelo ilustrativo</span><span>Bloco 4 · Hoje II</span></div>
-</section>
+  </section>
 
 <section class="page era-4" data-document-role="page" data-label="Amarração E — Campbell e Goodhart"
- data-speaker-notes="AMARRAÇÃO E. 60 segundos. São duas leis diferentes e vale separar: Goodhart é sobre a correlação; Campbell é sobre as pessoas e o processo, e é dose-resposta. Depois o bisturi da Aula 5: Goodhart não ataca a praticidade nem a confiabilidade — ataca a validade, e só ela. Fechar com o antídoto: nenhum indicador decide sozinho.">
+ data-speaker-notes="AMARRAÇÃO E. 60 segundos. São duas leis diferentes e vale separar: Goodhart é sobre a correlação; Campbell é sobre as pessoas e o processo, e é dose-resposta. Depois o bisturi da Aula 5: Goodhart não ataca a praticidade nem a confiabilidade — ataca a validade, e só ela. Fechar com o antídoto: nenhum indicador decide sozinho. [FONTE NA FALA, SE PERGUNTAREM: Aula 9 s78 · Aula 5 s27 · [F-25]]">
   <div class="era-tag">Aula 9 · Aula 5</div>
   <div class="stack">
     <p class="kicker">Amarração E</p>
@@ -810,13 +847,20 @@ body.present #deck .page.on{display:block; margin:0 auto}
       </tbody>
     </table>
   </div>
-  <div class="src"><span>Aula 9 s78 · Aula 5 s27 · [F-25]</span><span>Bloco 4 · Hoje II</span></div>
-</section>
+  </section>
 
 <!-- ═══════════════ BLOCO 5 · O PROCESSO · 2027+ ═══════════════ -->
+<section class="page era-t" data-document-role="page" data-label="Transição — bloco 5"
+ data-speaker-notes="Slide de transição. 4 segundos, em silêncio ou com uma frase só. Deixe a plateia ver a linha do tempo avançar antes de falar. Entra o bloco 5: O processo.">
+  <div class="tnum">BLOCO 05</div>
+  <div class="tyears">2027+</div>
+  <div class="ttitle">O processo</div>
+  <svg viewBox="0 0 1600 250"><rect x="140" y="42" width="254" height="6" rx="3" fill="#8A6A42" opacity="1"/><text x="140" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#8A6A42" opacity="1">1948</text><text x="140" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">As origens</text><rect x="404" y="42" width="254" height="6" rx="3" fill="#DE9E1E" opacity="1"/><text x="404" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#DE9E1E" opacity="1">2017</text><text x="404" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">O Transformer</text><rect x="668" y="42" width="254" height="6" rx="3" fill="#E8833C" opacity="1"/><text x="668" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#E8833C" opacity="1">2023</text><text x="668" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">Hoje I</text><rect x="932" y="42" width="254" height="6" rx="3" fill="#4C9A7A" opacity="1"/><text x="932" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#4C9A7A" opacity="1">2026</text><text x="932" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">Hoje II</text><rect x="1196" y="42" width="254" height="6" rx="3" fill="#FFFFFF" opacity="1"/><text x="1196" y="92" font-family="ui-monospace,monospace" font-size="19" fill="#FFFFFF" opacity="1">2027</text><text x="1196" y="124" font-family="system-ui,sans-serif" font-size="18" fill="#9A918A">O processo</text><circle cx="1196" cy="45" r="26" fill="#FFFFFF" opacity=".16"/><circle cx="1196" cy="45" r="13" fill="#FFFFFF"/></svg>
+</section>
+
 
 <section class="page era-5" data-document-role="page" data-label="A IA amplifica o que já existe"
- data-speaker-notes="Bloco 5, apresentador 5. 50 segundos. Esta é a tese do bloco inteiro e ela é do DORA, não nossa: a IA amplifica as forças e as fraquezas que a organização já tem. Mesma ferramenta, organizações diferentes, resultados opostos. Dizer 'associou-se a', nunca 'causou' — é survey.">
+ data-speaker-notes="Bloco 5, apresentador 5. 50 segundos. Esta é a tese do bloco inteiro e ela é do DORA, não nossa: a IA amplifica as forças e as fraquezas que a organização já tem. Mesma ferramenta, organizações diferentes, resultados opostos. Dizer 'associou-se a', nunca 'causou' — é survey. [FONTE NA FALA, SE PERGUNTAREM: [F-19] · [F-20] · survey, não experimento]">
   <div class="era-tag">2027+</div>
   <div class="stack">
     <p class="kicker">O processo</p>
@@ -847,11 +891,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       <b>A relação negativa com estabilidade permaneceu.</b>
     </p>
   </div>
-  <div class="src"><span>[F-19] · [F-20] · survey, não experimento</span><span>Bloco 5 · O processo</span></div>
-</section>
+  </section>
 
 <section class="page era-5" data-document-role="page" data-label="O que a evidência diz que funciona"
- data-speaker-notes="50 segundos. Quatro práticas, e nenhuma delas é 'escolher um modelo melhor'. Controles antecipados vêm antes da geração; controles de retorno vêm depois. Os três números de baixo mostram que isso já virou norma escrita em projetos open source — não é opinião nossa.">
+ data-speaker-notes="50 segundos. Quatro práticas, e nenhuma delas é 'escolher um modelo melhor'. Controles antecipados vêm antes da geração; controles de retorno vêm depois. Os três números de baixo mostram que isso já virou norma escrita em projetos open source — não é opinião nossa. [FONTE NA FALA, SE PERGUNTAREM: 281 políticas analisadas [F-44] · [F-21] · [F-36]]">
   <div class="era-tag">O que funciona</div>
   <div class="stack">
     <h2 style="font-size:60px; margin-bottom:44px">Nenhuma delas é<br>“escolher um modelo melhor”.</h2>
@@ -886,11 +929,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       <div><span class="mid" style="color:var(--accent)">48,8%</span><p class="dim" style="font-size:21px; margin-top:10px; max-width:none">exigem <b>declarar</b> que a IA foi usada</p></div>
     </div>
   </div>
-  <div class="src"><span>281 políticas analisadas [F-44] · [F-21] · [F-36]</span><span>Bloco 5 · O processo</span></div>
-</section>
+  </section>
 
 <section class="page era-5" data-document-role="page" data-label="Governança com as palavras da Aula 7"
- data-speaker-notes="55 segundos. Aqui a disciplina entra inteira. Apetite, tolerância e exposição são as definições literais da Aula 7. O exemplo escrito é o mesmo formato do SLO de SRE que o professor usa em aula. E o fecho: a declaração de uso de IA deveria ser item do Termo de Aceite da Aula 10, não só do TAP.">
+ data-speaker-notes="55 segundos. Aqui a disciplina entra inteira. Apetite, tolerância e exposição são as definições literais da Aula 7. O exemplo escrito é o mesmo formato do SLO de SRE que o professor usa em aula. E o fecho: a declaração de uso de IA deveria ser item do Termo de Aceite da Aula 10, não só do TAP. [FONTE NA FALA, SE PERGUNTAREM: Aula 7 · Aula 10 s68 · [F-51]]">
   <div class="era-tag">Aula 7 · Aula 10</div>
   <div class="stack">
     <p class="kicker">Governança</p>
@@ -916,11 +958,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       no primeiro padrão de IA aprovado pela ANSI para a profissão: <em>human-in-the-loop</em> no centro.
     </p>
   </div>
-  <div class="src"><span>Aula 7 · Aula 10 s68 · [F-51]</span><span>Bloco 5 · O processo</span></div>
-</section>
+  </section>
 
 <section class="page era-5" data-document-role="page" data-label="O caso do próprio grupo"
- data-speaker-notes="55 segundos. Este é o caso real mais barato e mais honesto que temos: nós mesmos. Os três problemas que a pesquisa global aponta apareceram num projeto de faculdade em quatro dias. E o que salvou não foi um modelo melhor — foi processo. Fechar com a frase em destaque e deixar respirar.">
+ data-speaker-notes="55 segundos. Este é o caso real mais barato e mais honesto que temos: nós mesmos. Os três problemas que a pesquisa global aponta apareceram num projeto de faculdade em quatro dias. E o que salvou não foi um modelo melhor — foi processo. Fechar com a frase em destaque e deixar respirar. [FONTE NA FALA, SE PERGUNTAREM: Evidência verificável no repositório [R-01]–[R-07]]">
   <div class="era-tag">12 a 15 de setembro de 2026</div>
   <div class="stack">
     <p class="kicker">Caso real · este repositório</p>
@@ -957,13 +998,12 @@ body.present #deck .page.on{display:block; margin:0 auto}
       <b>O que nos salvou não foi um modelo melhor. Foi processo.</b></p>
     </div>
   </div>
-  <div class="src"><span>Evidência verificável no repositório [R-01]–[R-07]</span><span>Bloco 5 · O processo</span></div>
-</section>
+  </section>
 
 <!-- ═══════════════ FECHO ═══════════════ -->
 
 <section class="page era-5" data-document-role="page" data-label="Volta à Aula 1"
- data-speaker-notes="40 segundos. O professor abriu a disciplina com um caso de viés algorítmico em sistemas de IA, classificado como falha de engenharia de software, ao lado do Therac-25 e do Ariane 5. O tema nunca foi externo à disciplina. Ele estava na primeira aula. Falar devagar.">
+ data-speaker-notes="40 segundos. O professor abriu a disciplina com um caso de viés algorítmico em sistemas de IA, classificado como falha de engenharia de software, ao lado do Therac-25 e do Ariane 5. O tema nunca foi externo à disciplina. Ele estava na primeira aula. Falar devagar. [FONTE NA FALA, SE PERGUNTAREM: Aula 1 · Prof. Bruno Elias Penteado]">
   <div class="era-tag">Aula 1</div>
   <div class="stack" style="justify-content:center">
     <p class="kicker">O tema nunca foi externo à disciplina</p>
@@ -977,11 +1017,10 @@ body.present #deck .page.on{display:block; margin:0 auto}
       <div class="stat" style="border-color:var(--gold)"><div class="n" style="font-size:38px; font-weight:400; color:var(--accent)">Viés algorítmico</div><div class="l">sistemas de IA — na mesma lista</div></div>
     </div>
   </div>
-  <div class="src"><span>Aula 1 · Prof. Bruno Elias Penteado</span><span>Fecho</span></div>
-</section>
+  </section>
 
 <section class="page era-5" data-document-role="page" data-label="A resposta"
- data-speaker-notes="40 segundos. O fecho. Retomar a pergunta da abertura e responder com a ementa da disciplina. Ler a última linha devagar e parar. Não agradecer no slide — agradecer na fala, depois do silêncio.">
+ data-speaker-notes="40 segundos. O fecho. Retomar a pergunta da abertura e responder com a ementa da disciplina. Ler a última linha devagar e parar. Não agradecer no slide — agradecer na fala, depois do silêncio. [FONTE NA FALA, SE PERGUNTAREM: Fontes e verificação: repositório 00davidsarago00/unespao]">
   <div class="era-tag">2027+</div>
   <div class="stack" style="justify-content:center">
     <p class="kicker">A pergunta da abertura</p>
@@ -998,8 +1037,7 @@ body.present #deck .page.on{display:block; margin:0 auto}
       Que é, literalmente, <b style="font-weight:600">a ementa desta disciplina</b>.
     </p>
   </div>
-  <div class="src"><span>Fontes e verificação: repositório 00davidsarago00/unespao</span><span>Obrigado</span></div>
-</section>
+  </section>
 
 </main>
 
