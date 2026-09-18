@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ELIZA // 1966</title>
+  <style>
+    :root {
+      --bg: #050805;
+      --panel: #071007;
+      --phosphor: #b9ff9f;
+      --bright: #d5ffc7;
+      --dim: #6da568;
+      --line: #285c2d;
+      --faint-line: rgba(96, 170, 91, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg);
+    }
+
+    body {
+      overflow: hidden;
+      color: var(--phosphor);
+      font-family: "Courier New", Courier, monospace;
+      font-size: clamp(16px, 1.5vw, 23px);
+    }
+
+    /* A camada usa apenas linhas horizontais muito discretas para sugerir um CRT. */
+    body::before {
+      position: fixed;
+      z-index: 10;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      opacity: 0.055;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 3px,
+        rgba(180, 255, 160, 0.5) 4px
+      );
+    }
+
+    .crt-shell {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      padding: clamp(12px, 2.5vw, 36px);
+      animation: crt-flicker 7s infinite steps(1);
+    }
+
+    .terminal {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 17px clamp(17px, 2.4vw, 34px) 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--bright);
+      letter-spacing: 0.04em;
+    }
+
+    .terminal-header h1 {
+      margin: 0;
+      font-size: 1.1em;
+      font-weight: normal;
+    }
+
+    .terminal-header span {
+      color: var(--dim);
+      font-size: 0.62em;
+      letter-spacing: 0.14em;
+      white-space: nowrap;
+    }
+
+    .workspace {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .terminal-pane {
+      display: flex;
+      flex: 1 1 100%;
+      min-width: 0;
+      min-height: 0;
+      flex-direction: column;
+      transition: flex-basis 260ms ease;
+    }
+
+    .debug-open .terminal-pane {
+      flex-basis: 66%;
+    }
+
+    .conversation {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: clamp(23px, 4vh, 48px) clamp(17px, 3vw, 44px) 22px;
+      scrollbar-color: var(--line) var(--panel);
+      scrollbar-width: thin;
+    }
+
+    .message {
+      max-width: 900px;
+      margin: 0 0 27px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+      animation: print-in 130ms ease-out;
+    }
+
+    .message.user {
+      color: var(--bright);
+    }
+
+    .message.eliza {
+      color: var(--phosphor);
+    }
+
+    .prompt,
+    .speaker {
+      color: var(--dim);
+    }
+
+    .speaker {
+      margin-right: 0.7em;
+      color: var(--bright);
+    }
+
+    .input-row {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: baseline;
+      padding: 10px clamp(17px, 3vw, 44px) 24px;
+      color: var(--bright);
+    }
+
+    .input-row .prompt {
+      flex: 0 0 auto;
+      margin-right: 0.7em;
+      color: var(--bright);
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .input-wrap::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      content: "_";
+      color: var(--bright);
+      animation: cursor-blink 1s steps(1) infinite;
+    }
+
+    .input-wrap.has-text::after {
+      display: none;
+    }
+
+    #message-input {
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      color: var(--bright);
+      background: transparent;
+      font: inherit;
+      line-height: 1.5;
+      caret-color: var(--bright);
+    }
+
+    #message-input::selection {
+      color: var(--bg);
+      background: var(--bright);
+    }
+
+    .debug-panel {
+      flex: 0 0 0;
+      max-width: 0;
+      min-width: 0;
+      padding: 0;
+      overflow: auto;
+      border-left: 0 solid var(--line);
+      color: var(--phosphor);
+      opacity: 0;
+      transform: translateX(24px);
+      transition: flex-basis 260ms ease, max-width 260ms ease, padding 260ms ease,
+        opacity 180ms ease, transform 260ms ease, border-left-width 260ms ease;
+    }
+
+    .debug-open .debug-panel {
+      flex-basis: 34%;
+      max-width: 34%;
+      padding: 22px clamp(17px, 2.4vw, 34px);
+      border-left-width: 1px;
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .debug-panel h2 {
+      margin: 0 0 30px;
+      color: var(--bright);
+      font-size: 1em;
+      font-weight: normal;
+      letter-spacing: 0.06em;
+    }
+
+    .debug-section {
+      margin-bottom: 30px;
+    }
+
+    .debug-label {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 10px;
+      color: var(--dim);
+      font-size: 0.72em;
+      letter-spacing: 0.09em;
+    }
+
+    .debug-count {
+      color: var(--dim);
+      font-size: 0.86em;
+      letter-spacing: 0;
+    }
+
+    .debug-rule-value {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      min-width: 0;
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      background: rgba(16, 48, 19, 0.28);
+      line-height: 1.35;
+    }
+
+    .debug-rule-name {
+      color: var(--bright);
+      overflow-wrap: anywhere;
+    }
+
+    .debug-rule-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .debug-chip {
+      padding: 4px 7px;
+      border: 1px solid var(--line);
+      color: var(--phosphor);
+      font-size: 0.66em;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+
+    .debug-rule-keyword {
+      color: var(--dim);
+      font-size: 0.7em;
+      overflow-wrap: anywhere;
+    }
+
+    .debug-capture-list {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .debug-capture-row {
+      display: grid;
+      grid-template-columns: 3.5em minmax(0, 1fr);
+      gap: 10px;
+      align-items: baseline;
+      min-width: 0;
+      padding: 9px 11px;
+      border-bottom: 1px solid var(--faint-line);
+      line-height: 1.35;
+    }
+
+    .debug-capture-row:last-child {
+      border-bottom: 0;
+    }
+
+    .debug-capture-index {
+      color: var(--dim);
+    }
+
+    .debug-capture-value {
+      min-width: 0;
+      color: var(--bright);
+      overflow-wrap: anywhere;
+    }
+
+    .debug-capture-value.is-empty {
+      color: var(--dim);
+    }
+
+    .debug-empty-state {
+      margin: 0;
+      padding: 11px;
+      border: 1px solid var(--faint-line);
+      color: var(--dim);
+      font-size: 0.78em;
+    }
+
+    @keyframes cursor-blink {
+      0%,
+      48% {
+        opacity: 1;
+      }
+      49%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes print-in {
+      from {
+        opacity: 0;
+        transform: translateY(3px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes crt-flicker {
+      0%,
+      94%,
+      96%,
+      100% {
+        opacity: 1;
+      }
+      95% {
+        opacity: 0.985;
+      }
+    }
+
+    @media (max-width: 780px) {
+      body {
+        font-size: 16px;
+      }
+
+      .crt-shell {
+        padding: 10px;
+      }
+
+      .workspace {
+        flex-direction: column;
+      }
+
+      .terminal-pane {
+        flex: 1 1 auto;
+        transition: flex-basis 260ms ease;
+      }
+
+      .debug-open .terminal-pane {
+        flex-basis: 65%;
+      }
+
+      .debug-panel {
+        flex: 0 0 0;
+        width: 100%;
+        max-width: none;
+        max-height: 0;
+        border-top: 0 solid var(--line);
+        border-left: 0;
+        transform: translateY(18px);
+        transition: flex-basis 260ms ease, max-height 260ms ease, padding 260ms ease,
+          opacity 180ms ease, transform 260ms ease, border-top-width 260ms ease;
+      }
+
+      .debug-open .debug-panel {
+        flex-basis: 35%;
+        max-width: none;
+        max-height: 35%;
+        padding: 18px 22px;
+        border-top-width: 1px;
+        transform: translateY(0);
+      }
+
+      .debug-panel h2 {
+        margin-bottom: 18px;
+      }
+
+      .debug-section {
+        margin-bottom: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="crt-shell">
+    <section class="terminal" id="app" aria-label="Demonstração da ELIZA">
+      <header class="terminal-header">
+        <h1>ELIZA // 1966</h1>
+        <span>PATTERN MATCHING SYSTEM</span>
+      </header>
+
+      <div class="workspace">
+        <section class="terminal-pane">
+          <div class="conversation" id="conversation" aria-live="polite">
+            <div class="message eliza">
+              <span class="speaker">ELIZA: </span>Olá. Conte-me o que está incomodando você.
+            </div>
+          </div>
+
+          <form class="input-row" id="message-form">
+            <span class="prompt">&gt;</span>
+            <span class="input-wrap" id="input-wrap">
+              <input id="message-input" type="text" autocomplete="off" spellcheck="false" aria-label="Mensagem para ELIZA" autofocus>
+            </span>
+          </form>
+        </section>
+
+        <aside class="debug-panel" aria-live="polite" aria-label="Debugger">
+          <h2>DEBUG</h2>
+          <section class="debug-section">
+            <p class="debug-label">MATCHED RULE</p>
+            <div class="debug-rule-value" id="debug-rule">
+              <span class="debug-rule-name" id="debug-rule-name">Aguardando uma resposta.</span>
+              <span class="debug-rule-meta" id="debug-rule-meta"></span>
+              <span class="debug-rule-keyword" id="debug-rule-keyword"></span>
+            </div>
+          </section>
+          <section class="debug-section" id="debug-capture-block">
+            <p class="debug-label">
+              <span>CAPTURE</span>
+              <span class="debug-count" id="debug-capture-count"></span>
+            </p>
+            <div class="debug-capture-list" id="debug-capture" role="list"></div>
+            <p class="debug-empty-state" id="debug-capture-empty">Nenhuma captura.</p>
+          </section>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="eliza-rules.js"></script>
+  <script>
+
+    const app = document.getElementById("app");
+    const conversation = document.getElementById("conversation");
+    const form = document.getElementById("message-form");
+    const input = document.getElementById("message-input");
+    const inputWrap = document.getElementById("input-wrap");
+    const debugRuleName = document.getElementById("debug-rule-name");
+    const debugRuleMeta = document.getElementById("debug-rule-meta");
+    const debugRuleKeyword = document.getElementById("debug-rule-keyword");
+    const debugCaptureBlock = document.getElementById("debug-capture-block");
+    const debugCapture = document.getElementById("debug-capture");
+    const debugCaptureCount = document.getElementById("debug-capture-count");
+    const debugCaptureEmpty = document.getElementById("debug-capture-empty");
+
+    let debugEnabled = false;
+    let lastDebug = null;
+    let pendingQuestion = null;
+
+    const ruleBook = globalThis.ELIZA_PTBR_RULES;
+    const configuredRules = ruleBook.rules;
+    const fallbackResponses = ruleBook.fallbacks;
+    const memory = [];
+    const responseIndexes = new Map();
+
+    const keywordEntries = configuredRules.flatMap((rule, ruleIndex) =>
+      rule.keywords.map((keyword, keywordIndex) => ({
+        rule,
+        ruleIndex,
+        keyword,
+        keywordIndex,
+        tokens: tokenize(keyword),
+      }))
+    );
+
+    const initialElizaMessage = conversation.querySelector(".message.eliza");
+    initialElizaMessage.lastChild.textContent = chooseRotating(
+      ruleBook.initialMessages,
+      "initial"
+    );
+
+    function chooseRotating(items, key) {
+      if (!items.length) return "";
+      const index = responseIndexes.get(key) || 0;
+      responseIndexes.set(key, (index + 1) % items.length);
+      return items[index];
+    }
+
+    function normalizeMessage(message) {
+      return ruleBook.pre.reduce(
+        (value, [pattern, replacement]) => value.replace(pattern, replacement),
+        message.trim().replace(/\s+/g, " ")
+      ).toLocaleUpperCase("pt-BR");
+    }
+
+    function fold(value) {
+      return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function tokenize(value) {
+      return (value.match(/[\p{L}\p{N}]+(?:['’][\p{L}]+)?/gu) || [])
+        .map((token) => token.toLocaleUpperCase("pt-BR"));
+    }
+
+    function sameWord(left, right) {
+      if (left === undefined || right === undefined) return false;
+      return fold(left) === fold(right);
+    }
+
+    function splitPhrases(normalized) {
+      const phrases = normalized
+        .split(/[,.!?;:]+/u)
+        .map((phrase) => phrase.trim())
+        .filter(Boolean);
+      return phrases.length ? phrases : [normalized];
+    }
+
+    function phraseMatchesAt(tokens, start, phraseTokens) {
+      return phraseTokens.every((token, offset) =>
+        sameWord(tokens[start + offset], token)
+      );
+    }
+
+    function findCandidates(tokens) {
+      const candidates = [];
+
+      for (let position = 0; position < tokens.length; position += 1) {
+        for (const entry of keywordEntries) {
+          if (!entry.tokens.length || position + entry.tokens.length > tokens.length) {
+            continue;
+          }
+
+          if (phraseMatchesAt(tokens, position, entry.tokens)) {
+            candidates.push({ ...entry, position });
+          }
+        }
+      }
+
+      const unique = new Map();
+      for (const candidate of candidates) {
+        const key = `${candidate.rule.id}:${candidate.position}`;
+        if (!unique.has(key)) unique.set(key, candidate);
+      }
+
+      return [...unique.values()].sort((left, right) =>
+        right.rule.priority - left.rule.priority ||
+        left.position - right.position ||
+        left.ruleIndex - right.ruleIndex ||
+        left.keywordIndex - right.keywordIndex
+      );
+    }
+
+    function matchesComponent(component, token) {
+      if (component.type === "word") {
+        return sameWord(component.value, token);
+      }
+
+      if (component.type === "synonym") {
+        const synonyms = ruleBook.synonymSets[component.name] || [];
+        return synonyms.some((synonymWord) => sameWord(synonymWord, token));
+      }
+
+      return Boolean(token);
+    }
+
+    function matchPattern(tokens, parts) {
+      function walk(partIndex, tokenIndex, captures) {
+        if (partIndex === parts.length) {
+          return tokenIndex === tokens.length ? captures : null;
+        }
+
+        const part = parts[partIndex];
+
+        if (part.type === "any") {
+          // O 0 do script representa um número indefinido de palavras.
+          // Testar do menor para o maior preserva o primeiro delimitador
+          // possível e evita consumir palavras-chave posteriores sem motivo.
+          for (let length = 0; tokenIndex + length <= tokens.length; length += 1) {
+            const result = walk(
+              partIndex + 1,
+              tokenIndex + length,
+              [...captures, tokens.slice(tokenIndex, tokenIndex + length).join(" ")]
+            );
+            if (result) return result;
+          }
+          return null;
+        }
+
+        if (part.type === "one") {
+          if (!tokens[tokenIndex]) return null;
+          return walk(partIndex + 1, tokenIndex + 1, [
+            ...captures,
+            tokens[tokenIndex],
+          ]);
+        }
+
+        if (!matchesComponent(part, tokens[tokenIndex])) return null;
+        return walk(partIndex + 1, tokenIndex + 1, [
+          ...captures,
+          tokens[tokenIndex],
+        ]);
+      }
+
+      return walk(0, 0, []);
+    }
+
+    function reflect(text) {
+      const tokens = text.split(/(\s+|[^\p{L}\p{N}]+)/u);
+      const reflected = tokens.map((token) => {
+        const reflected = ruleBook.reflections[token.toLocaleUpperCase("pt-BR")];
+        if (!reflected) return token;
+        return token === token.toUpperCase() ? reflected : reflected.toLowerCase();
+      }).join("");
+
+      // Em português, a simples troca "me" -> "você" pode produzir
+      // "você fez" no lugar de "fez você". Esta pequena reconstrução mantém
+      // a reflexão do DOCTOR sem sacrificar a ordem natural dos pronomes.
+      return reflected.replace(
+        /\bVOCÊ\s+(FEZ|FAZ|DEU|DÁ|LEVOU|LEVA|CHAMOU|CHAMA|AJUDOU|AJUDA|VIU|VÊ|CONHECEU|CONHECE|DISSE|DIZ)\b/gu,
+        "$1 VOCÊ"
+      );
+    }
+
+    function repairPortugueseAgreement(text) {
+      return text
+        .replace(/\bSUA\s+(PAI|PAPAI|IRMÃO|MARIDO|FILHO)\b/gu, "SEU $1")
+        .replace(/\bSEU\s+(MÃE|MAMÃE|IRMÃ|ESPOSA)\b/gu, "SUA $1");
+    }
+
+    function fillTemplate(template, captures, reflectCaptures = true) {
+      const filled = template
+        .replace(/\$(\d+)/g, (placeholder, number) => {
+          const capture = captures[Number(number) - 1];
+          // O script original simplesmente não tinha um componente para
+          // substituir quando a decomposição não o capturava. Em português,
+          // retirar o marcador é mais fiel ao resultado impresso que exibir $2.
+          if (capture === undefined) return "";
+          return reflectCaptures ? reflect(capture) : capture;
+        })
+        .replace(/@(\d+)/g, (placeholder, number) => {
+          const capture = captures[Number(number) - 1];
+          return capture === undefined ? "" : capture;
+        })
+        .replace(/\s{2,}/g, " ")
+        .replace(/\s+([?.!,])/g, "$1")
+        .trim();
+
+      return repairPortugueseAgreement(filled);
+    }
+
+    function remember(selected, captures) {
+      if (
+        selected.candidate.rule.id !== "my" ||
+        selected.patternDefinition.memorySlot === undefined
+      ) {
+        return;
+      }
+
+      const candidate = captures[selected.patternDefinition.memorySlot - 1];
+      if (!candidate || !candidate.trim()) return;
+      const prefix = selected.patternDefinition.memoryPrefix || "";
+      memory.push(`${prefix} ${reflect(candidate)}`.trim());
+      if (memory.length > 8) memory.shift();
+    }
+
+    function tryCandidate(candidate, tokens) {
+      for (let index = 0; index < candidate.rule.patterns.length; index += 1) {
+        const patternDefinition = candidate.rule.patterns[index];
+        const captures = matchPattern(tokens, patternDefinition.parts);
+        if (!captures) continue;
+
+        return {
+          candidate,
+          patternDefinition,
+          patternIndex: index,
+          captures,
+        };
+      }
+
+      return null;
+    }
+
+    function durationContinuation(normalized) {
+      if (pendingQuestion !== "duration") return null;
+
+      const duration = normalized.match(
+        /^(?:HÁ\s+)?(?:(?:MAIS|MENOS)\s+DE\s+|CERCA\s+DE\s+|APROXIMADAMENTE\s+)?\d+\s+(?:ANO|ANOS|MÊS|MESES|DIA|DIAS|SEMANA|SEMANAS|HORA|HORAS)\b/u
+      );
+      if (!duration) return null;
+
+      pendingQuestion = null;
+      return {
+        response: `${duration[0]} É MUITO TEMPO. COMO ISSO AFETA VOCÊ NO DIA A DIA?`,
+        debug: {
+          matched: false,
+          rule: "context-continuation / duration",
+          captures: [duration[0]],
+          normalized,
+        },
+      };
+    }
+
+    function updatePendingQuestion(response) {
+      pendingQuestion = /\bHÁ QUANTO TEMPO\b/u.test(response)
+        ? "duration"
+        : null;
+    }
+
+    function processMessage(message) {
+      const normalized = normalizeMessage(message);
+
+      const continuation = durationContinuation(normalized);
+      if (continuation) return continuation;
+      pendingQuestion = null;
+
+      let selected = null;
+      let selectedTokens = [];
+      let selectedPhrase = normalized;
+
+      for (const phrase of splitPhrases(normalized)) {
+        const tokens = tokenize(phrase);
+        const candidates = findCandidates(tokens);
+        for (const candidate of candidates) {
+          const match = tryCandidate(candidate, tokens);
+          if (match) {
+            selected = match;
+            selectedTokens = tokens;
+            selectedPhrase = phrase;
+            break;
+          }
+        }
+        if (selected) break;
+      }
+
+      if (selected) {
+        const { candidate, patternDefinition, patternIndex, captures } = selected;
+        remember(selected, captures);
+        const responseText = fillTemplate(
+          chooseRotating(
+            patternDefinition.responses,
+            `${candidate.rule.id}:${patternIndex}`
+          ),
+          captures
+        );
+        updatePendingQuestion(responseText);
+        return {
+          response: responseText,
+          debug: {
+            matched: true,
+            rule: `${candidate.rule.id} / decomposição ${patternIndex + 1} (rank ${candidate.rule.priority})`,
+            ruleId: candidate.rule.id,
+            decomposition: patternIndex + 1,
+            priority: candidate.rule.priority,
+            keyword: candidate.keyword,
+            captures,
+            normalized: selectedPhrase,
+            tokens: selectedTokens,
+          },
+        };
+      }
+
+      // MEMORY é uma pilha no DOCTOR: quando uma lembrança é recuperada,
+      // ela deixa de ficar disponível para a próxima resposta sem palavra-chave.
+      const lastMemory = memory.pop();
+      if (lastMemory && ruleBook.memoryTemplates.length) {
+        return {
+          response: fillTemplate(
+            chooseRotating(ruleBook.memoryTemplates, "memory"),
+            [lastMemory],
+            false
+          ),
+          debug: {
+            matched: false,
+            rule: "MEMORY",
+            captures: [lastMemory],
+            normalized,
+          },
+        };
+      }
+
+      return {
+        response: chooseRotating(fallbackResponses, "fallback"),
+        debug: { matched: false, rule: "NONE", captures: [], normalized },
+      };
+    }
+
+    function addMessage(type, text) {
+      const message = document.createElement("div");
+      message.className = `message ${type}`;
+
+      if (type === "user") {
+        const prompt = document.createElement("span");
+        prompt.className = "prompt";
+        prompt.textContent = "> ";
+        message.append(prompt, document.createTextNode(text));
+      } else {
+        const speaker = document.createElement("span");
+        speaker.className = "speaker";
+        speaker.textContent = "ELIZA: ";
+        message.append(speaker, document.createTextNode(text));
+      }
+
+      conversation.appendChild(message);
+      conversation.scrollTop = conversation.scrollHeight;
+    }
+
+    function updateDebug(debug) {
+      lastDebug = debug;
+
+      if (!debugEnabled) {
+        return;
+      }
+
+      if (!debug) {
+        debugRuleName.textContent = "Aguardando uma resposta.";
+        debugRuleMeta.replaceChildren();
+        debugRuleKeyword.textContent = "";
+        debugCaptureBlock.hidden = true;
+        return;
+      }
+
+      function renderCaptures(captures) {
+        debugCapture.replaceChildren();
+        debugCaptureCount.textContent = `${captures.length} ${captures.length === 1 ? "item" : "itens"}`;
+        debugCaptureEmpty.hidden = captures.length > 0;
+
+        for (const [index, capture] of captures.entries()) {
+          const row = document.createElement("div");
+          row.className = "debug-capture-row";
+          row.setAttribute("role", "listitem");
+
+          const captureIndex = document.createElement("span");
+          captureIndex.className = "debug-capture-index";
+          captureIndex.textContent = `$${index + 1} =`;
+
+          const captureValue = document.createElement("span");
+          captureValue.className = "debug-capture-value";
+          captureValue.textContent = `"${capture}"`;
+
+          if (!capture) captureValue.classList.add("is-empty");
+
+          row.append(captureIndex, captureValue);
+          debugCapture.append(row);
+        }
+      }
+
+      if (debug.matched) {
+        debugRuleName.textContent = debug.ruleId || debug.rule;
+        debugRuleMeta.replaceChildren();
+
+        const decomposition = document.createElement("span");
+        decomposition.className = "debug-chip";
+        decomposition.textContent = `DECOMPOSIÇÃO ${debug.decomposition}`;
+
+        const priority = document.createElement("span");
+        priority.className = "debug-chip";
+        priority.textContent = `RANK ${debug.priority}`;
+
+        debugRuleMeta.append(decomposition, priority);
+        debugRuleKeyword.textContent = debug.keyword ? `KEYWORD: ${debug.keyword}` : "";
+        debugCaptureBlock.hidden = false;
+        renderCaptures(debug.captures);
+      } else if (debug.rule === "MEMORY") {
+        debugRuleName.textContent = "MEMORY";
+        debugRuleMeta.replaceChildren();
+        debugRuleKeyword.textContent = "";
+        debugCaptureBlock.hidden = false;
+        renderCaptures(debug.captures);
+      } else {
+        debugRuleName.textContent = "NO MATCH";
+        debugRuleMeta.replaceChildren();
+        debugRuleKeyword.textContent = "FALLBACK RESPONSE";
+        debugCaptureBlock.hidden = true;
+      }
+    }
+
+    function toggleDebug() {
+      debugEnabled = !debugEnabled;
+      app.classList.toggle("debug-open", debugEnabled);
+
+      if (debugEnabled) {
+        updateDebug(lastDebug);
+      }
+
+      input.focus();
+    }
+
+    function updateCursor() {
+      inputWrap.classList.toggle("has-text", input.value.length > 0);
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const message = input.value.trim().replace(/\s+/g, " ");
+
+      if (!message) {
+        return;
+      }
+
+      input.value = "";
+      updateCursor();
+
+      if (message.toLowerCase() === "/debug") {
+        toggleDebug();
+        return;
+      }
+
+      addMessage("user", message);
+      const result = processMessage(message);
+      addMessage("eliza", result.response);
+      updateDebug(result.debug);
+      input.focus();
+    });
+
+    input.addEventListener("input", updateCursor);
+    updateCursor();
+  </script>
+</body>
+</html>

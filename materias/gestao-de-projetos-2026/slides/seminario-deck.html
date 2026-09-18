@@ -90,6 +90,22 @@ body{font-family:var(--f-sans);-webkit-font-smoothing:antialiased;text-rendering
 }
 .era-5 h1,.era-5 h2{font-weight:250; letter-spacing:-.022em}
 
+/* ---------- CRT · a tela de 1966, dentro da era do papel ---------- */
+.era-crt{
+  --bg:#050805; --fg:#b9ff9f; --dim:#6da568; --accent:#d5ffc7; --rule:#285c2d;
+  --f-body:var(--f-mono); --f-head:var(--f-mono);
+}
+.era-crt .card{background:rgba(120,255,160,.045)}
+.era-crt h2{font-weight:400; letter-spacing:0}
+.era-crt .tie{background:linear-gradient(90deg, rgba(185,255,159,.09), transparent 62%)}
+.crt-line{display:flex; gap:14px; margin-bottom:16px; line-height:1.45}
+.crt-line .who{flex:0 0 96px; color:var(--dim)}
+.crt-line.resp .who{color:var(--accent)}
+.crt-line .what{flex:1; min-width:0}
+.crt-kv{display:flex; gap:14px; margin-bottom:13px; line-height:1.4}
+.crt-kv .k{flex:0 0 118px; color:var(--dim); font-size:.78em; letter-spacing:.1em}
+.crt-kv .v{flex:1; min-width:0; color:var(--accent)}
+
 /* ---------- TRANSIÇÃO · a linha do tempo avançando ---------- */
 .era-t{
   --bg:#0E0C0B; --fg:#F7F3EC; --dim:#7E7670; --accent:#DE9E1E; --rule:#242020;
@@ -363,6 +379,36 @@ body.present #deck .page.on{display:block; margin:0 auto}
     </div>
   </div>
   </section>
+
+
+<section class="page era-crt" data-document-role="page" data-label="ELIZA — a regra por trás da resposta"
+ data-speaker-notes="45 segundos. Demo ao vivo, se estiver funcionando. O público conversa trinta segundos e acha que funciona; então aparece a regra que gerou a resposta. Esse é o momento: o efeito ELIZA e a ruptura dele, na mesma tela. Se a demo não abrir, o slide sozinho já mostra o mecanismo — não improvisar.">
+  <div class="era-tag">1966</div>
+  <div class="stack">
+    <p class="kicker">ELIZA // PATTERN MATCHING SYSTEM</p>
+    <h2 style="margin-bottom:26px">Funciona.<br>E não entende nada.</h2>
+
+    <div class="cols" style="gap:36px">
+      <div class="card" style="border-color:var(--rule)">
+        <div class="crt-line"><span class="who">ELIZA:</span><span class="what">Olá. Conte-me o que está incomodando você.</span></div>
+        <div class="crt-line"><span class="who">&gt;</span><span class="what" style="color:var(--accent)">eu estou preocupado com o projeto</span></div>
+        <div class="crt-line resp" style="margin-bottom:0"><span class="who">ELIZA:</span><span class="what">POR QUE VOCÊ ESTÁ PREOCUPADO COM O PROJETO?</span></div>
+      </div>
+      <div class="card" style="border-color:var(--rule)">
+        <p class="kicker" style="font-size:16px; margin-bottom:18px; color:var(--dim)">DEBUG</p>
+        <div class="crt-kv"><span class="k">MATCHED RULE</span><span class="v">EU ESTOU *</span></div>
+        <div class="crt-kv"><span class="k">CAPTURE</span><span class="v">$1 = "preocupado com o projeto"</span></div>
+        <div class="crt-kv" style="margin-bottom:0"><span class="k">TEMPLATE</span><span class="v">POR QUE VOCÊ ESTÁ $1 ?</span></div>
+      </div>
+    </div>
+
+    <div class="tie" style="margin-top:auto">
+      <span class="lbl">O que a demo revela</span>
+      <p>Casamento de padrões puro, sem aprendizado nenhum. A resposta não veio de compreensão —
+      veio de <b>uma regra, uma captura e um template</b>. Guardem a sensação: ela volta em 2026.</p>
+    </div>
+  </div>
+</section>
 
 <section class="page era-1" data-document-role="page" data-label="2012 — código é previsível"
  data-speaker-notes="45 segundos. Este é o slide que fecha o bloco 1 e prepara o 2. O achado de Hindle é que código é muito mais previsível que prosa — e o plugin deles no Eclipse já economizava até 61% das teclas. Cinco anos antes do Transformer. Números corrigidos: 3 a 4 bits, não 2 a 4. [FONTE NA FALA, SE PERGUNTAREM: On the Naturalness of Software [F-57]]">
@@ -749,6 +795,64 @@ body.present #deck .page.on{display:block; margin:0 auto}
     </div>
   </div>
   </section>
+
+
+<section class="page era-4" data-document-role="page" data-label="O gargalo se muda de lugar"
+ data-speaker-notes="60 segundos, e é a melhor demo do bloco. Antes de arrastar o slider, perguntar à plateia o que vai acontecer com o prazo de entrega. Todo mundo prevê que cai. Não cai. Depois arraste o segundo slider e mostre que a fila não sumiu: mudou de lugar. Números conferidos rodando o simulador, não estimados.">
+  <div class="era-tag">Simulador · 10 dias</div>
+  <div class="stack">
+    <p class="kicker">Teoria das restrições</p>
+    <h2 style="margin-bottom:8px; font-size:50px">Acelerar a implementação<br>não acelera a entrega.</h2>
+    <p class="dim wide" style="font-size:22px; max-width:none; margin-bottom:16px">Cinco vezes mais código por dia, com a mesma capacidade de revisar. Dez dias depois:</p>
+
+    <svg class="viz" viewBox="0 0 1390 172" style="margin-bottom:16px; max-width:1230px">
+      <g font-family="ui-monospace,monospace" font-size="17">
+        <rect x="0" y="34" width="214" height="86" rx="10" fill="none" stroke="var(--sand-d)" stroke-width="2"/>
+        <text x="107" y="70" text-anchor="middle" fill="var(--ink-2)" font-size="15">IMPLEMENTAÇÃO</text>
+        <text x="107" y="106" text-anchor="middle" fill="var(--ink)" font-size="34" font-weight="700">5/dia</text>
+        <path d="M228,77 L268,77" stroke="var(--ink-2)" stroke-width="2"/>
+
+        <rect x="282" y="20" width="250" height="114" rx="10" fill="rgba(163,58,42,.09)" stroke="var(--loss)" stroke-width="2.5"/>
+        <text x="407" y="54" text-anchor="middle" fill="var(--loss)" font-size="15">FILA · REVIEW</text>
+        <text x="407" y="98" text-anchor="middle" fill="var(--loss)" font-size="42" font-weight="700">40 PRs</text>
+        <path d="M546,77 L586,77" stroke="var(--ink-2)" stroke-width="2"/>
+
+        <rect x="600" y="34" width="214" height="86" rx="10" fill="none" stroke="var(--loss)" stroke-width="2.5"/>
+        <text x="707" y="70" text-anchor="middle" fill="var(--loss)" font-size="15">REVIEW</text>
+        <text x="707" y="106" text-anchor="middle" fill="var(--loss)" font-size="34" font-weight="700">1/dia</text>
+        <path d="M828,77 L868,77" stroke="var(--ink-2)" stroke-width="2"/>
+
+        <rect x="882" y="34" width="214" height="86" rx="10" fill="none" stroke="var(--sand-d)" stroke-width="2"/>
+        <text x="989" y="70" text-anchor="middle" fill="var(--ink-2)" font-size="15">TESTE</text>
+        <text x="989" y="106" text-anchor="middle" fill="var(--ink)" font-size="34" font-weight="700">3/dia</text>
+        <path d="M1110,77 L1150,77" stroke="var(--ink-2)" stroke-width="2"/>
+
+        <rect x="1164" y="34" width="214" height="86" rx="10" fill="none" stroke="var(--sand-d)" stroke-width="2"/>
+        <text x="1271" y="70" text-anchor="middle" fill="var(--ink-2)" font-size="15">RELEASE</text>
+        <text x="1271" y="106" text-anchor="middle" fill="var(--ink)" font-size="34" font-weight="700">4/dia</text>
+      </g>
+    </svg>
+
+    <div class="cols" style="gap:32px; margin-bottom:auto">
+      <div class="card" style="border-color:var(--loss); border-width:2px; padding:17px 22px">
+        <p class="kicker" style="font-size:16px; margin-bottom:8px; color:var(--loss)">IA sem adaptação</p>
+        <p style="font-size:25px; max-width:none; color:var(--fg)"><b>50 produzidos · 10 entregues.</b><br>
+        Um PR por dia sai do outro lado. Quarenta ficam esperando revisão.</p>
+      </div>
+      <div class="card" style="border-color:var(--gain); border-width:2px; padding:17px 22px">
+        <p class="kicker" style="font-size:16px; margin-bottom:8px; color:var(--gain)">Review reforçado 5×</p>
+        <p style="font-size:25px; max-width:none; color:var(--fg)"><b>50 produzidos · 30 entregues.</b><br>
+        Triplicou. E vinte passam a esperar <b>o teste</b>.</p>
+      </div>
+    </div>
+
+    <div class="tie" style="margin-top:18px">
+      <span class="lbl">O que a plateia não prevê</span>
+      <p>A fila <b>não sumiu</b>. Mudou de lugar. Aumentar capacidade fora do gargalo
+      não aumenta a vazão — só muda onde o trabalho se acumula.</p>
+    </div>
+  </div>
+</section>
 
 <section class="page era-4" data-document-role="page" data-label="Burndown × SPI e CPI"
  data-speaker-notes="60 segundos. Abrir pela pergunta clássica do EVA: cronograma atrasado com custo abaixo do previsto. O burndown registra o que a equipe DECLARA no daily; ele não distingue escrito de verificado. Os dois CPI usam a mesma fórmula, sobre a mesma sprint, no mesmo dia — só muda de onde vem o %AC. Dizer em voz alta que o gráfico é modelo ilustrativo. [O GRÁFICO É MODELO ILUSTRATIVO — DIZER ISSO EM VOZ ALTA]">

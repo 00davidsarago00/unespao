@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Gargalo</title>
+<style>
+  :root {
+    --bg: #eef1f4;
+    --card: #ffffff;
+    --ink: #1c2530;
+    --muted: #8a94a3;
+    --line: #dde3ea;
+    --accent: #2563eb;
+    --ok: #16a34a;
+    --bad: #dc2626;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 26px; background: var(--card); border-bottom: 1px solid var(--line);
+  }
+  header h1 { margin: 0; font-size: 20px; letter-spacing: .02em; }
+  .period {
+    font-size: 13px; font-weight: 800; letter-spacing: .08em;
+    background: var(--ink); color: #fff; border-radius: 20px; padding: 6px 18px;
+  }
+  main { padding: 14px 26px 16px; max-width: 1560px; margin: 0 auto; }
+  .panel {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 14px 20px; margin-bottom: 12px;
+  }
+  /* ---------- controls ---------- */
+  .controls { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; }
+  .slider-block { flex: 1 1 240px; min-width: 220px; }
+  .slider-block .top { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .slider-block .name { font-weight: 700; font-size: 15px; }
+  .slider-block .val {
+    background: var(--accent); color: #fff; border-radius: 6px;
+    padding: 1px 10px; font-size: 13px; font-weight: 700;
+  }
+  .slider-block input[type=range] { width: 100%; accent-color: var(--accent); }
+  .scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+  .presets { display: flex; gap: 8px; margin-left: auto; }
+  .presets button {
+    border: 1px solid var(--line); background: #f7f9fb; color: var(--ink);
+    border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .presets button:hover { border-color: var(--accent); color: var(--accent); }
+  .presets button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .question {
+    margin: 0 0 10px; font-size: 11px; letter-spacing: .07em;
+    font-weight: 800; color: var(--muted); text-transform: uppercase;
+  }
+  /* ---------- pipeline ---------- */
+  .pipeline { display: flex; align-items: stretch; overflow-x: auto; padding: 6px 0 2px; }
+  .stage {
+    flex: 0 0 150px; border: 2px solid var(--line); border-radius: 12px;
+    background: #fafbfc; text-align: center; padding: 16px 8px; align-self: center;
+  }
+  .stage h3 { margin: 0; font-size: 13px; letter-spacing: .04em; }
+  .stage .rate { font-size: 34px; font-weight: 800; line-height: 1.15; margin-top: 4px; }
+  .stage .rate small { display: block; font-size: 11px; font-weight: 400; color: var(--muted); }
+  .stage.bottleneck { border-color: var(--bad); background: #fef2f2; }
+  .stage.bottleneck h3 { color: var(--bad); }
+  .link { flex: 1 1 150px; min-width: 150px; display: flex; flex-direction: column; padding: 0 8px; }
+  .queue-head { text-align: center; margin-bottom: 5px; min-height: 44px; }
+  .queue-head .t { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .queue-head .n { font-size: 20px; font-weight: 800; }
+  .link.hot .queue-head .n { color: var(--bad); }
+  .queue {
+    border: 1px dashed #c3ccd7; border-radius: 10px; background: #f8fafc;
+    padding: 8px; display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start;
+    min-height: 132px; overflow: hidden;
+  }
+  .queue.hot { border: 2px solid var(--bad); background: #fef2f2; }
+  .queue.empty { min-height: 38px; align-items: center; justify-content: center; }
+  .queue .ok-flow { color: var(--muted); font-size: 12px; font-weight: 600; }
+  .chip {
+    background: #eef2ff; border: 1px solid #c7d2fe; color: #3730a3;
+    font-size: 12px; font-weight: 700; border-radius: 6px; padding: 3px 8px; white-space: nowrap;
+    animation: pop .25s ease;
+  }
+  @keyframes pop { from { transform: scale(.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes tick { from { opacity: .2; } to { opacity: 1; } }
+  .tick { animation: tick .22s ease; }
+  .more { font-size: 13px; font-weight: 800; color: var(--bad); align-self: center; }
+  .neck-flag {
+    text-align: center; font-size: 12px; font-weight: 800; letter-spacing: .1em;
+    color: var(--bad); min-height: 18px; margin-top: 5px; visibility: hidden;
+  }
+  .neck-flag.on { visibility: visible; }
+  /* ---------- causal chain ---------- */
+  .causal {
+    display: flex; align-items: center; justify-content: center; gap: 18px;
+    border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px;
+  }
+  .cnode { text-align: center; min-width: 140px; }
+  .cnode .cv { font-size: 30px; font-weight: 800; line-height: 1.1; }
+  .cnode .cv.alert { color: var(--bad); }
+  .cnode .ck { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .cnode .cx { font-size: 12px; font-weight: 800; min-height: 16px; color: var(--muted); }
+  .cnode .cx.garg { color: var(--bad); letter-spacing: .1em; font-size: 10px; }
+  .carr { font-size: 26px; color: var(--muted); font-weight: 800; }
+  /* ---------- message ---------- */
+  #msg { padding: 2px 4px; }
+  #msg .title { font-size: 19px; font-weight: 800; }
+  #msg .sub { font-size: 14px; color: var(--muted); margin-top: 2px; }
+  #msg.ok .title { color: var(--ok); }
+  #msg.warn .title { color: var(--ink); }
+  @media (max-width: 640px) { main { padding: 10px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SIMULADOR DE GARGALO</h1>
+  <div class="period">PERÍODO: 10 DIAS</div>
+</header>
+
+<main>
+  <!-- PIPELINE -->
+  <section class="panel">
+    <div class="pipeline">
+      <div class="stage" id="st-impl">
+        <h3>IMPLEMENTAÇÃO</h3>
+        <div class="rate"><span id="rate-impl">1</span><small>/dia</small></div>
+      </div>
+
+      <div class="link" id="link-review">
+        <div class="queue-head"><div class="t">Fila · Review</div><div class="n" id="n-qr">0 PRs</div></div>
+        <div class="queue" id="q-review"></div>
+        <div class="neck-flag" id="f-review">↑ GARGALO</div>
+      </div>
+
+      <div class="stage" id="st-review">
+        <h3>REVIEW</h3>
+        <div class="rate"><span id="rate-review">1</span><small>/dia</small></div>
+      </div>
+
+      <div class="link" id="link-test">
+        <div class="queue-head"><div class="t">Fila · Teste</div><div class="n" id="n-qt">0 PRs</div></div>
+        <div class="queue" id="q-test"></div>
+        <div class="neck-flag" id="f-test">↑ GARGALO</div>
+      </div>
+
+      <div class="stage" id="st-test">
+        <h3>TESTE</h3>
+        <div class="rate"><span id="rate-test">3</span><small>/dia</small></div>
+      </div>
+
+      <div class="link" id="link-release">
+        <div class="queue-head"><div class="t">Fila · Release</div><div class="n" id="n-ql">0 PRs</div></div>
+        <div class="queue" id="q-release"></div>
+        <div class="neck-flag" id="f-release">↑ GARGALO</div>
+      </div>
+
+      <div class="stage" id="st-release">
+        <h3>RELEASE</h3>
+        <div class="rate"><span id="rate-release">4</span><small>/dia</small></div>
+      </div>
+    </div>
+    <div class="causal">
+      <div class="cnode"><div class="cv" id="c-prod">10</div><div class="ck">produzidos</div><div class="cx" id="c-prod-x">1 PR/dia</div></div>
+      <div class="carr">→</div>
+      <div class="cnode"><div class="cv" id="c-mid">0</div><div class="ck" id="c-mid-k">em espera</div><div class="cx" id="c-mid-x"></div></div>
+      <div class="carr">→</div>
+      <div class="cnode"><div class="cv" id="c-deliv">10</div><div class="ck">entregues</div><div class="cx" id="c-deliv-x">1 PR/dia</div></div>
+    </div>
+  </section>
+
+  <!-- RESULTADO -->
+  <section class="panel">
+    <div id="msg" class="ok">
+      <div class="title">Fluxo equilibrado.</div>
+      <div class="sub">Tudo que é produzido é entregue.</div>
+    </div>
+  </section>
+
+  <!-- CONTROLES -->
+  <section class="panel">
+    <div class="question">Se esse time trabalhasse assim por 10 dias, o que aconteceria?</div>
+    <div class="controls">
+      <div class="slider-block">
+        <div class="top"><span class="name">Implementação</span><span class="val" id="impl-val">1x</span></div>
+        <input type="range" id="impl" min="1" max="5" step="1" value="1">
+        <div class="scale"><span>1x</span><span>2x</span><span>3x</span><span>4x</span><span>5x</span></div>
+      </div>
+      <div class="slider-block">
+        <div class="top"><span class="name">Review</span><span class="val" id="rev-val">1x</span></div>
+        <input type="range" id="rev" min="1" max="5" step="1" value="1">
+        <div class="scale"><span>1x</span><span>2x</span><span>3x</span><span>4x</span><span>5x</span></div>
+      </div>
+      <div class="presets">
+        <button id="p-base" class="active">Sem IA</button>
+        <button id="p-ai">IA sem adaptação</button>
+        <button id="p-adapt">Review reforçado</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+"use strict";
+/* =====================================================================
+ * SIMULADOR DE GARGALO — projeção determinística de 10 dias.
+ * Sem simulação contínua, sem histórico: cada mudança nos sliders
+ * responde "se o time trabalhasse assim por 10 dias, o que aconteceria?"
+ *
+ * CAPACIDADES (PRs/dia) — parâmetros didáticos, editáveis aqui:
+ *   Implementação: slider 1..5
+ *   Review:        slider 1..5
+ *   Teste:         fixo em 3/dia (TEST_CAP)
+ *   Release:       fixo em 4/dia (RELEASE_CAP)
+ * Para alterar Teste/Release, mude as constantes abaixo (o HTML é
+ * preenchido automaticamente a partir delas).
+ * ===================================================================== */
+var DAYS = 10;
+var TEST_CAP = 3;
+var RELEASE_CAP = 4;
+var MAX_CHIPS = 10;   // máx. de cartões PR por fila; o resto vira "+N"
+
+var state = { impl: 1, rev: 1 };
+
+/* Projeção fechada de 10 dias, fácil de conferir mentalmente:
+ *   produced = implementationCapacity * 10
+ *   reviewed = min(produced, reviewCapacity * 10)
+ *   tested   = min(reviewed,  testCapacity * 10)
+ *   released = min(tested,    releaseCapacity * 10)
+ *   queueReview = produced - reviewed
+ *   queueTest   = reviewed - tested
+ *   queueRelease = tested - released
+ *   delivered = released
+ *   waiting = queueReview + queueTest + queueRelease (= produced - delivered) */
+function project(impl, rev) {
+  var test = TEST_CAP, rel = RELEASE_CAP;
+  var produced = impl * DAYS;
+  var reviewed = Math.min(produced, rev * DAYS);
+  var tested = Math.min(reviewed, test * DAYS);
+  var released = Math.min(tested, rel * DAYS);
+  var qRev = produced - reviewed;
+  var qTest = reviewed - tested;
+  var qRel = tested - released;
+  return {
+    impl: impl, rev: rev, test: test, rel: rel,
+    reviewed: reviewed, tested: tested, released: released,
+    qRev: qRev, qTest: qTest, qRel: qRel,
+    produced: produced, delivered: released,
+    waiting: qRev + qTest + qRel,
+    bottleneck: detectBottleneck(rev, test, rel, qRev + qTest + qRel)
+  };
+}
+
+/* Gargalo = etapa de Review/Teste/Release com a menor capacidade efetiva
+ * dentro do fluxo necessário; empate resolve para a etapa mais à esquerda.
+ * Sem fila (toda a produção atravessa o sistema), sem gargalo marcado:
+ * fluxo equilibrado. */
+function detectBottleneck(rev, test, rel, waiting) {
+  if (waiting === 0) { return null; }
+  if (rev <= test && rev <= rel) { return "REVIEW"; }
+  if (test <= rel) { return "TESTE"; }
+  return "RELEASE";
+}
+
+function $(id) { return document.getElementById(id); }
+
+function stageName(n) {
+  if (n === "REVIEW") { return "Review"; }
+  if (n === "TESTE") { return "Teste"; }
+  return "Release";
+}
+
+/* Microtransição de 220 ms nos números: reaplicada a cada render para
+ * sinalizar que o cenário mudou. Sem timers, sem simulação temporal. */
+function pulse(id) {
+  var el = $(id);
+  el.classList.remove("tick");
+  void el.offsetWidth;
+  el.classList.add("tick");
+}
+
+/* Renderiza até MAX_CHIPS cartões; o restante vira "+N". Fila zerada
+ * vira uma faixa compacta ("✓ sem espera") em vez de um retângulo vazio. */
+function renderQueue(elId, count, startId) {
+  var el = $(elId);
+  if (count === 0) {
+    el.innerHTML = '<span class="ok-flow">✓ sem espera</span>';
+    el.classList.add("empty");
+    el.classList.remove("hot");
+    return;
+  }
+  var html = "", i, lim = Math.min(MAX_CHIPS, count);
+  for (i = 0; i < lim; i++) {
+    var id = startId + i;
+    html += '<span class="chip">PR #' + (id < 10 ? "0" + id : id) + "</span>";
+  }
+  if (count > MAX_CHIPS) { html += '<span class="more">+' + (count - MAX_CHIPS) + "</span>"; }
+  el.innerHTML = html;
+  el.classList.remove("empty");
+  el.classList.toggle("hot", count >= 10);
+}
+
+function render() {
+  var r = project(state.impl, state.rev);
+
+  $("rate-impl").textContent = r.impl;
+  $("rate-review").textContent = r.rev;
+  $("rate-test").textContent = r.test;
+  $("rate-release").textContent = r.rel;
+  $("impl-val").textContent = r.impl + "x";
+  $("rev-val").textContent = r.rev + "x";
+
+  $("n-qr").textContent = r.qRev + " PRs";
+  $("n-qt").textContent = r.qTest + " PRs";
+  $("n-ql").textContent = r.qRel + " PRs";
+  // Numeração dos PRs apenas ilustrativa, reiniciada a cada cálculo.
+  renderQueue("q-review", r.qRev, 1);
+  renderQueue("q-test", r.qTest, 1 + r.qRev);
+  renderQueue("q-release", r.qRel, 1 + r.qRev + r.qTest);
+  $("link-review").classList.toggle("hot", r.qRev >= 10);
+  $("link-test").classList.toggle("hot", r.qTest >= 10);
+  $("link-release").classList.toggle("hot", r.qRel >= 10);
+
+  // Linha causal: produzidos → esperando → entregues (5 PR/dia → 1 PR/dia).
+  $("c-prod").textContent = r.produced;
+  $("c-prod-x").textContent = r.impl + " PR/dia";
+  $("c-mid").textContent = r.waiting;
+  $("c-deliv").textContent = r.delivered;
+  $("c-deliv-x").textContent = (r.delivered / DAYS) + " PR/dia";
+  if (r.bottleneck === null) {
+    $("c-mid-k").textContent = "em espera";
+    $("c-mid-x").textContent = "";
+    $("c-mid-x").classList.remove("garg");
+    $("c-mid").classList.remove("alert");
+  } else {
+    $("c-mid-k").textContent = "esperando " + stageName(r.bottleneck);
+    $("c-mid-x").textContent = "GARGALO";
+    $("c-mid-x").classList.add("garg");
+    $("c-mid").classList.add("alert");
+  }
+
+  var pulsed = ["c-prod", "c-mid", "c-deliv"];
+  for (var p = 0; p < pulsed.length; p++) { pulse(pulsed[p]); }
+
+  var stages = ["st-review", "st-test", "st-release"];
+  for (var j = 0; j < stages.length; j++) { $(stages[j]).classList.remove("bottleneck"); }
+  var flags = ["f-review", "f-test", "f-release"];
+  for (var k = 0; k < flags.length; k++) { $(flags[k]).classList.remove("on"); }
+
+  var msg = $("msg");
+  var titleEl = $("msg").querySelector(".title");
+  var subEl = $("msg").querySelector(".sub");
+  if (r.bottleneck === null) {
+    msg.className = "ok";
+    titleEl.textContent = "Fluxo equilibrado.";
+    subEl.textContent = "Tudo que é produzido consegue ser entregue.";
+  } else {
+    msg.className = "warn";
+    if (r.bottleneck === "REVIEW") {
+      $("st-review").classList.add("bottleneck");
+      $("f-review").classList.add("on");
+      titleEl.textContent =
+        "A implementação produz " + r.impl + " PR/dia, mas o sistema entrega apenas " + (r.delivered / DAYS) + " PR/dia.";
+      subEl.textContent = r.qRev + " PRs ficam esperando Review.";
+    } else if (r.bottleneck === "TESTE") {
+      $("st-test").classList.add("bottleneck");
+      $("f-test").classList.add("on");
+      if (r.rev >= r.impl) {
+        titleEl.textContent = "Review deixou de ser o gargalo.";
+        subEl.textContent = "O gargalo se moveu para Teste.";
+      } else {
+        titleEl.textContent = "O gargalo se moveu para Teste.";
+        subEl.textContent =
+          "De " + r.produced + " produzidos, " + r.delivered + " entregues · " + r.waiting + " em espera.";
+      }
+    } else {
+      $("st-release").classList.add("bottleneck");
+      $("f-release").classList.add("on");
+      titleEl.textContent = "O gargalo se moveu para Release.";
+      subEl.textContent =
+        "De " + r.produced + " produzidos, " + r.delivered + " entregues · " + r.waiting + " em espera.";
+    }
+  }
+}
+
+function clearPresetActive() {
+  var ids = ["p-base", "p-ai", "p-adapt"];
+  for (var j = 0; j < ids.length; j++) { $(ids[j]).classList.remove("active"); }
+}
+function applyPreset(impl, rev, btnId) {
+  state.impl = impl;
+  state.rev = rev;
+  $("impl").value = impl;
+  $("rev").value = rev;
+  render();
+  clearPresetActive();
+  $(btnId).classList.add("active");
+}
+
+$("impl").addEventListener("input", function (e) {
+  state.impl = parseInt(e.target.value, 10);
+  render();
+  clearPresetActive();
+});
+$("rev").addEventListener("input", function (e) {
+  state.rev = parseInt(e.target.value, 10);
+  render();
+  clearPresetActive();
+});
+$("p-base").addEventListener("click", function () { applyPreset(1, 1, "p-base"); });
+$("p-ai").addEventListener("click", function () { applyPreset(5, 1, "p-ai"); });
+$("p-adapt").addEventListener("click", function () { applyPreset(5, 5, "p-adapt"); });
+
+render();
+</script>
+</body>
+</html>
