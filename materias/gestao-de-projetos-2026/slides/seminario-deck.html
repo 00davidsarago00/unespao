@@ -389,6 +389,7 @@ body.present #deck .page.on{display:block; margin:0 auto}
     <h2 style="margin-bottom:16px; font-size:46px">Funciona.<br>E não entende nada.</h2>
 
     <div class="slide-live demo-eliza">
+<div class="demo-hint">clique e digite · Esc devolve as setas ao deck</div>
 <main class="crt-shell">
     <section class="terminal" id="app" aria-label="Demonstração da ELIZA">
       <header class="terminal-header">
@@ -854,6 +855,7 @@ body.present #deck .page.on{display:block; margin:0 auto}
     <h2 style="margin-bottom:10px; font-size:44px">Acelerar a implementação<br>não acelera a entrega.</h2>
 
     <div class="slide-live demo-gargalo">
+<div class="demo-hint">arraste os controles · Esc devolve as setas ao deck</div>
 <header>
   <h1>SIMULADOR DE GARGALO</h1>
   <div class="period">PERÍODO: 10 DIAS</div>
@@ -1333,12 +1335,31 @@ body.present #deck .page.on{display:block; margin:0 auto}
   document.getElementById('btnPresent').addEventListener('click',toggle);
   document.getElementById('btnNext').addEventListener('click',function(){show(i+1)});
   document.getElementById('btnPrev').addEventListener('click',function(){show(i-1)});
+  // Dentro de uma demo o teclado é da demo, não da navegação. Sem esta
+  // guarda o deck engolia as setas do slider e as letras digitadas na
+  // ELIZA — inclusive o "p", que ligava o modo apresentação.
+  function inDemo(t){ return !!(t && t.closest && t.closest('.slide-live')); }
+  function isField(t){
+    if(!t) return false;
+    var tag=(t.tagName||'').toLowerCase();
+    return tag==='input'||tag==='textarea'||tag==='select'||tag==='button'||t.isContentEditable===true;
+  }
   window.addEventListener('keydown',function(e){
+    if(inDemo(e.target)||isField(e.target)){
+      if(e.key==='Escape'){ e.preventDefault(); if(e.target.blur) e.target.blur(); }
+      return;
+    }
     if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();show(i+1)}
     else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1)}
     else if(e.key==='p'||e.key==='P'||e.key==='f'||e.key==='F'){toggle()}
     else if(e.key==='Escape'&&present){toggle()}
   });
+
+  // Clicar fora da demo devolve o teclado à navegação, sem precisar de Esc.
+  document.addEventListener('mousedown',function(e){
+    var a=document.activeElement;
+    if(a && inDemo(a) && !inDemo(e.target) && a.blur) a.blur();
+  },true);
   window.addEventListener('resize',fit);
   fit(); show(0);
 })();
@@ -1351,6 +1372,12 @@ body.present #deck .page.on{display:block; margin:0 auto}
    no próprio contêiner. Gerado a partir dos index.html de cada demo.
    ============================================================== */
 .slide-poster{display:none}
+.demo-hint{
+  position:absolute; right:12px; bottom:9px; z-index:6; pointer-events:none;
+  font-family:var(--f-mono); font-size:12.5px; letter-spacing:.05em; opacity:.6;
+}
+.demo-eliza .demo-hint{color:#8fd38a}
+.demo-gargalo .demo-hint{color:#8a94a3}
 body.baking .slide-poster{display:block}
 body.baking .slide-live{display:none}
 
@@ -1838,11 +1865,19 @@ body.baking .slide-live{display:none}
   font-size:13.5px; height:404px; min-height:404px; max-height:404px; flex:0 0 404px;
 }
 .demo-gargalo header{display:none}
-.demo-gargalo main{padding:12px 16px}
-.demo-gargalo .panel{padding:10px 14px; margin-bottom:8px; border-radius:10px}
-.demo-gargalo .stage{flex:0 0 118px; padding:10px 6px}
-.demo-gargalo .stage .rate{font-size:26px}
-.demo-gargalo .queue{min-height:84px}
+.demo-gargalo main{padding:8px 14px}
+.demo-gargalo .panel{padding:8px 12px; margin-bottom:6px; border-radius:10px}
+.demo-gargalo .stage{flex:0 0 118px; padding:8px 6px}
+.demo-gargalo .stage .rate{font-size:24px}
+/* altura travada: a fila não pode mais empurrar os controles para fora */
+.demo-gargalo .queue{height:58px; min-height:58px; max-height:58px; padding:6px; gap:4px}
+.demo-gargalo .queue.empty{height:58px; min-height:58px}
+.demo-gargalo .queue-head{min-height:34px; margin-bottom:3px}
+.demo-gargalo .queue-head .n{font-size:17px}
+.demo-gargalo .pipeline{padding:2px 0 0}
+.demo-gargalo .neck-flag{min-height:14px; margin-top:2px; font-size:11px}
+.demo-gargalo .slider-block .scale{display:none}
+.demo-gargalo .controls{gap:22px}
 .demo-gargalo .cnode .cv{font-size:24px}
 .demo-gargalo .causal{margin-top:6px; padding-top:6px; gap:12px}
 .demo-gargalo #msg .title{font-size:15px}
