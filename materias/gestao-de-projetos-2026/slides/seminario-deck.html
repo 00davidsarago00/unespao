@@ -386,8 +386,56 @@ body.present #deck .page.on{display:block; margin:0 auto}
   <div class="era-tag">1966</div>
   <div class="stack">
     <p class="kicker">ELIZA // PATTERN MATCHING SYSTEM</p>
-    <h2 style="margin-bottom:26px">Funciona.<br>E não entende nada.</h2>
+    <h2 style="margin-bottom:16px; font-size:46px">Funciona.<br>E não entende nada.</h2>
 
+    <div class="slide-live demo-eliza">
+<main class="crt-shell">
+    <section class="terminal" id="app" aria-label="Demonstração da ELIZA">
+      <header class="terminal-header">
+        <h1>ELIZA // 1966</h1>
+        <span>PATTERN MATCHING SYSTEM</span>
+      </header>
+
+      <div class="workspace">
+        <section class="terminal-pane">
+          <div class="conversation" id="conversation" aria-live="polite">
+            <div class="message eliza">
+              <span class="speaker">ELIZA: </span>Olá. Conte-me o que está incomodando você.
+            </div>
+          </div>
+
+          <form class="input-row" id="message-form">
+            <span class="prompt">&gt;</span>
+            <span class="input-wrap" id="input-wrap">
+              <input id="message-input" type="text" autocomplete="off" spellcheck="false" aria-label="Mensagem para ELIZA" autofocus>
+            </span>
+          </form>
+        </section>
+
+        <aside class="debug-panel" aria-live="polite" aria-label="Debugger">
+          <h2>DEBUG</h2>
+          <section class="debug-section">
+            <p class="debug-label">MATCHED RULE</p>
+            <div class="debug-rule-value" id="debug-rule">
+              <span class="debug-rule-name" id="debug-rule-name">Aguardando uma resposta.</span>
+              <span class="debug-rule-meta" id="debug-rule-meta"></span>
+              <span class="debug-rule-keyword" id="debug-rule-keyword"></span>
+            </div>
+          </section>
+          <section class="debug-section" id="debug-capture-block">
+            <p class="debug-label">
+              <span>CAPTURE</span>
+              <span class="debug-count" id="debug-capture-count"></span>
+            </p>
+            <div class="debug-capture-list" id="debug-capture" role="list"></div>
+            <p class="debug-empty-state" id="debug-capture-empty">Nenhuma captura.</p>
+          </section>
+        </aside>
+      </div>
+    </section>
+  </main>
+    </div>
+    <div class="slide-poster">
     <div class="cols" style="gap:36px">
       <div class="card" style="border-color:var(--rule)">
         <div class="crt-line"><span class="who">ELIZA:</span><span class="what">Olá. Conte-me o que está incomodando você.</span></div>
@@ -396,16 +444,17 @@ body.present #deck .page.on{display:block; margin:0 auto}
       </div>
       <div class="card" style="border-color:var(--rule)">
         <p class="kicker" style="font-size:16px; margin-bottom:18px; color:var(--dim)">DEBUG</p>
-        <div class="crt-kv"><span class="k">MATCHED RULE</span><span class="v">EU ESTOU *</span></div>
-        <div class="crt-kv"><span class="k">CAPTURE</span><span class="v">$1 = "preocupado com o projeto"</span></div>
-        <div class="crt-kv" style="margin-bottom:0"><span class="k">TEMPLATE</span><span class="v">POR QUE VOCÊ ESTÁ $1 ?</span></div>
+        <div class="crt-kv"><span class="k">MATCHED RULE</span><span class="v">eu-estou · decomposição 1</span></div>
+        <div class="crt-kv"><span class="k">CAPTURE</span><span class="v">$4 = "PREOCUPADO COM O PROJETO"</span></div>
+        <div class="crt-kv" style="margin-bottom:0"><span class="k">TEMPLATE</span><span class="v">POR QUE VOCÊ ESTÁ $4?</span></div>
       </div>
+    </div>
     </div>
 
     <div class="tie" style="margin-top:auto">
       <span class="lbl">O que a demo revela</span>
-      <p>Casamento de padrões puro, sem aprendizado nenhum. A resposta não veio de compreensão —
-      veio de <b>uma regra, uma captura e um template</b>. Guardem a sensação: ela volta em 2026.</p>
+      <p style="font-size:24px">Sem aprendizado nenhum. A resposta veio de <b>uma regra, uma captura
+      e um template</b> — e ainda assim convence.</p>
     </div>
   </div>
 </section>
@@ -802,9 +851,97 @@ body.present #deck .page.on{display:block; margin:0 auto}
   <div class="era-tag">Simulador · 10 dias</div>
   <div class="stack">
     <p class="kicker">Teoria das restrições</p>
-    <h2 style="margin-bottom:8px; font-size:50px">Acelerar a implementação<br>não acelera a entrega.</h2>
-    <p class="dim wide" style="font-size:22px; max-width:none; margin-bottom:16px">Cinco vezes mais código por dia, com a mesma capacidade de revisar. Dez dias depois:</p>
+    <h2 style="margin-bottom:10px; font-size:44px">Acelerar a implementação<br>não acelera a entrega.</h2>
 
+    <div class="slide-live demo-gargalo">
+<header>
+  <h1>SIMULADOR DE GARGALO</h1>
+  <div class="period">PERÍODO: 10 DIAS</div>
+</header>
+
+<main>
+  <!-- PIPELINE -->
+  <section class="panel">
+    <div class="pipeline">
+      <div class="stage" id="st-impl">
+        <h3>IMPLEMENTAÇÃO</h3>
+        <div class="rate"><span id="rate-impl">1</span><small>/dia</small></div>
+      </div>
+
+      <div class="link" id="link-review">
+        <div class="queue-head"><div class="t">Fila · Review</div><div class="n" id="n-qr">0 PRs</div></div>
+        <div class="queue" id="q-review"></div>
+        <div class="neck-flag" id="f-review">↑ GARGALO</div>
+      </div>
+
+      <div class="stage" id="st-review">
+        <h3>REVIEW</h3>
+        <div class="rate"><span id="rate-review">1</span><small>/dia</small></div>
+      </div>
+
+      <div class="link" id="link-test">
+        <div class="queue-head"><div class="t">Fila · Teste</div><div class="n" id="n-qt">0 PRs</div></div>
+        <div class="queue" id="q-test"></div>
+        <div class="neck-flag" id="f-test">↑ GARGALO</div>
+      </div>
+
+      <div class="stage" id="st-test">
+        <h3>TESTE</h3>
+        <div class="rate"><span id="rate-test">3</span><small>/dia</small></div>
+      </div>
+
+      <div class="link" id="link-release">
+        <div class="queue-head"><div class="t">Fila · Release</div><div class="n" id="n-ql">0 PRs</div></div>
+        <div class="queue" id="q-release"></div>
+        <div class="neck-flag" id="f-release">↑ GARGALO</div>
+      </div>
+
+      <div class="stage" id="st-release">
+        <h3>RELEASE</h3>
+        <div class="rate"><span id="rate-release">4</span><small>/dia</small></div>
+      </div>
+    </div>
+    <div class="causal">
+      <div class="cnode"><div class="cv" id="c-prod">10</div><div class="ck">produzidos</div><div class="cx" id="c-prod-x">1 PR/dia</div></div>
+      <div class="carr">→</div>
+      <div class="cnode"><div class="cv" id="c-mid">0</div><div class="ck" id="c-mid-k">em espera</div><div class="cx" id="c-mid-x"></div></div>
+      <div class="carr">→</div>
+      <div class="cnode"><div class="cv" id="c-deliv">10</div><div class="ck">entregues</div><div class="cx" id="c-deliv-x">1 PR/dia</div></div>
+    </div>
+  </section>
+
+  <!-- RESULTADO -->
+  <section class="panel">
+    <div id="msg" class="ok">
+      <div class="title">Fluxo equilibrado.</div>
+      <div class="sub">Tudo que é produzido é entregue.</div>
+    </div>
+  </section>
+
+  <!-- CONTROLES -->
+  <section class="panel">
+    <div class="question">Se esse time trabalhasse assim por 10 dias, o que aconteceria?</div>
+    <div class="controls">
+      <div class="slider-block">
+        <div class="top"><span class="name">Implementação</span><span class="val" id="impl-val">1x</span></div>
+        <input type="range" id="impl" min="1" max="5" step="1" value="1">
+        <div class="scale"><span>1x</span><span>2x</span><span>3x</span><span>4x</span><span>5x</span></div>
+      </div>
+      <div class="slider-block">
+        <div class="top"><span class="name">Review</span><span class="val" id="rev-val">1x</span></div>
+        <input type="range" id="rev" min="1" max="5" step="1" value="1">
+        <div class="scale"><span>1x</span><span>2x</span><span>3x</span><span>4x</span><span>5x</span></div>
+      </div>
+      <div class="presets">
+        <button id="p-base" class="active">Sem IA</button>
+        <button id="p-ai">IA sem adaptação</button>
+        <button id="p-adapt">Review reforçado</button>
+      </div>
+    </div>
+  </section>
+</main>
+    </div>
+    <div class="slide-poster">
     <svg class="viz" viewBox="0 0 1390 172" style="margin-bottom:16px; max-width:1230px">
       <g font-family="ui-monospace,monospace" font-size="17">
         <rect x="0" y="34" width="214" height="86" rx="10" fill="none" stroke="var(--sand-d)" stroke-width="2"/>
@@ -845,11 +982,12 @@ body.present #deck .page.on{display:block; margin:0 auto}
         Triplicou. E vinte passam a esperar <b>o teste</b>.</p>
       </div>
     </div>
+    </div>
 
     <div class="tie" style="margin-top:18px">
       <span class="lbl">O que a plateia não prevê</span>
-      <p>A fila <b>não sumiu</b>. Mudou de lugar. Aumentar capacidade fora do gargalo
-      não aumenta a vazão — só muda onde o trabalho se acumula.</p>
+      <p style="font-size:25px">A fila <b>não sumiu</b>. Mudou de lugar. Capacidade fora do gargalo
+      não vira vazão.</p>
     </div>
   </div>
 </section>
@@ -1205,5 +1343,1607 @@ body.present #deck .page.on{display:block; margin:0 auto}
   fit(); show(0);
 })();
 </script>
+
+<style>
+/* ======================= demos embutidas =======================
+   CSS das duas demos, com cada seletor prefixado pelo contêiner para
+   não vazar no deck. As variáveis que estavam em :root passam a viver
+   no próprio contêiner. Gerado a partir dos index.html de cada demo.
+   ============================================================== */
+.slide-poster{display:none}
+body.baking .slide-poster{display:block}
+body.baking .slide-live{display:none}
+
+.demo-eliza,.demo-gargalo{position:relative; overflow:hidden; border-radius:12px}
+.demo-eliza{height:452px; border:1px solid #285c2d}
+.demo-gargalo{height:430px; border:1px solid var(--sand-d); background:#eef1f4}
+
+.demo-eliza{
+      --bg: #050805;
+      --panel: #071007;
+      --phosphor: #b9ff9f;
+      --bright: #d5ffc7;
+      --dim: #6da568;
+      --line: #285c2d;
+      --faint-line: rgba(96, 170, 91, 0.18);
+    }
+.demo-eliza *{
+      box-sizing: border-box;
+    }
+.demo-eliza, .demo-eliza{
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg);
+    }
+.demo-eliza{
+      overflow: hidden;
+      color: var(--phosphor);
+      font-family: "Courier New", Courier, monospace;
+      font-size: clamp(16px, 1.5vw, 23px);
+    }
+.demo-eliza /* A camada usa apenas linhas horizontais muito discretas para sugerir um CRT. */
+    body::before{
+      position: fixed;
+      z-index: 10;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      opacity: 0.055;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 3px,
+        rgba(180, 255, 160, 0.5) 4px
+      );
+    }
+.demo-eliza .crt-shell{
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      padding: clamp(12px, 2.5vw, 36px);
+      animation: crt-flicker 7s infinite steps(1);
+    }
+.demo-eliza .terminal{
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+.demo-eliza .terminal-header{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 17px clamp(17px, 2.4vw, 34px) 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--bright);
+      letter-spacing: 0.04em;
+    }
+.demo-eliza .terminal-header h1{
+      margin: 0;
+      font-size: 1.1em;
+      font-weight: normal;
+    }
+.demo-eliza .terminal-header span{
+      color: var(--dim);
+      font-size: 0.62em;
+      letter-spacing: 0.14em;
+      white-space: nowrap;
+    }
+.demo-eliza .workspace{
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+.demo-eliza .terminal-pane{
+      display: flex;
+      flex: 1 1 100%;
+      min-width: 0;
+      min-height: 0;
+      flex-direction: column;
+      transition: flex-basis 260ms ease;
+    }
+.demo-eliza .debug-open .terminal-pane{
+      flex-basis: 66%;
+    }
+.demo-eliza .conversation{
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: clamp(23px, 4vh, 48px) clamp(17px, 3vw, 44px) 22px;
+      scrollbar-color: var(--line) var(--panel);
+      scrollbar-width: thin;
+    }
+.demo-eliza .message{
+      max-width: 900px;
+      margin: 0 0 27px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+      animation: print-in 130ms ease-out;
+    }
+.demo-eliza .message.user{
+      color: var(--bright);
+    }
+.demo-eliza .message.eliza{
+      color: var(--phosphor);
+    }
+.demo-eliza .prompt, .demo-eliza .speaker{
+      color: var(--dim);
+    }
+.demo-eliza .speaker{
+      margin-right: 0.7em;
+      color: var(--bright);
+    }
+.demo-eliza .input-row{
+      display: flex;
+      flex: 0 0 auto;
+      align-items: baseline;
+      padding: 10px clamp(17px, 3vw, 44px) 24px;
+      color: var(--bright);
+    }
+.demo-eliza .input-row .prompt{
+      flex: 0 0 auto;
+      margin-right: 0.7em;
+      color: var(--bright);
+    }
+.demo-eliza .input-wrap{
+      position: relative;
+      display: flex;
+      flex: 1;
+      min-width: 0;
+    }
+.demo-eliza .input-wrap::after{
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      content: "_";
+      color: var(--bright);
+      animation: cursor-blink 1s steps(1) infinite;
+    }
+.demo-eliza .input-wrap.has-text::after{
+      display: none;
+    }
+.demo-eliza #message-input{
+      width: 100%;
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      color: var(--bright);
+      background: transparent;
+      font: inherit;
+      line-height: 1.5;
+      caret-color: var(--bright);
+    }
+.demo-eliza #message-input::selection{
+      color: var(--bg);
+      background: var(--bright);
+    }
+.demo-eliza .debug-panel{
+      flex: 0 0 0;
+      max-width: 0;
+      min-width: 0;
+      padding: 0;
+      overflow: auto;
+      border-left: 0 solid var(--line);
+      color: var(--phosphor);
+      opacity: 0;
+      transform: translateX(24px);
+      transition: flex-basis 260ms ease, max-width 260ms ease, padding 260ms ease,
+        opacity 180ms ease, transform 260ms ease, border-left-width 260ms ease;
+    }
+.demo-eliza .debug-open .debug-panel{
+      flex-basis: 34%;
+      max-width: 34%;
+      padding: 22px clamp(17px, 2.4vw, 34px);
+      border-left-width: 1px;
+      opacity: 1;
+      transform: translateX(0);
+    }
+.demo-eliza .debug-panel h2{
+      margin: 0 0 30px;
+      color: var(--bright);
+      font-size: 1em;
+      font-weight: normal;
+      letter-spacing: 0.06em;
+    }
+.demo-eliza .debug-section{
+      margin-bottom: 30px;
+    }
+.demo-eliza .debug-label{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 10px;
+      color: var(--dim);
+      font-size: 0.72em;
+      letter-spacing: 0.09em;
+    }
+.demo-eliza .debug-count{
+      color: var(--dim);
+      font-size: 0.86em;
+      letter-spacing: 0;
+    }
+.demo-eliza .debug-rule-value{
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      min-width: 0;
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      background: rgba(16, 48, 19, 0.28);
+      line-height: 1.35;
+    }
+.demo-eliza .debug-rule-name{
+      color: var(--bright);
+      overflow-wrap: anywhere;
+    }
+.demo-eliza .debug-rule-meta{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+.demo-eliza .debug-chip{
+      padding: 4px 7px;
+      border: 1px solid var(--line);
+      color: var(--phosphor);
+      font-size: 0.66em;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+.demo-eliza .debug-rule-keyword{
+      color: var(--dim);
+      font-size: 0.7em;
+      overflow-wrap: anywhere;
+    }
+.demo-eliza .debug-capture-list{
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+.demo-eliza .debug-capture-row{
+      display: grid;
+      grid-template-columns: 3.5em minmax(0, 1fr);
+      gap: 10px;
+      align-items: baseline;
+      min-width: 0;
+      padding: 9px 11px;
+      border-bottom: 1px solid var(--faint-line);
+      line-height: 1.35;
+    }
+.demo-eliza .debug-capture-row:last-child{
+      border-bottom: 0;
+    }
+.demo-eliza .debug-capture-index{
+      color: var(--dim);
+    }
+.demo-eliza .debug-capture-value{
+      min-width: 0;
+      color: var(--bright);
+      overflow-wrap: anywhere;
+    }
+.demo-eliza .debug-capture-value.is-empty{
+      color: var(--dim);
+    }
+.demo-eliza .debug-empty-state{
+      margin: 0;
+      padding: 11px;
+      border: 1px solid var(--faint-line);
+      color: var(--dim);
+      font-size: 0.78em;
+    }
+@keyframes cursor-blink{
+      0%,
+      48% {
+        opacity: 1;
+      }
+      49%,
+      100% {
+        opacity: 0;
+      }
+    }
+@keyframes print-in{
+      from {
+        opacity: 0;
+        transform: translateY(3px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+@keyframes crt-flicker{
+      0%,
+      94%,
+      96%,
+      100% {
+        opacity: 1;
+      }
+      95% {
+        opacity: 0.985;
+      }
+    }
+@media (max-width: 780px){.demo-eliza{
+        font-size: 16px;
+      }
+.demo-eliza .crt-shell{
+        padding: 10px;
+      }
+.demo-eliza .workspace{
+        flex-direction: column;
+      }
+.demo-eliza .terminal-pane{
+        flex: 1 1 auto;
+        transition: flex-basis 260ms ease;
+      }
+.demo-eliza .debug-open .terminal-pane{
+        flex-basis: 65%;
+      }
+.demo-eliza .debug-panel{
+        flex: 0 0 0;
+        width: 100%;
+        max-width: none;
+        max-height: 0;
+        border-top: 0 solid var(--line);
+        border-left: 0;
+        transform: translateY(18px);
+        transition: flex-basis 260ms ease, max-height 260ms ease, padding 260ms ease,
+          opacity 180ms ease, transform 260ms ease, border-top-width 260ms ease;
+      }
+.demo-eliza .debug-open .debug-panel{
+        flex-basis: 35%;
+        max-width: none;
+        max-height: 35%;
+        padding: 18px 22px;
+        border-top-width: 1px;
+        transform: translateY(0);
+      }
+.demo-eliza .debug-panel h2{
+        margin-bottom: 18px;
+      }
+.demo-eliza .debug-section{
+        margin-bottom: 18px;
+      }}
+
+/* ajustes do embutimento — ELIZA */
+.demo-eliza{font-size:16px; height:398px; min-height:398px; max-height:398px; flex:0 0 398px}
+.demo-eliza::before{position:absolute}
+.demo-eliza .crt-shell{width:100%; height:100%; padding:0; animation:none}
+.demo-eliza .terminal{border:0}
+.demo-eliza .conversation{padding:20px 24px 12px}
+.demo-eliza .message{margin-bottom:16px}
+.demo-eliza .input-row{padding:6px 24px 16px}
+.demo-eliza .terminal-header{padding:11px 24px 9px}
+.demo-eliza .debug-panel h2{margin-bottom:16px}
+.demo-eliza .debug-section{margin-bottom:18px}
+
+.demo-gargalo{
+    --bg: #eef1f4;
+    --card: #ffffff;
+    --ink: #1c2530;
+    --muted: #8a94a3;
+    --line: #dde3ea;
+    --accent: #2563eb;
+    --ok: #16a34a;
+    --bad: #dc2626;
+  }
+.demo-gargalo *{ box-sizing: border-box; }
+.demo-gargalo{
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+.demo-gargalo header{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 26px; background: var(--card); border-bottom: 1px solid var(--line);
+  }
+.demo-gargalo header h1{ margin: 0; font-size: 20px; letter-spacing: .02em; }
+.demo-gargalo .period{
+    font-size: 13px; font-weight: 800; letter-spacing: .08em;
+    background: var(--ink); color: #fff; border-radius: 20px; padding: 6px 18px;
+  }
+.demo-gargalo main{ padding: 14px 26px 16px; max-width: 1560px; margin: 0 auto; }
+.demo-gargalo .panel{
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 14px 20px; margin-bottom: 12px;
+  }
+.demo-gargalo /* ---------- controls ---------- */
+  .controls{ display: flex; gap: 30px; align-items: center; flex-wrap: wrap; }
+.demo-gargalo .slider-block{ flex: 1 1 240px; min-width: 220px; }
+.demo-gargalo .slider-block .top{ display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.demo-gargalo .slider-block .name{ font-weight: 700; font-size: 15px; }
+.demo-gargalo .slider-block .val{
+    background: var(--accent); color: #fff; border-radius: 6px;
+    padding: 1px 10px; font-size: 13px; font-weight: 700;
+  }
+.demo-gargalo .slider-block input[type=range]{ width: 100%; accent-color: var(--accent); }
+.demo-gargalo .scale{ display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+.demo-gargalo .presets{ display: flex; gap: 8px; margin-left: auto; }
+.demo-gargalo .presets button{
+    border: 1px solid var(--line); background: #f7f9fb; color: var(--ink);
+    border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+.demo-gargalo .presets button:hover{ border-color: var(--accent); color: var(--accent); }
+.demo-gargalo .presets button.active{ background: var(--accent); border-color: var(--accent); color: #fff; }
+.demo-gargalo .question{
+    margin: 0 0 10px; font-size: 11px; letter-spacing: .07em;
+    font-weight: 800; color: var(--muted); text-transform: uppercase;
+  }
+.demo-gargalo /* ---------- pipeline ---------- */
+  .pipeline{ display: flex; align-items: stretch; overflow-x: auto; padding: 6px 0 2px; }
+.demo-gargalo .stage{
+    flex: 0 0 150px; border: 2px solid var(--line); border-radius: 12px;
+    background: #fafbfc; text-align: center; padding: 16px 8px; align-self: center;
+  }
+.demo-gargalo .stage h3{ margin: 0; font-size: 13px; letter-spacing: .04em; }
+.demo-gargalo .stage .rate{ font-size: 34px; font-weight: 800; line-height: 1.15; margin-top: 4px; }
+.demo-gargalo .stage .rate small{ display: block; font-size: 11px; font-weight: 400; color: var(--muted); }
+.demo-gargalo .stage.bottleneck{ border-color: var(--bad); background: #fef2f2; }
+.demo-gargalo .stage.bottleneck h3{ color: var(--bad); }
+.demo-gargalo .link{ flex: 1 1 150px; min-width: 150px; display: flex; flex-direction: column; padding: 0 8px; }
+.demo-gargalo .queue-head{ text-align: center; margin-bottom: 5px; min-height: 44px; }
+.demo-gargalo .queue-head .t{ font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.demo-gargalo .queue-head .n{ font-size: 20px; font-weight: 800; }
+.demo-gargalo .link.hot .queue-head .n{ color: var(--bad); }
+.demo-gargalo .queue{
+    border: 1px dashed #c3ccd7; border-radius: 10px; background: #f8fafc;
+    padding: 8px; display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start;
+    min-height: 132px; overflow: hidden;
+  }
+.demo-gargalo .queue.hot{ border: 2px solid var(--bad); background: #fef2f2; }
+.demo-gargalo .queue.empty{ min-height: 38px; align-items: center; justify-content: center; }
+.demo-gargalo .queue .ok-flow{ color: var(--muted); font-size: 12px; font-weight: 600; }
+.demo-gargalo .chip{
+    background: #eef2ff; border: 1px solid #c7d2fe; color: #3730a3;
+    font-size: 12px; font-weight: 700; border-radius: 6px; padding: 3px 8px; white-space: nowrap;
+    animation: pop .25s ease;
+  }
+@keyframes pop{ from { transform: scale(.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes tick{ from { opacity: .2; } to { opacity: 1; } }
+.demo-gargalo .tick{ animation: tick .22s ease; }
+.demo-gargalo .more{ font-size: 13px; font-weight: 800; color: var(--bad); align-self: center; }
+.demo-gargalo .neck-flag{
+    text-align: center; font-size: 12px; font-weight: 800; letter-spacing: .1em;
+    color: var(--bad); min-height: 18px; margin-top: 5px; visibility: hidden;
+  }
+.demo-gargalo .neck-flag.on{ visibility: visible; }
+.demo-gargalo /* ---------- causal chain ---------- */
+  .causal{
+    display: flex; align-items: center; justify-content: center; gap: 18px;
+    border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px;
+  }
+.demo-gargalo .cnode{ text-align: center; min-width: 140px; }
+.demo-gargalo .cnode .cv{ font-size: 30px; font-weight: 800; line-height: 1.1; }
+.demo-gargalo .cnode .cv.alert{ color: var(--bad); }
+.demo-gargalo .cnode .ck{ font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.demo-gargalo .cnode .cx{ font-size: 12px; font-weight: 800; min-height: 16px; color: var(--muted); }
+.demo-gargalo .cnode .cx.garg{ color: var(--bad); letter-spacing: .1em; font-size: 10px; }
+.demo-gargalo .carr{ font-size: 26px; color: var(--muted); font-weight: 800; }
+.demo-gargalo /* ---------- message ---------- */
+  #msg{ padding: 2px 4px; }
+.demo-gargalo #msg .title{ font-size: 19px; font-weight: 800; }
+.demo-gargalo #msg .sub{ font-size: 14px; color: var(--muted); margin-top: 2px; }
+.demo-gargalo #msg.ok .title{ color: var(--ok); }
+.demo-gargalo #msg.warn .title{ color: var(--ink); }
+@media (max-width: 640px){.demo-gargalo main{ padding: 10px; }}
+
+/* ajustes do embutimento — gargalo, realinhado à paleta do deck */
+.demo-gargalo{
+  --bg:#eef1f4; --card:#fff; --ink:#3E2512; --muted:#75604C; --line:#E0D3C1;
+  --accent:#8E6522; --ok:#2F6B4F; --bad:#A33A2A;
+  font-size:13.5px; height:404px; min-height:404px; max-height:404px; flex:0 0 404px;
+}
+.demo-gargalo header{display:none}
+.demo-gargalo main{padding:12px 16px}
+.demo-gargalo .panel{padding:10px 14px; margin-bottom:8px; border-radius:10px}
+.demo-gargalo .stage{flex:0 0 118px; padding:10px 6px}
+.demo-gargalo .stage .rate{font-size:26px}
+.demo-gargalo .queue{min-height:84px}
+.demo-gargalo .cnode .cv{font-size:24px}
+.demo-gargalo .causal{margin-top:6px; padding-top:6px; gap:12px}
+.demo-gargalo #msg .title{font-size:15px}
+.demo-gargalo #msg .sub{font-size:12.5px}
+.demo-gargalo .chip{font-size:10.5px; padding:2px 6px}
+.demo-gargalo .presets button{padding:6px 11px; font-size:12px}
+</style>
+<script>
+/* ============================================================================
+ * ELIZA_PTBR_RULES — base de regras em português para a demo da ELIZA.
+ *
+ * ESTE ARQUIVO É UMA RECONSTRUÇÃO. O `eliza-rules.js` original do grupo não
+ * veio junto com o index.html; esta versão foi escrita a partir da interface
+ * que o index.html consome, para que a demo volte a rodar. Se o arquivo
+ * original aparecer, basta substituir este — nada mais precisa mudar.
+ *
+ * Estrutura esperada pelo index.html:
+ *   initialMessages  string[]   saudações de abertura, em rodízio
+ *   pre              [RegExp,string][]  normalização antes do casamento
+ *   synonymSets      { NOME: string[] }
+ *   reflections      { PALAVRA: TROCA }  inversão de pessoa do DOCTOR
+ *   memoryTemplates  string[]   usam $1, sem reflexão
+ *   fallbacks        string[]   quando nenhuma regra casa
+ *   rules            Rule[]
+ *
+ * Rule    = { id, priority, keywords[], patterns[] }
+ * Pattern = { parts[], responses[], memorySlot?, memoryPrefix? }
+ * Part    = { type:"word", value } | { type:"any" } | { type:"one" }
+ *         | { type:"synonym", name }
+ *
+ * ATENÇÃO AO ÍNDICE DAS CAPTURAS: o motor empilha uma captura por parte,
+ * inclusive para as partes literais. Em [any, EU, ESTOU, any] as capturas
+ * são $1=texto antes, $2="EU", $3="ESTOU", $4=texto depois. Por isso os
+ * templates abaixo usam o índice da ÚLTIMA parte, não $1.
+ *
+ * A prioridade decide qual regra tenta primeiro: maior vence.
+ * ========================================================================= */
+(function (global) {
+  "use strict";
+
+  var ANY = { type: "any" };
+  var ONE = { type: "one" };
+  function w(value) { return { type: "word", value: value }; }
+  function syn(name) { return { type: "synonym", name: name }; }
+
+  global.ELIZA_PTBR_RULES = {
+
+    initialMessages: [
+      "Olá. Conte-me o que está incomodando você.",
+      "Boa tarde. Como você está se sentindo hoje?",
+      "Pois não. Do que você gostaria de falar?"
+    ],
+
+    /* Roda sobre o texto original, antes de virar maiúsculas: os padrões
+     * precisam ser case-insensitive. */
+    pre: [
+      [/\bvc\b/gi, "você"],
+      [/\bvcs\b/gi, "vocês"],
+      [/\bq\b/gi, "que"],
+      [/\bpq\b/gi, "por que"],
+      [/\btb\b/gi, "também"],
+      [/\bt[oôóÔÓ]\b/gi, "estou"],
+      [/\bt[aâáÂÁ]\b/gi, "está"],
+      [/\bnao\b/gi, "não"],
+      [/\beh\b/gi, "é"]
+    ],
+
+    synonymSets: {
+      FAMILIA: ["MÃE", "MAMÃE", "PAI", "PAPAI", "IRMÃO", "IRMÃ", "FILHO",
+                "FILHA", "MARIDO", "ESPOSA", "FAMÍLIA", "AVÓ", "AVÔ"],
+      SENTIMENTO: ["TRISTE", "FELIZ", "PREOCUPADO", "PREOCUPADA", "CANSADO",
+                   "CANSADA", "ANSIOSO", "ANSIOSA", "IRRITADO", "IRRITADA",
+                   "PERDIDO", "PERDIDA", "SOZINHO", "SOZINHA"],
+      MAQUINA: ["COMPUTADOR", "COMPUTADORES", "MÁQUINA", "MÁQUINAS", "ROBÔ",
+                "ROBÔS", "PROGRAMA", "SISTEMA", "IA", "ALGORITMO"]
+    },
+
+    /* A inversão de pessoa. O index.html reordena "VOCÊ FEZ" para "FEZ VOCÊ"
+     * depois desta troca, então ME -> VOCÊ é seguro aqui. */
+    reflections: {
+      "EU": "VOCÊ", "MIM": "VOCÊ", "ME": "VOCÊ", "COMIGO": "COM VOCÊ",
+      "MEU": "SEU", "MINHA": "SUA", "MEUS": "SEUS", "MINHAS": "SUAS",
+      "VOCÊ": "EU", "TE": "ME", "TI": "MIM", "CONTIGO": "COMIGO",
+      "TEU": "MEU", "TUA": "MINHA", "TEUS": "MEUS", "TUAS": "MINHAS",
+      "SEU": "MEU", "SUA": "MINHA", "SEUS": "MEUS", "SUAS": "MINHAS",
+      "SOU": "É", "ESTOU": "ESTÁ", "TENHO": "TEM", "FUI": "FOI",
+      "É": "SOU", "ESTÁ": "ESTOU", "TEM": "TENHO", "FOI": "FUI",
+      "ESTAVA": "ESTAVA", "ERA": "ERA"
+    },
+
+    memoryTemplates: [
+      "VAMOS VOLTAR UM POUCO. ANTES VOCÊ FALOU DE $1.",
+      "ISSO TEM ALGUMA RELAÇÃO COM $1?",
+      "E QUANTO A $1, QUE VOCÊ MENCIONOU ANTES?"
+    ],
+
+    fallbacks: [
+      "POR FAVOR, CONTINUE.",
+      "O QUE ISSO SUGERE PARA VOCÊ?",
+      "VOCÊ PODE ELABORAR UM POUCO MAIS?",
+      "ENTENDO. E O QUE MAIS?",
+      "ISSO É INTERESSANTE. POR QUÊ?",
+      "COMO VOCÊ SE SENTE A RESPEITO DISSO?"
+    ],
+
+    rules: [
+
+      /* ---- MEMORY: o id "my" é lido pelo motor para alimentar a pilha ---- */
+      {
+        id: "my",
+        priority: 10,
+        keywords: ["meu", "minha", "meus", "minhas"],
+        patterns: [
+          {
+            parts: [ANY, w("MEU"), ONE, ANY],
+            memorySlot: 3,
+            memoryPrefix: "SEU",
+            responses: [
+              "POR QUE SEU $3 É IMPORTANTE PARA VOCÊ?",
+              "CONTE-ME MAIS SOBRE SEU $3.",
+              "O QUE SEU $3 REPRESENTA NESSA HISTÓRIA?"
+            ]
+          },
+          {
+            parts: [ANY, w("MINHA"), ONE, ANY],
+            memorySlot: 3,
+            memoryPrefix: "SUA",
+            responses: [
+              "POR QUE SUA $3 É IMPORTANTE PARA VOCÊ?",
+              "CONTE-ME MAIS SOBRE SUA $3.",
+              "O QUE SUA $3 MUDA PARA VOCÊ?"
+            ]
+          }
+        ]
+      },
+
+      /* ---- estado: o caso do slide ---- */
+      {
+        id: "eu-estou",
+        priority: 9,
+        keywords: ["eu estou", "eu sou", "estou", "sou"],
+        patterns: [
+          {
+            parts: [ANY, w("EU"), w("ESTOU"), ANY],
+            responses: [
+              "POR QUE VOCÊ ESTÁ $4?",
+              "HÁ QUANTO TEMPO VOCÊ ESTÁ $4?",
+              "COMO É PARA VOCÊ ESTAR $4?"
+            ]
+          },
+          {
+            parts: [ANY, w("EU"), w("SOU"), ANY],
+            responses: [
+              "POR QUE VOCÊ DIZ QUE É $4?",
+              "VOCÊ SEMPRE FOI $4?",
+              "O QUE MUDARIA SE VOCÊ NÃO FOSSE $4?"
+            ]
+          },
+          {
+            parts: [ANY, w("ESTOU"), ANY],
+            responses: [
+              "POR QUE VOCÊ ESTÁ $3?",
+              "HÁ QUANTO TEMPO ISSO ACONTECE?"
+            ]
+          }
+        ]
+      },
+
+      /* ---- desejo ---- */
+      {
+        id: "eu-quero",
+        priority: 8,
+        keywords: ["eu quero", "quero", "eu preciso", "preciso", "gostaria"],
+        patterns: [
+          {
+            parts: [ANY, w("EU"), w("QUERO"), ANY],
+            responses: [
+              "O QUE SIGNIFICARIA PARA VOCÊ CONSEGUIR $4?",
+              "POR QUE VOCÊ QUER $4?",
+              "O QUE IMPEDE VOCÊ DE $4?"
+            ]
+          },
+          {
+            parts: [ANY, w("PRECISO"), ANY],
+            responses: [
+              "O QUE ACONTECERIA SE VOCÊ NÃO $3?",
+              "POR QUE VOCÊ PRECISA $3?"
+            ]
+          }
+        ]
+      },
+
+      /* ---- crença ---- */
+      {
+        id: "eu-acho",
+        priority: 7,
+        keywords: ["eu acho", "acho que", "eu penso", "acredito"],
+        patterns: [
+          {
+            parts: [ANY, w("ACHO"), w("QUE"), ANY],
+            responses: [
+              "VOCÊ REALMENTE ACHA QUE $4?",
+              "O QUE FAZ VOCÊ ACHAR QUE $4?",
+              "E SE NÃO $4?"
+            ]
+          }
+        ]
+      },
+
+      /* ---- a máquina, que fecha o gancho com o seminário ---- */
+      {
+        id: "maquina",
+        priority: 7,
+        keywords: ["computador", "computadores", "máquina", "máquinas",
+                   "robô", "robôs", "programa", "programas", "sistema",
+                   "sistemas", "ia", "algoritmo", "algoritmos"],
+        patterns: [
+          {
+            parts: [ANY, syn("MAQUINA"), ANY],
+            responses: [
+              "VOCÊ ACHA QUE MÁQUINAS PODEM AJUDAR NISSO?",
+              "POR QUE VOCÊ MENCIONA MÁQUINAS AGORA?",
+              "O QUE MÁQUINAS TÊM A VER COM O QUE VOCÊ SENTE?"
+            ]
+          }
+        ]
+      },
+
+      /* ---- família ---- */
+      {
+        id: "familia",
+        priority: 7,
+        keywords: ["mãe", "pai", "irmão", "irmã", "família", "filho", "filha",
+                   "marido", "esposa"],
+        patterns: [
+          {
+            parts: [ANY, syn("FAMILIA"), ANY],
+            responses: [
+              "CONTE-ME MAIS SOBRE SUA FAMÍLIA.",
+              "COMO VOCÊ SE DÁ COM SUA FAMÍLIA?",
+              "QUEM MAIS NA SUA FAMÍLIA PENSA ASSIM?"
+            ]
+          }
+        ]
+      },
+
+      /* ---- sentimento nomeado ---- */
+      {
+        id: "sentimento",
+        priority: 6,
+        keywords: ["triste", "feliz", "preocupado", "cansado", "ansioso",
+                   "irritado", "perdido", "sozinho"],
+        patterns: [
+          {
+            parts: [ANY, syn("SENTIMENTO"), ANY],
+            responses: [
+              "O QUE FAZ VOCÊ SE SENTIR ASSIM?",
+              "ISSO ACONTECE COM FREQUÊNCIA?",
+              "HÁ QUANTO TEMPO VOCÊ SE SENTE ASSIM?"
+            ]
+          }
+        ]
+      },
+
+      /* ---- você (vira a pergunta de volta) ---- */
+      {
+        id: "voce",
+        priority: 6,
+        keywords: ["você é", "você está", "você acha"],
+        patterns: [
+          {
+            parts: [ANY, w("VOCÊ"), w("É"), ANY],
+            responses: [
+              "POR QUE VOCÊ ACHA QUE EU SOU $4?",
+              "ISSO IMPORTA PARA VOCÊ, QUE EU SEJA $4?"
+            ]
+          },
+          {
+            parts: [ANY, w("VOCÊ"), w("ESTÁ"), ANY],
+            responses: [
+              "NÃO VAMOS FALAR DE MIM. POR QUE VOCÊ DIZ ISSO?",
+              "POR QUE ISSO IMPORTA AGORA?"
+            ]
+          },
+          {
+            parts: [ANY, w("VOCÊ"), w("ACHA"), w("QUE"), ANY],
+            responses: [
+              "NÃO IMPORTA O QUE EU ACHO. VOCÊ ACHA QUE $5?",
+              "POR QUE ISSO É IMPORTANTE PARA VOCÊ, SE $5?"
+            ]
+          }
+        ]
+      },
+
+      /* ---- causalidade ---- */
+      {
+        id: "porque",
+        priority: 5,
+        keywords: ["por que", "porque", "porquê"],
+        patterns: [
+          {
+            parts: [ANY],
+            responses: [
+              "VOCÊ ACHA QUE SABE A RESPOSTA?",
+              "POR QUE ISSO INTERESSA A VOCÊ AGORA?",
+              "O QUE VOCÊ IMAGINA COMO EXPLICAÇÃO?"
+            ]
+          }
+        ]
+      },
+
+      /* ---- generalização ---- */
+      {
+        id: "sempre",
+        priority: 5,
+        keywords: ["sempre", "nunca", "todo mundo", "ninguém"],
+        patterns: [
+          {
+            parts: [ANY],
+            responses: [
+              "PODE ME DAR UM EXEMPLO CONCRETO?",
+              "SEMPRE MESMO? CONSEGUE PENSAR EM UMA EXCEÇÃO?",
+              "EM QUE SITUAÇÃO ISSO FICOU MAIS CLARO?"
+            ]
+          }
+        ]
+      },
+
+      /* ---- negação e afirmação ---- */
+      {
+        id: "nao",
+        priority: 4,
+        keywords: ["não"],
+        patterns: [
+          {
+            parts: [ANY],
+            responses: [
+              "POR QUE NÃO?",
+              "VOCÊ ESTÁ SENDO UM POUCO NEGATIVO.",
+              "O QUE TORNARIA ISSO POSSÍVEL?"
+            ]
+          }
+        ]
+      },
+      {
+        id: "sim",
+        priority: 3,
+        keywords: ["sim", "claro", "exato"],
+        patterns: [
+          {
+            parts: [ANY],
+            responses: [
+              "TEM CERTEZA?",
+              "ENTENDO. CONTINUE.",
+              "O QUE ISSO CONFIRMA PARA VOCÊ?"
+            ]
+          }
+        ]
+      },
+
+      /* ---- cortesia ---- */
+      {
+        id: "desculpa",
+        priority: 3,
+        keywords: ["desculpa", "desculpe", "perdão", "perdoe"],
+        patterns: [
+          {
+            parts: [ANY],
+            responses: [
+              "NÃO PRECISA SE DESCULPAR.",
+              "POR QUE VOCÊ ACHA QUE PRECISA SE DESCULPAR?"
+            ]
+          }
+        ]
+      },
+      {
+        id: "ola",
+        priority: 2,
+        keywords: ["olá", "oi", "bom dia", "boa tarde", "boa noite"],
+        patterns: [
+          {
+            parts: [ANY],
+            responses: [
+              "OLÁ. O QUE TROUXE VOCÊ AQUI HOJE?",
+              "OLÁ. POR ONDE VOCÊ GOSTARIA DE COMEÇAR?"
+            ]
+          }
+        ]
+      }
+    ]
+  };
+})(typeof globalThis !== "undefined" ? globalThis : window);
+
+</script>
+<script>
+(function(){
+
+
+    const app = document.getElementById("app");
+    const conversation = document.getElementById("conversation");
+    const form = document.getElementById("message-form");
+    const input = document.getElementById("message-input");
+    const inputWrap = document.getElementById("input-wrap");
+    const debugRuleName = document.getElementById("debug-rule-name");
+    const debugRuleMeta = document.getElementById("debug-rule-meta");
+    const debugRuleKeyword = document.getElementById("debug-rule-keyword");
+    const debugCaptureBlock = document.getElementById("debug-capture-block");
+    const debugCapture = document.getElementById("debug-capture");
+    const debugCaptureCount = document.getElementById("debug-capture-count");
+    const debugCaptureEmpty = document.getElementById("debug-capture-empty");
+
+    let debugEnabled = false;
+    let lastDebug = null;
+    let pendingQuestion = null;
+
+    const ruleBook = globalThis.ELIZA_PTBR_RULES;
+    const configuredRules = ruleBook.rules;
+    const fallbackResponses = ruleBook.fallbacks;
+    const memory = [];
+    const responseIndexes = new Map();
+
+    const keywordEntries = configuredRules.flatMap((rule, ruleIndex) =>
+      rule.keywords.map((keyword, keywordIndex) => ({
+        rule,
+        ruleIndex,
+        keyword,
+        keywordIndex,
+        tokens: tokenize(keyword),
+      }))
+    );
+
+    const initialElizaMessage = conversation.querySelector(".message.eliza");
+    initialElizaMessage.lastChild.textContent = chooseRotating(
+      ruleBook.initialMessages,
+      "initial"
+    );
+
+    function chooseRotating(items, key) {
+      if (!items.length) return "";
+      const index = responseIndexes.get(key) || 0;
+      responseIndexes.set(key, (index + 1) % items.length);
+      return items[index];
+    }
+
+    function normalizeMessage(message) {
+      return ruleBook.pre.reduce(
+        (value, [pattern, replacement]) => value.replace(pattern, replacement),
+        message.trim().replace(/\s+/g, " ")
+      ).toLocaleUpperCase("pt-BR");
+    }
+
+    function fold(value) {
+      return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function tokenize(value) {
+      return (value.match(/[\p{L}\p{N}]+(?:['’][\p{L}]+)?/gu) || [])
+        .map((token) => token.toLocaleUpperCase("pt-BR"));
+    }
+
+    function sameWord(left, right) {
+      if (left === undefined || right === undefined) return false;
+      return fold(left) === fold(right);
+    }
+
+    function splitPhrases(normalized) {
+      const phrases = normalized
+        .split(/[,.!?;:]+/u)
+        .map((phrase) => phrase.trim())
+        .filter(Boolean);
+      return phrases.length ? phrases : [normalized];
+    }
+
+    function phraseMatchesAt(tokens, start, phraseTokens) {
+      return phraseTokens.every((token, offset) =>
+        sameWord(tokens[start + offset], token)
+      );
+    }
+
+    function findCandidates(tokens) {
+      const candidates = [];
+
+      for (let position = 0; position < tokens.length; position += 1) {
+        for (const entry of keywordEntries) {
+          if (!entry.tokens.length || position + entry.tokens.length > tokens.length) {
+            continue;
+          }
+
+          if (phraseMatchesAt(tokens, position, entry.tokens)) {
+            candidates.push({ ...entry, position });
+          }
+        }
+      }
+
+      const unique = new Map();
+      for (const candidate of candidates) {
+        const key = `${candidate.rule.id}:${candidate.position}`;
+        if (!unique.has(key)) unique.set(key, candidate);
+      }
+
+      return [...unique.values()].sort((left, right) =>
+        right.rule.priority - left.rule.priority ||
+        left.position - right.position ||
+        left.ruleIndex - right.ruleIndex ||
+        left.keywordIndex - right.keywordIndex
+      );
+    }
+
+    function matchesComponent(component, token) {
+      if (component.type === "word") {
+        return sameWord(component.value, token);
+      }
+
+      if (component.type === "synonym") {
+        const synonyms = ruleBook.synonymSets[component.name] || [];
+        return synonyms.some((synonymWord) => sameWord(synonymWord, token));
+      }
+
+      return Boolean(token);
+    }
+
+    function matchPattern(tokens, parts) {
+      function walk(partIndex, tokenIndex, captures) {
+        if (partIndex === parts.length) {
+          return tokenIndex === tokens.length ? captures : null;
+        }
+
+        const part = parts[partIndex];
+
+        if (part.type === "any") {
+          // O 0 do script representa um número indefinido de palavras.
+          // Testar do menor para o maior preserva o primeiro delimitador
+          // possível e evita consumir palavras-chave posteriores sem motivo.
+          for (let length = 0; tokenIndex + length <= tokens.length; length += 1) {
+            const result = walk(
+              partIndex + 1,
+              tokenIndex + length,
+              [...captures, tokens.slice(tokenIndex, tokenIndex + length).join(" ")]
+            );
+            if (result) return result;
+          }
+          return null;
+        }
+
+        if (part.type === "one") {
+          if (!tokens[tokenIndex]) return null;
+          return walk(partIndex + 1, tokenIndex + 1, [
+            ...captures,
+            tokens[tokenIndex],
+          ]);
+        }
+
+        if (!matchesComponent(part, tokens[tokenIndex])) return null;
+        return walk(partIndex + 1, tokenIndex + 1, [
+          ...captures,
+          tokens[tokenIndex],
+        ]);
+      }
+
+      return walk(0, 0, []);
+    }
+
+    function reflect(text) {
+      const tokens = text.split(/(\s+|[^\p{L}\p{N}]+)/u);
+      const reflected = tokens.map((token) => {
+        const reflected = ruleBook.reflections[token.toLocaleUpperCase("pt-BR")];
+        if (!reflected) return token;
+        return token === token.toUpperCase() ? reflected : reflected.toLowerCase();
+      }).join("");
+
+      // Em português, a simples troca "me" -> "você" pode produzir
+      // "você fez" no lugar de "fez você". Esta pequena reconstrução mantém
+      // a reflexão do DOCTOR sem sacrificar a ordem natural dos pronomes.
+      return reflected.replace(
+        /\bVOCÊ\s+(FEZ|FAZ|DEU|DÁ|LEVOU|LEVA|CHAMOU|CHAMA|AJUDOU|AJUDA|VIU|VÊ|CONHECEU|CONHECE|DISSE|DIZ)\b/gu,
+        "$1 VOCÊ"
+      );
+    }
+
+    function repairPortugueseAgreement(text) {
+      return text
+        .replace(/\bSUA\s+(PAI|PAPAI|IRMÃO|MARIDO|FILHO)\b/gu, "SEU $1")
+        .replace(/\bSEU\s+(MÃE|MAMÃE|IRMÃ|ESPOSA)\b/gu, "SUA $1");
+    }
+
+    function fillTemplate(template, captures, reflectCaptures = true) {
+      const filled = template
+        .replace(/\$(\d+)/g, (placeholder, number) => {
+          const capture = captures[Number(number) - 1];
+          // O script original simplesmente não tinha um componente para
+          // substituir quando a decomposição não o capturava. Em português,
+          // retirar o marcador é mais fiel ao resultado impresso que exibir $2.
+          if (capture === undefined) return "";
+          return reflectCaptures ? reflect(capture) : capture;
+        })
+        .replace(/@(\d+)/g, (placeholder, number) => {
+          const capture = captures[Number(number) - 1];
+          return capture === undefined ? "" : capture;
+        })
+        .replace(/\s{2,}/g, " ")
+        .replace(/\s+([?.!,])/g, "$1")
+        .trim();
+
+      return repairPortugueseAgreement(filled);
+    }
+
+    function remember(selected, captures) {
+      if (
+        selected.candidate.rule.id !== "my" ||
+        selected.patternDefinition.memorySlot === undefined
+      ) {
+        return;
+      }
+
+      const candidate = captures[selected.patternDefinition.memorySlot - 1];
+      if (!candidate || !candidate.trim()) return;
+      const prefix = selected.patternDefinition.memoryPrefix || "";
+      memory.push(`${prefix} ${reflect(candidate)}`.trim());
+      if (memory.length > 8) memory.shift();
+    }
+
+    function tryCandidate(candidate, tokens) {
+      for (let index = 0; index < candidate.rule.patterns.length; index += 1) {
+        const patternDefinition = candidate.rule.patterns[index];
+        const captures = matchPattern(tokens, patternDefinition.parts);
+        if (!captures) continue;
+
+        return {
+          candidate,
+          patternDefinition,
+          patternIndex: index,
+          captures,
+        };
+      }
+
+      return null;
+    }
+
+    function durationContinuation(normalized) {
+      if (pendingQuestion !== "duration") return null;
+
+      const duration = normalized.match(
+        /^(?:HÁ\s+)?(?:(?:MAIS|MENOS)\s+DE\s+|CERCA\s+DE\s+|APROXIMADAMENTE\s+)?\d+\s+(?:ANO|ANOS|MÊS|MESES|DIA|DIAS|SEMANA|SEMANAS|HORA|HORAS)\b/u
+      );
+      if (!duration) return null;
+
+      pendingQuestion = null;
+      return {
+        response: `${duration[0]} É MUITO TEMPO. COMO ISSO AFETA VOCÊ NO DIA A DIA?`,
+        debug: {
+          matched: false,
+          rule: "context-continuation / duration",
+          captures: [duration[0]],
+          normalized,
+        },
+      };
+    }
+
+    function updatePendingQuestion(response) {
+      pendingQuestion = /\bHÁ QUANTO TEMPO\b/u.test(response)
+        ? "duration"
+        : null;
+    }
+
+    function processMessage(message) {
+      const normalized = normalizeMessage(message);
+
+      const continuation = durationContinuation(normalized);
+      if (continuation) return continuation;
+      pendingQuestion = null;
+
+      let selected = null;
+      let selectedTokens = [];
+      let selectedPhrase = normalized;
+
+      for (const phrase of splitPhrases(normalized)) {
+        const tokens = tokenize(phrase);
+        const candidates = findCandidates(tokens);
+        for (const candidate of candidates) {
+          const match = tryCandidate(candidate, tokens);
+          if (match) {
+            selected = match;
+            selectedTokens = tokens;
+            selectedPhrase = phrase;
+            break;
+          }
+        }
+        if (selected) break;
+      }
+
+      if (selected) {
+        const { candidate, patternDefinition, patternIndex, captures } = selected;
+        remember(selected, captures);
+        const responseText = fillTemplate(
+          chooseRotating(
+            patternDefinition.responses,
+            `${candidate.rule.id}:${patternIndex}`
+          ),
+          captures
+        );
+        updatePendingQuestion(responseText);
+        return {
+          response: responseText,
+          debug: {
+            matched: true,
+            rule: `${candidate.rule.id} / decomposição ${patternIndex + 1} (rank ${candidate.rule.priority})`,
+            ruleId: candidate.rule.id,
+            decomposition: patternIndex + 1,
+            priority: candidate.rule.priority,
+            keyword: candidate.keyword,
+            captures,
+            normalized: selectedPhrase,
+            tokens: selectedTokens,
+          },
+        };
+      }
+
+      // MEMORY é uma pilha no DOCTOR: quando uma lembrança é recuperada,
+      // ela deixa de ficar disponível para a próxima resposta sem palavra-chave.
+      const lastMemory = memory.pop();
+      if (lastMemory && ruleBook.memoryTemplates.length) {
+        return {
+          response: fillTemplate(
+            chooseRotating(ruleBook.memoryTemplates, "memory"),
+            [lastMemory],
+            false
+          ),
+          debug: {
+            matched: false,
+            rule: "MEMORY",
+            captures: [lastMemory],
+            normalized,
+          },
+        };
+      }
+
+      return {
+        response: chooseRotating(fallbackResponses, "fallback"),
+        debug: { matched: false, rule: "NONE", captures: [], normalized },
+      };
+    }
+
+    function addMessage(type, text) {
+      const message = document.createElement("div");
+      message.className = `message ${type}`;
+
+      if (type === "user") {
+        const prompt = document.createElement("span");
+        prompt.className = "prompt";
+        prompt.textContent = "> ";
+        message.append(prompt, document.createTextNode(text));
+      } else {
+        const speaker = document.createElement("span");
+        speaker.className = "speaker";
+        speaker.textContent = "ELIZA: ";
+        message.append(speaker, document.createTextNode(text));
+      }
+
+      conversation.appendChild(message);
+      conversation.scrollTop = conversation.scrollHeight;
+    }
+
+    function updateDebug(debug) {
+      lastDebug = debug;
+
+      if (!debugEnabled) {
+        return;
+      }
+
+      if (!debug) {
+        debugRuleName.textContent = "Aguardando uma resposta.";
+        debugRuleMeta.replaceChildren();
+        debugRuleKeyword.textContent = "";
+        debugCaptureBlock.hidden = true;
+        return;
+      }
+
+      function renderCaptures(captures) {
+        debugCapture.replaceChildren();
+        debugCaptureCount.textContent = `${captures.length} ${captures.length === 1 ? "item" : "itens"}`;
+        debugCaptureEmpty.hidden = captures.length > 0;
+
+        for (const [index, capture] of captures.entries()) {
+          const row = document.createElement("div");
+          row.className = "debug-capture-row";
+          row.setAttribute("role", "listitem");
+
+          const captureIndex = document.createElement("span");
+          captureIndex.className = "debug-capture-index";
+          captureIndex.textContent = `$${index + 1} =`;
+
+          const captureValue = document.createElement("span");
+          captureValue.className = "debug-capture-value";
+          captureValue.textContent = `"${capture}"`;
+
+          if (!capture) captureValue.classList.add("is-empty");
+
+          row.append(captureIndex, captureValue);
+          debugCapture.append(row);
+        }
+      }
+
+      if (debug.matched) {
+        debugRuleName.textContent = debug.ruleId || debug.rule;
+        debugRuleMeta.replaceChildren();
+
+        const decomposition = document.createElement("span");
+        decomposition.className = "debug-chip";
+        decomposition.textContent = `DECOMPOSIÇÃO ${debug.decomposition}`;
+
+        const priority = document.createElement("span");
+        priority.className = "debug-chip";
+        priority.textContent = `RANK ${debug.priority}`;
+
+        debugRuleMeta.append(decomposition, priority);
+        debugRuleKeyword.textContent = debug.keyword ? `KEYWORD: ${debug.keyword}` : "";
+        debugCaptureBlock.hidden = false;
+        renderCaptures(debug.captures);
+      } else if (debug.rule === "MEMORY") {
+        debugRuleName.textContent = "MEMORY";
+        debugRuleMeta.replaceChildren();
+        debugRuleKeyword.textContent = "";
+        debugCaptureBlock.hidden = false;
+        renderCaptures(debug.captures);
+      } else {
+        debugRuleName.textContent = "NO MATCH";
+        debugRuleMeta.replaceChildren();
+        debugRuleKeyword.textContent = "FALLBACK RESPONSE";
+        debugCaptureBlock.hidden = true;
+      }
+    }
+
+    function toggleDebug() {
+      debugEnabled = !debugEnabled;
+      app.classList.toggle("debug-open", debugEnabled);
+
+      if (debugEnabled) {
+        updateDebug(lastDebug);
+      }
+
+      input.focus();
+    }
+
+    function updateCursor() {
+      inputWrap.classList.toggle("has-text", input.value.length > 0);
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const message = input.value.trim().replace(/\s+/g, " ");
+
+      if (!message) {
+        return;
+      }
+
+      input.value = "";
+      updateCursor();
+
+      if (message.toLowerCase() === "/debug") {
+        toggleDebug();
+        return;
+      }
+
+      addMessage("user", message);
+      const result = processMessage(message);
+      addMessage("eliza", result.response);
+      updateDebug(result.debug);
+      input.focus();
+    });
+
+    input.addEventListener("input", updateCursor);
+    updateCursor();
+  
+
+(function(){
+  var f=document.getElementById('message-form'), i=document.getElementById('message-input');
+  if(!f||!i) return;
+  i.value='/debug';
+  if(f.requestSubmit) f.requestSubmit(); else f.dispatchEvent(new Event('submit',{cancelable:true}));
+  i.blur();
+})();
+
+})();
+</script>
+<script>
+(function(){
+
+"use strict";
+/* =====================================================================
+ * SIMULADOR DE GARGALO — projeção determinística de 10 dias.
+ * Sem simulação contínua, sem histórico: cada mudança nos sliders
+ * responde "se o time trabalhasse assim por 10 dias, o que aconteceria?"
+ *
+ * CAPACIDADES (PRs/dia) — parâmetros didáticos, editáveis aqui:
+ *   Implementação: slider 1..5
+ *   Review:        slider 1..5
+ *   Teste:         fixo em 3/dia (TEST_CAP)
+ *   Release:       fixo em 4/dia (RELEASE_CAP)
+ * Para alterar Teste/Release, mude as constantes abaixo (o HTML é
+ * preenchido automaticamente a partir delas).
+ * ===================================================================== */
+var DAYS = 10;
+var TEST_CAP = 3;
+var RELEASE_CAP = 4;
+var MAX_CHIPS = 10;   // máx. de cartões PR por fila; o resto vira "+N"
+
+var state = { impl: 1, rev: 1 };
+
+/* Projeção fechada de 10 dias, fácil de conferir mentalmente:
+ *   produced = implementationCapacity * 10
+ *   reviewed = min(produced, reviewCapacity * 10)
+ *   tested   = min(reviewed,  testCapacity * 10)
+ *   released = min(tested,    releaseCapacity * 10)
+ *   queueReview = produced - reviewed
+ *   queueTest   = reviewed - tested
+ *   queueRelease = tested - released
+ *   delivered = released
+ *   waiting = queueReview + queueTest + queueRelease (= produced - delivered) */
+function project(impl, rev) {
+  var test = TEST_CAP, rel = RELEASE_CAP;
+  var produced = impl * DAYS;
+  var reviewed = Math.min(produced, rev * DAYS);
+  var tested = Math.min(reviewed, test * DAYS);
+  var released = Math.min(tested, rel * DAYS);
+  var qRev = produced - reviewed;
+  var qTest = reviewed - tested;
+  var qRel = tested - released;
+  return {
+    impl: impl, rev: rev, test: test, rel: rel,
+    reviewed: reviewed, tested: tested, released: released,
+    qRev: qRev, qTest: qTest, qRel: qRel,
+    produced: produced, delivered: released,
+    waiting: qRev + qTest + qRel,
+    bottleneck: detectBottleneck(rev, test, rel, qRev + qTest + qRel)
+  };
+}
+
+/* Gargalo = etapa de Review/Teste/Release com a menor capacidade efetiva
+ * dentro do fluxo necessário; empate resolve para a etapa mais à esquerda.
+ * Sem fila (toda a produção atravessa o sistema), sem gargalo marcado:
+ * fluxo equilibrado. */
+function detectBottleneck(rev, test, rel, waiting) {
+  if (waiting === 0) { return null; }
+  if (rev <= test && rev <= rel) { return "REVIEW"; }
+  if (test <= rel) { return "TESTE"; }
+  return "RELEASE";
+}
+
+function $(id) { return document.getElementById(id); }
+
+function stageName(n) {
+  if (n === "REVIEW") { return "Review"; }
+  if (n === "TESTE") { return "Teste"; }
+  return "Release";
+}
+
+/* Microtransição de 220 ms nos números: reaplicada a cada render para
+ * sinalizar que o cenário mudou. Sem timers, sem simulação temporal. */
+function pulse(id) {
+  var el = $(id);
+  el.classList.remove("tick");
+  void el.offsetWidth;
+  el.classList.add("tick");
+}
+
+/* Renderiza até MAX_CHIPS cartões; o restante vira "+N". Fila zerada
+ * vira uma faixa compacta ("✓ sem espera") em vez de um retângulo vazio. */
+function renderQueue(elId, count, startId) {
+  var el = $(elId);
+  if (count === 0) {
+    el.innerHTML = '<span class="ok-flow">✓ sem espera</span>';
+    el.classList.add("empty");
+    el.classList.remove("hot");
+    return;
+  }
+  var html = "", i, lim = Math.min(MAX_CHIPS, count);
+  for (i = 0; i < lim; i++) {
+    var id = startId + i;
+    html += '<span class="chip">PR #' + (id < 10 ? "0" + id : id) + "</span>";
+  }
+  if (count > MAX_CHIPS) { html += '<span class="more">+' + (count - MAX_CHIPS) + "</span>"; }
+  el.innerHTML = html;
+  el.classList.remove("empty");
+  el.classList.toggle("hot", count >= 10);
+}
+
+function render() {
+  var r = project(state.impl, state.rev);
+
+  $("rate-impl").textContent = r.impl;
+  $("rate-review").textContent = r.rev;
+  $("rate-test").textContent = r.test;
+  $("rate-release").textContent = r.rel;
+  $("impl-val").textContent = r.impl + "x";
+  $("rev-val").textContent = r.rev + "x";
+
+  $("n-qr").textContent = r.qRev + " PRs";
+  $("n-qt").textContent = r.qTest + " PRs";
+  $("n-ql").textContent = r.qRel + " PRs";
+  // Numeração dos PRs apenas ilustrativa, reiniciada a cada cálculo.
+  renderQueue("q-review", r.qRev, 1);
+  renderQueue("q-test", r.qTest, 1 + r.qRev);
+  renderQueue("q-release", r.qRel, 1 + r.qRev + r.qTest);
+  $("link-review").classList.toggle("hot", r.qRev >= 10);
+  $("link-test").classList.toggle("hot", r.qTest >= 10);
+  $("link-release").classList.toggle("hot", r.qRel >= 10);
+
+  // Linha causal: produzidos → esperando → entregues (5 PR/dia → 1 PR/dia).
+  $("c-prod").textContent = r.produced;
+  $("c-prod-x").textContent = r.impl + " PR/dia";
+  $("c-mid").textContent = r.waiting;
+  $("c-deliv").textContent = r.delivered;
+  $("c-deliv-x").textContent = (r.delivered / DAYS) + " PR/dia";
+  if (r.bottleneck === null) {
+    $("c-mid-k").textContent = "em espera";
+    $("c-mid-x").textContent = "";
+    $("c-mid-x").classList.remove("garg");
+    $("c-mid").classList.remove("alert");
+  } else {
+    $("c-mid-k").textContent = "esperando " + stageName(r.bottleneck);
+    $("c-mid-x").textContent = "GARGALO";
+    $("c-mid-x").classList.add("garg");
+    $("c-mid").classList.add("alert");
+  }
+
+  var pulsed = ["c-prod", "c-mid", "c-deliv"];
+  for (var p = 0; p < pulsed.length; p++) { pulse(pulsed[p]); }
+
+  var stages = ["st-review", "st-test", "st-release"];
+  for (var j = 0; j < stages.length; j++) { $(stages[j]).classList.remove("bottleneck"); }
+  var flags = ["f-review", "f-test", "f-release"];
+  for (var k = 0; k < flags.length; k++) { $(flags[k]).classList.remove("on"); }
+
+  var msg = $("msg");
+  var titleEl = $("msg").querySelector(".title");
+  var subEl = $("msg").querySelector(".sub");
+  if (r.bottleneck === null) {
+    msg.className = "ok";
+    titleEl.textContent = "Fluxo equilibrado.";
+    subEl.textContent = "Tudo que é produzido consegue ser entregue.";
+  } else {
+    msg.className = "warn";
+    if (r.bottleneck === "REVIEW") {
+      $("st-review").classList.add("bottleneck");
+      $("f-review").classList.add("on");
+      titleEl.textContent =
+        "A implementação produz " + r.impl + " PR/dia, mas o sistema entrega apenas " + (r.delivered / DAYS) + " PR/dia.";
+      subEl.textContent = r.qRev + " PRs ficam esperando Review.";
+    } else if (r.bottleneck === "TESTE") {
+      $("st-test").classList.add("bottleneck");
+      $("f-test").classList.add("on");
+      if (r.rev >= r.impl) {
+        titleEl.textContent = "Review deixou de ser o gargalo.";
+        subEl.textContent = "O gargalo se moveu para Teste.";
+      } else {
+        titleEl.textContent = "O gargalo se moveu para Teste.";
+        subEl.textContent =
+          "De " + r.produced + " produzidos, " + r.delivered + " entregues · " + r.waiting + " em espera.";
+      }
+    } else {
+      $("st-release").classList.add("bottleneck");
+      $("f-release").classList.add("on");
+      titleEl.textContent = "O gargalo se moveu para Release.";
+      subEl.textContent =
+        "De " + r.produced + " produzidos, " + r.delivered + " entregues · " + r.waiting + " em espera.";
+    }
+  }
+}
+
+function clearPresetActive() {
+  var ids = ["p-base", "p-ai", "p-adapt"];
+  for (var j = 0; j < ids.length; j++) { $(ids[j]).classList.remove("active"); }
+}
+function applyPreset(impl, rev, btnId) {
+  state.impl = impl;
+  state.rev = rev;
+  $("impl").value = impl;
+  $("rev").value = rev;
+  render();
+  clearPresetActive();
+  $(btnId).classList.add("active");
+}
+
+$("impl").addEventListener("input", function (e) {
+  state.impl = parseInt(e.target.value, 10);
+  render();
+  clearPresetActive();
+});
+$("rev").addEventListener("input", function (e) {
+  state.rev = parseInt(e.target.value, 10);
+  render();
+  clearPresetActive();
+});
+$("p-base").addEventListener("click", function () { applyPreset(1, 1, "p-base"); });
+$("p-ai").addEventListener("click", function () { applyPreset(5, 1, "p-ai"); });
+$("p-adapt").addEventListener("click", function () { applyPreset(5, 5, "p-adapt"); });
+
+render();
+
+})();
+</script>
+
 </body>
 </html>

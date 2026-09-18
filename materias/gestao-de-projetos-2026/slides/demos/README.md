@@ -2,37 +2,56 @@
 
 # Demos funcionais do seminário
 
-Demos recebidas do grupo em 2026-09-18 e guardadas aqui sem alteração.
-Elas complementam `../seminario-deck.html`: o slide traz o estado congelado,
-a demo roda ao vivo em outra aba.
+Demos recebidas do grupo em 2026-09-18, guardadas aqui sem alteração no
+`index.html`. Elas existem em dois lugares:
 
-| Demo | Bloco | Estado |
+1. **Soltas nesta pasta** — abrem sozinhas, para testar e brincar.
+2. **Embutidas no deck** — `../seminario-deck.html` traz as duas rodando
+   ao vivo dentro dos slides 7 e 22. Não é preciso trocar de janela.
+
+| Demo | Slide | Estado |
 |---|---|---|
-| `gargalo/index.html` | 4 · Hoje II | ✅ **Roda offline, sem erro.** Projeção determinística de 10 dias; dois sliders e três presets |
-| `eliza/index.html` | 1 · As origens | ❌ **Não roda.** Falta `eliza-rules.js` |
+| `gargalo/index.html` | 22 | ✅ Roda offline, sem erro |
+| `eliza/index.html` | 7 | ✅ Roda **com o `eliza-rules.js` reconstruído** (ver abaixo) |
 
-## Pendência bloqueante — ELIZA
+## Sobre o `eliza-rules.js`
 
-`eliza/index.html` carrega `<script src="eliza-rules.js">` e usa
-`globalThis.ELIZA_PTBR_RULES`. Esse arquivo **não veio junto**. Sem ele a
-página lança, na carga:
+O `index.html` da ELIZA carrega `<script src="eliza-rules.js">` e consome
+`globalThis.ELIZA_PTBR_RULES`. **Esse arquivo não veio junto** — sem ele a
+página lançava `Cannot read properties of undefined (reading 'rules')` na
+carga.
 
-```
-Cannot read properties of undefined (reading 'rules')
-```
+O `eliza-rules.js` desta pasta é uma **reconstrução**, escrita a partir da
+interface que o `index.html` espera. Tem 14 regras em português, conjuntos
+de sinônimos, reflexões de pessoa e a pilha de MEMORY. **Se o arquivo
+original aparecer, é só substituir** — nada mais precisa mudar, nem no
+deck (que traz uma cópia embutida do mesmo conteúdo).
 
-O arquivo precisa exportar `ELIZA_PTBR_RULES` com as chaves que o `index.html`
-consome: `rules` (cada uma com `id`, `priority`, `keywords`, `patterns`),
-`fallbacks`, `initialMessages`, `pre`, `synonymSets`, `reflections` e
-`memoryTemplates`.
+Detalhe que custa caro na hora de mexer: o motor empilha **uma captura por
+parte do padrão**, inclusive as literais. Em `[any, EU, ESTOU, any]` as
+capturas são `$1`=antes, `$2`="EU", `$3`="ESTOU", `$4`=depois. Por isso os
+templates usam o índice da última parte, e não `$1`.
 
-**Enquanto isso, não abrir a demo da ELIZA na apresentação.** O slide do
-bloco 1 é autossuficiente e mostra o mecanismo (regra, captura, template)
-sem depender dela.
+## Como o embutimento no deck funciona
 
-## Números usados no slide do bloco 4
+O deck é um arquivo só e continua offline. O CSS de cada demo foi
+reescrito com todos os seletores prefixados (`.demo-eliza`, `.demo-gargalo`)
+para não vazar no resto dos slides; as variáveis que estavam em `:root`
+passaram a viver no próprio contêiner.
 
-Conferidos rodando `gargalo/index.html`, não estimados:
+Cada um desses dois slides tem **duas versões**:
+
+- `.slide-live` — a demo rodando. É o que aparece na apresentação.
+- `.slide-poster` — o estado congelado. Fica escondido, e só aparece
+  quando `<body>` recebe a classe `baking`.
+
+É assim que `seminario-deck-canva.html` continua estático: o gerador liga
+o modo `baking` antes de medir a página, então o Canva recebe o pôster, não
+a demo. **Quem edita é `seminario-deck.html`; o `-canva.html` é derivado.**
+
+## Números usados no slide 22
+
+Conferidos rodando a demo, não estimados:
 
 | Preset | Produzidos | Entregues | Fila |
 |---|---|---|---|
